@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="B200에서 기록한 LLM 디코드의 메모리 상주, 바이트 이동, 토큰 생성 과정을 보존한 인터랙티브 실험 원장">
+  <title>디코드 상주 원장 · B200 기록 보관소</title>
+  <style>
+    :root{--bg:#11161d;--paper:#18202a;--paper2:#202a36;--ink:#edf2f7;--muted:#9cabbc;--line:#344150;--teal:#52c6ad;--blue:#75a7ef;--gold:#e8bd63;--red:#f07870;--mono:"SFMono-Regular",Consolas,"Liberation Mono",monospace;--sans:"Apple SD Gothic Neo","Noto Sans KR",system-ui,sans-serif}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.7 var(--sans)}a{color:inherit}button,a.button{font:inherit}header{border-bottom:1px solid var(--line);background:#151c25}.nav{max-width:1180px;margin:auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px}.brand{font:600 13px var(--mono);letter-spacing:.08em}.navlinks{display:flex;gap:18px;color:var(--muted);font-size:13px}.navlinks a{text-decoration:none}.navlinks a:hover{color:var(--ink)}main{max-width:1180px;margin:auto;padding:0 24px 72px}.hero{padding:72px 0 52px;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,.75fr);gap:56px;align-items:end}.eyebrow{font:600 11px var(--mono);letter-spacing:.14em;color:var(--teal);margin-bottom:15px}.hero h1{font-size:clamp(36px,6vw,70px);line-height:1.02;letter-spacing:-.055em;margin:0;max-width:11ch}.hero .lead{font-size:18px;line-height:1.72;color:#c3cfdb;margin:25px 0 0;max-width:54ch}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:28px}.button{display:inline-flex;align-items:center;justify-content:center;min-height:44px;padding:9px 15px;border-radius:5px;border:1px solid var(--line);background:var(--paper2);text-decoration:none;font-weight:600;font-size:14px}.button.primary{background:var(--teal);border-color:var(--teal);color:#07120f}.button:hover{border-color:var(--ink)}.factbox{border:1px solid var(--line);background:var(--paper);padding:22px;border-radius:7px}.factbox h2{font-size:13px;margin:0 0 14px}.facts{display:grid;grid-template-columns:1fr auto;gap:8px 18px;font:12px/1.55 var(--mono)}.facts dt{color:var(--muted)}.facts dd{margin:0;text-align:right}.facts .ok{color:var(--teal)}section{padding:52px 0;border-top:1px solid var(--line)}.section-head{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:end;margin-bottom:25px}.section-head h2{font-size:clamp(26px,4vw,42px);letter-spacing:-.04em;line-height:1.12;margin:0}.section-head p{margin:0;color:var(--muted)}.concepts{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.card{background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:22px}.card .num{font:11px var(--mono);color:var(--muted)}.card h3{font-size:19px;margin:10px 0 8px}.card p{color:var(--muted);margin:0}.card.tier{border-top:3px solid var(--teal)}.card.layer{border-top:3px solid var(--gold)}.card.step{border-top:3px solid var(--blue)}.explain{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.9fr);gap:18px}.note{background:var(--paper);border:1px solid var(--line);padding:24px;border-radius:7px}.note h3{margin:0 0 10px;font-size:18px}.note p{color:var(--muted);margin:0}.plot{background:var(--paper);border:1px solid var(--line);border-radius:7px;padding:18px}.plot svg{display:block;width:100%;height:auto}.plot figcaption{color:var(--muted);font-size:12px;margin-top:8px}.media{border:1px solid var(--line);background:#0a0e13;border-radius:8px;overflow:hidden}.media video{display:block;width:100%;aspect-ratio:16/9;background:#0a0e13}.media-note{padding:14px 16px;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}.model-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.model{border:1px solid var(--line);background:var(--paper);border-radius:5px;padding:13px}.model b{display:block;font-size:13px}.model span{display:block;font:10.5px var(--mono);color:var(--muted);margin-top:3px}.model.measured{border-color:var(--teal)}.tag{display:inline-flex!important;width:max-content;margin-top:9px!important;border:1px solid currentColor;border-radius:3px;padding:1px 5px;color:var(--teal)!important}.architecture{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:10px;align-items:stretch}.node{background:var(--paper);border:1px solid var(--line);border-radius:6px;padding:18px}.node b{display:block;margin-bottom:6px}.node span{color:var(--muted);font-size:13px}.arrow{align-self:center;color:var(--muted);font:20px var(--mono)}.provenance{width:100%;border-collapse:collapse;background:var(--paper);border:1px solid var(--line)}.provenance th,.provenance td{padding:12px 14px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}.provenance th{color:var(--muted);font:11px var(--mono)}.provenance td:first-child{font-weight:600;width:23%}.provenance td:last-child{color:var(--muted)}code{font-family:var(--mono);font-size:.9em}.checksum{overflow-wrap:anywhere}footer{border-top:1px solid var(--line);color:var(--muted);font-size:12px;padding:26px 0 0;margin-top:20px}.live-warning{color:var(--gold);font-size:12px;margin-top:10px}.noscript{margin:18px 0;padding:12px;border:1px solid var(--red);color:var(--red)}
+    @media(max-width:850px){.hero,.section-head,.explain{grid-template-columns:1fr}.concepts{grid-template-columns:1fr}.model-grid{grid-template-columns:repeat(2,1fr)}.architecture{grid-template-columns:1fr}.arrow{transform:rotate(90deg);justify-self:center}.navlinks{display:none}.hero{gap:28px;padding-top:50px}}
+    @media(max-width:500px){main,.nav{padding-left:16px;padding-right:16px}.model-grid{grid-template-columns:1fr}.hero h1{font-size:42px}}
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav" aria-label="주요 메뉴">
+      <div class="brand">STEP LEDGER / B200 ARCHIVE</div>
+      <div class="navlinks"><a href="#film">영상</a><a href="#concept">개념</a><a href="#models">모델</a><a href="#evidence">증거</a></div>
+    </nav>
+  </header>
+  <main>
+    <section class="hero" style="border-top:0">
+      <div>
+        <div class="eyebrow">RECORDED ON NVIDIA B200 · 2026-09</div>
+        <h1>토큰 하나가 생기는 동안</h1>
+        <p class="lead">가중치와 KV 캐시가 어디에 살고, 한 디코드 스텝에 몇 바이트가 움직이며, 고정된 3D SRAM의 몫이 왜 줄어드는지를 실제 B200 기록과 구조식으로 함께 읽는 원장입니다.</p>
+        <div class="actions">
+          <a class="button primary" href="replay.html">인터랙티브 녹화 열기 →</a>
+          <a class="button" href="#film">약 1분 40초 설명 영상</a>
+          <a class="button" href="http://143.248.153.128:8788/ledger3d.html">암페어 라이브 판</a>
+        </div>
+        <p class="live-warning">암페어 링크는 연구실 네트워크에서만 열릴 수 있습니다. 정적 재생판은 B200 반납 뒤에도 남습니다.</p>
+      </div>
+      <aside class="factbox" aria-label="보존 상태">
+        <h2>보존 상태</h2>
+        <dl class="facts">
+          <dt>B200 원본</dt><dd>8,190 표본</dd>
+          <dt>원본 크기</dt><dd>74 MB</dd>
+          <dt>공개 재생본</dt><dd>351 KB</dd>
+          <dt>3D 엔진</dt><dd>로컬 three.js</dd>
+          <dt>원본 저장소</dt><dd>암페어</dd>
+          <dt>체크섬 검증</dt><dd class="ok">일치</dd>
+        </dl>
+      </aside>
+    </section>
+
+    <section id="film">
+      <div class="section-head"><h2>실행을 먼저 보고,<br>숫자를 나중에 읽습니다.</h2><p>영상은 녹화 재생판을 직접 조작하며 ① 토큰 생성, ② n의 초기화, ③ 계층 몫 감소, ④ 여덟 모델의 구조 비교 순서로 설명합니다.</p></div>
+      <div class="media">
+        <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png">
+          <source src="assets/b200_walkthrough.mp4" type="video/mp4">
+          <track src="assets/b200_walkthrough.ko.vtt" kind="subtitles" srclang="ko" label="한국어 해설">
+          이 브라우저는 MP4 영상을 재생하지 못합니다. 인터랙티브 녹화판을 이용해 주세요.
+        </video>
+        <div class="media-note">한국어 음성 해설을 넣었고, 플레이어의 자막 메뉴에서 같은 내용을 한국어 자막으로 켤 수 있습니다. 수치 검증에는 아래 체크섬이 붙은 JSONL 원본과 인터랙티브 재생본을 사용합니다.</div>
+      </div>
+    </section>
+
+    <section id="concept">
+      <div class="section-head"><h2>서로 다른 세 축을<br>한 그림에 섞지 않습니다.</h2><p>‘계층’이라는 말이 저장 장소와 모델 계산 순서를 오가면 그래프를 맞출 수 없습니다. 이 원장은 세 개념을 처음부터 분리합니다.</p></div>
+      <div class="concepts">
+        <article class="card tier"><span class="num">01 / PLACE</span><h3>메모리 계층</h3><p>L2, 가상 3D SRAM, HBM/GDDR7, HBF처럼 데이터가 <strong>어디에 머무는가</strong>를 말합니다.</p></article>
+        <article class="card layer"><span class="num">02 / ORDER</span><h3>모델 층</h3><p>Transformer 층을 같은 GPU가 차례로 계산하는 <strong>시간 순서</strong>입니다. 칩을 32장 쌓았다는 뜻이 아닙니다.</p></article>
+        <article class="card step"><span class="num">03 / ITERATION</span><h3>디코드 스텝 n</h3><p>활성 요청마다 다음 토큰 하나를 만드는 반복입니다. 답이 끝나면 새 요청의 n=0으로 돌아갑니다.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>왜 올라갔다 떨어지고,<br>29%가 27%가 됩니까?</h2><p>두 변화는 같은 원인이 아닙니다. 하나는 요청의 생애주기이고, 다른 하나는 고정 용량을 커지는 KV 전체로 나눈 비율입니다.</p></div>
+      <div class="explain">
+        <article class="note"><h3>n의 톱니: 답이 바뀌는 경계</h3><p>한 답을 쓰는 동안 n은 증가합니다. EOS 또는 max_tokens에 닿으면 그 답은 끝나고, 반복 모드에서는 다음 질문을 시작하므로 n이 0으로 돌아갑니다. 멈춤을 누르면 실제 생성 요청도 중단되므로 다시 실행하기 전까지 늘지 않습니다.</p></article>
+        <figure class="plot">
+          <svg viewBox="0 0 520 190" role="img" aria-label="답마다 n이 증가하다 0으로 돌아가는 톱니 그래프">
+            <path d="M42 150H496M42 22V150" stroke="#526172" fill="none"/>
+            <path d="M42 150L176 32L176 150L310 32L310 150L444 32" stroke="#75a7ef" stroke-width="4" fill="none"/>
+            <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="12" y="28">256</text><text x="25" y="154">0</text><text x="150" y="174">답 1</text><text x="284" y="174">답 2</text><text x="418" y="174">답 3</text></g>
+          </svg>
+          <figcaption>각 상승선은 한 답입니다. 수직 하강은 속도 저하가 아니라 다음 답으로 넘어간 사건입니다.</figcaption>
+        </figure>
+        <article class="note"><h3>계층 몫의 하락: 분모가 커짐</h3><p>가상 3D SRAM은 640 MB로 고정돼 있지만 생성 토큰이 쌓일수록 KV 캐시 전체는 커집니다. 따라서 <code>640 MB ÷ 전체 KV</code>가 작아집니다. 이것은 계층이 사라지는 것이 아니라, 같은 계층이 담을 수 있는 <strong>비율</strong>이 줄어드는 현상입니다.</p></article>
+        <figure class="plot">
+          <svg viewBox="0 0 520 190" role="img" aria-label="생성 토큰 증가에 따라 3D SRAM의 KV 몫이 29.8%에서 26.5%로 감소하는 그래프">
+            <path d="M42 150H496M42 22V150" stroke="#526172" fill="none"/>
+            <path d="M48 38C160 55 270 83 484 132" stroke="#52c6ad" stroke-width="4" fill="none"/>
+            <path d="M48 38H484V132" stroke="#344150" stroke-dasharray="5 5" fill="none"/>
+            <g fill="#edf2f7" font-family="monospace" font-size="13"><text x="55" y="31">29.8%</text><text x="432" y="124">26.5%</text></g>
+            <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="48" y="174">n=0</text><text x="438" y="174">n=256</text></g>
+          </svg>
+          <figcaption>배치 8 · 문맥 2,048 · 계층 640 MB의 구조식 예시입니다. 인터랙티브 판에서 긴 답 구간도 재생할 수 있습니다.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section id="models">
+      <div class="section-head"><h2>한 목록, 여덟 구조.<br>증거 등급은 따로.</h2><p>B200 녹화가 직접 증명하는 모델은 Llama-3.1-8B입니다. 나머지는 층 갈래와 KV 구조를 반영한 예측 비교이며, 녹화 실측처럼 표시하지 않습니다.</p></div>
+      <div class="model-grid">
+        <div class="model measured"><b>Llama-3.1-8B</b><span>FULL GQA · 32 LAYERS</span><span class="tag">B200 녹화</span></div>
+        <div class="model"><b>Qwen3-8B</b><span>FULL GQA · 36 LAYERS</span></div>
+        <div class="model"><b>Mistral-7B</b><span>FULL GQA · 32 LAYERS</span></div>
+        <div class="model"><b>Llama-2-7B</b><span>MHA · 32 LAYERS</span></div>
+        <div class="model"><b>granite-4.0-h-tiny</b><span>MAMBA2 + ATTENTION</span></div>
+        <div class="model"><b>Gemma-3-27B</b><span>SLIDING + GLOBAL</span></div>
+        <div class="model"><b>gpt-oss-120b</b><span>SLIDING + MOE</span></div>
+        <div class="model"><b>DeepSeek-V2-Lite</b><span>MLA + MOE</span></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head"><h2>B200을 반납해도<br>세 층으로 남습니다.</h2><p>대용량 원본은 암페어, 공개 가능한 파생물은 GitHub Pages, 실제 모델 실행은 살아 있는 암페어 판이 맡습니다.</p></div>
+      <div class="architecture" aria-label="보존 구조">
+        <div class="node"><b>암페어 · 원본 보관</b><span>74 MB JSONL + 3.0 MB gzip + SHA-256. 연구용 재분석의 기준입니다.</span></div><div class="arrow">→</div>
+        <div class="node"><b>GitHub Pages · 공개 재생</b><span>351 KB 델타 데이터, 로컬 three.js, 설명 영상. 서버 없이 동작합니다.</span></div><div class="arrow">↔</div>
+        <div class="node"><b>암페어 · 라이브 실행</b><span>전원이 켜져 있을 때 실제 모델을 실행합니다. Pages 재생판과 증거 등급을 구분합니다.</span></div>
+      </div>
+    </section>
+
+    <section id="evidence">
+      <div class="section-head"><h2>무엇이 측정이고<br>무엇이 계산인지 남깁니다.</h2><p>영상보다 원장이 우선입니다. 공개 파생물에서 원본으로 돌아갈 수 있도록 파일명과 체크섬을 고정했습니다.</p></div>
+      <table class="provenance">
+        <thead><tr><th>항목</th><th>상태</th><th>설명</th></tr></thead>
+        <tbody>
+          <tr><td>B200 원본</td><td>암페어 보관</td><td><code>b200_raw_20260913.jsonl</code> · 8,190 데이터 행 · 77,474,850 bytes</td></tr>
+          <tr><td>원본 SHA-256</td><td>검증됨</td><td class="checksum"><code>d35b68920e2d61dff0eb80cb27fb3cf86a267b2f0d8292d8794b7e81eabeed80</code></td></tr>
+          <tr><td>공개 재생본</td><td>파생물</td><td>연속 반복 구간 92.7초와 긴 답 구간 8.2초를 델타 압축했습니다.</td></tr>
+          <tr><td>실측 범위</td><td>Llama-3.1-8B</td><td>B200 토큰 진행, 스텝 시간, KV 풀 사용률을 녹화에서 복원합니다.</td></tr>
+          <tr><td>구조 예측</td><td>8개 모델</td><td>가중치·KV·상태·슬라이딩·MLA 구조식과 출처 배지를 인터랙티브 판에 보존합니다.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <noscript><div class="noscript">인터랙티브 재생에는 JavaScript가 필요합니다. 설명과 증거 표는 그대로 읽을 수 있습니다.</div></noscript>
+    <footer>디코드 상주 3D 원장 · B200 기록 보관소 · 원본은 암페어에 보존하고 공개 사이트에는 검증 가능한 파생물만 둡니다.</footer>
+  </main>
+</body>
+</html>
