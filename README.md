@@ -5,7 +5,7 @@ GitHub Pages에서 서버 없이 여는 정적 보관판입니다.
 - `index.html`: 설명 글과 영상
 - `replay.html`: B200 녹화 인터랙티브 재생
 - `assets/b200_replay.json`: 원본 JSONL에서 만든 351 KB 델타 파생물
-- `assets/b200_walkthrough.mp4`: 97초 한국어 음성 해설 영상
+- `assets/b200_walkthrough.mp4`: 2분 42초 한국어 음성 해설 영상
 - `assets/b200_walkthrough.ko.vtt`: 켜고 끌 수 있는 한국어 자막
 - `vendor/three.min.js`: 인터넷이 없어도 3D 장면이 열리도록 저장한 로컬 three.js
 

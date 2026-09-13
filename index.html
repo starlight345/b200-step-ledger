@@ -27,7 +27,7 @@
         <p class="lead">가중치와 KV 캐시가 어디에 살고, 한 디코드 스텝에 몇 바이트가 움직이며, 고정된 3D SRAM의 몫이 왜 줄어드는지를 실제 B200 기록과 구조식으로 함께 읽는 원장입니다.</p>
         <div class="actions">
           <a class="button primary" href="replay.html">인터랙티브 녹화 열기 →</a>
-          <a class="button" href="#film">약 1분 40초 설명 영상</a>
+          <a class="button" href="#film">약 2분 42초 설명 영상</a>
           <a class="button" href="http://143.248.153.128:8788/ledger3d.html">암페어 라이브 판</a>
         </div>
         <p class="live-warning">암페어 링크는 연구실 네트워크에서만 열릴 수 있습니다. 정적 재생판은 B200 반납 뒤에도 남습니다.</p>
@@ -46,7 +46,7 @@
     </section>
 
     <section id="film">
-      <div class="section-head"><h2>실행을 먼저 보고,<br>숫자를 나중에 읽습니다.</h2><p>영상은 녹화 재생판을 직접 조작하며 ① 토큰 생성, ② n의 초기화, ③ 계층 몫 감소, ④ 여덟 모델의 구조 비교 순서로 설명합니다.</p></div>
+      <div class="section-head"><h2>실행을 먼저 보고,<br>숫자를 나중에 읽습니다.</h2><p>영상은 실제 녹화 화면과 설명 카드를 따라 ① 토큰 생성, ② n의 초기화, ③ 계층 몫 감소, ④ 여덟 모델의 구조 비교 순서로 설명합니다.</p></div>
       <div class="media">
         <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png">
           <source src="assets/b200_walkthrough.mp4" type="video/mp4">
@@ -66,7 +66,7 @@
       </div>
     </section>
 
-    <section>
+    <section id="behavior">
       <div class="section-head"><h2>왜 올라갔다 떨어지고,<br>29%가 27%가 됩니까?</h2><p>두 변화는 같은 원인이 아닙니다. 하나는 요청의 생애주기이고, 다른 하나는 고정 용량을 커지는 KV 전체로 나눈 비율입니다.</p></div>
       <div class="explain">
         <article class="note"><h3>n의 톱니: 답이 바뀌는 경계</h3><p>한 답을 쓰는 동안 n은 증가합니다. EOS 또는 max_tokens에 닿으면 그 답은 끝나고, 반복 모드에서는 다음 질문을 시작하므로 n이 0으로 돌아갑니다. 멈춤을 누르면 실제 생성 요청도 중단되므로 다시 실행하기 전까지 늘지 않습니다.</p></article>
