@@ -286,6 +286,8 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
   </div>
   <canvas id="chart"></canvas>
   <p class="cap" id="chart-cap"></p>
+  <p class="cap"><b>왜 이 비율을 보나.</b> 이 값은 곧바로 속도 향상률이 아니다. Llama처럼 한 스텝마다 이전 토큰의 KV를 두루 읽는다고 보고, <b>저장된 비율과 이번 스텝에서 읽히는 비율이 같다</b>고 가정할 때만 「KV 읽기 중 얼마를 HBM 대신 3D SRAM이 맡을 수 있는가」를 추정하는 중간값이 된다. 예를 들어 KV의 30%가 상주하면 KV 읽기의 약 30%를 3D SRAM 경로로 돌린다고 놓는다. 실제 주소별 접근 빈도는 아직 측정하지 못했다 <span class="b assume" title="같은 데이터 종류 안에서는 상주 비율과 접근 비율이 같다고 둔다">가정</span>.</p>
+  <p class="cap"><b>가중치 고정 기준선은 용량 비교선이다.</b> 가중치는 답이 길어져도 크기가 변하지 않으므로, 640 MB를 가중치에 두면 <span class="mono">640 MB ÷ 가중치 전체</span>가 수평으로 유지된다. KV 선과 이 선이 만나는 것은 <b>저장 비율의 교차</b>일 뿐, 더 빠른 정책이 결정된 자리가 아니다. 어느 쪽이 유리한지는 ④에서 실제로 우회되는 바이트와 경로 시간을 비교해야 한다.</p>
   <p class="cap"><b>점선은 견줄 모델이다.</b> ⑤에서 견줄 모델을 고르면 같은 손잡이(배치·문맥·3D SRAM 용량·정책)에 <b>모델만 바꿔</b> 센 곡선이 점선으로 겹친다. 그림 아래 한 줄에 어느 선이 어느 모델인지 적어 두었다. 견줄 모델은 <b>예측만</b> 그린다 — 실측은 지금 vLLM에 떠 있는 모델 하나에서만 나오기 때문이다.</p>
   <p class="cap"><b>선은 예측이고 점은 실측이다.</b> 쌓은 띠와 가는 선은 이 화면이 잰 값으로 계산한 예측이다. 동그란 점은 vLLM 이 보고한 KV 풀 사용률(<span class="mono">vllm:kv_cache_usage_perc</span>)이고 <span class="b meas" title="vLLM /metrics">측정</span>, 그 점이 같은 색 가는 선 위에 얹히는지로 예측이 맞는지 본다. 그 점은 0.1~1 초에 한 번 오므로 점 하나 사이에 스텝이 수십에서 수백 개 지난다 — 점이 드문 것이 정상이다. 붉은 세로선은 vLLM 이 요청을 쫓아낸 자리(<span class="mono">num_preemptions_total</span> 증가)다 <span class="b meas" title="vLLM /metrics">측정</span>.</p>
 </section>
@@ -300,8 +302,9 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
     <div class="pipe-arrow">→</div>
     <div class="pipe-node"><b>3. 경로 시간</b>각 경로 바이트 ÷ 각 경로의 실효 대역폭</div>
     <div class="pipe-arrow">→</div>
-    <div class="pipe-node"><b>4. 두 경계</b>직렬이면 합, 완전히 겹치면 최댓값</div>
+    <div class="pipe-node"><b>4. 예상 시간 범위</b>완전 겹침은 빠른 쪽 하한, 직렬 합은 느린 쪽 상한</div>
   </div>
+  <div class="warnbox"><b>여기서 겹침은 데이터를 겹쳐 저장한다는 뜻이 아니다.</b> 한 데이터 조각은 HBF → HBM → 연산처럼 필요한 순서를 지켜야 한다. 하지만 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비할 수 있다. 많은 조각이 끊임없이 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보인다. 예를 들어 세 단계가 각각 4 ms·1 ms·2 ms라면, 유용한 파이프라이닝이 전혀 없는 가장 느린 가정은 7 ms이고 단계가 충분히 채워진 정상상태의 가장 빠른 가정은 병목 단계인 4 ms에 가까워진다. 따라서 이 판은 <b>4~7 ms</b>를 예상 범위로 둔다. 4 ms는 낙관적인 시간 하한, 7 ms는 보수적인 시간 상한이다. 실제 위치는 독립 요청 수·버퍼·의존성·공유 포트에 따라 정해지며, 가상 메모리의 구현이 정해지면 측정하거나 시뮬레이션할 수 있다.</div>
   <div id="timing-cards" class="timing-grid"></div>
   <div id="traffic-breakdown"></div>
   <p class="cap" id="timing-cap"></p>
@@ -338,7 +341,7 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
         <span>보기 예</span>
         <button class="sm" data-pre="check">검산 · Llama-3.1-8B</button>
         <button class="sm" data-pre="decay">3D SRAM 몫이 깎인다 · 문맥 512 · 토큰 2,048</button>
-        <button class="sm" data-pre="lose">3D SRAM이 진다 · 문맥 16,384 · 토큰 1,024</button>
+        <button class="sm" data-pre="lose">용량 비율이 교차한다 · 문맥 16,384 · 토큰 1,024</button>
         <button class="sm" data-pre="win">창에서 멈춘다 · Gemma-3-27B 대 Llama</button>
         <button class="sm" data-pre="state">상태 띠가 생긴다 · granite 대 Llama</button>
         <button class="sm" data-pre="mla">잠재 한 벌 · DeepSeek-V2-Lite 대 Llama</button>
@@ -380,7 +383,7 @@ Mamba 같은 상태 공간 모델은 문맥이 길어져도 왜 메모리가 안
         <div class="field"><label for="hbfWriteRatio">HBF 쓰기/읽기 대역폭 비</label><span class="readout" id="hbfWriteRatio-r"></span><input id="hbfWriteRatio" type="range" min="5" max="100" step="5" value="25"><div class="hint">낸드 쓰기를 읽기와 같다고 두지 않는다. 기본은 읽기의 25%이며 실측이 없어 손잡이로 둔다 <span class="b assume" title="HBF 실리콘과 쓰기 규격이 없어 읽기 대비 비율로 모델링한다">가정</span>.</div></div>
         <div class="field" style="border-top:0"><div class="hint" id="hbf-cap" style="line-height:1.7"></div></div>
         <div class="field"><label for="hbfPage">읽기 낱알(페이지)</label><span class="readout" id="hbfPage-r"></span><input id="hbfPage" type="range" min="2" max="64" step="2" value="16"><div class="hint">낸드는 바이트 단위로 못 읽고 페이지 통째로 읽는다. KV 블록이 이보다 작으면 버리는 바이트가 생긴다 <span class="b assume" title="페이지 크기는 공개 규격에 없다">가정</span>. 🚨 <b>지금 모델 여덟 개에서는 이 손잡이가 아무 일도 안 한다</b> — KV 블록이 가장 작은 것도 0.99 MB 라 페이지 최댓값 64 kB 보다 열다섯 배 크다. 낱알 낭비는 블록을 훨씬 잘게 쪼개는 스택에서만 생긴다.</div></div>
-        <div class="field"><label for="policy">3D SRAM 배치 정책</label><span class="readout"></span><select id="policy"><option value="kv">KV 를 먼저 올린다</option><option value="w">가중치를 먼저 올린다</option><option value="state">Mamba 상태를 먼저 올린다</option></select><div class="hint">가중치를 올리면 몫이 문맥과 무관하게 고정된다. KV를 올리면 640 MB는 그대로여도 KV 전체가 자라므로 비율이 깎인다. 상태 우선은 상태 층이 있는 모델(granite)에서만 뜻이 있다.</div></div>
+        <div class="field"><label for="policy">3D SRAM 배치 정책</label><span class="readout"></span><select id="policy"><option value="kv">KV 를 먼저 올린다</option><option value="w">가중치를 먼저 올린다</option><option value="state">Mamba 상태를 먼저 올린다</option></select><div class="hint">가중치는 전체 크기가 고정이라 상주 비율도 고정된다. KV는 답과 함께 커져 같은 640 MB가 차지하는 비율이 내려간다. 이 비율은 용량 비교이며, 어느 정책이 더 빠른지는 ④의 우회 바이트와 시간으로 판단한다. 상태 우선은 상태 층이 있는 모델(granite)에서만 뜻이 있다.</div></div>
         <div class="field"><label for="rule">할당 규칙</label><span class="readout"></span><select id="rule"><option value="grow">스텝마다 자람 ceil((L+n−2)/블록)×블록</option><option value="spec">처음부터 예약 ceil((L+n+T−2)/블록)×블록</option></select><div class="hint">블록은 모델마다 다르다 — 대부분 16 토큰이고, DeepSeek-V2-Lite 는 32, granite 는 Mamba 페이지에 맞춰 400 이다. 경계식 ceil((L+T−2)/블록)×블록 은 B200 mx12 에서 쟀다 <span class="b meas" title="B200 mx12: 경계 L* 가 max_tokens 에 1:1 로 움직임">측정</span>. 「스텝마다 자람」은 그 경계식을 n = T 에서 정확히 되짚는 확장이다 <span class="b derived" title="n=T 에서 측정된 경계식과 일치">유도</span>.</div></div>
       </div>
       <div class="row">
@@ -1212,12 +1215,12 @@ function renderTiming(k, m){
       <div class="delta">읽기+쓰기 ${fB(m.stepBytes)}를 ${(m.hbmBW/1e12).toFixed(m.hbmBW<1e12?3:2)} TB/s로 서비스</div>${measured}
     </div>
     <div class="time-card serial">
-      <div class="label">직렬 경계 · 경로 시간을 모두 더함</div>
+      <div class="label">느린 쪽 시간 상한 · 유용한 파이프라이닝이 없다고 가정</div>
       <div class="value">${fT(m.tSerial)}</div>
       <div class="delta">${gainText(m.tBaseline, m.tSerial)}</div>
     </div>
     <div class="time-card overlap">
-      <div class="label">완전 겹침 경계 · 가장 긴 경로만 남음</div>
+      <div class="label">빠른 쪽 시간 하한 · 파이프라인이 충분히 찬 정상상태</div>
       <div class="value">${fT(m.tOverlap)}</div>
       <div class="delta">${gainText(m.tBaseline, m.tOverlap)}</div>
     </div>`;
@@ -1236,10 +1239,10 @@ function renderTiming(k, m){
   const feasible = m.noRoom <= 0;
   const hbfResident = m.kvHBF + m.stHBF;
   $('timing-cap').innerHTML =
-    `<b>용량과 트래픽을 섞지 않는다.</b> 지금 3D SRAM에 사는 KV는 ${fB(m.tierKV)} / 전체 ${fB(m.kvAlloc)} = <b>${fP(kvShare)}</b>다. ` +
-    `이 상주 비율을 가중치·KV·상태의 스텝 트래픽에 각각 곱해 경로를 나눴다 <span class="b assume" title="주소별 접근 빈도를 직접 재지 못해 각 데이터 종류 안에서는 상주 비율과 접근 비율이 같다고 둔다">가정</span>. ` +
+    `<b>용량 비율은 속도 향상률이 아니다.</b> 지금 3D SRAM에 사는 KV는 ${fB(m.tierKV)} / 전체 ${fB(m.kvAlloc)} = <b>${fP(kvShare)}</b>다. ` +
+    `주소별 접근 빈도를 직접 재지 못했으므로, 같은 데이터 종류 안에서는 <b>상주 비율만큼 이번 스텝의 바이트도 그 경로에서 처리된다</b>고 놓았다 <span class="b assume" title="주소별 접근 빈도를 직접 재지 못해 각 데이터 종류 안에서는 상주 비율과 접근 비율이 같다고 둔다">가정</span>. ` +
     `읽기는 ${fB(m.totalRead)}, 쓰기는 ${fB(m.totalWrite)}다. 3D SRAM은 ${(k.tierBW/1e12).toFixed(1)} TB/s, HBF 쓰기는 읽기 대역폭의 ${(k.hbfWriteRatio*100).toFixed(0)}%로 놓았다 <span class="b assume" title="두 값 모두 실리콘 실측이 없는 민감도 손잡이다">가정</span>. ` +
-    `<b>직렬과 완전 겹침은 실제값을 둘러싼 두 경계</b>이지 둘 중 하나를 실측이라고 부르는 것이 아니다.` +
+    `경로별 바이트를 각 대역폭으로 나눠 시간을 얻는다. <b>완전 겹침은 가장 빠른 시간 하한, 직렬 합은 가장 느린 시간 상한</b>이며, 실제값은 그 사이에 있다고 본다. 둘 중 하나를 실측이라고 부르는 것이 아니다.` +
     (hbfResident > 0 ? ` 기준선은 HBF 없이 모든 트래픽을 ${esc(S.memWord || 'HBM')}이 처리한다고 놓은 <b>처리량 비교선</b>이며, 현재 선택한 용량으로는 ${fB(hbfResident)}가 HBF에 있어 그대로 구현할 수 있는 배치는 아니다.` : '') +
     (feasible ? '' : ` <span style="color:var(--crit)"><b>현재 용량 배치는 실행 불가</b> — ${fB(m.noRoom)}가 어디에도 앉지 못한다.</span>`);
 }
@@ -1346,7 +1349,7 @@ function drawChart(k, m){
   // 가중치 정책일 때의 수평선 (문맥과 무관하게 고정된 몫)
   g.setLineDash([2,3]); g.strokeStyle = cT; g.lineWidth = 1.6;
   g.beginPath(); g.moveTo(x0, Y(wShare)); g.lineTo(x1, Y(wShare)); g.stroke(); g.setLineDash([]);
-  rlab(Y(wShare), '가중치 고정 ' + fP(wShare), cT, .85);
+  rlab(Y(wShare), '가중치 용량 기준선 ' + fP(wShare), cT, .85);
 
   if (!S.yzoom){
     // 예측 KV 풀 사용률 (가는 선) — 실측 점이 이 선에 얹히는지로 본다
@@ -1417,7 +1420,7 @@ function drawChart(k, m){
   }
   key([], cT, (S.yzoom ? '면' : '실선') + ' = ' + k.M.name + ' (원장 모델)');
   if (Mc) key([7,4], cT, '점선 = ' + Mc.name + ' (견줄 모델)');
-  key([2,3], cT, '점점선 = 가중치를 올렸을 때의 고정 몫');
+  key([2,3], cT, '점점선 = 가중치를 올렸을 때의 고정 용량 몫');
 }
 
 /* ===========================================================================
@@ -1800,8 +1803,8 @@ function renderHud(k, m){
     `KV 우선 정책에서는 <b>고정된 ${fB(k.tierCap)}</b>를 <b>계속 자라는 KV ${fB(m.kvAlloc)}</b>로 나누므로 3D SRAM 몫이 깎인다 — n = 0 에서 ${fP(t0)} 였던 것이 지금 n = ${fN(S.n)} 에서 ${fP(tNow)} 다. ` +
     `계단처럼 꺾이는 것은 vLLM 이 ${fN(k.M.block)} 토큰 블록 단위로 자리를 잡기 때문이다. ${fN(k.M.block)} 스텝마다 요청 하나가 ${fB(k.M.block*mStepTok(k.M, m.at))} 씩 더 쥐므로, 배치 ${k.B} 이면 한 계단이 ${fB(k.B*k.M.block*mStepTok(k.M, m.at))} 다 <span class="b derived" title="vLLM 블록 ${k.M.block} 토큰(측정) × 지금 자리에서 더 쥐는 토큰당 ${fN(mStepTok(k.M, m.at))} B">유도</span>${mStepTok(k.M, m.at) < mPageTok(k.M) ? ' — 창을 다 채운 슬라이딩 층은 이 계단에서 빠진다' : ''}. ` +
     `몫이 크게 깎이는 것을 보려면 ⑤ 의 「3D SRAM 몫이 깎인다」 보기를 눌러라. 지금 자리(문맥 ${fN(k.L)}, 토큰 ${fN(k.T)})에서는 문맥이 ${((k.T/k.L)*100).toFixed(1)} % 만큼 늘어난다. ` +
-    `초록 점선은 <b>가중치를 올리는 정책</b>일 때의 몫 ${fP(wShare)} 이고, 문맥과 무관하게 고정된다 — 3D SRAM ${fB(k.tierCap)} ÷ 상주 가중치 ${fB(m.wAlloc)} 다 <span class="b derived" title="가상 3D SRAM 용량 ÷ 상주 가중치">유도</span>. ` +
-    `<b>두 선 중 어느 쪽이 위에 있느냐가 이 판이 묻는 질문이다.</b> ` +
+    `초록 점점선은 <b>가중치를 올리는 정책</b>일 때의 용량 몫 ${fP(wShare)} 이고, 문맥과 무관하게 고정된다 — 3D SRAM ${fB(k.tierCap)} ÷ 상주 가중치 ${fB(m.wAlloc)} 다 <span class="b derived" title="가상 3D SRAM 용량 ÷ 상주 가중치">유도</span>. ` +
+    `<b>두 선의 높이는 저장 비율만 비교한다.</b> 선이 교차해도 승자가 정해진 것은 아니며, 정책별로 줄어드는 HBM 바이트와 ④의 시간 범위를 비교해야 한다. ` +
     (k.Mc ? (function(){
       const mc = model(k, S.n, k.Mc), tc = mc.kvAlloc > 0 ? mc.tierKV/mc.kvAlloc : 0;
       return `지금 n = ${fN(S.n)} 에서 <b>${esc(k.M.name)}</b> 의 3D SRAM 몫은 ${fP(tNow)} 이고, 점선으로 겹친 <b>${esc(k.Mc.name)}</b> 는 ${fP(tc)} 다. ` +
@@ -2343,7 +2346,7 @@ function frame(now){
   const PRESETS = {
     check:{M:'llama31_8b', C:'',           B:5, L:13, T:8,  why:'Llama-3.1-8B, 배치 32, 문맥 8,192, 토큰 256 이다. 물리 HBM 기준선이 9.18 ms로 기존 원장과 같아야 한다. 이 자리에서는 문맥이 3 %밖에 안 늘어서 KV 중 3D SRAM 상주 비율이 거의 움직이지 않는다.'},
     decay:{M:'llama31_8b', C:'',           B:5, L:9,  T:11, why:'Llama-3.1-8B, 배치 32, 문맥 512, 토큰 2,048 이다. 문맥이 512에서 2,560으로 다섯 배가 되므로 고정 용량의 3D SRAM이 담는 KV 비율이 깎여 내려간다. 16스텝마다 꺾이는 할당 계단도 여기서 보인다.'},
-    lose:{M:'llama31_8b',  C:'',           B:5, L:14, T:10, why:'Llama-3.1-8B, 배치 32, 문맥 16,384, 토큰 1,024 이다. 계층에 KV 를 올린 몫이 가중치를 올렸을 때의 고정 몫보다 아래로 내려간다. 문맥이 길면 같은 640 MB 를 가중치에 쓰는 편이 낫다는 뜻이고, 이것이 이 판이 묻는 질문의 답 한 쪽이다.'},
+    lose:{M:'llama31_8b',  C:'',           B:5, L:14, T:10, why:'Llama-3.1-8B, 배치 32, 문맥 16,384, 토큰 1,024 이다. KV 에 둔 3D SRAM의 용량 몫이 가중치에 뒀을 때의 고정 용량 몫보다 아래로 내려간다. 이것은 저장 비율의 교차일 뿐 가중치 정책의 승리를 뜻하지 않는다. 실제 우회 바이트와 ④의 시간 범위를 비교해야 한다.'},
     win:{M:'gemma3_27b',   C:'llama31_8b', B:5, L:13, T:8,  why:'Gemma-3-27B 를 원장 모델로 두고 Llama-3.1-8B 를 점선으로 견준다. Gemma 는 62 층 중 52 층이 창 1,024 에서 멈추고 10 층만 문맥과 함께 자란다. 그래서 토큰당 자라는 바이트가 81,920 B 로 Llama 의 131,072 B 보다 작고, 층 갈래를 안 읽는 도구 식은 1,333,248 B 를 내서 16.27 배 과대다.'},
     state:{M:'granite_4h', C:'llama31_8b', B:5, L:13, T:8,  why:'granite-4.0-h-tiny 를 원장 모델로 두고 Llama 를 점선으로 견준다. 어텐션은 4 층뿐이라 토큰당 8,192 B 이고, 나머지 36 층은 Mamba 상태라 시퀀스당 29.03 MB 로 고정이다. 그래서 ② 에 상주 띠가 하나 더 생긴다. 상태는 문맥이 길어져도 안 자라고 스텝마다 두 번 오간다.'},
     mla:{M:'dsv2_lite',    C:'llama31_8b', B:5, L:13, T:8,  why:'DeepSeek-V2-Lite 를 원장 모델로 두고 Llama 를 점선으로 견준다. MLA 는 층마다 잠재 한 벌 (512+64)×2 B 만 쥐므로 27 층이면 토큰당 31,104 B 다. 헤드마다 K 와 V 를 따로 쥐는 Llama 의 4 분의 1 이 안 된다.'},
