@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "title": "B200 eight-model evidence index",
+  "hardware": "NVIDIA B200",
+  "serving_engine": "vLLM 0.28.0",
+  "definitions": {
+    "kv_capacity_bytes_per_token": "vLLM이 실제로 만든 KV 저장 블록의 전체 바이트를 그 블록이 보유하는 토큰 수로 나눈 값이다. 실행 중 DRAM을 오간 트래픽 바이트와는 다른 측정이다.",
+    "decode_step_ms": "prefill을 제외하고 다음 토큰 한 묶음을 만드는 execute_model 호출의 중앙값이다.",
+    "decode_grid": "같은 nb1 하네스로 각 셀을 64회 생성 호출했다. 첫 호출은 prefill이라 빼고 63개 decode 호출의 중앙값을 기록했다. B=8·L=2,048 공통점은 여덟 모델 모두 있고, gpt-oss의 보존 실험만 B=32·L=2,048을 이유 기록 없이 제외했다. Llama-2의 장문 조건은 모델 한계 때문에 L=3,584다.",
+    "continuous_replay": "약 0.2초 간격으로 토큰 진행, 서버 메트릭, 답 문자열을 연속 저장한 공개 재생 기록이다."
+  },
+  "scope_note": "여덟 모델 모두 B200에서 KV 저장 구조를 직접 검산했고, 같은 nb1 하네스의 B=8·L=2,048 decode runtime/power 비교점도 여덟 모델에 보존했다. 확장 격자는 gpt-oss의 B=32 셀만 빠져 있다. 연속 토큰 재생은 Llama-3.1-8B 한 모델이다.",
+  "models": [
+    {
+      "key": "llama31_8b",
+      "name": "Llama-3.1-8B",
+      "structure_plain": "32개 층에서 8개 KV 헤드를 공유하는 GQA",
+      "kv_capacity_bytes_per_token": 131072,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": true,
+      "decode_measurement_date": "2026-09-09",
+      "decode_gpu_index": 0,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 4.2497, "power_w": 300.8, "tokens_per_second": 235.3, "joules_per_token": 1.2784, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 4.5556, "power_w": 698.7, "tokens_per_second": 1756.1, "joules_per_token": 0.3979, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 5.6683, "power_w": 930.6, "tokens_per_second": 5645.4, "joules_per_token": 0.1648, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 5.4430, "power_w": 951.6, "tokens_per_second": 1469.8, "joules_per_token": 0.6474, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 4.5556,
+      "decode_grid_b8_l8192_ms": 5.4430,
+      "runtime_source_sha256": "369565c61db4c24a37454930830e21a62b4e207788d5e7bf983a995a62acf9c5"
+    },
+    {
+      "key": "qwen3_8b",
+      "name": "Qwen3-8B",
+      "structure_plain": "36개 층에서 8개 KV 헤드를 공유하는 GQA",
+      "kv_capacity_bytes_per_token": 147492.0087912088,
+      "closed_form_prediction_bytes_per_token": 147456,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "additional_evidence": "B200 장문맥 RULER·리텐션 실행",
+      "decode_measurement_date": "2026-09-15",
+      "decode_gpu_index": 2,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 4.4187, "power_w": 314.7, "tokens_per_second": 226.3, "joules_per_token": 1.3906, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 4.7256, "power_w": 697.1, "tokens_per_second": 1692.9, "joules_per_token": 0.4118, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 5.9255, "power_w": 955.4, "tokens_per_second": 5400.4, "joules_per_token": 0.1769, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 5.8070, "power_w": 948.2, "tokens_per_second": 1377.6, "joules_per_token": 0.6883, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 4.7256,
+      "decode_grid_b8_l2048_power_w": 697.1,
+      "decode_grid_b8_l8192_ms": 5.8070,
+      "capacity_source_sha256": "4cc5ea20bf26f171bcc5a3935ffeb15e95342d0456626014daad7bd41d03e19e",
+      "runtime_source_sha256": "036680c8252d3911ada7378615a79c48b0fefcf6a4ebfcb18406ef29666b696d"
+    },
+    {
+      "key": "mistral_7b",
+      "name": "Mistral-7B",
+      "structure_plain": "32개 층에서 8개 KV 헤드를 공유하는 GQA",
+      "kv_capacity_bytes_per_token": 131072,
+      "closed_form_prediction_bytes_per_token": 131072,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "additional_evidence": "B200 장문맥 RULER·리텐션 실행",
+      "decode_measurement_date": "2026-09-15",
+      "decode_gpu_index": 2,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 4.2974, "power_w": 318.4, "tokens_per_second": 232.7, "joules_per_token": 1.3683, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 4.5825, "power_w": 627.0, "tokens_per_second": 1745.8, "joules_per_token": 0.3591, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 5.6925, "power_w": 928.7, "tokens_per_second": 5621.4, "joules_per_token": 0.1652, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 5.4398, "power_w": 918.5, "tokens_per_second": 1470.6, "joules_per_token": 0.6246, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 4.5825,
+      "decode_grid_b8_l2048_power_w": 627.0,
+      "decode_grid_b8_l8192_ms": 5.4398,
+      "capacity_source_sha256": "acbd0e0ca8ddeadcc8b94cbf3220ace7e733778aa9f06539b40cc55669e4db9e",
+      "runtime_source_sha256": "3ff538b41b6feb2378ae036c0f1a2070eac73e938be9b845847e47970c581710"
+    },
+    {
+      "key": "llama2_7b",
+      "name": "Llama-2-7B",
+      "structure_plain": "32개 어텐션 헤드가 각자 K와 V를 갖는 MHA 대조군",
+      "kv_capacity_bytes_per_token": 524288,
+      "closed_form_prediction_bytes_per_token": 524288,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "decode_measurement_date": "2026-09-15",
+      "decode_gpu_index": 2,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 4.1816, "power_w": 292.3, "tokens_per_second": 239.1, "joules_per_token": 1.2225, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 5.3264, "power_w": 647.9, "tokens_per_second": 1502.0, "joules_per_token": 0.4314, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 9.0653, "power_w": 942.5, "tokens_per_second": 3529.9, "joules_per_token": 0.2670, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 3584, "step_ms": 6.2058, "power_w": 896.5, "tokens_per_second": 1289.1, "joules_per_token": 0.6954, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 5.3264,
+      "decode_grid_b8_l2048_power_w": 647.9,
+      "decode_grid_b8_l3584_ms": 6.2058,
+      "capacity_source_sha256": "373b688a4213020bf37f7c36cfc80c8974cf9e06707a75057f3f126323a02a76",
+      "runtime_source_sha256": "8a99bb14b87d8a00a1536108fc36864af4ff459cfa699c1219a8eb09d656d2a8"
+    },
+    {
+      "key": "granite_4h",
+      "name": "granite-4.0-h-tiny",
+      "structure_plain": "4개 어텐션 층과 36개 Mamba 상태 층을 함께 쓰는 하이브리드",
+      "attention_kv_capacity_bytes_per_token": 8192,
+      "mamba_state_bytes_per_sequence": 29030400,
+      "state_dram_accesses_per_step_range": [2.01, 2.08],
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "decode_measurement_date": "2026-09-09",
+      "decode_gpu_index": 0,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 3.9154, "power_w": 249.1, "tokens_per_second": 255.4, "joules_per_token": 0.9753, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 4.6995, "power_w": 412.9, "tokens_per_second": 1702.3, "joules_per_token": 0.2426, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 5.6682, "power_w": 691.4, "tokens_per_second": 5645.5, "joules_per_token": 0.1225, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 4.6650, "power_w": 640.5, "tokens_per_second": 1714.9, "joules_per_token": 0.3735, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 4.6995,
+      "decode_grid_b8_l8192_ms": 4.6650,
+      "runtime_source_sha256": "9c08bd7dac819f177689bc3217921fa2ec55fd9b4547dd1e44f785d3eed90f53",
+      "state_source_sha256": "c619de5b399c5b3b4cb68be6cbf18d2f0937b903a93dda76b6f8f69abeb5609c"
+    },
+    {
+      "key": "gemma3_27b",
+      "name": "Gemma-3-27B",
+      "structure_plain": "최근 1,024토큰만 보는 52개 층과 전체 문맥을 보는 10개 층",
+      "long_context_growth_bytes_per_token": 81920,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "decode_measurement_date": "2026-09-09",
+      "decode_gpu_index": 0,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 12.3252, "power_w": 575.3, "tokens_per_second": 81.1, "joules_per_token": 7.0937, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 13.3924, "power_w": 892.2, "tokens_per_second": 597.4, "joules_per_token": 1.4935, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 17.2496, "power_w": 944.2, "tokens_per_second": 1855.1, "joules_per_token": 0.5090, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 13.6635, "power_w": 952.0, "tokens_per_second": 585.5, "joules_per_token": 1.6260, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 13.3924,
+      "decode_grid_b8_l8192_ms": 13.6635,
+      "runtime_source_sha256": "bb6c58568f2030aa33e96bfcbafcadbec573f2838e7d2d825c9153719d1f398e"
+    },
+    {
+      "key": "gptoss_120b",
+      "name": "gpt-oss-120b",
+      "structure_plain": "슬라이딩·전역 어텐션과 일부 전문가만 여는 MoE",
+      "long_context_growth_bytes_per_token": 36864,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "decode_measurement_date": "2026-09-09",
+      "decode_gpu_index": 0,
+      "decode_grid_note": "보존 실험은 B=32,L=2,048 셀을 제외했으며 제외 이유는 기록에 없다.",
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 6.4994, "power_w": 335.9, "tokens_per_second": 153.9, "joules_per_token": 2.1826, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 6.7203, "power_w": 553.2, "tokens_per_second": 1190.4, "joules_per_token": 0.4647, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 6.9352, "power_w": 817.7, "tokens_per_second": 1153.5, "joules_per_token": 0.7089, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 6.7203,
+      "decode_grid_b8_l8192_ms": 6.9352,
+      "runtime_source_sha256": "4ab5d6c94dc95c0e4739a4d74c317fc69f9016c867f3d8c1b89c3816636c255b"
+    },
+    {
+      "key": "dsv2_lite",
+      "name": "DeepSeek-V2-Lite",
+      "structure_plain": "K와 V를 압축한 MLA 잠재 표현과 일부 전문가만 여는 MoE",
+      "kv_capacity_bytes_per_token": 31104,
+      "closed_form_prediction_bytes_per_token": 31104,
+      "kv_measurement": "B200 직접 검산",
+      "continuous_replay": false,
+      "decode_measurement_date": "2026-09-09",
+      "decode_gpu_index": 0,
+      "decode_grid": [
+        {"batch": 1, "context_tokens": 2048, "step_ms": 3.5009, "power_w": 251.7, "tokens_per_second": 285.6, "joules_per_token": 0.8813, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 2048, "step_ms": 4.6275, "power_w": 465.7, "tokens_per_second": 1728.8, "joules_per_token": 0.2694, "decode_steps": 63},
+        {"batch": 32, "context_tokens": 2048, "step_ms": 4.8279, "power_w": 769.8, "tokens_per_second": 6628.1, "joules_per_token": 0.1161, "decode_steps": 63},
+        {"batch": 8, "context_tokens": 8192, "step_ms": 4.6912, "power_w": 837.9, "tokens_per_second": 1705.3, "joules_per_token": 0.4914, "decode_steps": 63}
+      ],
+      "decode_grid_b8_l2048_ms": 4.6275,
+      "decode_grid_b8_l8192_ms": 4.6912,
+      "runtime_source_sha256": "6e55c9fd720e6fcc0543e6b131e8abc6d6f405533d3010a7d1218b7669de0db9"
+    }
+  ],
+  "source_index": {
+    "capacity_summary_sha256": "f81d355c4664fb8c6322d4fb19178428de225e9c78e9df9754596a980d3cabec",
+    "note": "SHA-256 값은 보존 원자료가 나중에도 같은 파일인지 확인하는 파일 지문이다. 과학적 타당성 자체를 보증하지 않는다."
+  }
+}

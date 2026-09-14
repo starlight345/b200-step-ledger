@@ -110,6 +110,18 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
 .core-message{margin-bottom:10px;border:1px solid var(--tier);border-left-width:4px;border-radius:6px;background:linear-gradient(90deg,rgba(75,194,169,.10),rgba(75,194,169,.02));padding:13px 15px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline}
 .core-message .kind{grid-row:1/3;font:10.5px var(--mono);letter-spacing:.08em;color:var(--tier)}
 .core-message strong{font-size:17px}.core-message p{grid-column:2;margin:0;color:var(--muted);font-size:12.5px}
+.term-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0 0 10px}
+.term-item{border:1px solid var(--line2);border-radius:5px;background:rgba(36,44,55,.7);padding:8px 10px;font-size:11.5px;color:var(--muted)}
+.term-item b{display:block;color:var(--ink);font-size:12px;margin-bottom:1px}
+.evidence-intro{border-left:3px solid var(--ok);padding:7px 10px;margin:4px 0 10px;background:rgba(62,166,137,.07);font-size:12.5px;color:var(--muted)}
+.evidence-intro b{color:var(--ink)}
+.evidence-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.evidence-model{border:1px solid var(--line2);border-radius:5px;background:var(--surface2);padding:10px 11px;min-height:132px;transition:border-color .15s,box-shadow .15s,background .15s}
+.evidence-model.active{border-color:var(--ok);box-shadow:0 0 0 2px rgba(62,166,137,.2);background:rgba(62,166,137,.09)}
+.evidence-model .name{font-size:13px;font-weight:600;color:var(--ink)}
+.evidence-model .plain{font-size:11.5px;color:var(--muted);line-height:1.45;margin:4px 0 7px}
+.evidence-model .metric{font:11.5px/1.55 var(--mono);color:var(--ink)}
+.evidence-model .scope{display:inline-block;margin-top:6px;padding:1px 5px;border:1px solid var(--ok);border-radius:3px;font:9.5px var(--mono);color:var(--ok)}
 .pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:4px 0 10px}
 .pipe-node{background:var(--surface2);border:1px solid var(--line2);border-radius:5px;padding:9px 10px;font-size:12px;color:var(--muted)}
 .pipe-node b{display:block;color:var(--ink);font-size:12.5px;margin-bottom:2px}
@@ -134,7 +146,8 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
 .model-loader .loader-state.busy{color:var(--warn)}
 .model-loader .loader-state.error{color:var(--crit)}
 .model-loader.archive{border-color:var(--blue);background:rgba(117,167,239,.06)}
-@media (max-width:820px){.concept-grid,.timing-grid{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr}.pipe-arrow{justify-content:center;transform:rotate(90deg)}}
+@media (max-width:1000px){.evidence-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:820px){.concept-grid,.timing-grid,.term-strip,.evidence-grid{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr}.pipe-arrow{justify-content:center;transform:rotate(90deg)}}
 </style>
 
 <header>
@@ -187,6 +200,14 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
     <span class="kind">CORE QUESTION</span>
     <strong>고정된 3D SRAM을 KV에 쓸까, 가중치에 쓸까?</strong>
     <p>문맥 길이에 따라 더 나은 상주 정책이 달라진다. 상주 비율 → 실제 바이트 이동 → 직렬·완전 겹침 시간 경계까지 이어서 비교한다.</p>
+  </div>
+  <div class="term-strip" id="term-glossary" aria-label="핵심 용어 정의">
+    <div class="term-item"><b>가중치</b>학습이 끝난 뒤 크기가 고정된 모델 데이터</div>
+    <div class="term-item"><b>KV 캐시</b>이전 토큰을 다시 참고하려고 저장한 기억</div>
+    <div class="term-item"><b>3D SRAM</b>B200 실물이 아니라 GPU 가까이에 더한다고 놓은 고속 메모리</div>
+    <div class="term-item"><b>상주 비율</b>전체 데이터 중 특정 메모리에 놓인 바이트의 몫</div>
+    <div class="term-item"><b>스텝 트래픽</b>다음 토큰 하나를 만들 때 실제로 읽고 쓰는 바이트</div>
+    <div class="term-item"><b>대역폭</b>한 경로가 1초에 처리할 수 있는 바이트 양</div>
   </div>
   <div class="concept-grid">
     <div class="concept-card tier-card">
@@ -408,6 +429,23 @@ Mamba 같은 상태 공간 모델은 문맥이 길어져도 왜 메모리가 안
   </div>
 </section>
 
+<section class="panel" id="model-evidence">
+  <h2>⑥ 여덟 모델의 B200 증거 — 재생과 검산을 구분한다</h2>
+  <div class="evidence-intro"><b>라마만 실험한 것이 아니다.</b> 위에서 시간순으로 재생하는 8,190행 원본만 Llama-3.1-8B다. 아래 여덟 모델은 모두 B200에서 실제 vLLM 저장 블록을 읽어 KV 할당 바이트를 검산했다. ‘할당 바이트’는 메모리에 잡힌 용량이고, ‘스텝 트래픽’은 실행 중 실제로 오간 바이트라 서로 다른 측정이다.</div>
+  <p class="cap"><b>표 읽기.</b> B/토큰은 토큰 하나당 바이트, B=8은 동시에 처리한 요청 8개, L=2K는 입력 문맥 2,048토큰이다. <b>구조 용어.</b> GQA는 여러 어텐션 헤드가 K와 V를 공유하고, MHA는 각 헤드가 따로 갖는다. 슬라이딩 층은 최근 구간만, 전역 층은 문맥 전체를 본다. Mamba는 문맥 길이와 함께 커지지 않는 고정 상태를, MLA는 K와 V를 압축한 잠재 표현을 쓴다. MoE는 매 토큰에서 일부 전문가 가중치만 연다.</p>
+  <div class="evidence-grid">
+    <article class="evidence-model" data-model="llama31_8b"><div class="name">Llama-3.1-8B</div><div class="plain">32층 GQA · 여러 헤드가 KV 공유</div><div class="metric">KV 131,072 B/토큰<br>B=8,L=2K · 4.556 ms</div><span class="scope">연속 재생 + B200 KV 검산</span></article>
+    <article class="evidence-model" data-model="qwen3_8b"><div class="name">Qwen3-8B</div><div class="plain">36층 GQA · 여러 헤드가 KV 공유</div><div class="metric">KV 147,492 B/토큰<br>B=8,L=2K · 4.726 ms</div><span class="scope">B200 KV 검산 + 기준선</span></article>
+    <article class="evidence-model" data-model="mistral_7b"><div class="name">Mistral-7B</div><div class="plain">32층 GQA · 여러 헤드가 KV 공유</div><div class="metric">KV 131,072 B/토큰<br>B=8,L=2K · 4.583 ms</div><span class="scope">B200 KV 검산 + 기준선</span></article>
+    <article class="evidence-model" data-model="llama2_7b"><div class="name">Llama-2-7B</div><div class="plain">32층 MHA · 각 헤드가 K와 V를 따로 보유</div><div class="metric">KV 524,288 B/토큰<br>B=8,L=2K · 5.326 ms</div><span class="scope">B200 KV 검산 + 기준선</span></article>
+    <article class="evidence-model" data-model="granite_4h"><div class="name">granite-4.0-h-tiny</div><div class="plain">어텐션 4층 + Mamba 상태 36층</div><div class="metric">상태 29.03 MB/요청<br>스텝당 2.01~2.08회 이동</div><span class="scope">B200 트래픽 실측</span></article>
+    <article class="evidence-model" data-model="gemma3_27b"><div class="name">Gemma-3-27B</div><div class="plain">최근 구간 52층 + 전체 문맥 10층</div><div class="metric">긴 문맥 81,920 B/토큰<br>B=8,L=2K · 13.392 ms</div><span class="scope">B200 검산 + 기준선</span></article>
+    <article class="evidence-model" data-model="gptoss_120b"><div class="name">gpt-oss-120b</div><div class="plain">슬라이딩·전역 어텐션 + MoE</div><div class="metric">긴 문맥 36,864 B/토큰<br>B=8,L=2K · 6.720 ms</div><span class="scope">B200 검산 + 기준선</span></article>
+    <article class="evidence-model" data-model="dsv2_lite"><div class="name">DeepSeek-V2-Lite</div><div class="plain">압축한 MLA 잠재 표현 + MoE</div><div class="metric">KV 31,104 B/토큰<br>B=8,L=2K · 4.628 ms</div><span class="scope">B200 검산 + 기준선</span></article>
+  </div>
+  <p class="cap">시간 값은 같은 nb1 하네스로 보존한 디코드 기준선의 중앙값이다. 여덟 모델 모두 B=8·L=2K 공통점이 있고 첫 prefill 호출은 제외했다. 확장 격자는 gpt-oss만 B=32 셀이 이유 기록 없이 빠져 있으며, Llama-2 장문 조건은 L=3,584다. 전체 요약과 원자료 파일 지문은 <a href="assets/model_evidence.json">model_evidence.json</a>에 고정했다.</p>
+</section>
+
 </main>
 
 <script src="vendor/three.min.js"></script>
@@ -623,7 +661,7 @@ async function initReplay(){
     const viewTargets = {top:'#replaybar',concept:'.concept-grid',requests:'#request-life',scene:'#scene-wrap',chart:'#chart',timing:'#pipeline-explainer',controls:'#model-loader',answer:'#answer',model:'#model',prov:'#prov'};
     const target = viewTargets[query.get('view')];
     if (target) setTimeout(() => document.querySelector(target)?.scrollIntoView({block:'center'}), 80);
-    $('note').textContent = `B200 원본 ${R.data.source.rows.toLocaleString('en-US')}줄에서 만든 검증용 재생판이다. 원본 SHA-256 ${R.data.source.sha256.slice(0,12)}…`;
+    $('note').textContent = `B200 원본 ${R.data.source.rows.toLocaleString('en-US')}줄에서 만든 검증용 재생판이다. SHA-256 체크섬은 파일이 바뀌었는지 확인하는 디지털 지문이며, 원본 지문은 ${R.data.source.sha256.slice(0,12)}…다.`;
   }catch(error){
     setConn('B200 녹화 파일을 못 읽었다', 'crit');
     $('replay-caption').textContent = `assets/b200_replay.json을 읽지 못했다: ${error}`;
@@ -651,7 +689,7 @@ const HWS = {
   b200: {name:'NVIDIA B200 (데이터센터)', l2:132.6e6, sm:148, hbm:191.5e9, stk:8,
          mem:'HBM3E', stacked:true, memNote:'HBM3E 를 여덟 스택 쌓아 붙인다. 스택 수를 줄이면 용량과 대역폭이 함께 준다.',
          bw:6.51e12, c:1.58e-3, K:7.65,
-         note:'L2·SM·HBM 은 torch.cuda.get_device_properties 로 직접 읽었다(측정). 대역폭과 고정항은 mx17 28 셀 회귀 적합이다(유도). DCGM 으로 바이트를 직접 잰다.'},
+         note:'L2·SM·HBM 은 torch.cuda.get_device_properties 로 직접 읽었다(측정). 대역폭과 고정항은 mx17 28 셀 회귀 적합이다(유도). HBM 바이트는 DCGM DRAM_ACTIVE 를 known-byte 루프로 보정해 추정한다.'},
   ampere:{name:'NVIDIA RTX PRO 5000 Blackwell (워크스테이션)', l2:100663296, sm:110, hbm:50763268096, stk:1,
          mem:'GDDR7', stacked:false, memNote:'이 카드는 HBM 을 안 쓴다. GDDR7 을 384 비트 버스로 붙인다. 쌓는 물건이 아니라 스택이라는 개념이 없고, 그래서 스택 수 손잡이도 뜻이 없다.',
          bw:0.909e12, c:15.48e-3, K:null,
@@ -2018,7 +2056,16 @@ function renderProv(k){
   }
   html += mrows.map(([nm, v, c]) =>
     `<div><span class="b ${c.t}" title="${esc(c.s)}">${BADGE[c.t]}</span> ${esc(nm)} = ${esc(v)}</div>`).join('');
+  if (REPLAY_MODE && R.data?.source?.sha256){
+    html += `<div style="margin-top:7px;color:var(--muted)"><b style="color:var(--ink)">SHA-256 체크섬</b> = 파일 내용을 요약한 디지털 지문. <span class="mono">${esc(R.data.source.sha256.slice(0,16))}…</span><br>같은 지문은 파일이 보관 당시와 같다는 뜻이며, 수치의 과학적 타당성은 측정·유도·가정 배지로 따로 판단한다.</div>`;
+  }
   $('prov').innerHTML = html;
+}
+
+function renderEvidence(k){
+  document.querySelectorAll('.evidence-model').forEach(card => {
+    card.classList.toggle('active', card.dataset.model === k.mkey);
+  });
 }
 
 /* ===========================================================================
@@ -2235,7 +2282,7 @@ function onKnob(){
   syncReadouts();
   syncAssumptionButtons();
   const k = knobs(), m = model(k, S.n);
-  renderProv(k); renderMinfo(k, m); renderMismatch(k); renderLanes(k, m); renderTiming(k, m); drawChart(k, m); renderRunState();
+  renderProv(k); renderMinfo(k, m); renderMismatch(k); renderLanes(k, m); renderTiming(k, m); renderEvidence(k); drawChart(k, m); renderRunState();
 }
 function syncReadouts(){
   const k = knobs();
