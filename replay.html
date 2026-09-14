@@ -344,6 +344,12 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
         <button class="sm" data-pre="mla">잠재 한 벌 · DeepSeek-V2-Lite 대 Llama</button>
         <span style="flex-basis:100%" id="pre-read">「검산」은 이 판이 기존 원장과 같은 값을 내는지 보는 자리다. 배치 32, 문맥 8,192에서 물리 HBM 기준선이 9.18 ms로 기존 원장과 같아야 한다.</span>
       </div>
+      <div class="speedbar" style="margin:0 0 10px" aria-label="가상 메모리 계층 포함 여부">
+        <span>가상 계층 비교</span>
+        <button class="sm" id="toggle-tier" aria-pressed="true">3D SRAM 포함</button>
+        <button class="sm" id="toggle-hbf" aria-pressed="true">HBF 포함</button>
+        <span id="assumption-toggle-read">둘 다 실제 실장 변경이 아니라 설계 가정을 켜고 끄는 단추다.</span>
+      </div>
       <div class="field" style="border-top:0">
         <label for="q">질문 (한 줄에 하나)</label>
         <textarea id="q" rows="6" spellcheck="false" style="width:100%;font:inherit;font-size:12.5px;line-height:1.55;color:var(--ink);background:var(--surface2);border:1px solid var(--line2);border-radius:4px;padding:7px 9px;resize:vertical">트랜스포머의 KV 캐시는 왜 문맥이 길어질수록 커지나요? 블록 풀이 다 차면 무슨 일이 벌어지나요?
@@ -818,6 +824,17 @@ function knobs(){
     policy: $('policy').value,
     rule: $('rule').value,
   };
+}
+
+function syncAssumptionButtons(){
+  const tier = $('tierC'), hbf = $('hbfStk'), tierButton = $('toggle-tier'), hbfButton = $('toggle-hbf');
+  if (!tier || !hbf || !tierButton || !hbfButton) return;
+  const tierOn = +tier.value > 0, hbfOn = +hbf.value > 0;
+  tierButton.setAttribute('aria-pressed', tierOn ? 'true' : 'false');
+  hbfButton.setAttribute('aria-pressed', hbfOn ? 'true' : 'false');
+  tierButton.textContent = tierOn ? `3D SRAM 포함 · ${tier.value} MB` : '3D SRAM 제외 · 다시 넣기';
+  hbfButton.textContent = hbfOn ? `HBF 포함 · ${hbf.value}스택` : 'HBF 제외 · 다시 넣기';
+  $('assumption-toggle-read').textContent = `현재 가정: 3D SRAM ${tierOn ? '포함' : '제외'} · HBF ${hbfOn ? '포함' : '제외'}. 실제 GPU 부품을 바꾸는 것은 아니다.`;
 }
 
 /* ---------- 상주 계산. 여기가 이 판의 알맹이다. ---------- */
@@ -2176,6 +2193,7 @@ function selfStep(k, m, dt){
    =========================================================================== */
 function onKnob(){
   syncReadouts();
+  syncAssumptionButtons();
   const k = knobs(), m = model(k, S.n);
   renderProv(k); renderMinfo(k, m); renderMismatch(k); renderLanes(k, m); renderTiming(k, m); drawChart(k, m); renderRunState();
 }
@@ -2290,6 +2308,14 @@ function frame(now){
   for (const id of ['cmp','B','L','T','stacks','tierC','tierBW','hbfStk','hbfDie','hbfPer','hbfGrade','hbfBuf','hbfLat','hbfWriteRatio','hbfPage','policy','rule']){
     $(id).addEventListener('input', onKnob);
     $(id).addEventListener('change', onKnob);
+  }
+  for (const [buttonId, inputId, fallback] of [['toggle-tier','tierC','640'],['toggle-hbf','hbfStk','4']]){
+    $(buttonId).addEventListener('click', () => {
+      const input = $(inputId);
+      if (+input.value > 0){ input.dataset.lastNonzero = input.value; input.value = '0'; }
+      else input.value = input.dataset.lastNonzero || fallback;
+      onKnob();
+    });
   }
   // 속도는 이어진 손잡이로 고른다. 단추는 자주 쓰는 자리로 건너뛰는 지름길이다.
   // 값은 10의 거듭제곱으로 읽는다(0 → ×1, 4.7 → ×50,000). 배속이 천 배를 넘나들어서 눈금을 고르게 두면 못 고른다.
