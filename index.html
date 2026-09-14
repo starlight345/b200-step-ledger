@@ -27,7 +27,7 @@
         <p class="lead">가중치와 KV 캐시가 어디에 살고, 한 디코드 스텝에 몇 바이트가 움직이며, 고정된 3D SRAM의 몫이 왜 줄어드는지를 실제 B200 기록과 구조식으로 함께 읽는 원장입니다.</p>
         <div class="actions">
           <a class="button primary" href="replay.html">인터랙티브 녹화 열기 →</a>
-          <a class="button" href="#film">약 2분 42초 설명 영상</a>
+          <a class="button" href="#film">약 4분 7초 설명 영상</a>
           <a class="button" href="http://143.248.153.128:8788/ledger3d.html">암페어 라이브 판</a>
         </div>
         <p class="live-warning">암페어 링크는 연구실 네트워크에서만 열릴 수 있습니다. 정적 재생판은 B200 반납 뒤에도 남습니다.</p>
@@ -46,14 +46,14 @@
     </section>
 
     <section id="film">
-      <div class="section-head"><h2>실행을 먼저 보고,<br>숫자를 나중에 읽습니다.</h2><p>영상은 공개 녹화 재생판을 실제로 조작하며 ① 토큰 생성, ② n의 초기화, ③ 계층 몫 감소, ④ 여덟 모델의 구조 비교 순서로 설명합니다.</p></div>
+      <div class="section-head"><h2>핵심을 먼저 잡고,<br>실행을 천천히 따라갑니다.</h2><p>실제 재생판을 4×에서 1×·¼×로 낮추고, 3D 뷰를 돌리고 확대하며, 요청 경계와 상주 비율을 서로 다른 화면에서 설명합니다.</p></div>
       <div class="media">
-        <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png">
-          <source src="assets/b200_walkthrough.mp4?v=b63457be" type="video/mp4">
-          <track src="assets/b200_walkthrough.ko.vtt?v=62df4bb0" kind="subtitles" srclang="ko" label="한국어 해설">
+        <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png?v=4830d86c">
+          <source src="assets/b200_walkthrough.mp4?v=a433e512" type="video/mp4">
+          <track src="assets/b200_walkthrough.ko.vtt?v=b46401a2" kind="subtitles" srclang="ko" label="한국어 해설" default>
           이 브라우저는 MP4 영상을 재생하지 못합니다. 인터랙티브 녹화판을 이용해 주세요.
         </video>
-        <div class="media-note">한국어 음성 해설을 넣었고, 플레이어의 자막 메뉴에서 같은 내용을 한국어 자막으로 켤 수 있습니다. 수치 검증에는 아래 체크섬이 붙은 JSONL 원본과 인터랙티브 재생본을 사용합니다.</div>
+        <div class="media-note">한국어 음성은 문장 사이 여백을 두고 느리게 다시 녹음했으며, 한국어 자막이 기본으로 켜집니다. 마지막 문장이 끝나면 영상도 바로 끝납니다. 수치 검증에는 아래 체크섬이 붙은 JSONL 원본과 인터랙티브 재생본을 사용합니다.</div>
       </div>
     </section>
 
@@ -62,23 +62,26 @@
       <div class="concepts">
         <article class="card tier"><span class="num">01 / PLACE</span><h3>메모리 계층</h3><p>L2, 가상 3D SRAM, HBM/GDDR7, HBF처럼 데이터가 <strong>어디에 머무는가</strong>를 말합니다.</p></article>
         <article class="card layer"><span class="num">02 / ORDER</span><h3>모델 층</h3><p>Transformer 층을 같은 GPU가 차례로 계산하는 <strong>시간 순서</strong>입니다. 칩을 32장 쌓았다는 뜻이 아닙니다.</p></article>
-        <article class="card step"><span class="num">03 / ITERATION</span><h3>디코드 스텝 n</h3><p>활성 요청마다 다음 토큰 하나를 만드는 반복입니다. 답이 끝나면 새 요청의 n=0으로 돌아갑니다.</p></article>
+        <article class="card step"><span class="num">03 / ITERATION</span><h3>디코드 스텝 n</h3><p>한 답에서 지금까지 생성된 토큰 수입니다. 새 요청의 내부값은 0이지만, 0.2초 간격 녹화의 첫 실측값은 이미 34·64일 수 있습니다.</p></article>
       </div>
     </section>
 
     <section id="behavior">
-      <div class="section-head"><h2>왜 올라갔다 떨어지고,<br>29%가 27%가 됩니까?</h2><p>두 변화는 같은 원인이 아닙니다. 하나는 요청의 생애주기이고, 다른 하나는 고정 용량을 커지는 KV 전체로 나눈 비율입니다.</p></div>
+      <div class="section-head"><h2>핵심은 29→27이 아니라<br>고정 공간을 어디에 쓰느냐입니다.</h2><p>요청의 생애주기와 메모리 상주 비율을 서로 다른 축으로 봅니다. 한 예시 수치보다, 문맥이 길어질 때 KV와 가중치 중 무엇을 3D SRAM에 둘지가 연구 질문입니다.</p></div>
       <div class="explain">
-        <article class="note"><h3>n의 톱니: 답이 바뀌는 경계</h3><p>한 답을 쓰는 동안 n은 증가합니다. EOS 또는 max_tokens에 닿으면 그 답은 끝나고, 반복 모드에서는 다음 질문을 시작하므로 n이 0으로 돌아갑니다. 멈춤을 누르면 실제 생성 요청도 중단되므로 다시 실행하기 전까지 늘지 않습니다.</p></article>
+        <article class="note"><h3>n의 반복: 논리적 0과 첫 실측점</h3><p>한 답을 쓰는 동안 n은 증가합니다. EOS 또는 max_tokens에 닿으면 새 요청의 내부 n은 0으로 초기화됩니다. 다만 녹화는 약 0.2초 간격이라 그 순간을 건너뛰고 34나 64를 첫 점으로 잡을 수 있습니다. 빈 0과 채운 실측점을 나눠 표시해야 정직합니다.</p></article>
         <figure class="plot">
-          <svg viewBox="0 0 520 190" role="img" aria-label="답마다 n이 증가하다 0으로 돌아가는 톱니 그래프">
+          <svg viewBox="0 0 520 190" role="img" aria-label="답마다 n이 증가한 뒤 논리적으로 0에서 새 요청이 시작되지만 첫 실측은 64일 수 있는 그래프">
             <path d="M42 150H496M42 22V150" stroke="#526172" fill="none"/>
-            <path d="M42 150L176 32L176 150L310 32L310 150L444 32" stroke="#75a7ef" stroke-width="4" fill="none"/>
-            <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="12" y="28">256</text><text x="25" y="154">0</text><text x="150" y="174">답 1</text><text x="284" y="174">답 2</text><text x="418" y="174">답 3</text></g>
+            <path d="M42 150L176 32M205 120L310 32M339 120L444 32" stroke="#75a7ef" stroke-width="4" fill="none"/>
+            <path d="M176 32V150M310 32V150" stroke="#9cabbc" stroke-dasharray="4 5" fill="none"/>
+            <g fill="#11161d" stroke="#52c6ad" stroke-width="3"><circle cx="176" cy="150" r="5"/><circle cx="310" cy="150" r="5"/></g>
+            <g fill="#75a7ef"><circle cx="205" cy="120" r="5"/><circle cx="339" cy="120" r="5"/></g>
+            <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="12" y="28">256</text><text x="25" y="154">0</text><text x="183" y="113">첫 실측 64</text><text x="150" y="174">답 1</text><text x="284" y="174">답 2</text><text x="418" y="174">답 3</text></g>
           </svg>
-          <figcaption>각 상승선은 한 답입니다. 수직 하강은 속도 저하가 아니라 다음 답으로 넘어간 사건입니다.</figcaption>
+          <figcaption>빈 원은 새 요청의 논리적 n=0, 채운 원은 녹화가 실제로 잡은 첫 표본입니다. 둘 사이 값을 측정했다고 주장하지 않습니다.</figcaption>
         </figure>
-        <article class="note"><h3>계층 몫의 하락: 분모가 커짐</h3><p>가상 3D SRAM은 640 MB로 고정돼 있지만 생성 토큰이 쌓일수록 KV 캐시 전체는 커집니다. 따라서 <code>640 MB ÷ 전체 KV</code>가 작아집니다. 이것은 계층이 사라지는 것이 아니라, 같은 계층이 담을 수 있는 <strong>비율</strong>이 줄어드는 현상입니다.</p></article>
+        <article class="note"><h3>29.8→26.5%: 결론이 아니라 예시</h3><p>가상 3D SRAM은 640 MB로 고정돼 있지만 생성 토큰이 쌓일수록 KV 캐시 전체는 커집니다. 따라서 <code>640 MB ÷ 전체 KV</code>가 작아집니다. 이 3.3%p 하락은 방향을 보여 주는 예시입니다. 중요한 것은 더 긴 문맥에서 이 비율이 계속 내려가 <strong>가중치를 올리는 고정 몫과 어디서 교차하는가</strong>입니다.</p></article>
         <figure class="plot">
           <svg viewBox="0 0 520 190" role="img" aria-label="생성 토큰 증가에 따라 3D SRAM의 KV 몫이 29.8%에서 26.5%로 감소하는 그래프">
             <path d="M42 150H496M42 22V150" stroke="#526172" fill="none"/>
@@ -87,7 +90,7 @@
             <g fill="#edf2f7" font-family="monospace" font-size="13"><text x="55" y="31">29.8%</text><text x="432" y="124">26.5%</text></g>
             <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="48" y="174">n=0</text><text x="438" y="174">n=256</text></g>
           </svg>
-          <figcaption>배치 8 · 문맥 2,048 · 계층 640 MB의 구조식 예시입니다. 인터랙티브 판에서 긴 답 구간도 재생할 수 있습니다.</figcaption>
+          <figcaption>배치 8 · 문맥 2,048 · 계층 640 MB의 구조식 예시입니다. 연구 결론은 이 숫자 하나가 아니라 문맥 길이에 따른 배치 정책과 실제 트래픽·시간의 변화입니다.</figcaption>
         </figure>
       </div>
     </section>

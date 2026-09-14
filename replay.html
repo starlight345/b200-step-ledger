@@ -73,6 +73,12 @@ body.replay-mode #live-model{pointer-events:none;opacity:.55}
 .lane-foot span b{color:var(--ink);font-weight:500;font-family:var(--mono)}
 /* 3. 스텝 축 */
 #chart{width:100%;height:312px;display:block}
+.request-life{border:1px solid var(--line2);border-radius:6px;background:var(--surface2);padding:10px 12px 8px}
+.request-life-head{display:flex;justify-content:space-between;gap:16px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.request-life-head strong{font-size:13.5px}.request-life-head span{font-size:11.5px;color:var(--muted)}
+#request-chart{display:block;width:100%;height:208px}
+.request-boundary{margin-top:5px;border-left:3px solid var(--hbm);padding:6px 9px;background:rgba(117,167,239,.07);font-size:12px;color:var(--muted)}
+.request-boundary b{color:var(--ink);font-weight:600}
 /* 4. 손잡이 */
 .grid4{display:grid;grid-template-columns:minmax(300px,1.05fr) minmax(320px,1fr);gap:14px}
 @media (max-width:980px){.grid4{grid-template-columns:1fr}}
@@ -100,6 +106,9 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
 .concept-card.tier-card{border-color:var(--tier)}
 .concept-card.layer-card{border-color:var(--warn)}
 .concept-card.step-card{border-color:var(--hbm)}
+.core-message{margin-bottom:10px;border:1px solid var(--tier);border-left-width:4px;border-radius:6px;background:linear-gradient(90deg,rgba(75,194,169,.10),rgba(75,194,169,.02));padding:13px 15px;display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:baseline}
+.core-message .kind{grid-row:1/3;font:10.5px var(--mono);letter-spacing:.08em;color:var(--tier)}
+.core-message strong{font-size:17px}.core-message p{grid-column:2;margin:0;color:var(--muted);font-size:12.5px}
 .pipeline{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:4px 0 10px}
 .pipe-node{background:var(--surface2);border:1px solid var(--line2);border-radius:5px;padding:9px 10px;font-size:12px;color:var(--muted)}
 .pipe-node b{display:block;color:var(--ink);font-size:12.5px;margin-bottom:2px}
@@ -172,6 +181,11 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
 <!-- ⓪ 세 개념을 먼저 분리한다 -->
 <section class="panel">
   <h2>먼저 구분할 세 가지</h2>
+  <div class="core-message" id="core-message">
+    <span class="kind">CORE QUESTION</span>
+    <strong>고정된 3D SRAM을 KV에 쓸까, 가중치에 쓸까?</strong>
+    <p>문맥 길이에 따라 더 나은 상주 정책이 달라진다. 상주 비율 → 실제 바이트 이동 → 직렬·완전 겹침 시간 경계까지 이어서 비교한다.</p>
+  </div>
   <div class="concept-grid">
     <div class="concept-card tier-card">
       <span class="kind">MEMORY TIER · 장소</span>
@@ -186,10 +200,24 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
     <div class="concept-card step-card">
       <span class="kind">DECODE STEP · 다음 토큰</span>
       <strong>디코드 스텝 n</strong>
-      <p>활성 요청마다 다음 토큰 하나를 만드는 엔진 반복이다. 화면의 n은 <b>요청 0번의 현재 답 토큰 수</b>이고, 반복 실행에서는 답이 끝날 때 0으로 돌아간다.</p>
+      <p>활성 요청마다 다음 토큰 하나를 만드는 엔진 반복이다. 화면의 n은 <b>한 답에서 지금까지 생성된 토큰 수</b>다. 요청 경계에서 내부값은 0이지만 녹화의 첫 표본은 이미 34·64일 수 있다.</p>
     </div>
   </div>
   <p class="cap" id="concept-run">실행 상태를 기다리는 중이다.</p>
+</section>
+
+<!-- ⓪-1 요청의 시간축: 상주 비율의 n축과 분리한다 -->
+<section class="panel" id="request-life">
+  <h2>요청 시간축 · 내부 0과 첫 실측점을 구분한다</h2>
+  <div class="request-life">
+    <div class="request-life-head">
+      <strong>최근 14초 동안 답마다 생성된 토큰 n</strong>
+      <span>파란 선 = 실측 표본 · 빈 0 = 요청 경계의 논리 상태</span>
+    </div>
+    <canvas id="request-chart" role="img" aria-label="시간에 따른 요청별 생성 토큰 수와 요청 경계"></canvas>
+    <div class="request-boundary" id="request-boundary"><b>녹화 재생을 기다리는 중</b> · 요청이 바뀌면 내부 n=0과 첫 실측 n을 따로 표시한다.</div>
+  </div>
+  <p class="cap"><b>빈 0은 실측값을 꾸민 점이 아니다.</b> 엔진이 새 요청을 시작하며 n을 0으로 초기화한다는 논리적 경계다. 이 원본은 약 0.2초마다 표집했으므로 그 사이 B200이 토큰을 만들면 다음 채운 점은 34나 64에서 시작할 수 있다. 아래 ③의 가로축은 이 시간축이 아니라 <b>현재 답 하나 안의 n</b>이다.</p>
 </section>
 
 <!-- ① 3D 장면 -->
@@ -389,15 +417,84 @@ const REPLAY_MODE = true;
 const R = {
   data:null, chapter:0, frame:0, timer:null, playing:false, speed:1,
   answerId:null, answerText:'', question:'', hw:null,
+  elapsed:0, timeline:[], timelineAnswerId:null, boundary:null,
 };
 
 function replayResetVisualState(){
   clearTimeout(R.timer); R.timer = null; R.playing = false;
   R.answerId = null; R.answerText = ''; R.question = '';
+  R.elapsed = 0; R.timeline.length = 0; R.timelineAnswerId = null; R.boundary = null;
   S.n = 0; S.ansN = 0; S.answers = 0; S.preempt = null;
   S.dots.length = 0; S.marksPre.length = 0; S.marksEnd.length = 0;
   ansText = ''; $('answer').textContent = '녹화의 첫 토큰을 기다리는 중이다.';
   $('replay-toggle').textContent = '▶ 재생';
+  drawRequestTimeline();
+}
+
+function replayTrackRequest(frame){
+  const a = frame.answer;
+  if (!a) return;
+  const n = Number(a.n) || 0;
+  const isBoundary = !!a.reset || R.timelineAnswerId !== a.id;
+  if (isBoundary){
+    R.timelineAnswerId = a.id;
+    R.boundary = {t:R.elapsed, id:a.id, observed:n};
+  }
+  const previous = R.timeline[R.timeline.length - 1];
+  if (!previous || previous.t !== R.elapsed || previous.n !== n || previous.id !== a.id){
+    R.timeline.push({t:R.elapsed, n, id:a.id, boundary:isBoundary});
+  }
+}
+
+function drawRequestTimeline(){
+  const cv = $('request-chart'), note = $('request-boundary');
+  if (!cv || !note) return;
+  const dpr = Math.min(devicePixelRatio || 1, 2), W = cv.clientWidth, H = cv.clientHeight;
+  if (!(W > 0 && H > 0)) return;
+  if (cv.width !== Math.round(W*dpr) || cv.height !== Math.round(H*dpr)){
+    cv.width = Math.round(W*dpr); cv.height = Math.round(H*dpr);
+  }
+  const g = cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0); g.clearRect(0,0,W,H);
+  const cs = getComputedStyle(document.documentElement), col = n => cs.getPropertyValue(n).trim();
+  const ink = col('--ink'), muted = col('--muted'), line = col('--line'), blue = col('--hbm'), tier = col('--tier');
+  const ml=48, mr=18, mt=14, mb=35, x0=ml, x1=W-mr, y0=mt, y1=H-mb;
+  const t1 = Math.max(14, R.elapsed || 0), t0 = Math.max(0, t1 - 14);
+  const chapter = R.data && R.data.chapters ? R.data.chapters[R.chapter] : null;
+  const runT = chapter && chapter.frames[R.frame] && chapter.frames[R.frame].run ? Number(chapter.frames[R.frame].run[3]) || 256 : 256;
+  const visible = R.timeline.filter(p => p.t >= t0 - .001 && p.t <= t1 + .001);
+  const yMax = Math.max(64, Math.min(2048, runT), ...visible.map(p=>p.n));
+  const X = t => x0 + (x1-x0) * Math.max(0,Math.min(1,(t-t0)/Math.max(.001,t1-t0)));
+  const Y = n => y1 - (y1-y0) * Math.max(0,Math.min(1,n/yMax));
+  g.font='11px "IBM Plex Mono", monospace'; g.strokeStyle=line; g.fillStyle=muted; g.lineWidth=1;
+  for (let i=0;i<=4;i++){
+    const y=Y(yMax*i/4); g.beginPath(); g.moveTo(x0,y); g.lineTo(x1,y); g.stroke();
+    g.fillText(String(Math.round(yMax*i/4)), 4, y+4);
+  }
+  for (let i=0;i<=4;i++){
+    const t=t0+(t1-t0)*i/4, x=X(t); g.fillText(`${t.toFixed(1)}s`, Math.min(x-12,x1-28), y1+17);
+  }
+  g.fillText('녹화 시간', Math.max(x0,x1-62), y1+31);
+  let lastId = null;
+  for (const p of visible){
+    if (p.boundary){
+      const x=X(p.t);
+      g.save(); g.setLineDash([3,4]); g.strokeStyle=muted; g.beginPath(); g.moveTo(x,y0); g.lineTo(x,y1); g.stroke(); g.restore();
+      g.fillStyle=col('--surface2'); g.strokeStyle=tier; g.lineWidth=2; g.beginPath(); g.arc(x,Y(0),4,0,Math.PI*2); g.fill(); g.stroke();
+      lastId=null;
+    }
+    if (lastId !== null && lastId !== p.id) lastId=null;
+    if (lastId === p.id){ g.strokeStyle=blue; g.lineWidth=2.2; g.lineTo(X(p.t),Y(p.n)); g.stroke(); }
+    g.beginPath(); g.moveTo(X(p.t),Y(p.n)); lastId=p.id;
+  }
+  for (const p of visible){
+    g.fillStyle=blue; g.beginPath(); g.arc(X(p.t),Y(p.n),p.boundary?3.6:2.2,0,Math.PI*2); g.fill();
+  }
+  if (R.boundary){
+    const b=R.boundary;
+    note.innerHTML = b.observed === 0
+      ? `<b>요청 ${b.id} 시작 · n=0도 실측됨</b> · 이번에는 표집 시각이 초기화 순간과 맞았다.`
+      : `<b>요청 ${b.id} 시작 · 내부 n=0 → 첫 실측 n=${fN(b.observed)}</b> · 두 점 사이를 측정한 것이 아니라, 약 0.2초 표집 사이에 ${fN(b.observed)}토큰이 먼저 생성됐다.`;
+  } else note.innerHTML = '<b>녹화 재생을 기다리는 중</b> · 요청이 바뀌면 내부 n=0과 첫 실측 n을 따로 표시한다.';
 }
 
 function replayEvent(frame){
@@ -432,17 +529,20 @@ function replayApply(index){
   if (!chapter) return;
   R.frame = Math.max(0, Math.min(chapter.frames.length - 1, index));
   const frame = chapter.frames[R.frame];
+  R.elapsed += frame.dt || 0;
+  replayTrackRequest(frame);
   onEvent(replayEvent(frame));
+  drawRequestTimeline();
   setConn('B200 실측 녹화 재생 · 라이브 추론 아님', 'ok');
   $('replay-seek').value = String(R.frame);
-  const elapsed = chapter.frames.slice(0, R.frame + 1).reduce((sum, item) => sum + (item.dt || 0), 0);
-  $('replay-time').textContent = `${elapsed.toFixed(1)} / ${chapter.sourceDuration.toFixed(1)} s · 표본 ${R.frame + 1}/${chapter.frames.length}`;
+  $('replay-time').textContent = `${R.elapsed.toFixed(1)} / ${chapter.sourceDuration.toFixed(1)} s · 표본 ${R.frame + 1}/${chapter.frames.length}`;
 }
 
 function replayPause(){
   clearTimeout(R.timer); R.timer = null; R.playing = false;
   $('replay-toggle').textContent = '▶ 재생';
   if (R.data) setConn('B200 실측 녹화 일시정지 · 라이브 추론 아님', 'warn');
+  renderRunState();
 }
 
 function replaySchedule(){
@@ -458,6 +558,7 @@ function replayPlay(){
   const chapter = R.data.chapters[R.chapter];
   if (R.frame >= chapter.frames.length - 1) replayLoadChapter(R.chapter, false);
   R.playing = true; $('replay-toggle').textContent = 'Ⅱ 일시정지'; replaySchedule();
+  renderRunState();
 }
 
 function replaySeek(index){
@@ -506,7 +607,7 @@ async function initReplay(){
       $('model').value = requestedModel;
       $('model').dispatchEvent(new Event('change', {bubbles:true}));
     }
-    const viewTargets = {top:'#replaybar',concept:'.concept-grid',scene:'#scene-wrap',chart:'#chart',answer:'#answer',model:'#model',prov:'#prov'};
+    const viewTargets = {top:'#replaybar',concept:'.concept-grid',requests:'#request-life',scene:'#scene-wrap',chart:'#chart',answer:'#answer',model:'#model',prov:'#prov'};
     const target = viewTargets[query.get('view')];
     if (target) setTimeout(() => document.querySelector(target)?.scrollIntoView({block:'center'}), 80);
     $('note').textContent = `B200 원본 ${R.data.source.rows.toLocaleString('en-US')}줄에서 만든 검증용 재생판이다. 원본 SHA-256 ${R.data.source.sha256.slice(0,12)}…`;
@@ -966,6 +1067,13 @@ function renderRunState(){
   const el = $('run-state'), concept = $('concept-run');
   if (!el || !concept) return;
   const nextOnce = $('once').checked;
+  if (REPLAY_MODE){
+    const a = R.data?.chapters?.[R.chapter]?.frames?.[R.frame]?.answer;
+    const observed = a ? Number(a.n) || 0 : 0;
+    el.innerHTML = `<b>B200 녹화 ${R.playing ? '재생 중' : '일시정지'}</b> · 화면의 n=${fN(observed)}은 약 0.2초 간격으로 저장된 실측 표본이다. 새 요청의 내부 n=0은 위 요청 시간축에서 별도로 표시한다.`;
+    concept.innerHTML = `이 화면은 라이브 추론이 아니라 <b>B200 실측 녹화 재생</b>이다. 내부 초기화 0과 녹화가 처음 잡은 ${fN(observed)}을 같은 값처럼 취급하지 않는다.`;
+    return;
+  }
   if (S.modelSwitch && S.modelSwitch.busy){
     const target = (S.modelSwitch.models || []).find(x => x.key === S.modelSwitch.target_key);
     el.innerHTML = `<b style="color:var(--warn)">실제 모델 교체 중</b> · ${esc(target ? target.name : S.modelSwitch.target_key || '')} 가중치를 GPU에 올리는 동안 토큰 생성은 멈춘다.`;
@@ -1167,7 +1275,7 @@ function drawChart(k, m){
     const n = Math.round(S.nMax*i/4), x = X(n);
     g.fillText(fN(n), Math.min(x - 10, x1 - 26), y1 + 15);
   }
-  g.fillText('현재 답 토큰 n (요청 0번 · 새 답마다 0으로 초기화)', x0 + 40, y1 + 27);
+  g.fillText('현재 답 하나의 토큰 n (요청 경계의 0은 위 시간축에서 분리)', x0 + 40, y1 + 27);
 
   const NS = 220, upto = Math.max(0.0001, S.n);
   const xs = [], sh = [];
