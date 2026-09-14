@@ -28,7 +28,7 @@
         <p class="lead">가중치와 KV 캐시가 어디에 살고, 한 디코드 스텝에 몇 바이트가 움직이며, 고정된 3D SRAM의 몫이 왜 줄어드는지를 실제 B200 기록과 구조식으로 함께 읽는 원장입니다.</p>
         <div class="actions">
           <a class="button primary" href="replay.html">인터랙티브 녹화 열기 →</a>
-          <a class="button" href="#film">약 3분 31초 설명 영상</a>
+          <a class="button" href="#film">약 5분 28초 설명 영상</a>
           <a class="button" href="http://143.248.153.128:8788/ledger3d.html">암페어 라이브 판</a>
         </div>
         <p class="live-warning">암페어 링크는 연구실 네트워크에서만 열릴 수 있습니다. 정적 재생판은 B200 반납 뒤에도 남습니다.</p>
@@ -47,11 +47,11 @@
     </section>
 
     <section id="film">
-      <div class="section-head"><h2>핵심을 먼저 잡고,<br>실행을 천천히 따라갑니다.</h2><p>실제 재생판을 4×에서 1×·¼×로 낮추고, 3D 뷰를 돌리고 확대하며, 요청 경계와 상주 비율을 서로 다른 화면에서 설명합니다.</p></div>
+      <div class="section-head"><h2>핵심을 먼저 잡고,<br>실행과 설계 판단을 따라갑니다.</h2><p>실제 B200 재생을 4×에서 1×·¼×로 낮추고, 요청 경계와 상주 비율, 직렬·완전 겹침의 시간 경계, 모델 맞추기와 3D SRAM·HBF 포함 여부를 차례로 보여 줍니다.</p></div>
       <div class="media">
-        <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png?v=8d74b0ca">
-          <source src="assets/b200_walkthrough.mp4?v=662a7240" type="video/mp4">
-          <track src="assets/b200_walkthrough.ko.vtt?v=d25fee40" kind="subtitles" srclang="ko" label="한국어 해설" default>
+        <video controls preload="metadata" poster="assets/b200_walkthrough_poster.png?v=37153ef2">
+          <source src="assets/b200_walkthrough.mp4?v=c51f19fc" type="video/mp4">
+          <track src="assets/b200_walkthrough.ko.vtt?v=0f93a28a" kind="subtitles" srclang="ko" label="한국어 해설" default>
           이 브라우저는 MP4 영상을 재생하지 못합니다. 인터랙티브 녹화판을 이용해 주세요.
         </video>
         <div class="media-note">한국어 음성은 일반 말하기 속도에 가깝게 다시 녹음했고, 한국어 자막이 기본으로 켜집니다. 마지막 문장이 끝나면 영상도 바로 끝납니다. 수치 검증에는 아래 체크섬이 붙은 JSONL 원본과 인터랙티브 재생본을 사용합니다.</div>
@@ -94,7 +94,7 @@
           <figcaption>배치 8 · 문맥 2,048 · 계층 640 MB의 구조식 예시입니다. 이 비율 자체로 어느 정책이 더 빠른지는 결정하지 않습니다. 실제로 우회되는 바이트와 경로 시간을 이어서 계산해야 합니다.</figcaption>
         </figure>
         <article class="note"><h3>가중치 3.98%: 움직이지 않는 용량 기준선</h3><p>가중치는 답이 길어져도 전체 크기가 변하지 않습니다. 예를 들어 16.1 GB 가중치 중 640 MB를 3D SRAM에 두면 <code>640 MB ÷ 16.1 GB ≈ 3.98%</code>가 계속 유지됩니다. 반면 KV의 비율은 답이 길어질수록 내려갑니다. 두 선의 교차는 저장 비율의 교차일 뿐, 가중치 정책이 더 빠르다는 결론이 아닙니다.</p></article>
-        <article class="note"><h3>직렬 합과 완전 겹침: 시간의 상·하한</h3><p>한 데이터 조각은 HBF → HBM → 연산처럼 순서대로 가야 합니다. 그러나 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비할 수 있습니다. 조각이 계속 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보입니다. 세 단계가 각각 4 ms·1 ms·2 ms라면 파이프라이닝이 없는 시간 상한은 7 ms, 파이프라인이 충분히 찬 정상상태의 시간 하한은 병목 단계인 4 ms에 가깝습니다. 실제 위치는 독립 작업 수·버퍼·의존성·공유 포트에 따라 정해지며, 구현이 정해지면 측정할 수 있습니다.</p></article>
+        <article class="note"><h3>직렬 합과 완전 겹침: 시간의 상·하한</h3><p>한 데이터 조각은 HBF → HBM → 연산처럼 순서대로 가야 합니다. 그러나 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비할 수 있습니다. 조각이 계속 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보입니다. 세 단계가 각각 4 ms·1 ms·2 ms라면 첫 조각은 7 ms가 걸립니다. 파이프라이닝이 없는 시간 상한도 7 ms입니다. 파이프라인이 충분히 차면 첫 조각의 지연이 사라지는 게 아니라, 이후 조각이 완성되는 간격이 병목 단계인 4 ms에 가까워집니다. 이것이 정상상태의 시간 하한입니다. 실제 위치는 독립 작업 수·버퍼·의존성·공유 포트에 따라 정해지며, 구현이 정해지면 측정할 수 있습니다.</p></article>
       </div>
     </section>
 

@@ -133,6 +133,7 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
 .model-loader .loader-state{font-size:11.5px;color:var(--muted);line-height:1.55;margin-top:7px}
 .model-loader .loader-state.busy{color:var(--warn)}
 .model-loader .loader-state.error{color:var(--crit)}
+.model-loader.archive{border-color:var(--blue);background:rgba(117,167,239,.06)}
 @media (max-width:820px){.concept-grid,.timing-grid{grid-template-columns:1fr}.pipeline{grid-template-columns:1fr}.pipe-arrow{justify-content:center;transform:rotate(90deg)}}
 </style>
 
@@ -304,7 +305,7 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
     <div class="pipe-arrow">→</div>
     <div class="pipe-node"><b>4. 예상 시간 범위</b>완전 겹침은 빠른 쪽 하한, 직렬 합은 느린 쪽 상한</div>
   </div>
-  <div class="warnbox"><b>여기서 겹침은 데이터를 겹쳐 저장한다는 뜻이 아니다.</b> 한 데이터 조각은 HBF → HBM → 연산처럼 필요한 순서를 지켜야 한다. 하지만 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비할 수 있다. 많은 조각이 끊임없이 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보인다. 예를 들어 세 단계가 각각 4 ms·1 ms·2 ms라면, 유용한 파이프라이닝이 전혀 없는 가장 느린 가정은 7 ms이고 단계가 충분히 채워진 정상상태의 가장 빠른 가정은 병목 단계인 4 ms에 가까워진다. 따라서 이 판은 <b>4~7 ms</b>를 예상 범위로 둔다. 4 ms는 낙관적인 시간 하한, 7 ms는 보수적인 시간 상한이다. 실제 위치는 독립 요청 수·버퍼·의존성·공유 포트에 따라 정해지며, 가상 메모리의 구현이 정해지면 측정하거나 시뮬레이션할 수 있다.</div>
+  <div class="warnbox" id="pipeline-explainer"><b>여기서 겹침은 데이터를 겹쳐 저장한다는 뜻이 아니다.</b> 한 데이터 조각은 HBF → HBM → 연산처럼 필요한 순서를 지켜야 한다. 하지만 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비하고 연산기는 앞 조각을 계산할 수 있다. 많은 조각이 끊임없이 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보인다. 예를 들어 세 단계가 각각 4 ms·1 ms·2 ms라면 첫 조각의 끝까지 걸리는 시간은 7 ms다. 유용한 파이프라이닝이 전혀 없는 가장 느린 가정인 <b>직렬 합도 7 ms</b>다. 파이프라인이 충분히 찬 <b>완전 겹침에서는 첫 조각의 7 ms가 사라지는 게 아니라, 이후 조각이 완성되는 간격이 병목 단계인 4 ms에 가까워진다.</b> 따라서 이 판은 정상상태의 유효 스텝 시간을 <b>4~7 ms</b> 범위로 둔다. 4 ms는 가장 빠른 시간 하한, 7 ms는 가장 느린 시간 상한이다. 실제 위치는 독립 요청 수·버퍼·의존성·공유 포트에 따라 정해지며, 가상 메모리의 구현이 정해지면 측정하거나 시뮬레이션할 수 있다.</div>
   <div id="timing-cards" class="timing-grid"></div>
   <div id="traffic-breakdown"></div>
   <p class="cap" id="timing-cap"></p>
@@ -320,6 +321,7 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
         <div class="loader-row">
           <select id="live-model"></select>
           <button class="primary" id="switch-model">이 모델 불러오기</button>
+          <button class="primary" id="replay-switch-demo" hidden>당시 대기 화면 재현</button>
         </div>
         <div class="loader-state" id="model-switch-state">모델 목록을 읽는 중이다.</div>
       </div>
@@ -428,6 +430,7 @@ const R = {
   data:null, chapter:0, frame:0, timer:null, playing:false, speed:1,
   answerId:null, answerText:'', question:'', hw:null,
   elapsed:0, timeline:[], timelineAnswerId:null, boundary:null,
+  modelDemoUntil:0,
 };
 
 function replayResetVisualState(){
@@ -617,7 +620,7 @@ async function initReplay(){
       $('model').value = requestedModel;
       $('model').dispatchEvent(new Event('change', {bubbles:true}));
     }
-    const viewTargets = {top:'#replaybar',concept:'.concept-grid',requests:'#request-life',scene:'#scene-wrap',chart:'#chart',answer:'#answer',model:'#model',prov:'#prov'};
+    const viewTargets = {top:'#replaybar',concept:'.concept-grid',requests:'#request-life',scene:'#scene-wrap',chart:'#chart',timing:'#pipeline-explainer',controls:'#model-loader',answer:'#answer',model:'#model',prov:'#prov'};
     const target = viewTargets[query.get('view')];
     if (target) setTimeout(() => document.querySelector(target)?.scrollIntoView({block:'center'}), 80);
     $('note').textContent = `B200 원본 ${R.data.source.rows.toLocaleString('en-US')}줄에서 만든 검증용 재생판이다. 원본 SHA-256 ${R.data.source.sha256.slice(0,12)}…`;
@@ -1825,8 +1828,42 @@ function fillModelSelects(){
 let _switchSig = '';
 function renderModelSwitcher(){
   const panel = $('model-loader'), sel = $('live-model'), btn = $('switch-model'), out = $('model-switch-state');
+  const demo = $('replay-switch-demo');
   const ms = S.modelSwitch;
-  if (!panel || !ms || !ms.enabled){ if (panel) panel.hidden = true; return; }
+  if (!panel) return;
+  if (REPLAY_MODE){
+    panel.hidden = false;
+    panel.classList.add('archive');
+    panel.querySelector('label b').textContent = 'B200 당시 실제 실행 모델 · vLLM 가중치';
+    sel.innerHTML = '<option value="llama31_8b">Llama-3.1-8B · 녹화 당시 서버 모델</option>';
+    sel.disabled = true;
+    btn.disabled = true;
+    demo.hidden = false;
+    demo.onclick = () => {
+      R.modelDemoUntil = Date.now() + 8000;
+      renderModelSwitcher();
+      setTimeout(() => renderModelSwitcher(), 8050);
+    };
+    if (Date.now() < R.modelDemoUntil){
+      out.className = 'loader-state busy';
+      out.innerHTML = '<b>재현 화면 · 실제 로딩 아님</b><br>Llama-3.1-8B 로컬 캐시의 가중치를 GPU에 올리는 중이다. 생성은 안전하게 멈췄고, 준비 완료 뒤 원장 모델을 맞춰 재개한다.';
+      return;
+    }
+    out.className = 'loader-state';
+    out.innerHTML = '<b>공개판은 모델 교체 절차를 보존한 아카이브다.</b><br>라이브 판에서는 생성을 멈춘 뒤 로컬 캐시의 가중치를 GPU에 올리는 동안 대기 상태를 표시하고, 준비 완료 뒤 원장 모델을 맞춰 다시 실행했다. GitHub Pages에는 GPU 서버가 없어 실제 가중치를 다시 불러오지는 않는다.';
+    return;
+  }
+  if (!ms || !ms.enabled){
+    panel.hidden = false;
+    sel.innerHTML = '<option value="">실제 서버 모델을 바꿀 수 없는 보기</option>';
+    sel.disabled = true;
+    btn.disabled = true;
+    out.className = 'loader-state';
+    out.innerHTML = S.live
+      ? '<b>이 서버의 모델 교체기가 꺼져 있다.</b> 원장 모델을 바꾸면 예측식만 바뀌며, vLLM 가중치는 그대로다.'
+      : '<b>서버 연결을 기다리는 중이다.</b> 연결되지 않으면 아래 원장 모델은 예측식만 바꾼다.';
+    return;
+  }
   panel.hidden = false;
   const models = ms.models || [];
   const optionSig = models.map(x => [x.key,x.name,x.available,x.reason].join('|')).join(';');
