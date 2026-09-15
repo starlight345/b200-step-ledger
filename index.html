@@ -17,7 +17,7 @@
   <header>
     <nav class="nav" aria-label="주요 메뉴">
       <div class="brand">STEP LEDGER / B200 ARCHIVE</div>
-      <div class="navlinks"><a href="#terms">용어</a><a href="#film">영상</a><a href="#concept">개념</a><a href="#models">모델</a><a href="#evidence">증거</a></div>
+      <div class="navlinks"><a href="memory.html">메모리·수치 근거</a><a href="#terms">용어</a><a href="#film">영상</a><a href="#concept">개념</a><a href="#models">모델</a><a href="#evidence">증거</a></div>
     </nav>
   </header>
   <main>
@@ -25,9 +25,10 @@
       <div>
         <div class="eyebrow">RECORDED ON NVIDIA B200 · 2026-09</div>
         <h1>토큰 하나가 생기는 동안</h1>
-        <p class="lead">가중치와 KV 캐시가 어디에 살고, 한 디코드 스텝에 몇 바이트가 움직이며, 고정된 3D SRAM의 몫이 왜 줄어드는지를 실제 B200 기록과 구조식으로 함께 읽는 원장입니다.</p>
+        <p class="lead">B200의 토큰 생성 기록을 재생하고, 가중치·KV·상태의 저장량과 논리적 읽기·쓰기를 계산하는 원장입니다. 가상 3D SRAM에 무엇을 둘지 바꾸며, 가정한 경로별 이동량과 시간을 비교합니다.</p>
         <div class="actions">
           <a class="button primary" href="replay.html">인터랙티브 녹화 열기 →</a>
+          <a class="button" href="memory.html">메모리에는 무엇이 담길까? · 수치 근거</a>
           <a class="button" href="#film">약 6분 5초 설명 영상</a>
           <a class="button" href="http://143.248.153.128:8788/ledger3d.html">암페어 라이브 판</a>
         </div>
@@ -37,8 +38,8 @@
         <h2>보존 상태</h2>
         <dl class="facts">
           <dt>B200 원본</dt><dd>8,190 표본</dd>
-          <dt>원본 크기</dt><dd>74 MB</dd>
-          <dt>공개 재생본</dt><dd>351 KB</dd>
+          <dt>원본 크기</dt><dd>77.475 MB (73.886 MiB)</dd>
+          <dt>공개 재생본</dt><dd>359,118 B (350.701 KiB)</dd>
           <dt>3D 엔진</dt><dd>로컬 three.js</dd>
           <dt>원본 저장소</dt><dd>암페어</dd>
           <dt>SHA-256 파일 지문</dt><dd class="ok">원본과 일치</dd>
@@ -46,14 +47,24 @@
       </aside>
     </section>
 
+    <section id="purpose">
+      <div class="section-head"><h2>관측 → 계산 → 설계 비교</h2><p>3D 장면은 데이터의 종류와 가정한 배치를 보여 줍니다. 실제 GPU 주소별 배치나 L2 안의 내용을 촬영한 화면은 아닙니다.</p></div>
+      <div class="concepts">
+        <article class="card tier"><span class="num">01 / OBSERVE</span><h3>실행 기록을 다시 읽기</h3><p>Llama의 토큰 진행·클라이언트 도착 간격·KV 풀 사용률을 재생합니다. 별도 nb1 실험의 실행 완료 간격과 구분합니다.</p></article>
+        <article class="card layer"><span class="num">02 / ACCOUNT</span><h3>어떤 데이터가 몇 바이트인가</h3><p>weight는 공유하는 학습 파라미터, KV는 요청별 과거 토큰 표현, state는 갱신되는 고정 크기 상태입니다. 중간값·작업 공간·예약 여유는 아직 수치로 분해하지 않았습니다.</p></article>
+        <article class="card step"><span class="num">03 / COMPARE</span><h3>설계 가정을 비교하기</h3><p>3D SRAM 용량과 배치 정책을 바꿔 계산합니다. 논리적 접근량을 실제 HBM 이동량으로 바꾸는 재사용·캐시·쓰기 되돌림은 별도 검증이 필요합니다.</p></article>
+      </div>
+      <div class="actions"><a class="button" href="memory.html#contents">메모리 내용과 수명</a><a class="button" href="memory.html#numbers">131,072 B부터 직접 계산</a><a class="button" href="memory.html#sources">측정 방법과 원자료</a><a class="button" href="memory.html#return">B200 반납 전 남은 증거</a></div>
+    </section>
+
     <section id="terms">
       <div class="section-head"><h2>용어부터 짧게<br>정의합니다.</h2><p>이름이 비슷한 ‘저장량’, ‘이동량’, ‘속도’를 섞으면 같은 숫자도 전혀 다른 뜻이 됩니다.</p></div>
       <div class="glossary">
         <dl class="term"><dt>가중치</dt><dd>학습이 끝난 모델의 고정 데이터입니다. 답이 길어져도 전체 크기는 변하지 않습니다.</dd></dl>
-        <dl class="term"><dt>KV 캐시</dt><dd>이전 토큰을 다시 참고하기 위해 저장한 기억입니다. 답과 문맥이 길어질수록 커집니다.</dd></dl>
+        <dl class="term"><dt>KV 캐시</dt><dd>이전 토큰에서 계산한 K·V 숫자 배열입니다. 원문 문자열 자체가 아닙니다. 답과 문맥이 길어질수록 커집니다.</dd></dl>
         <dl class="term"><dt>3D SRAM</dt><dd>B200에 실제로 달린 부품이 아니라, GPU 가까이에 고속 메모리를 더 쌓는 이 시뮬레이터의 설계 가정입니다.</dd></dl>
         <dl class="term"><dt>상주 비율</dt><dd>전체 데이터 바이트 중 특정 메모리에 놓인 몫입니다. 그 자체가 속도 향상률은 아닙니다.</dd></dl>
-        <dl class="term"><dt>스텝 트래픽 · 대역폭</dt><dd>다음 토큰 하나를 만들 때 실제로 옮기는 바이트와, 한 경로가 1초에 처리할 수 있는 바이트 양입니다.</dd></dl>
+        <dl class="term"><dt>스텝 트래픽 · 대역폭</dt><dd>배치 전체가 다음 토큰을 하나씩 만들 때 옮기는 바이트와, 한 경로가 1초에 처리할 수 있는 바이트 양입니다.</dd></dl>
         <dl class="term"><dt>SHA-256 체크섬</dt><dd>파일 내용을 64자리 문자열로 요약한 디지털 지문입니다. 파일 변경 여부를 확인하며, 수치의 과학적 타당성까지 보증하지는 않습니다.</dd></dl>
       </div>
     </section>
@@ -66,7 +77,7 @@
           <track src="assets/b200_walkthrough.ko.vtt?v=8c4c3d43" kind="subtitles" srclang="ko" label="한국어 해설" default>
           이 브라우저는 MP4 영상을 재생하지 못합니다. 인터랙티브 녹화판을 이용해 주세요.
         </video>
-        <div class="media-note">한국어 자막이 기본으로 켜지며 마지막 문장이 끝나면 영상도 바로 끝납니다. 수치 검증은 JSONL 원본과 인터랙티브 재생본으로 하고, SHA-256 체크섬(파일 지문)으로 보관 뒤 파일이 바뀌지 않았는지 확인합니다.</div>
+        <div class="media-note">영상은 이전 설명판입니다. 측정 방법·단위·증거 등급의 최신 정정은 <a href="memory.html#sources">수치 근거</a>를 기준으로 읽어 주세요. 수치 검증은 JSONL 원본과 인터랙티브 재생본으로 하고, SHA-256 체크섬(파일 지문)으로 보관 뒤 파일이 바뀌지 않았는지 확인합니다.</div>
       </div>
     </section>
 
@@ -103,7 +114,7 @@
             <g fill="#edf2f7" font-family="monospace" font-size="13"><text x="55" y="31">29.8%</text><text x="432" y="124">26.5%</text></g>
             <g fill="#9cabbc" font-family="monospace" font-size="12"><text x="48" y="174">n=0</text><text x="438" y="174">n=256</text></g>
           </svg>
-          <figcaption>배치 8 · 문맥 2,048 · 계층 640 MB의 구조식 예시입니다. 이 비율 자체로 어느 정책이 더 빠른지는 결정하지 않습니다. 실제로 우회되는 바이트와 경로 시간을 이어서 계산해야 합니다.</figcaption>
+          <figcaption>Llama BF16 · 배치 8 · 문맥 2,048→2,304 · 가상 계층 640,000,000 B의 구조식 예시입니다. KV 2,147,483,648→2,415,919,104 B에서 29.802→26.491%가 됩니다. <a href="memory.html#numbers">계산식 보기</a> 이 비율 자체로 어느 정책이 더 빠른지는 결정하지 않습니다. 실제로 우회되는 바이트와 경로 시간을 이어서 계산해야 합니다.</figcaption>
         </figure>
         <article class="note"><h3>가중치 3.98%: 움직이지 않는 용량 기준선</h3><p>가중치는 답이 길어져도 전체 크기가 변하지 않습니다. 예를 들어 16.1 GB 가중치 중 640 MB를 3D SRAM에 두면 <code>640 MB ÷ 16.1 GB ≈ 3.98%</code>가 계속 유지됩니다. 반면 KV의 비율은 답이 길어질수록 내려갑니다. 두 선의 교차는 저장 비율의 교차일 뿐, 가중치 정책이 더 빠르다는 결론이 아닙니다.</p></article>
         <article class="note"><h3>직렬 합과 완전 겹침: 시간의 상·하한</h3><p>한 데이터 조각은 HBF → HBM → 연산처럼 순서대로 가야 합니다. 그러나 조각 A를 HBM이 나르는 동안 HBF는 다음 조각 B를 준비할 수 있습니다. 조각이 계속 들어오면 파이프라인의 여러 단계가 함께 움직여 바깥에서는 동시에 처리되는 것처럼 보입니다. 세 단계가 각각 4 ms·1 ms·2 ms라면 첫 조각은 7 ms가 걸립니다. 파이프라이닝이 없는 시간 상한도 7 ms입니다. 파이프라인이 충분히 차면 첫 조각의 지연이 사라지는 게 아니라, 이후 조각이 완성되는 간격이 병목 단계인 4 ms에 가까워집니다. 이것이 정상상태의 시간 하한입니다. 실제 위치는 독립 작업 수·버퍼·의존성·공유 포트에 따라 정해지며, 구현이 정해지면 측정할 수 있습니다.</p></article>
@@ -111,26 +122,26 @@
     </section>
 
     <section id="models">
-      <div class="section-head"><h2>연속 재생은 하나,<br>B200 구조 검산은 여덟.</h2><p>이전 문구가 잘못 좁혀 적었습니다. 8,190행 연속 토큰 재생은 Llama 하나지만, 여덟 모델의 KV 저장 구조는 모두 B200에서 직접 검산했습니다. 측정 종류를 구분해 표시합니다.</p></div>
-      <p class="evidence-key"><b>표 읽기:</b> B/토큰은 토큰 하나당 바이트, B=8은 동시에 처리한 요청 8개, L=2K는 입력 문맥 2,048토큰입니다. <b>KV 할당:</b> vLLM이 실제 만든 저장 블록의 용량이며, 실행 중 DRAM을 오간 트래픽과는 다른 측정입니다.</p>
+      <div class="section-head"><h2>연속 재생은 하나,<br>B200 구조 검산은 여덟.</h2><p>8,190행 연속 토큰 재생은 Llama 하나입니다. 여덟 모델에 구조·용량 검산과 시간 기준선이 있지만, 모든 모델의 텐서 실물을 합산한 것은 아닙니다. 예산/슬롯 역산과 구조식을 구분합니다.</p></div>
+      <p class="evidence-key"><b>표 읽기:</b> B/토큰은 토큰 하나당 바이트, B=8은 동시에 처리한 요청 8개, L=2K는 입력 문맥 2,048토큰입니다. <b>KV 할당:</b> 설정한 예산·확보된 슬롯·모델 구조에서 검산한 용량입니다. 실행 중 DRAM을 오간 바이트와 다릅니다.</p>
       <div class="model-grid">
         <div class="model"><b>Llama-3.1-8B</b><span class="plain">32개 층 · 여러 헤드가 KV를 공유</span><span class="metric">KV 131,072 B/토큰 · B=8,L=2K 4.556 ms</span><span class="tag replay">연속 재생 + B200 KV 검산</span></div>
-        <div class="model"><b>Qwen3-8B</b><span class="plain">36개 층 · 여러 헤드가 KV를 공유</span><span class="metric">KV 147,492 B/토큰 · B=8,L=2K 4.726 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
+        <div class="model"><b>Qwen3-8B</b><span class="plain">36개 층 · 여러 헤드가 KV를 공유</span><span class="metric">KV 구조 147,456 B/토큰 · 예산/슬롯 147,492 B · B=8,L=2K 4.726 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
         <div class="model"><b>Mistral-7B</b><span class="plain">32개 층 · 여러 헤드가 KV를 공유</span><span class="metric">KV 131,072 B/토큰 · B=8,L=2K 4.583 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
         <div class="model"><b>Llama-2-7B</b><span class="plain">32개 헤드가 K와 V를 각자 보유하는 대조군</span><span class="metric">KV 524,288 B/토큰 · B=8,L=2K 5.326 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
-        <div class="model"><b>granite-4.0-h-tiny</b><span class="plain">어텐션 4층 + 고정 Mamba 상태 36층</span><span class="metric">상태 29.03 MB/요청 · 스텝당 2.01~2.08회 이동</span><span class="tag">B200 상태 트래픽 실측</span></div>
+        <div class="model"><b>granite-4.0-h-tiny</b><span class="plain">어텐션 4층 + 고정 Mamba 상태 36층</span><span class="metric">상태 29,030,400 B/요청 · R+W = 2×용량 모델</span><span class="tag">DCGM 보정 총량에서 추정</span></div>
         <div class="model"><b>Gemma-3-27B</b><span class="plain">최근 구간만 보는 52층 + 전체를 보는 10층</span><span class="metric">긴 문맥 증가분 81,920 B/토큰 · 13.392 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
         <div class="model"><b>gpt-oss-120b</b><span class="plain">최근 구간·전체 문맥 층 + 일부 전문가만 사용</span><span class="metric">긴 문맥 증가분 36,864 B/토큰 · 6.720 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
         <div class="model"><b>DeepSeek-V2-Lite</b><span class="plain">K·V를 압축한 잠재 표현 + 일부 전문가만 사용</span><span class="metric">KV 31,104 B/토큰 · 4.628 ms</span><span class="tag">B200 KV 검산 + 시간 기준선</span></div>
       </div>
-      <p class="live-warning">시간 값은 같은 nb1 하네스로 잰 B=8, L=2,048 디코드 스텝 중앙값이며 여덟 모델 모두 이 공통점이 있습니다. 확장 격자는 일곱 모델이 네 셀이고, gpt-oss의 보존 실험만 B=32 셀을 이유 기록 없이 제외했습니다. Llama-2 장문 조건은 모델 한계 때문에 L=3,584입니다.</p>
+      <p class="live-warning">시간 값은 같은 nb1 하네스의 B=8, L=2,048에서 동기화한 실행 완료 시각 63개 중 60개 간격의 중앙값이며 여덟 모델 모두 이 공통점이 있습니다. 확장 격자는 일곱 모델이 네 셀이고, gpt-oss의 보존 실험만 B=32 셀을 이유 기록 없이 제외했습니다. Llama-2 장문 조건은 모델 한계 때문에 L=3,584입니다.</p>
     </section>
 
     <section>
       <div class="section-head"><h2>B200을 반납해도<br>세 층으로 남습니다.</h2><p>대용량 원본은 암페어, 공개 가능한 파생물은 GitHub Pages, 실제 모델 실행은 살아 있는 암페어 판이 맡습니다.</p></div>
       <div class="architecture" aria-label="보존 구조">
-        <div class="node"><b>암페어 · 원본 보관</b><span>74 MB JSONL + 3.0 MB gzip + SHA-256 파일 지문. 연구용 재분석의 기준입니다.</span></div><div class="arrow">→</div>
-        <div class="node"><b>GitHub Pages · 공개 재생</b><span>351 KB 델타 데이터, 로컬 three.js, 설명 영상. 서버 없이 동작합니다.</span></div><div class="arrow">↔</div>
+        <div class="node"><b>암페어 · 원본 보관</b><span>77.475 MB (73.886 MiB) JSONL + gzip 보관본 + SHA-256 파일 지문. 연구용 재분석의 기준입니다.</span></div><div class="arrow">→</div>
+        <div class="node"><b>GitHub Pages · 공개 재생</b><span>359,118 B (350.701 KiB) 델타 데이터, 로컬 three.js, 설명 영상. 서버 없이 동작합니다.</span></div><div class="arrow">↔</div>
         <div class="node"><b>암페어 · 라이브 실행</b><span>전원이 켜져 있을 때 실제 모델을 실행합니다. Pages 재생판과 증거 등급을 구분합니다.</span></div>
       </div>
     </section>
@@ -144,8 +155,8 @@
           <tr><td>원본 SHA-256</td><td>파일 지문 일치</td><td class="checksum"><code>d35b68920e2d61dff0eb80cb27fb3cf86a267b2f0d8292d8794b7e81eabeed80</code> · 파일이 보관 당시와 같다는 뜻이며, 수치가 옳다는 판정은 아닙니다.</td></tr>
           <tr><td>공개 재생본</td><td>파생물</td><td>연속 반복 구간 92.7초와 긴 답 구간 8.2초를 델타 압축했습니다.</td></tr>
           <tr><td>연속 재생 범위</td><td>Llama-3.1-8B</td><td>B200 토큰 진행, 스텝 시간, KV 풀 사용률, 답 문자열을 시간순으로 복원합니다.</td></tr>
-          <tr><td>KV 구조 실측</td><td>8개 모델</td><td>실제 vLLM 저장 블록의 전체 바이트를 토큰 수로 나누고 총량으로 다시 검산했습니다.</td></tr>
-          <tr><td>공통 시간·전력 기준선</td><td>8개 모델 보존</td><td>같은 nb1 하네스의 B=8·L=2K 비교점은 모두 있습니다. 첫 prefill 호출은 빼고 63개 decode 호출의 중앙값을 씁니다. gpt-oss만 B=32 확장 셀이 없고, Llama-2 장문 조건은 L=3,584입니다.</td></tr>
+          <tr><td>KV 구조 실측</td><td>8개 모델</td><td>설정·페이지 구조·예산/슬롯 비율을 확인했습니다. 일부 텐서 덤프는 비어 있어 실물 합산 검증 완료로 해석할 수 없습니다. <a href="memory.html#sources">방법과 한계</a></td></tr>
+          <tr><td>공통 시간·전력 기준선</td><td>8개 모델 보존</td><td>같은 nb1 하네스의 B=8·L=2K 비교점은 모두 있습니다. prefill을 제외한 63개 완료 시각의 차분에서 처음 2개를 빼고, 60개 간격의 중앙값을 씁니다. gpt-oss만 B=32 확장 셀이 없고, Llama-2 장문 조건은 L=3,584입니다.</td></tr>
           <tr><td>구조 예측</td><td>8개 모델</td><td>가중치·KV·상태·슬라이딩·MLA 구조식과 출처 배지를 인터랙티브 판에 보존합니다. 실측값과 예측값은 같은 배지로 표시하지 않습니다.</td></tr>
           <tr><td>모델별 공개 색인</td><td>JSON</td><td><a href="assets/model_evidence.json">8개 모델의 측정 종류·대표값·원자료 SHA-256 파일 지문 내려받기</a></td></tr>
         </tbody>

@@ -4,7 +4,7 @@ GitHub Pages에서 서버 없이 여는 정적 보관판입니다.
 
 - `index.html`: 설명 글과 영상
 - `replay.html`: B200 녹화 인터랙티브 재생
-- `assets/b200_replay.json`: 원본 JSONL에서 만든 351 KB 델타 파생물
+- `assets/b200_replay.json`: 원본 JSONL에서 만든 359,118 B (350.701 KiB) 델타 파생물
 - `assets/b200_walkthrough.mp4`: 약 6분 5초 한국어 음성 해설 영상. 핵심 용어, 직렬 합·완전 겹침의 상하한, 모델 맞추기·가중치 적재 대기, 3D SRAM·HBF 포함/제외, 여덟 모델의 B200 검산 범위를 실제 UI로 설명
 - `assets/b200_walkthrough.ko.vtt`: 켜고 끌 수 있는 한국어 자막
 - `assets/model_evidence.json`: 여덟 모델의 구조, 측정 종류, 원자료 경로와 SHA-256 파일 지문을 기계가 읽을 수 있게 정리한 증거표
@@ -15,7 +15,17 @@ GitHub Pages에서 서버 없이 여는 정적 보관판입니다.
 로컬 확인:
 
 ```bash
-python3 -m http.server 4173 --directory ledger3d_pages
+python3 -m http.server 4173
 ```
 
 그 뒤 `http://localhost:4173/`을 엽니다. `file://`로 직접 열면 브라우저의 `fetch` 보안 규칙 때문에 녹화 JSON을 읽지 못할 수 있습니다.
+
+## 메모리·수치 근거 보완 (2026-09-16)
+
+- `memory.html`: 데이터 내용·수명, 단위, 유효 KV/블록 슬롯/예약 풀 구분, 대화형 계산기, 수치별 근거와 반납 전 수집 항목.
+- `assets/numerical_evidence.json`: 설명용 입력값과 계산값, 원자료 파일명 및 SHA-256.
+- `assets/model_evidence.json` v2: nb1 완료 간격 60개 집계 방법, 예산/슬롯 역산과 텐서 덤프 구분, Granite DCGM 추정 범위 정정.
+- 재생판: 현재 데이터별 정확한 바이트 표, 미계측 항목 표시. L2 사본을 본거지 저장량에 중복 가산하지 않으며 가상 SRAM 배치에서도 L2 용량을 빼지 않음. 확대 그래프의 L2 선은 용량 비교선.
+- 기존 영상은 이전 설명판이므로 최신 측정 방법과 증거 등급은 `memory.html`을 기준으로 읽는다.
+
+현재 화면의 객체별 읽기/쓰기와 가상 메모리 시간은 계산값이다. 중간값·작업 공간·런타임 여유와 실제 R/W 카운터 검증은 미완료이며, 배치 가능 판정은 지속 데이터에 대한 필요조건이다. 전체 실행 가능 여부를 보증하지 않는다.

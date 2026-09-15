@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "review_date": "2026-09-16",
+  "units": {
+    "GB": 1000000000,
+    "MB": 1000000,
+    "GiB": 1073741824,
+    "MiB": 1048576
+  },
+  "llama_example": {
+    "batch": 8,
+    "context_tokens": 2048,
+    "generated_tokens_end": 256,
+    "layers": 32,
+    "kv_heads": 8,
+    "head_dim": 128,
+    "dtype_bytes": 2,
+    "kv_bytes_per_token": 131072,
+    "initial_kv_bytes": 2147483648,
+    "end_kv_bytes": 2415919104,
+    "new_kv_bytes_per_batch_step": 1048576,
+    "tier_bytes": 640000000,
+    "weight_resident_bytes_model": 16100000000,
+    "weight_read_bytes_per_step_model": 15100000000
+  },
+  "qwen_budget_check": {
+    "budget_bytes": 8589934592,
+    "num_gpu_blocks": 3640,
+    "block_tokens": 16,
+    "budget_per_slot": 147492.0087912088,
+    "structural_bytes_per_token": 147456,
+    "structural_allocation_bytes": 8587837440,
+    "unused_budget_bytes": 2097152
+  },
+  "sources": [
+    {
+      "file": "mx1_qwen3_8b.json",
+      "sha256": "4cc5ea20bf26f171bcc5a3935ffeb15e95342d0456626014daad7bd41d03e19e"
+    },
+    {
+      "file": "mx1_modelcross.py",
+      "sha256": "af1733ac63fc6861b86d3441b3879ca6cc567e37f027b0b7b0fa0e8eb66472e9"
+    },
+    {
+      "file": "mx3_llama31.json",
+      "sha256": "42416523e3fae3c3b67c61cfc0014c42923b37367ece93c336f6e6f3a4bcc28d"
+    },
+    {
+      "file": "mx3_gemma3.json",
+      "sha256": "cdc7e29d346fe8479b8793ea8962e0230bfcd920aa779970e418911a70bd24cc"
+    },
+    {
+      "file": "mx5_dsv2lite.json",
+      "sha256": "6326b9bb449eb934292b390a15c4f0c6b00a81ce880b3de79809bb8afa462fd7"
+    },
+    {
+      "file": "mx17_summary.json",
+      "sha256": "c619de5b399c5b3b4cb68be6cbf18d2f0937b903a93dda76b6f8f69abeb5609c"
+    },
+    {
+      "file": "nc1_20260909/nb1_baseline.py",
+      "sha256": "412f6947b4b7f7e86b6a336cd473b1b962d4fbc8db93cd86bd1b16200399f48e"
+    },
+    {
+      "file": "nc1_20260909/nb1_llama31.json",
+      "sha256": "369565c61db4c24a37454930830e21a62b4e207788d5e7bf983a995a62acf9c5"
+    }
+  ],
+  "dump_limit": "mx3_llama31.json와 mx3_gemma3.json의 kv_tensor_count는 0, mx5_dsv2lite.json의 capture는 비어 있다. ok:true만으로 실제 텐서 덤프 성공을 판정하지 않는다."
+}
