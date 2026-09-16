@@ -33,6 +33,14 @@ const elements=new Map();function el(id){if(!elements.has(id))elements.set(id,{v
 el('hbm').value='8';el('l2-bandwidth').value='30';el('near-bandwidth').value='20';
 const context={document:{getElementById:el,querySelectorAll(){return[];}},window:{},console};vm.createContext(context);
 const html=fs.readFileSync('scenario-lab.html','utf8'),script=html.match(/<script>([\s\S]*?)<\/script>/)[1];vm.runInContext(script,context);
+// The hardcoded PROXY36 table is displayed as measured, so pin it to the raw trials it claims to summarize.
+const proxy36=vm.runInContext('PROXY36',context);
+for(const size of [64,256]){
+ const trials=fs.readFileSync(`assets/experiments/placement_sweep_20260916/placement_m${size}_l36.jsonl`,'utf8').trim().split('\n').map(JSON.parse).filter(r=>r.kind==='trial');
+ const gm=policy=>{const v=trials.filter(t=>t.policy===policy).map(t=>trials.find(a=>a.policy==='default'&&a.order===t.order&&a.pass===t.pass).step_ms/t.step_ms);return Math.exp(v.reduce((a,b)=>a+Math.log(b),0)/v.length);};
+ for(const [key,policy] of [['rn','reserved_normal'],['state','persist_state'],['weight','persist_weight'],['kv','persist_kv']])
+  assert(Math.abs(proxy36[size][key]-gm(policy))<5e-5,`PROXY36[${size}].${key} drifted from ${policy}`);
+}
 let checks=0;
 for(const model of ['llama','qwen','mistral','llama2','granite','gemma','gptoss','deepseek','proxy'])for(const mode of ['added','partition'])for(const capacity of ['0','1','4','9'])for(const batch of ['0','3','5'])for(const ctx of ['0','2','7']){
  Object.entries({model,mode,capacity,batch,context:ctx,policy:'auto'}).forEach(([k,v])=>el(k).value=v);
