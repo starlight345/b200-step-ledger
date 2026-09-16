@@ -55,7 +55,7 @@
         <article class="card layer"><span class="num">02 / ACCOUNT</span><h3>어떤 데이터가 몇 바이트인가</h3><p>weight는 공유하는 학습 파라미터, KV는 요청별 과거 토큰 표현, state는 갱신되는 고정 크기 상태입니다. 중간값·작업 공간·예약 여유는 아직 수치로 분해하지 않았습니다.</p></article>
         <article class="card step"><span class="num">03 / COMPARE</span><h3>설계 가정을 비교하기</h3><p>3D SRAM 용량과 배치 정책을 바꿔 계산합니다. 논리적 접근량을 실제 HBM 이동량으로 바꾸는 재사용·캐시·쓰기 되돌림은 별도 검증이 필요합니다.</p></article>
       </div>
-      <div class="actions"><a class="button" href="memory.html#contents">메모리 내용과 수명</a><a class="button" href="memory.html#numbers">131,072 B부터 직접 계산</a><a class="button" href="memory.html#sources">측정 방법과 원자료</a><a class="button" href="memory.html#return">B200 반납 전 남은 증거</a></div>
+      <div class="actions"><a class="button" href="memory.html#contents">메모리 내용과 수명</a><a class="button" href="memory.html#numbers">131,072 B부터 직접 계산</a><a class="button" href="memory.html#placement-proof">배치 경계·모델별 정책</a><a class="button" href="memory.html#sources">측정 방법과 원자료</a><a class="button" href="RESEARCH_CLAIMS.md">논문 주장 동결본</a></div>
     </section>
 
     <section id="terms">
@@ -160,6 +160,7 @@
           <tr><td>공통 시간·전력 기준선</td><td>8개 모델 보존</td><td>같은 nb1 하네스의 B=8·L=2K 비교점은 모두 있습니다. prefill을 제외한 63개 완료 시각의 차분에서 처음 2개를 빼고, 60개 간격의 중앙값을 씁니다. gpt-oss만 B=32 확장 셀이 없고, Llama-2 장문 조건은 L=3,584입니다.</td></tr>
           <tr><td>구조 예측</td><td>8개 모델</td><td>가중치·KV·상태·슬라이딩·MLA 구조식과 출처 배지를 인터랙티브 판에 보존합니다. 실측값과 예측값은 같은 배지로 표시하지 않습니다.</td></tr>
           <tr><td>실제 배치 순위</td><td>B200 2개 · 180 trial</td><td>동일 64 MiB의 weight·KV·state를 실제 persisting L2에 배치했습니다. 통합 기하평균은 1.0554×·1.0562×·1.1099×, 검증 오류는 0입니다. <a href="memory.html#placement-proof">방법·용량 경계·원자료</a></td></tr>
+          <tr><td>입장 경계 sweep</td><td>18조건 · 1,620 trial</td><td>16–256 MiB와 1/36/144 layer slice를 교차했습니다. 32–96 MiB state는 반복 이득, 128 MiB는 granularity 의존, 256 MiB·30.9% coverage는 모든 강제 정책이 손해였습니다. <a href="memory.html#policy">정책과 모델별 결론</a></td></tr>
           <tr><td>모델별 공개 색인</td><td>JSON</td><td><a href="assets/model_evidence.json">8개 모델의 측정 종류·대표값·원자료 SHA-256 파일 지문 내려받기</a></td></tr>
         </tbody>
       </table></div>

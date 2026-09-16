@@ -5,6 +5,7 @@ GitHub Pages에서 서버 없이 여는 정적 보관판입니다.
 - `index.html`: 설명 글과 영상
 - `replay.html`: B200 녹화 인터랙티브 재생
 - `scenario-lab.html`: 녹화 없이 모델·배치·문맥·배치 정책을 바꾸는 one-step memory traffic simulator
+- `RESEARCH_CLAIMS.md`: 닫힌 주장, 모델별 3D SRAM 첫 정책, prior work 차이, 네 편의 논문 분리안
 - `assets/b200_replay.json`: 원본 JSONL에서 만든 359,118 B (350.701 KiB) 델타 파생물
 - `assets/b200_walkthrough.mp4`: 약 6분 5초 한국어 음성 해설 영상. 핵심 용어, 직렬 합·완전 겹침의 상하한, 모델 맞추기·가중치 적재 대기, 3D SRAM·HBF 포함/제외, 여덟 모델의 B200 검산 범위를 실제 UI로 설명
 - `assets/b200_walkthrough.ko.vtt`: 켜고 끌 수 있는 한국어 자막
@@ -41,5 +42,7 @@ python3 -m http.server 4173
 - `assets/placement_evidence.json`: 공개 요약과 주장 경계.
 - `assets/experiments/ledger3d_placement_20260916/`: 사전등록, CUDA source, raw JSONL, 두 GPU summary와 해시.
 - `assets/experiments/cache_policy_20260916/`: 용량/간섭 sweep의 사전등록, source, raw JSONL, summary와 telemetry.
+- `assets/experiments/placement_sweep_20260916/`: 16–256 MiB × 1/36/144 layer slice, 18조건·1,620 trial 원자료와 SHA-256.
+- `assets/figures/placement-policy-boundary.svg`: admission window와 capacity cliff를 보여 주는 논문용 벡터 그림. PDF·PNG도 함께 제공.
 
 이 검증은 실제 B200 L2에서 배치 순위를 측정한 대리 실험이다. 제작된 3D SRAM의 PPA·열 특성이나 end-to-end vLLM 배치 구현으로 표시하지 않는다.

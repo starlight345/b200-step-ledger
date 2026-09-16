@@ -1,0 +1,926 @@
+{
+  "complete_files": 18,
+  "expected_files": 18,
+  "trial_count": 1620,
+  "validation_errors": 0,
+  "cells": [
+    {
+      "file": "placement_m16_l1.jsonl",
+      "size_mib_requested": 16,
+      "layers": 1,
+      "object_bytes": 16777216,
+      "working_set_bytes": 50331648,
+      "working_set_over_l2": 0.3794466403162055,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9790382646485919,
+          "median_speedup": 0.9761922845950888,
+          "min_speedup": 0.9080409278168341,
+          "max_speedup": 1.093916885164096,
+          "wins": 6,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9823743348278883,
+          "median_speedup": 0.9978867082233192,
+          "min_speedup": 0.9081211828424028,
+          "max_speedup": 1.0939175525019444,
+          "wins": 6,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9958786181730136,
+          "median_speedup": 1.005746519058639,
+          "min_speedup": 0.9195122922611512,
+          "max_speedup": 1.0430217072886538,
+          "wins": 10,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0101255638165438,
+          "median_speedup": 1.00433138101462,
+          "min_speedup": 0.9872314284767874,
+          "max_speedup": 1.064100220869497,
+          "wins": 11,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m16_l36.jsonl",
+      "size_mib_requested": 16,
+      "layers": 36,
+      "object_bytes": 16773120,
+      "working_set_bytes": 50319360,
+      "working_set_over_l2": 0.3793540019762846,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 1.002915415768148,
+          "median_speedup": 0.9997257857639158,
+          "min_speedup": 0.9860990256346046,
+          "max_speedup": 1.0899356356769958,
+          "wins": 8,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0029444983766194,
+          "median_speedup": 0.9999661008561449,
+          "min_speedup": 0.9860957647569882,
+          "max_speedup": 1.0806748431676563,
+          "wins": 7,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9946597495585414,
+          "median_speedup": 0.9992620821568556,
+          "min_speedup": 0.9356734804260995,
+          "max_speedup": 1.0123065554970798,
+          "wins": 8,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.9933177300140271,
+          "median_speedup": 0.9958160565016465,
+          "min_speedup": 0.9356672091904024,
+          "max_speedup": 1.014488846340764,
+          "wins": 6,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_weight",
+        "reserved_normal",
+        "persist_kv",
+        "persist_state"
+      ]
+    },
+    {
+      "file": "placement_m16_l144.jsonl",
+      "size_mib_requested": 16,
+      "layers": 144,
+      "object_bytes": 16773120,
+      "working_set_bytes": 50319360,
+      "working_set_over_l2": 0.3793540019762846,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 1.0060472736113064,
+          "median_speedup": 0.9999430399555789,
+          "min_speedup": 0.998911340443209,
+          "max_speedup": 1.1169335267609852,
+          "wins": 8,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0058634886188782,
+          "median_speedup": 0.999925707542346,
+          "min_speedup": 0.99841084015629,
+          "max_speedup": 1.1169417369995365,
+          "wins": 4,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9966622437562462,
+          "median_speedup": 0.9992453425422241,
+          "min_speedup": 0.9490150768210952,
+          "max_speedup": 1.0009189017614084,
+          "wins": 3,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.9972298296222019,
+          "median_speedup": 1.0000010153279757,
+          "min_speedup": 0.9489990447021805,
+          "max_speedup": 1.0017807615171996,
+          "wins": 10,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "reserved_normal",
+        "persist_weight",
+        "persist_state",
+        "persist_kv"
+      ]
+    },
+    {
+      "file": "placement_m32_l1.jsonl",
+      "size_mib_requested": 32,
+      "layers": 1,
+      "object_bytes": 33554432,
+      "working_set_bytes": 100663296,
+      "working_set_over_l2": 0.758893280632411,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.8831156062818226,
+          "median_speedup": 0.8832562710194113,
+          "min_speedup": 0.8632989040598514,
+          "max_speedup": 0.9069141673035355,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9507557516817136,
+          "median_speedup": 0.9553242276629343,
+          "min_speedup": 0.9268979578043413,
+          "max_speedup": 0.9689915256189968,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9518952636003057,
+          "median_speedup": 0.9560192288261434,
+          "min_speedup": 0.9152563783709854,
+          "max_speedup": 0.9783420989203188,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.173912114993935,
+          "median_speedup": 1.167859087086789,
+          "min_speedup": 1.1391921649358978,
+          "max_speedup": 1.2126295512389376,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m32_l36.jsonl",
+      "size_mib_requested": 32,
+      "layers": 36,
+      "object_bytes": 33546240,
+      "working_set_bytes": 100638720,
+      "working_set_over_l2": 0.7587080039525692,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9351131775478111,
+          "median_speedup": 0.9302542755781087,
+          "min_speedup": 0.9192622909410623,
+          "max_speedup": 1.0136426217598733,
+          "wins": 1,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0014562624299177,
+          "median_speedup": 0.9973216942941725,
+          "min_speedup": 0.9800571853544466,
+          "max_speedup": 1.0976750813117815,
+          "wins": 5,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9924022181590084,
+          "median_speedup": 0.9926753854600144,
+          "min_speedup": 0.9780205573233688,
+          "max_speedup": 1.014676580004116,
+          "wins": 3,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.092872460291452,
+          "median_speedup": 1.0941453083854231,
+          "min_speedup": 1.0575092263224202,
+          "max_speedup": 1.111486121558854,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m32_l144.jsonl",
+      "size_mib_requested": 32,
+      "layers": 144,
+      "object_bytes": 33546240,
+      "working_set_bytes": 100638720,
+      "working_set_over_l2": 0.7587080039525692,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9830457130649625,
+          "median_speedup": 0.9739536937728147,
+          "min_speedup": 0.91449868399932,
+          "max_speedup": 1.2034458985187697,
+          "wins": 3,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0453465133779152,
+          "median_speedup": 1.0277477027204118,
+          "min_speedup": 0.9549953827789971,
+          "max_speedup": 1.2820840932244664,
+          "wins": 14,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 1.0472568236341806,
+          "median_speedup": 1.0353223529170803,
+          "min_speedup": 0.9594555119910645,
+          "max_speedup": 1.2799069667778789,
+          "wins": 13,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.080662461703768,
+          "median_speedup": 1.086451031402182,
+          "min_speedup": 1.0019882079599791,
+          "max_speedup": 1.175284883499403,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m64_l1.jsonl",
+      "size_mib_requested": 64,
+      "layers": 1,
+      "object_bytes": 67108864,
+      "working_set_bytes": 201326592,
+      "working_set_over_l2": 1.517786561264822,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.8872911667356402,
+          "median_speedup": 0.8871481154580929,
+          "min_speedup": 0.8805623497136449,
+          "max_speedup": 0.8934804661215894,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0104281964092663,
+          "median_speedup": 1.0103256822064215,
+          "min_speedup": 0.9940429098929618,
+          "max_speedup": 1.027052825176254,
+          "wins": 17,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 1.0093078516219094,
+          "median_speedup": 1.0107281520991809,
+          "min_speedup": 0.9892937830329284,
+          "max_speedup": 1.025268021319107,
+          "wins": 13,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.2475290667937962,
+          "median_speedup": 1.2473009796474983,
+          "min_speedup": 1.2343095775008182,
+          "max_speedup": 1.266087053938096,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m64_l36.jsonl",
+      "size_mib_requested": 64,
+      "layers": 36,
+      "object_bytes": 67101696,
+      "working_set_bytes": 201305088,
+      "working_set_over_l2": 1.5176244441699605,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9524011350795433,
+          "median_speedup": 0.9523183102821755,
+          "min_speedup": 0.945042275172944,
+          "max_speedup": 0.9594340952236937,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0547685682347745,
+          "median_speedup": 1.0545608016171868,
+          "min_speedup": 1.0500626352502076,
+          "max_speedup": 1.0625946499511345,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 1.055854653117787,
+          "median_speedup": 1.0562931868861243,
+          "min_speedup": 1.0466424288878253,
+          "max_speedup": 1.063018827223721,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.1082874735605317,
+          "median_speedup": 1.1069357396673905,
+          "min_speedup": 1.101148699520724,
+          "max_speedup": 1.126450611755853,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m64_l144.jsonl",
+      "size_mib_requested": 64,
+      "layers": 144,
+      "object_bytes": 67092480,
+      "working_set_bytes": 201277440,
+      "working_set_over_l2": 1.5174160079051384,
+      "protected_fraction_of_target": 1.0,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9529335663878259,
+          "median_speedup": 0.953484496670317,
+          "min_speedup": 0.9426425899058487,
+          "max_speedup": 0.9574713530338566,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.0382731677862727,
+          "median_speedup": 1.0381222238513685,
+          "min_speedup": 1.0325716133104998,
+          "max_speedup": 1.0529891147605825,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 1.0396658910726726,
+          "median_speedup": 1.0389481354828294,
+          "min_speedup": 1.0341831125115768,
+          "max_speedup": 1.055373253357535,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0913107871364767,
+          "median_speedup": 1.089325101429452,
+          "min_speedup": 1.0835474645900316,
+          "max_speedup": 1.1259398087894912,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m96_l1.jsonl",
+      "size_mib_requested": 96,
+      "layers": 1,
+      "object_bytes": 100663296,
+      "working_set_bytes": 301989888,
+      "working_set_over_l2": 2.2766798418972334,
+      "protected_fraction_of_target": 0.8235677083333334,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.8798460720574466,
+          "median_speedup": 0.8798425608631779,
+          "min_speedup": 0.8744977198518399,
+          "max_speedup": 0.8852382711710803,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9506978152909454,
+          "median_speedup": 0.9501317329989788,
+          "min_speedup": 0.9446984745156163,
+          "max_speedup": 0.9560923782844951,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9477292519873304,
+          "median_speedup": 0.9480012073640959,
+          "min_speedup": 0.9413284419313688,
+          "max_speedup": 0.9532727332377879,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0935858029622734,
+          "median_speedup": 1.0928968109876172,
+          "min_speedup": 1.085066637400824,
+          "max_speedup": 1.100090301976085,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m96_l36.jsonl",
+      "size_mib_requested": 96,
+      "layers": 36,
+      "object_bytes": 100657152,
+      "working_set_bytes": 301971456,
+      "working_set_over_l2": 2.2765408843873516,
+      "protected_fraction_of_target": 0.82361797798531,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9542243825402387,
+          "median_speedup": 0.9546838980477732,
+          "min_speedup": 0.9475269990819848,
+          "max_speedup": 0.9605009759738032,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 1.006878431113854,
+          "median_speedup": 1.0067739761518801,
+          "min_speedup": 1.0043464020555617,
+          "max_speedup": 1.0094649170466594,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 1.0062715006714087,
+          "median_speedup": 1.006314022090136,
+          "min_speedup": 1.0027222591504554,
+          "max_speedup": 1.0104402954766603,
+          "wins": 18,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0340210327007477,
+          "median_speedup": 1.0342844166975893,
+          "min_speedup": 1.0283753870712231,
+          "max_speedup": 1.0391581771754466,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m96_l144.jsonl",
+      "size_mib_requested": 96,
+      "layers": 144,
+      "object_bytes": 100638720,
+      "working_set_bytes": 301916160,
+      "working_set_over_l2": 2.2761240118577075,
+      "protected_fraction_of_target": 0.8237688237688238,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9156789533211014,
+          "median_speedup": 0.9244126434301261,
+          "min_speedup": 0.7717303934474863,
+          "max_speedup": 0.9503753837039083,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9863783980260948,
+          "median_speedup": 0.986442121434056,
+          "min_speedup": 0.8237143316467944,
+          "max_speedup": 1.1826554722575497,
+          "wins": 1,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9769157498652379,
+          "median_speedup": 0.9859514512840342,
+          "min_speedup": 0.8219909195651991,
+          "max_speedup": 0.9938409692338986,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0156629236981929,
+          "median_speedup": 1.02638507974221,
+          "min_speedup": 0.850814922383512,
+          "max_speedup": 1.0319617783373571,
+          "wins": 17,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m128_l1.jsonl",
+      "size_mib_requested": 128,
+      "layers": 1,
+      "object_bytes": 134217728,
+      "working_set_bytes": 402653184,
+      "working_set_over_l2": 3.035573122529644,
+      "protected_fraction_of_target": 0.61767578125,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.8577356579439094,
+          "median_speedup": 0.857996121771846,
+          "min_speedup": 0.8519555829729044,
+          "max_speedup": 0.8624267945661992,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.8580933570849683,
+          "median_speedup": 0.8581365048331668,
+          "min_speedup": 0.8521702733906926,
+          "max_speedup": 0.8624340674462756,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.8590038930695079,
+          "median_speedup": 0.8605282573680717,
+          "min_speedup": 0.8525157397322475,
+          "max_speedup": 0.8629749810735654,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.8582810800383162,
+          "median_speedup": 0.8581054061188824,
+          "min_speedup": 0.8535144994790876,
+          "max_speedup": 0.8631190612518677,
+          "wins": 0,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_kv",
+        "persist_state",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m128_l36.jsonl",
+      "size_mib_requested": 128,
+      "layers": 36,
+      "object_bytes": 134212608,
+      "working_set_bytes": 402637824,
+      "working_set_over_l2": 3.035457324604743,
+      "protected_fraction_of_target": 0.6176993446100086,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9446957035582285,
+          "median_speedup": 0.9448577900625219,
+          "min_speedup": 0.9383605475875403,
+          "max_speedup": 0.9488660666122793,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.995768361652256,
+          "median_speedup": 0.9961899056085202,
+          "min_speedup": 0.9913145088633833,
+          "max_speedup": 0.9995862226846083,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9960670795405588,
+          "median_speedup": 0.9961277711350776,
+          "min_speedup": 0.990893405411398,
+          "max_speedup": 1.0012815481461,
+          "wins": 2,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0246217933294706,
+          "median_speedup": 1.0247613015074468,
+          "min_speedup": 1.0198843979966588,
+          "max_speedup": 1.032376823864975,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m128_l144.jsonl",
+      "size_mib_requested": 128,
+      "layers": 144,
+      "object_bytes": 134184960,
+      "working_set_bytes": 402554880,
+      "working_set_over_l2": 3.034832015810277,
+      "protected_fraction_of_target": 0.6178266178266179,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9114558807942751,
+          "median_speedup": 0.911688370078313,
+          "min_speedup": 0.8974068359998006,
+          "max_speedup": 0.9160428962290278,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.968387237466846,
+          "median_speedup": 0.9684607327672985,
+          "min_speedup": 0.9639311089488739,
+          "max_speedup": 0.9727340659175362,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9657910169687793,
+          "median_speedup": 0.9655908516030453,
+          "min_speedup": 0.9624891750026292,
+          "max_speedup": 0.9705425169179702,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 1.0067152739824257,
+          "median_speedup": 1.0064551759230107,
+          "min_speedup": 1.0036035945745554,
+          "max_speedup": 1.0120149938337342,
+          "wins": 18,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "persist_weight",
+        "persist_kv",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m256_l1.jsonl",
+      "size_mib_requested": 256,
+      "layers": 1,
+      "object_bytes": 268435456,
+      "working_set_bytes": 805306368,
+      "working_set_over_l2": 6.071146245059288,
+      "protected_fraction_of_target": 0.308837890625,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.8328124841601553,
+          "median_speedup": 0.8327198614480908,
+          "min_speedup": 0.830921634623451,
+          "max_speedup": 0.8361231111317609,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.8329906455929362,
+          "median_speedup": 0.8334356904329869,
+          "min_speedup": 0.8287604962804079,
+          "max_speedup": 0.8354363757546813,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.8336368586691272,
+          "median_speedup": 0.833545688701624,
+          "min_speedup": 0.8314167040964062,
+          "max_speedup": 0.8360755276899617,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.8334001081593254,
+          "median_speedup": 0.8329043799077305,
+          "min_speedup": 0.8307002308355175,
+          "max_speedup": 0.8372719236449464,
+          "wins": 0,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_kv",
+        "persist_state",
+        "persist_weight",
+        "reserved_normal"
+      ]
+    },
+    {
+      "file": "placement_m256_l36.jsonl",
+      "size_mib_requested": 256,
+      "layers": 36,
+      "object_bytes": 268434432,
+      "working_set_bytes": 805303296,
+      "working_set_over_l2": 6.071123085474309,
+      "protected_fraction_of_target": 0.30883906875255107,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9376146596107785,
+          "median_speedup": 0.9379555703500597,
+          "min_speedup": 0.9337445958005522,
+          "max_speedup": 0.9418458554145295,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9378078769522348,
+          "median_speedup": 0.9380448188329282,
+          "min_speedup": 0.9337731272017686,
+          "max_speedup": 0.9424054267220737,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.937882734818943,
+          "median_speedup": 0.9378740990469123,
+          "min_speedup": 0.9337384862151998,
+          "max_speedup": 0.9413611216621002,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.937532514483214,
+          "median_speedup": 0.9375779578258563,
+          "min_speedup": 0.9338461402901883,
+          "max_speedup": 0.9428201489910386,
+          "wins": 0,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_kv",
+        "persist_weight",
+        "reserved_normal",
+        "persist_state"
+      ]
+    },
+    {
+      "file": "placement_m256_l144.jsonl",
+      "size_mib_requested": 256,
+      "layers": 144,
+      "object_bytes": 268406784,
+      "working_set_bytes": 805220352,
+      "working_set_over_l2": 6.070497776679842,
+      "protected_fraction_of_target": 0.30887088159440856,
+      "trial_count": 90,
+      "validation_errors": 0,
+      "aggregate": {
+        "reserved_normal": {
+          "geomean_speedup": 0.9468709076037903,
+          "median_speedup": 0.9539739083511656,
+          "min_speedup": 0.8361929285339873,
+          "max_speedup": 0.9564087337427389,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_weight": {
+          "geomean_speedup": 0.9468269438149376,
+          "median_speedup": 0.9540501160042054,
+          "min_speedup": 0.8367447447640338,
+          "max_speedup": 0.9569941821996878,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_kv": {
+          "geomean_speedup": 0.9467101503846109,
+          "median_speedup": 0.9540142241629026,
+          "min_speedup": 0.8369030212582604,
+          "max_speedup": 0.9568281544805985,
+          "wins": 0,
+          "cells": 18
+        },
+        "persist_state": {
+          "geomean_speedup": 0.9498957766788609,
+          "median_speedup": 0.954284438923207,
+          "min_speedup": 0.8839505210750279,
+          "max_speedup": 0.9569041866529758,
+          "wins": 0,
+          "cells": 18
+        }
+      },
+      "ranking": [
+        "persist_state",
+        "reserved_normal",
+        "persist_weight",
+        "persist_kv"
+      ]
+    }
+  ]
+}

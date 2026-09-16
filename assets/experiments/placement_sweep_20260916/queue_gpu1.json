@@ -1,0 +1,310 @@
+[
+  {
+    "id": "placement_compile",
+    "argv": [
+      "/usr/local/cuda/bin/nvcc",
+      "-O3",
+      "-std=c++17",
+      "-arch=sm_100",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep.cu",
+      "-o",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep"
+    ],
+    "timeout_s": 180
+  },
+  {
+    "id": "placement_m16_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 16 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m16_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m32_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 32 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m32_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m64_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 64 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m64_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m96_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 96 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m96_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m128_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 128 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m128_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m256_l36",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 256 36 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m256_l36.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m16_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 16 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m16_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m32_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 32 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m32_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m64_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 64 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m64_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m96_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 96 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m96_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m128_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 128 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m128_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m256_l1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 256 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m256_l1.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m16_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 16 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m16_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m32_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 32 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m32_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m64_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 64 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m64_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m96_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 96 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m96_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m128_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 128 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m128_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "placement_m256_l144",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_sweep 256 144 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/placement_m256_l144.jsonl"
+    ],
+    "timeout_s": 180,
+    "depends_on": "placement_compile"
+  },
+  {
+    "id": "retention_qwen16k",
+    "argv": [
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/venv-train/bin/python",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/retention_longcontext.py",
+      "qwen3",
+      "0"
+    ],
+    "env": {
+      "FW_LENGTH": 16384,
+      "FW_SAMPLES": 12,
+      "FW_TASKS": "niah_single_2,cwe,fwe",
+      "FW_OUTPUT": "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/retention_qwen16k",
+      "FW_EQUIV": 0
+    },
+    "timeout_s": 2200,
+    "depends_on": "retention_smoke_equiv"
+  },
+  {
+    "id": "traffic_granite_identical",
+    "argv": [
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/venv-vllm/bin/python",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/traffic_holdout.py"
+    ],
+    "env": {
+      "MX_MODEL": "ibm-granite/granite-4.0-h-tiny",
+      "MX_TAG": "traffic_granite_identical",
+      "MX_DCGM_GPU": 1,
+      "MX_BS": "1,8,32",
+      "MX_LS": "2048,8192",
+      "MX_T": 2048,
+      "MX_MAXLEN": 16384,
+      "MX_UTIL": 0.75,
+      "MX_SYNC": 1,
+      "MX_CAL_S": 4,
+      "FW_PROMPTS": "identical",
+      "FW_OUTPUT": "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/traffic_granite_identical.json"
+    },
+    "timeout_s": 1000
+  },
+  {
+    "id": "traffic_granite_diverse",
+    "argv": [
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/venv-vllm/bin/python",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/traffic_holdout.py"
+    ],
+    "env": {
+      "MX_MODEL": "ibm-granite/granite-4.0-h-tiny",
+      "MX_TAG": "traffic_granite_diverse",
+      "MX_DCGM_GPU": 1,
+      "MX_BS": "1,8,32",
+      "MX_LS": "2048,8192",
+      "MX_T": 2048,
+      "MX_MAXLEN": 16384,
+      "MX_UTIL": 0.75,
+      "MX_SYNC": 1,
+      "MX_CAL_S": 4,
+      "FW_PROMPTS": "diverse",
+      "FW_OUTPUT": "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/traffic_granite_diverse.json"
+    },
+    "timeout_s": 1000
+  },
+  {
+    "id": "dynamic_compile",
+    "argv": [
+      "/usr/local/cuda/bin/nvcc",
+      "-O3",
+      "-std=c++17",
+      "-arch=sm_100",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase.cu",
+      "-o",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase"
+    ],
+    "timeout_s": 180
+  },
+  {
+    "id": "dynamic_phase_1",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase 1 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase_1.jsonl"
+    ],
+    "depends_on": "dynamic_compile",
+    "timeout_s": 300
+  },
+  {
+    "id": "dynamic_phase_8",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase 8 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase_8.jsonl"
+    ],
+    "depends_on": "dynamic_compile",
+    "timeout_s": 300
+  },
+  {
+    "id": "dynamic_phase_64",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase 64 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase_64.jsonl"
+    ],
+    "depends_on": "dynamic_compile",
+    "timeout_s": 300
+  },
+  {
+    "id": "dynamic_phase_256",
+    "argv": [
+      "bash",
+      "-c",
+      "/NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase 256 > /NHNHOME/WORKSPACE/0526050040_A/starlight345/final_window_20260916/dynamic_phase_256.jsonl"
+    ],
+    "depends_on": "dynamic_compile",
+    "timeout_s": 300
+  }
+]

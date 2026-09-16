@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "measurement_date": "2026-09-16",
   "claim_boundary": "Actual B200 L2 placement proxy; not fabricated 3D SRAM.",
   "matched_object_experiment": {
@@ -525,5 +525,87 @@
       "file": "assets/experiments/ledger3d_placement_20260916/summary_gpu1.json",
       "sha256": "195f75f8e3d0cb5f1fe35344fd2f4746de686837f213f22bcda98cf70f45664c"
     }
-  ]
+  ],
+  "placement_sweep": {
+    "device": "NVIDIA B200",
+    "proxy": "persisting L2 reservation; not fabricated 3D SRAM",
+    "object_sizes_mib": [
+      16,
+      32,
+      64,
+      96,
+      128,
+      256
+    ],
+    "layer_slices": [
+      1,
+      36,
+      144
+    ],
+    "complete_conditions": 18,
+    "trial_count": 1620,
+    "validation_errors": 0,
+    "l2_bytes": 132644864,
+    "persisting_max_bytes": 82903040,
+    "paired_cells_per_condition": 18,
+    "pooled_cells_per_size": 54,
+    "observed_admission_regions": [
+      {
+        "size_mib": 16,
+        "protected_fraction": 1.0,
+        "state_beats_default_cells": 27,
+        "state_beats_weight_and_kv_cells": 28,
+        "decision": "no clear forced-placement benefit; baseline cache is sufficient"
+      },
+      {
+        "size_mib": 32,
+        "protected_fraction": 1.0,
+        "state_beats_default_cells": 54,
+        "state_beats_weight_and_kv_cells": 48,
+        "decision": "admit; state first"
+      },
+      {
+        "size_mib": 64,
+        "protected_fraction": 1.0,
+        "state_beats_default_cells": 54,
+        "state_beats_weight_and_kv_cells": 54,
+        "decision": "admit; state first"
+      },
+      {
+        "size_mib": 96,
+        "protected_fraction": 0.8235562642415365,
+        "state_beats_default_cells": 53,
+        "state_beats_weight_and_kv_cells": 53,
+        "decision": "admit under this proxy; state first"
+      },
+      {
+        "size_mib": 128,
+        "protected_fraction": 0.617703914642334,
+        "state_beats_default_cells": 36,
+        "state_beats_weight_and_kv_cells": 41,
+        "decision": "granularity-sensitive; remeasure before admission"
+      },
+      {
+        "size_mib": 256,
+        "protected_fraction": 0.308851957321167,
+        "state_beats_default_cells": 0,
+        "state_beats_weight_and_kv_cells": 19,
+        "decision": "reject forced placement"
+      }
+    ],
+    "claim": "Admission must precede reuse ranking. In this B200 proxy, 32-96 MiB state placement was consistently useful across layer granularities, 128 MiB was granularity-sensitive, and 256 MiB harmed every policy.",
+    "boundary": "Coverage thresholds are calibration points for this device and kernel, not universal 3D-SRAM constants. Matched cells describe the tested orders/repetitions and are not treated as independent samples from all workloads.",
+    "artifacts": {
+      "summary": "assets/experiments/placement_sweep_20260916/placement_sweep_summary.json",
+      "preregistration": "assets/experiments/placement_sweep_20260916/PREREGISTERED.md",
+      "checksums": "assets/experiments/placement_sweep_20260916/SHA256SUMS",
+      "figure_svg": "assets/figures/placement-policy-boundary.svg",
+      "figure_pdf": "assets/figures/placement-policy-boundary.pdf"
+    }
+  },
+  "policy_conclusion": {
+    "one_sentence": "Admit an object only when protected coverage can reduce off-chip time after costs, then allocate fast-tier bytes by marginal time saved per placed byte.",
+    "gain_equation": "avoided_hbm_bytes/BW_hbm - served_tier_bytes/BW_tier - migration - switching - writeback - eviction_opportunity - lost_overlap",
+    "added_tier_vs_carved_cache": "An added 3D SRAM tier has lower eviction opportunity cost than a carved L2 reservation; the B200 cliff validates the need for the term, not a universal threshold."
+  }
 }
