@@ -1,6 +1,9 @@
 <meta charset="utf-8">
 <title>디코드 상주 3D 원장</title>
 <link rel="icon" href="data:,">
+<script>
+if (location.protocol === 'file:') location.replace('http://127.0.0.1:18789/replay.html?autoplay=1&view=scene');
+</script>
 <style>
 :root{
   --bg:#151A21; --surface:#1D242D; --surface2:#242C37; --ink:#E6EBF2; --muted:#9AA8B8; --line:#2F3946; --line2:#3F4B5A;
@@ -47,6 +50,9 @@ main{max-width:1560px;margin:0 auto;padding:14px 22px 40px;display:flex;flex-dir
 .scene-hud b{color:var(--ink);font-weight:500}
 .scene-legend{position:absolute;right:10px;top:10px;font-size:11.5px;background:rgba(13,17,23,.66);border:1px solid var(--line2);border-radius:4px;padding:6px 9px;line-height:1.8;pointer-events:none}
 .sw{display:inline-block;width:10px;height:10px;border-radius:2px;vertical-align:-1px;margin-right:5px}
+.sw.flow{border-radius:50%;box-shadow:0 0 7px currentColor}
+.sw.home{background:transparent;border:2px solid currentColor}
+.flow-key{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:-2px;margin-right:6px;box-shadow:0 0 9px currentColor;border:2px solid rgba(255,255,255,.65)}
 .sw.wgt{background:var(--wgt)} .sw.kv{background:var(--kv)}
 .sw.l2{background:var(--sm)} .sw.tier{background:var(--tier)} .sw.hbm{background:var(--hbm)} .sw.hbf{background:var(--hbf)}
 .speedbar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:9px;font-size:12px;color:var(--muted)}
@@ -260,11 +266,19 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
       <div style="color:var(--muted);margin:6px 0 3px"><b style="color:var(--ink)">물체 = 어디인가</b></div>
       <div id="leg-l2"><span class="sw l2"></span>L2 132.6 MB (지나가는 길목)</div>
       <div><span class="sw tier"></span>가상 3D SRAM 계층 (머무는 곳)</div>
-      <div><span class="sw hbm"></span>HBM 스택 (본거지)</div>
+      <div><span class="sw hbm"></span>HBM3E 스택 8개 (좌 4 · 우 4)</div>
       <div><span class="sw hbf"></span>HBF 낸드 코어 다이 (HBM 뒤)</div>
       <div><span class="sw" style="background:#6E4E17"></span>HBF 베이스 다이 + TSV</div>
       <div><span class="sw" style="background:#F0C56A"></span>베이스 다이의 SRAM 버퍼</div>
-      <div style="color:var(--muted);margin-top:6px">깜빡임 = <b style="color:var(--ink)">지금 이 스텝에 바이트가 지나간다</b></div>
+      <div style="color:var(--muted);margin:6px 0 3px"><b style="color:var(--ink)">움직임 = 무엇을 뜻하나</b></div>
+      <div><span class="flow-key" style="color:var(--wgt);background:var(--wgt)"></span>분홍 구슬 = 가중치 논리 접근</div>
+      <div><span class="flow-key" style="color:var(--kv);background:var(--kv)"></span>청록 구슬 = KV 논리 접근</div>
+      <div id="leg-state-flow"><span class="flow-key" style="color:#5FC08A;background:#5FC08A"></span>초록 구슬 = state 논리 접근</div>
+      <div style="color:var(--muted)">가는 경로선과 구슬이 본거지 → L2 → compute die로 움직인다</div>
+      <div id="active-flows" style="margin-top:3px"></div>
+      <div id="flow-amounts" style="color:var(--muted);margin-top:3px"></div>
+      <div style="color:var(--warn)">실제 주소 추적이 아니라 객체식으로 계산한 경로 · 구슬은 최대 14개로 압축</div>
+      <div style="color:var(--muted);margin-top:4px">HBM 밝기는 고정 · 스택별 활동을 측정한 것처럼 점멸시키지 않는다</div>
       <div style="color:var(--muted);margin:6px 0 3px"><b style="color:var(--ink)">사다리 칸 색 = 어떤 갈래의 층인가</b></div>
       <div id="leg-group"></div>
       <div id="leg-lay" style="margin-top:4px"></div>
@@ -286,8 +300,8 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
   <p class="cap" id="scene-cap"></p>
   <p class="cap"><b>오른쪽에 따로 선 사다리는 하드웨어가 아니다.</b> 모델 층을 아래에서 위로 한 번 훑으면 토큰 하나가 나온다는 <b>시간</b>을 세로로 그린 것이다. 층이 어딘가에 쌓여 있는 것이 아니라 같은 실리콘이 층수만큼 되풀이해 돈다 <span class="b derived" title="층은 순서대로 실행된다. 세로축은 시간을 공간으로 옮긴 것">유도</span>. 그래서 칩 바깥에 떼어 놓았다.</p>
   <p class="cap"><b>자리를 잡는 규칙이 둘이고, 기본은 「스텝마다 자람」이다.</b> vLLM 은 max_tokens 만큼 미리 잡아 두지 않고 토큰이 생기는 대로 블록을 늘려 쥔다. 그래서 생성이 막 시작된 자리에서는 할당이 적고 3D SRAM 몫이 크다 — 배치 32·문맥 512에서 <b>29.8 %</b>다. 「처음부터 예약」으로 바꾸면 생성이 끝난 시점 기준이 되어 같은 자리가 <b>19.9 %</b>로 내려간다. 어느 쪽이 기계에 맞는지 실제로 재 보았다 — 살아 있는 vLLM의 KV 풀 사용률과 견주면 「스텝마다 자람」이 1~4% 안에서 맞고 「처음부터 예약」은 52~88% 과대였다 <span class="b meas" title="B200 8788 사이드카, B=8 L=2048 T=2048, 12회 표집: 실측 1.665/2.341/2.753 % 대 grow 1.737/2.333/2.786 %">측정</span>. 그래서 기본을 「스텝마다 자람」으로 둔다.</p>
-  <p class="cap"><b>GPU 다이의 생김새는 실제 도면이 아니다.</b> 가운데 격자의 칸 수는 현재 기계에서 읽은 SM 수를 따르지만 <span class="b meas" title="B200은 torch.cuda.get_device_properties, RTX PRO 5000은 CUDA deviceQuery로 읽었다">측정</span>, 네모로 고르게 늘어놓은 배치는 보기 위한 모식도다. B200은 <b>다이 두 장</b>을 다이-투-다이 연결로 붙여 한 장처럼 쓰고 <span class="b vendor" title="NVIDIA B200: 두 레티클 다이를 다이-투-다이 연결로 묶는다">제조사</span>, 워크스테이션 카드는 구조가 다르다. 가운데 위로 뻗은 사다리는 어느 기계에서도 <b>공간이 아니라 시간</b>이다 — 같은 실리콘이 모델 층수만큼 되풀이해 도는 것을 위로 그렸다 <span class="b derived" title="층은 순서대로 실행된다. 세로축은 시간을 공간으로 옮긴 것">유도</span>.</p>
-  <p class="cap"><b>L2 안에 무엇이 들어 있는지는 못 쟀고, 계산으로 그린 것이다.</b> ncu 카운터가 권한으로 막혀 있어서(ERR_NVGPUCTRPERM) L2 의 내용물을 직접 셀 수 없다. 여기 L2 판의 색은 층 일정과 <b>L2 한 번 갈아엎히는 시간 창</b>에서 <span class="b assume" title="L2 내용물 미측정. 층당 지나간 바이트 비율로 색을 칠했다">가정</span> 계산한 것이다. HBM 스택마다 몇 바이트가 갔는지도 못 쟀다. 주소가 채널에 잘게 인터리브되므로 모든 스택이 고르게 부담하는 것이 사실이고, 그래서 고르게 깜빡이도록 그렸다 <span class="b derived" title="주소 인터리빙에서 유도">유도</span>. HBF 는 2026-08 OCP 규격 1판이 나왔으나(≤512 GB · 8·16단 · 0.4~3.0 TB/s · UCIe) 실리콘이 없고 지연·버퍼·페이지는 규격에 없어 가정이며, HBF 는 SM 에 직접 못 먹이므로 HBF → HBM → L2 → SM 을 거치도록 그렸다 <span class="b assume" title="HBF 제품 없음">가정</span>.</p>
+  <p class="cap"><b>GPU 다이의 생김새는 실제 도면이 아니다.</b> B200에서 enabled SM 합계가 148개라는 값은 직접 읽었지만 <span class="b meas" title="B200은 torch.cuda.get_device_properties, RTX PRO 5000은 CUDA deviceQuery로 읽었다">측정</span>, SM 각각의 물리 좌표는 확인하지 못했다. 그래서 148칸을 임의 격자로 늘어놓지 않고 <b>두 compute die</b>만 모식적으로 그렸다 <span class="b vendor" title="NVIDIA B200: 두 레티클 다이를 다이-투-다이 연결로 묶는다">제조사</span>. 가운데 위로 뻗은 사다리는 <b>공간이 아니라 시간</b>이다 — 같은 실리콘이 모델 층수만큼 되풀이해 도는 것을 위로 그렸다 <span class="b derived" title="층은 순서대로 실행된다. 세로축은 시간을 공간으로 옮긴 것">유도</span>.</p>
+  <p class="cap"><b>L2 안에 무엇이 들어 있는지는 못 쟀고, 계산으로 그린 것이다.</b> ncu 카운터가 권한으로 막혀 있어서(ERR_NVGPUCTRPERM) L2의 내용물을 직접 셀 수 없다. 여기 L2 판의 색은 층 일정과 <b>L2 한 번 갈아엎히는 시간 창</b>에서 <span class="b assume" title="L2 내용물 미측정. 층당 지나간 바이트 비율로 색을 칠했다">가정</span> 계산한 것이다. HBM은 B200의 8스택 구성을 4+4로 그렸지만, 스택별 읽기량과 on/off 시점은 측정하지 못했으므로 <b>고정 밝기</b>로 두었다. 움직이는 구슬만 주소별 접근 빈도 대신 상주 비율을 사용한 경로 예측이다 <span class="b derived" title="스택 수는 B200 구성, 구슬 경로는 객체식 예측; 스택별 활동은 미측정">유도</span>. HBF는 2026-08 OCP 규격 1판이 나왔으나(≤512 GB · 8·16단 · 0.4~3.0 TB/s · UCIe) 실리콘이 없고 지연·버퍼·페이지는 규격에 없어 가정이며, HBF는 SM에 직접 못 먹이므로 HBF → HBM → L2 → compute die를 거치도록 그렸다 <span class="b assume" title="HBF 제품 없음">가정</span>.</p>
 </section>
 
 <!-- ② 상주 띠 -->
@@ -664,6 +678,7 @@ async function initReplay(){
     const viewTargets = {top:'#replaybar',concept:'.concept-grid',requests:'#request-life',scene:'#scene-wrap',chart:'#chart',timing:'#pipeline-explainer',controls:'#model-loader',answer:'#answer',model:'#model',prov:'#prov'};
     const target = viewTargets[query.get('view')];
     if (target) setTimeout(() => document.querySelector(target)?.scrollIntoView({block:'center'}), 80);
+    if (query.get('autoplay') === '1') replayPlay();
     $('note').textContent = `B200 원본 ${R.data.source.rows.toLocaleString('en-US')}줄에서 만든 검증용 재생판이다. SHA-256 체크섬은 파일이 바뀌었는지 확인하는 디지털 지문이며, 원본 지문은 ${R.data.source.sha256.slice(0,12)}…다.`;
   }catch(error){
     setConn('B200 녹화 파일을 못 읽었다', 'crit');
@@ -1509,15 +1524,16 @@ function initThree(){
       new THREE.MeshStandardMaterial({color:cDIE, roughness:.85, metalness:.15}));
   die.position.y = -0.18; root.add(die);
 
-  // SM 148 개를 격자로
-  const NSM = 148, cols = 12;
-  const smGeo = new THREE.BoxGeometry(0.36, 0.14, 0.36);
+  // 148개 SM의 실제 물리 배치는 공개 도면으로 검증하지 못했다. 개별 칸 148개를
+  // 임의 격자로 놓지 않고 B200의 두 compute die만 모식적으로 보여 준다.
+  const NSM = 2, cols = 2;
+  const smGeo = new THREE.BoxGeometry(2.7, 0.14, 5.2);
   const smMat = new THREE.MeshStandardMaterial({color:0xffffff, roughness:.5, metalness:.25});
   const sm = new THREE.InstancedMesh(smGeo, smMat, NSM);
   const dummy = new THREE.Object3D();
   for (let i = 0; i < NSM; i++){
-    const r = Math.floor(i/cols), c = i % cols;
-    dummy.position.set((c - (cols-1)/2) * 0.46, 0.07, (r - (Math.ceil(NSM/cols)-1)/2) * 0.46);
+    const c = i % cols;
+    dummy.position.set((c - .5) * 3.0, 0.07, 0);
     dummy.updateMatrix(); sm.setMatrixAt(i, dummy.matrix);
     sm.setColorAt(i, new THREE.Color('#46566B'));
   }
@@ -1652,6 +1668,121 @@ function initThree(){
   const pts = [new THREE.Vector3(0,1.2,-6.2), new THREE.Vector3(4.3,0.9,-1.4), new THREE.Vector3(4.3,0.9,0), new THREE.Vector3(2.2,0.4,0), new THREE.Vector3(0,0.1,0)];
   root.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), pathMat));
 
+  // 작은 블록은 데이터의 본거지, 구슬은 이번 스텝의 논리 접근을 나타낸다.
+  // 녹화된 n이 진행될 때도 같은 원장 식으로 경로를 다시 계산해 한 장면에 겹친다.
+  const dataColors = {w:cWGT, kv:cKV, state:cST};
+  const resident = {}, flow = {};
+  const residentGeo = new THREE.BoxGeometry(0.16, 0.16, 0.16);
+  const flowGeo = new THREE.SphereGeometry(0.13, 12, 9);
+  for (const id of ['w','kv','state']){
+    resident[id] = new THREE.InstancedMesh(residentGeo,
+      new THREE.MeshStandardMaterial({color:dataColors[id], roughness:.38, metalness:.16}), 12);
+    flow[id] = new THREE.InstancedMesh(flowGeo,
+      new THREE.MeshBasicMaterial({color:dataColors[id], transparent:false, depthTest:false, depthWrite:false, toneMapped:false}), 14);
+    resident[id].instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    flow[id].instanceMatrix.setUsage(THREE.DynamicDrawUsage);
+    // 상주량은 SRAM 판과 ②의 비율 띠로 표현한다. 임의 개수의 정육면체는 실제
+    // 블록으로 오해되므로 3D 장면에서는 숨긴다.
+    resident[id].visible = false;
+    flow[id].renderOrder = 20;
+    root.add(resident[id]); root.add(flow[id]);
+  }
+  const tierPath = [new THREE.Vector3(2.35,1.25,2.55), new THREE.Vector3(1.85,0.92,1.55), new THREE.Vector3(1.15,0.58,0.55), new THREE.Vector3(0,0.16,0)];
+  function pathPoint(path, t, out){
+    const seg = Math.min(path.length-2, Math.floor(t*(path.length-1)));
+    const u = t*(path.length-1)-seg;
+    return out.copy(path[seg]).lerp(path[seg+1], u);
+  }
+  function hbmStackPoint(i, nStack, y, out){
+    nStack = Math.max(1, nStack);
+    const s = ((i % nStack) + nStack) % nStack;
+    const side = s % 2 === 0 ? -1 : 1;
+    const idx = Math.floor(s/2), half = Math.ceil(nStack/2);
+    const z = (idx - (half-1)/2) * 1.42;
+    return out.set(side * 4.55, y, z);
+  }
+  function hbfStackPoint(i, nStack, y, out){
+    nStack = Math.max(1, nStack);
+    const s = ((i % nStack) + nStack) % nStack;
+    return out.set((s - (nStack-1)/2) * 1.75, y, -6.6);
+  }
+  function homePoint(place, i, kind, nHbm, nHbf, out){
+    const ko = kind === 'w' ? -0.22 : kind === 'kv' ? 0 : 0.22;
+    if (place === 'tier') return out.set(1.65 + (i%4)*0.34, 0.72 + Math.floor(i/4)*0.22, 2.05 + ko);
+    if (place === 'hbf'){
+      hbfStackPoint(i, nHbf, 0.45 + Math.floor(i/Math.max(1,nHbf))*0.18, out);
+      out.z += ko; return out;
+    }
+    hbmStackPoint(i, nHbm, 0.25 + Math.floor(i/Math.max(1,nHbm))*0.18, out);
+    out.z += ko; return out;
+  }
+  function choosePlace(q, parts){
+    let sum = 0;
+    for (const p of ['tier','hbm','hbf']){ sum += Math.max(0, parts[p] || 0); if (q <= sum + 1e-9) return p; }
+    return null;
+  }
+  function flowPath(place, i, nHbm, nHbf){
+    if (place === 'tier') return tierPath;
+    if (place === 'hbf'){
+      const a = hbfStackPoint(i, nHbf, 1.2, new THREE.Vector3());
+      return [a, new THREE.Vector3(a.x*.7,0.95,-4.4), new THREE.Vector3(a.x*.35,0.62,-2.0), new THREE.Vector3(0,0.16,0)];
+    }
+    const a = hbmStackPoint(i, nHbm, 0.85, new THREE.Vector3());
+    const side = Math.sign(a.x) || 1;
+    return [a, new THREE.Vector3(side*3.0,0.72,a.z*.72), new THREE.Vector3(side*1.7,0.56,a.z*.30), new THREE.Vector3(0,0.16,0)];
+  }
+  function addFlowGuide(points, color){
+    const mat = new THREE.LineBasicMaterial({color, transparent:true, opacity:.48, depthTest:false, depthWrite:false, toneMapped:false});
+    const line = new THREE.Line(new THREE.BufferGeometry().setFromPoints(points), mat);
+    line.renderOrder = 10; root.add(line);
+  }
+  addFlowGuide(tierPath, 0x4BC0BE);
+  addFlowGuide(flowPath('hbm', 0, 8, 4), 0x5F8AD0);
+  addFlowGuide(flowPath('hbm', 1, 8, 4), 0x5F8AD0);
+  addFlowGuide(flowPath('hbf', 0, 8, 4), 0xB8812E);
+  function updateDataMotion(m, phase, nHbm, nHbf){
+    const objects = {
+      w:{alloc:m.wAlloc, traffic:m.wStep, tier:m.tierW, hbm:m.wHBM, hbf:0},
+      kv:{alloc:m.kvAlloc, traffic:m.kvMoved, tier:m.tierKV, hbm:m.kvHBM, hbf:m.kvHBF},
+      state:{alloc:m.stAlloc, traffic:m.stMoved, tier:m.tierST, hbm:m.stHBM, hbf:m.stHBF}
+    };
+    const totalTraffic = Math.max(1, m.wStep + m.kvMoved + m.stMoved);
+    for (const id of ['w','kv','state']){
+      const o = objects[id], rm = resident[id], fm = flow[id];
+      const homeTotal = Math.max(0, o.tier + o.hbm + o.hbf);
+      const nHome = 0;
+      rm.count = nHome;
+      for (let i=0; i<nHome; i++){
+        const p = choosePlace((i+.5)/nHome * (homeTotal/Math.max(1,o.alloc)), {
+          tier:o.tier/Math.max(1,o.alloc), hbm:o.hbm/Math.max(1,o.alloc), hbf:o.hbf/Math.max(1,o.alloc)
+        });
+        if (!p) dummy.position.set(40,40,40);
+        else homePoint(p, i, id, nHbm, nHbf, dummy.position);
+        dummy.scale.setScalar(1); dummy.updateMatrix(); rm.setMatrixAt(i, dummy.matrix);
+      }
+      rm.instanceMatrix.needsUpdate = true;
+
+      const nFlow = o.traffic > 0 ? Math.max(2, Math.min(14, Math.round(26*o.traffic/totalTraffic))) : 0;
+      fm.count = nFlow;
+      const sourceParts = {tier:o.tier/Math.max(1,homeTotal), hbm:o.hbm/Math.max(1,homeTotal), hbf:o.hbf/Math.max(1,homeTotal)};
+      const activeSources = ['tier','hbm','hbf'].filter(p => sourceParts[p] > 0);
+      let hbmFlowIndex = 0, hbfFlowIndex = 0;
+      for (let i=0; i<nFlow; i++){
+        const src = i < activeSources.length ? activeSources[i] :
+          (choosePlace((i-activeSources.length+.5)/Math.max(1,nFlow-activeSources.length), sourceParts) || 'hbm');
+        const t = (phase*1.35 + i/Math.max(1,nFlow)) % 1;
+        const routeIndex = src === 'hbm' ? hbmFlowIndex++ : src === 'hbf' ? hbfFlowIndex++ : i;
+        pathPoint(flowPath(src, routeIndex, nHbm, nHbf), t, dummy.position);
+        dummy.position.z += (id === 'w' ? -0.18 : id === 'state' ? 0.18 : 0);
+        const share = Math.max(0.04, sourceParts[src] || 0);
+        const minorScale = Math.min(1, Math.max(0.48, Math.sqrt(share*nFlow)));
+        dummy.scale.setScalar(minorScale * (0.72 + 0.28*Math.sin(Math.PI*t)));
+        dummy.updateMatrix(); fm.setMatrixAt(i, dummy.matrix);
+      }
+      fm.instanceMatrix.needsUpdate = true;
+    }
+  }
+
   // 마우스로 돌린다
   let theta = 0.70, phi = 1.10, dist = 16.8, drag = null;
   cv.addEventListener('pointerdown', e => { drag = {x:e.clientX, y:e.clientY, th:theta, ph:phi}; cv.setPointerCapture(e.pointerId); });
@@ -1682,7 +1813,7 @@ function initThree(){
 
   // 라벨을 3D 점에 붙인다
   const labels = {};
-  for (const [kk, txt, dim] of [['die','GPU 다이 — SM 148 개',0],['l2','L2 132.6 MB',0],['tier','온칩 3D SRAM',0],['hbm','메모리',0],['hbf','HBF (가상 설계)',1],['lay','모델 층 — 하드웨어가 아니라 시간축',1]]){
+  for (const [kk, txt, dim] of [['die','두 compute die · enabled SM 합계 148 (개별 위치 미표현)',0],['l2','L2 132.6 MB',0],['tier','온칩 3D SRAM',0],['hbm','메모리',0],['hbf','HBF (가상 설계)',1],['lay','모델 층 — 하드웨어가 아니라 시간축',1]]){
     const d = document.createElement('div'); d.className = 'lbl' + (dim?' dim':''); d.textContent = txt;
     wrap.appendChild(d); labels[kk] = d;
   }
@@ -1703,7 +1834,7 @@ function initThree(){
     el.style.opacity = tmp.z > 1 ? 0 : 1;
   }
 
-  three = {renderer, scene, camera, root, sm, smDummy:dummy, smShown:NSM, l2, tier, hbmGroup, hbmMat, hbf, hbfGroup, hbfBufs:()=>hbfBufs, buildHBF, buildHBM, paintHBM, buildLadder, NSM,
+  three = {renderer, scene, camera, root, sm, smDummy:dummy, smShown:NSM, l2, tier, hbmGroup, hbmMat, hbf, hbfGroup, hbfBufs:()=>hbfBufs, buildHBF, buildHBM, paintHBM, buildLadder, updateDataMotion, NSM,
            get lay(){ return lay; }, get NL(){ return NL; }, get layKind(){ return layKind; },
            cWGT, cKV, cST, colTmp, colTmp2:new THREE.Color(), cHot:new THREE.Color('#FFFFFF'), labels, anchors, place, resize,
            resetCam(){ theta = 0.70; phi = 1.10; dist = 16.8; },
@@ -1761,35 +1892,15 @@ function updateThree(k, m, dt){
   }
   T.lay.instanceColor.needsUpdate = true;
 
-  // 최대 148 칸으로 만든 InstancedMesh에서 현재 기계의 SM 수만 보인다.
-  const activeSM = Math.max(1, Math.min(T.NSM, Math.round(C.sm.v)));
-  if (T.smShown !== activeSM){
-    const cols = Math.ceil(Math.sqrt(activeSM)), rows = Math.ceil(activeSM/cols);
-    for (let i = 0; i < activeSM; i++){
-      const r = Math.floor(i/cols), c = i % cols;
-      T.smDummy.position.set((c-(cols-1)/2)*0.46, 0.07, (r-(rows-1)/2)*0.46);
-      T.smDummy.updateMatrix(); T.sm.setMatrixAt(i, T.smDummy.matrix);
-    }
-    T.sm.count = activeSM; T.sm.instanceMatrix.needsUpdate = true; T.smShown = activeSM;
-  }
-  // 밝은 비율 91.9 %는 B200 실측이고, 다른 기계에서는 시각화를 위한 이전 가정이다.
-  const busyN = Math.round(activeSM * 0.919);
-  const seed = Math.floor(S.phase * T.NL);
-  for (let i = 0; i < activeSM; i++){
-    const on = ((i * 37 + seed * 11) % activeSM) < busyN;
-    T.sm.setColorAt(i, on ? T.colTmp.set('#7FA6D8') : T.colTmp.set('#39465A'));
-  }
+  // 두 면은 compute die의 모식도다. SM 148개의 실제 위치나 순간별 SM on/off를
+  // 측정하지 않았으므로 개별 칸을 점멸시키지 않는다.
+  const activeSM = T.NSM;
+  for (let i = 0; i < activeSM; i++) T.sm.setColorAt(i, T.colTmp.set('#668CBF'));
   T.sm.instanceColor.needsUpdate = true;
 
-  // HBM 스택은 고르게 깜빡인다. 주소가 채널에 잘게 인터리브되므로
-  // 스택마다 부담이 다를 이유가 없다. 재질을 하나로 공유해서 모든 탑이 같이 밝아진다.
-  // 스택 밝기 = 지금 층이 HBM 에서 읽는 바이트에 비례한다. 예전에는 크기가 늘 같은 사인파여서,
-  // 문맥이 길어져도 어텐션 층과 MLP 층이 달라도 똑같이 깜빡였다. 그건 그림이 거짓말을 하는 것이다.
-  const inLayer = (S.phase * T.NL) % 1;
-  const pulse = Math.sin(Math.PI * inLayer);                 // 층 하나를 훑는 동안 한 번 부풀었다 꺼진다
-  const perLayer = (m.wLay + m.kvLay);                       // 이 층이 HBM 에서 움직이는 바이트
-  const amp = Math.max(0.10, Math.min(1, perLayer / 1.6e9)); // 1.6 GB/층을 밝기 1 로 본다
-  T.hbmMat.emissive.set('#5F8AD0').multiplyScalar(pulse * amp * 0.62);
+  // 스택별 활동 카운터가 없으므로 HBM 자체는 고정 밝기로 둔다. 계산된 논리 접근은
+  // 별도의 구슬만 움직여, HBM on/off를 실측한 것처럼 보이지 않게 한다.
+  T.hbmMat.emissive.set('#000000');
 
   // HBF 는 넘친 KV 가 있을 때만 밝다
   // HBF 탑: 스택 수·다이 수가 바뀌면 다시 세우고, 넘친 것이 있을 때만 진하게, 버퍼는 쓰는 만큼 빛난다.
@@ -1799,14 +1910,19 @@ function updateThree(k, m, dt){
   const bufLit = busy ? Math.min(1, m.hbfBWeff / Math.max(1, m.hbfBWnom)) : 0.12;
   for (const b of T.hbfBufs()) b.material.emissive.setRGB(0.23*bufLit + 0.04, 0.17*bufLit + 0.03, 0.03);
 
+  T.updateDataMotion(m, S.phase, k.stacks, k.hbfStk);
+
   T.tick();
   for (const kk in T.anchors) T.place(kk, T.anchors[kk]);
   // 기계마다 메모리 이름이 다르다. GDDR 카드에 'HBM 스택' 이라 적으면 거짓말이다.
-  T.labels.die.textContent = 'GPU 다이 — SM ' + fN(C.sm.v) + ' 개';
+  T.labels.die.textContent = '두 compute die · enabled SM 합계 ' + fN(C.sm.v) + ' (개별 위치 미표현)';
   T.labels.l2.textContent = 'L2 ' + fB(C.l2.v);
   T.labels.hbm.textContent = (S.memWord || 'HBM') + ' ' + fB(m.hbmCap) +
-    (S.stacked === false ? ' · 쌓지 않는다' : ' · 스택 ' + k.stacks + '개');
-  T.labels.tier.textContent = '가상 3D SRAM ' + fB(k.tierCap);
+    (S.stacked === false ? ' · 쌓지 않는다' : ` · 스택 ${k.stacks}개 (${Math.ceil(k.stacks/2)}+${Math.floor(k.stacks/2)})`);
+  const tierUsed = m.tierW + m.tierKV + m.tierST;
+  T.tier.material.opacity = .18 + .44 * Math.min(1, tierUsed / Math.max(1, k.tierCap));
+  T.labels.tier.textContent = '가상 3D SRAM ' + fB(k.tierCap) + ' · ' +
+    (m.tierKV > 0 ? 'KV ' + fB(m.tierKV) : m.tierST > 0 ? 'state ' + fB(m.tierST) : m.tierW > 0 ? '가중치 ' + fB(m.tierW) : '비어 있음');
   T.labels.hbf.textContent = 'HBF ' + fB(k.hbfCap) + ' (제품 없음)';
   T.renderer.render(T.scene, T.camera);
 }
@@ -1830,17 +1946,40 @@ function renderHud(k, m){
       })() : '');
   $('speed-read').textContent = `지금 ×${fN(S.slow)} — 화면에서 1 초가 실제 ${fT(1/S.slow)} 다. 기준선 모델 스텝은 ${fT(m.tStep)} 이고, 화면에서는 ${fT(m.tStep*S.slow)} 걸린다.`;
 
+  const routed = (traffic, tier, hbm, hbf) => {
+    const total = Math.max(1, tier + hbm + hbf);
+    return {tier:traffic*tier/total, hbm:traffic*hbm/total, hbf:traffic*hbf/total};
+  };
+  const rw = routed(m.wStep, m.tierW, m.wHBM, 0);
+  const rk = routed(m.kvMoved, m.tierKV, m.kvHBM, m.kvHBF);
+  const rs = routed(m.stMoved, m.tierST, m.stHBM, m.stHBF);
+  const routeTier = rw.tier + rk.tier + rs.tier;
+  const routeHBM = rw.hbm + rk.hbm + rs.hbm;
+  const routeHBF = rw.hbf + rk.hbf + rs.hbf;
+  $('flow-amounts').innerHTML = `이 스텝의 논리 접근 예측: <b style="color:var(--wgt)">가중치 ${fB(m.wStep)}</b> · ` +
+    `<b style="color:var(--kv)">KV ${fB(m.kvMoved)}</b>` +
+    (m.stMoved > 0 ? ` · <b style="color:#5FC08A">상태 ${fB(m.stMoved)}</b>` : '') +
+    `.<br>상주 몫에 비례한 출발 경로 예측: <b>온칩 ${fB(routeTier)} · ${esc(S.memWord || 'HBM')} ${fB(routeHBM)} · HBF ${fB(routeHBF)}</b>.`;
+  $('active-flows').innerHTML = `<b>지금 움직이는 데이터:</b> ` +
+    `<span style="color:var(--wgt)">● 가중치</span> · <span style="color:var(--kv)">● KV</span>` +
+    (m.stAlloc > 0
+      ? ` · <span style="color:#5FC08A">● recurrent state</span>`
+      : ` · <span style="color:var(--muted)">state 없음 — 이 모델에는 상태 층이 없다</span>`) +
+    (routeHBF > 0 ? ` · HBF 출발 있음` : ` · <span style="color:var(--muted)">HBF 출발 없음</span>`);
+
   const blended = three && three.l2 && three.l2.__blended;
   $('scene-cap').innerHTML =
-    `가운데가 GPU 다이이고 그 위에 SM ${fN(C.sm.v)} 개가 격자로 앉아 있다 <span class="b ${C.sm.t}" title="${esc(C.sm.s)}">${BADGE[C.sm.t]}</span>. ` +
-    `밝은 칸이 지금 일하는 SM 이다 — 스텝의 91.9 % 가 커널이 도는 시간이라는 비율을 칸 수로 옮겼다 <span class="b ${C.kern.t}" title="${esc(C.kern.s)}">${BADGE[C.kern.t]}</span>. ` +
-    `그 위 얇은 판이 L2 ${fB(C.l2.v)}, 그 위 덩어리가 <b>가상 3D SRAM ${fB(k.tierCap)}</b> 다 <span class="b assume" title="현재 두 GPU에는 이 3D SRAM이 없다">가정</span>. 오른쪽에 선 투명한 사다리가 ${esc(k.M.name)} 의 모델 층 ${m.nl} 개이고, ` +
+    `가운데의 파란 두 면은 B200의 두 compute die를 나타내는 모식도다. enabled SM 합계가 ${fN(C.sm.v)}개라는 값만 측정했고 <span class="b ${C.sm.t}" title="${esc(C.sm.s)}">${BADGE[C.sm.t]}</span>, SM 각각의 물리 위치는 그리지 않는다. ` +
+    `스텝의 91.9%가 커널이 도는 시간이라는 값도 <span class="b ${C.kern.t}" title="${esc(C.kern.s)}">${BADGE[C.kern.t]}</span> 두 면의 on/off가 아니라 시간 비율이다. ` +
+    `그 위 얇은 판이 L2 ${fB(C.l2.v)}, 그 위 덩어리가 <b>가상 3D SRAM ${fB(k.tierCap)}</b>다. 지금은 ${fB(m.tierW+m.tierKV+m.tierST)}를 사용한다 <span class="b assume" title="현재 두 GPU에는 이 3D SRAM이 없다">가정</span>. 오른쪽에 선 투명한 사다리가 ${esc(k.M.name)} 의 모델 층 ${m.nl} 개이고, ` +
     `칸 색이 갈래를 말한다 — ${m.gparts.map(p => GTYPE[p.type].nm + ' ' + p.n + ' 개').join(', ')} 다 <span class="b derived" title="층 차례는 모델마다 섞여 있다. 여기서는 갈래끼리 묶어 아래부터 쌓았다">유도</span>. ` +
     `아래에서 위로 한 번 훑으면 토큰 하나가 만들어진다 <span class="b derived" title="한 층 = (가중치 ${fB(m.wLay)} + KV·상태 읽기쓰기 ${fB(m.kvLay)}) ÷ ${(m.hbmBW/1e12).toFixed(2)} TB/s">유도</span>. ` +
-    `양옆 탑이 ${S.memWord || 'HBM'} ${S.stacked === false ? '' : k.stacks + ' 스택'}이고 고르게 깜빡인다. 뒤쪽 판이 HBF 다. ` +
+    `양옆 탑은 ${S.memWord || 'HBM'} ${S.stacked === false ? '' : k.stacks + '스택'}을 ${Math.ceil(k.stacks/2)}+${Math.floor(k.stacks/2)}로 나눈 것이다. B200의 8스택 구성은 반영하지만 스택별 활동 카운터는 없으므로 밝기는 고정했다. 뒤쪽 판이 HBF다. ` +
     (blended
       ? `지금 화면 속도에서는 L2 가 ${fT(m.tL2*S.slow)} 마다 갈리므로 눈으로 셀 수 없다. 그래서 <b>실제 시간 비율로 섞은 색</b>으로 그렸다 — 지금 L2 를 지나가는 바이트의 ${fP(m.fKV)} 가 KV 다.`
-      : `지금은 L2 가 화면에서 ${fT(m.tL2*S.slow)} 마다 통째로 갈리는 것을 눈으로 셀 수 있다. 한 층 동안 ${m.turns.toFixed(1)} 번 갈린다.`);
+      : `지금은 L2 가 화면에서 ${fT(m.tL2*S.slow)} 마다 통째로 갈리는 것을 눈으로 셀 수 있다. 한 층 동안 ${m.turns.toFixed(1)} 번 갈린다.`) +
+    ` 움직이는 구슬은 <b>스텝당 논리 접근량</b>을 대표해 계산된 본거지에서 L2를 거쳐 compute die로 간다 <span class="b derived" title="원장의 객체별 논리 접근식을 대표 표본으로 그린 것. 물리 주소나 캐시라인 추적이 아니다">유도</span>. ` +
+    `B200 녹화는 n과 답 글자의 시간축을 제공하고, 구슬 경로는 그 n에서 원장 식을 다시 계산한 결과다. 상주량은 임의 정육면체가 아니라 3D SRAM 판의 라벨과 아래 ②의 비율 띠로 표시한다.`;
 
   const wShare = Math.min(k.tierCap, m.wAlloc) / m.wAlloc;
   const t0 = kvShares(k, 0).tier, tNow = m.kvAlloc > 0 ? m.tierKV/m.kvAlloc : 0;
@@ -1973,6 +2112,7 @@ function renderMinfo(k, m){
   $('leg-group').innerHTML = m.gparts.map(p =>
     `<div><span class="sw" style="background:${GTYPE[p.type].col}"></span>${esc(GTYPE[p.type].nm)} ${p.n} 개</div>`).join('');
   $('leg-state').hidden = !hasState(M);
+  $('leg-state-flow').hidden = !hasState(M);
   $('leg-lay').innerHTML =
     `<span class="sw" style="background:#F2F6FB"></span>밝은 칸 = <b style="color:var(--ink)">지금 도는 층</b> (${M.nl} 개를 다 훑으면 토큰 하나)`;
   $('minfo').innerHTML =
@@ -2377,8 +2517,24 @@ function frame(now){
    =========================================================================== */
 (function(){
   fillModelSelects(); onKnob();
+  const replayBaseModel = 'llama31_8b';
+  function routeReplayChoiceToComparison(key, reason){
+    if (!REPLAY_MODE || !key || key === replayBaseModel || !MODELS[key]) return false;
+    $('model').value = replayBaseModel;
+    $('cmp').value = key;
+    S.modelTouched = false;
+    _minfoSig = ''; _misSig = '';
+    S.dots.length = 0; S.marksPre.length = 0; S.marksEnd.length = 0;
+    const msg = `${MODELS[key].name}은 B200 녹화 모델이 아니므로 자동으로 견줄 모델에 넣었다. ` +
+      `실측·답 글자·n은 Llama-3.1-8B 녹화를 유지하고, ${MODELS[key].name}은 같은 조건의 예측 곡선으로만 겹친다.`;
+    clearPresetSelection(reason || msg);
+    $('note').textContent = msg;
+    onKnob();
+    return true;
+  }
   // 원장 모델을 사람이 고른 경우에만 자동 서버 동기화를 멈춘다.
   $('model').addEventListener('change', () => {
+    if (routeReplayChoiceToComparison($('model').value)) return;
     S.modelTouched = true;
     clearPresetSelection('원장 모델을 직접 골랐다. 서버 모델과 다르면 실측은 숨기고 예측만 그린다.');
     onKnob();
@@ -2451,11 +2607,19 @@ function frame(now){
   for (const b of document.querySelectorAll('[data-pre]')){
     b.addEventListener('click', () => {
       const p = PRESETS[b.dataset.pre];
-      if (p.M != null){ $('model').value = p.M; S.modelTouched = true; }
-      if (p.C != null) $('cmp').value = p.C;
+      if (REPLAY_MODE && p.M && p.M !== replayBaseModel){
+        $('model').value = replayBaseModel;
+        $('cmp').value = p.M;
+        S.modelTouched = false;
+      } else {
+        if (p.M != null){ $('model').value = p.M; S.modelTouched = true; }
+        if (p.C != null) $('cmp').value = p.C;
+      }
       $('B').value = p.B; $('L').value = p.L; $('T').value = p.T;
       for (const o of document.querySelectorAll('[data-pre]')) o.setAttribute('aria-pressed', o === b ? 'true' : 'false');
-      $('pre-read').textContent = p.why;
+      $('pre-read').textContent = REPLAY_MODE && p.M && p.M !== replayBaseModel
+        ? `${MODELS[p.M].name}은 견줄 예측으로 넣었다. 실측 녹화·답 글자·n은 Llama-3.1-8B를 유지한다. ${p.why}`
+        : p.why;
       S.n = 0; S.dots.length = 0; S.marksPre.length = 0; S.marksEnd.length = 0;
       S.userStopped = false;
       onKnob();
