@@ -600,7 +600,9 @@
       "preregistration": "assets/experiments/placement_sweep_20260916/PREREGISTERED.md",
       "checksums": "assets/experiments/placement_sweep_20260916/SHA256SUMS",
       "figure_svg": "assets/figures/placement-policy-boundary.svg",
-      "figure_pdf": "assets/figures/placement-policy-boundary.pdf"
+      "figure_pdf": "assets/figures/placement-policy-boundary.pdf",
+      "admission_summary": "assets/admission_policy_summary.json",
+      "admission_analyzer": "scripts/analyze_admission_policy.py"
     }
   },
   "policy_conclusion": {
