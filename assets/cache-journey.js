@@ -87,7 +87,20 @@
       emit('ready', id, 0, '', op === 'write' ? `${id} 수정 완료.` : `${id}가 연산부에 도착했습니다. 연산 자체의 시간은 제외합니다.`);
       req.endNs = now; req.durationNs = now - start; req.lastEvent = events.length - 1;
     }
-    if (c.pattern === 'compare') {
+    // Warm-cache scenario starts with an explicit preloaded copy; warm-up traffic is excluded.
+    if (c.pattern === 'hit' && c.tileBytes <= c.capacityBytes) {
+      resident.set('A', {bytes:c.tileBytes, dirty:false, kind:c.primaryKind}); used=c.tileBytes;
+    }
+    const initial = snapshot();
+    if (c.pattern === 'hit') {
+      access('A'); access('A'); access('A');
+    } else if (c.pattern === 'cold') {
+      access('B1'); access('B2'); access('B3');
+    } else if (c.pattern === 'mixed') {
+      access('A'); access('B1'); access('A'); access('B2'); access('A'); access('B1');
+    } else if (c.pattern === 'near') {
+      access('A', 'read', c.nearAvailable);
+    } else if (c.pattern === 'compare') {
       access('A'); access('A'); if (c.nearAvailable) access('A', 'read', true);
     } else if (c.pattern === 'reuse') {
       access('A'); access('A'); access('A');
@@ -97,7 +110,7 @@
       for (let i = 0; i < count; i++) access('B' + (i + 1));
       access('A');
     } else throw new Error('Unknown access pattern');
-    return { config: c, events, requests, totalNs: now, final: snapshot(), timings: timings(c) };
+    return { config: c, events, requests, initial, totalNs: now, final: snapshot(), timings: timings(c) };
   }
   return { MiB, L2_BYTES, PERSIST_MAX, transferNs, timings, simulate };
 });

@@ -7,7 +7,7 @@
   const time = ns => ns >= 1000 ? (ns / 1000).toFixed(2) + ' µs' : ns.toFixed(0) + ' ns';
   const number = id => Number($(id).value);
   const statusNames = {lookup:'L2 확인',hit:'적중 · HBM 접근 없음',miss:'미스 · HBM 읽기 필요',fetch:'HBM → L2',fill:'L2 채움',deliver:'L2 → 연산부',store:'연산부 → L2 수정',writeback:'L2 → HBM 되쓰기',evict:'L2 교체',near:'근접 메모리 → 연산부',ready:'요청 완료'};
-  let result, index=0, modelNs=0, lastFrame=0, lastShown=-1, playing=!matchMedia('(prefers-reduced-motion: reduce)').matches, finished=false, whole;
+  let exampleOverride=null, result, index=0, modelNs=0, lastFrame=0, lastShown=-1, playing=!matchMedia('(prefers-reduced-motion: reduce)').matches, finished=false, whole;
   function config() {
     whole = calc();
     const partition = $('mode').value === 'partition';
@@ -93,7 +93,7 @@
     $('current-address').textContent=req.id;$('compute-state').textContent=e.type==='ready'?(req.op==='write'?'수정 완료':'데이터 도착'):e.type==='store'?'수정 중':'데이터 대기';
     $('play').textContent=playing?'Ⅱ 멈춤':finished?'▶ 다시 재생':'▶ 재생';
   }
-  function reset(){result=J.simulate(config());index=0;modelNs=0;lastShown=-1;finished=false;lastFrame=0;renderTiming();paint();}
+  function reset(override){exampleOverride=override||null;result=J.simulate({...config(),...exampleOverride});index=0;modelNs=0;lastShown=-1;finished=false;lastFrame=0;renderTiming();paint();}
   function setPlaying(value){playing=value;lastFrame=0;$('play').textContent=value?'Ⅱ 멈춤':'▶ 재생';}
   function frame(timestamp){
     if(playing&&result&&!finished){
@@ -105,15 +105,15 @@
     } else lastFrame=0;
     requestAnimationFrame(frame);
   }
-  $('play').addEventListener('click',()=>{if(finished)reset();setPlaying(!playing);paint();});
+  $('play').addEventListener('click',()=>{if(finished)reset(exampleOverride);setPlaying(!playing);paint();});
   $('next').addEventListener('click',()=>{setPlaying(false);if(index>=result.events.length-1)reset();else index++;modelNs=result.events[index].startNs;lastShown=-1;finished=index===result.events.length-1;paint();});
-  $('reset-journey').addEventListener('click',()=>{setPlaying(false);reset();});
+  $('reset-journey').addEventListener('click',()=>{setPlaying(false);reset(exampleOverride);});
   $('speed').addEventListener('change',()=>{renderTiming();lastFrame=0;});
   for(const id of ['journey-pattern','journey-tile'])$(id).addEventListener('change',()=>{reset();});
   for(const id of ['l2-bandwidth','near-bandwidth','l2-latency','hbm-latency','near-latency'])$(id).addEventListener('change',()=>{
     if(!$(id).checkValidity()||!Number.isFinite(number(id))){$(id).reportValidity();$(id).value=$(id).dataset.lastValid||$(id).defaultValue;return;}$(id).dataset.lastValid=$(id).value;render();
   });
   for(const id of ['l2-bandwidth','near-bandwidth','l2-latency','hbm-latency','near-latency'])$(id).addEventListener('input',()=>{if($(id).checkValidity()&&Number.isFinite(number(id)))render();});
-  window.journeyApp={reset};
+  window.journeyApp={reset,setVisible(visible){if(!visible)setPlaying(false);paint();}};
   reset();requestAnimationFrame(frame);
 })();
