@@ -20,6 +20,13 @@ for(const size of [64,256]){
   assert.equal(pairs.length,18);const gm=Math.exp(pairs.reduce((a,b)=>a+Math.log(b),0)/pairs.length);assert(Math.abs(gm-match.aggregate[policy].geomean_speedup)<1e-10);
  }
  assert.equal(trials.reduce((a,t)=>a+t.validation_errors,0),0);
+ // reserved_normal sets the reserve with no window, so persist_state/reserved_normal isolates what naming a target bought.
+ const gm=policy=>{const v=trials.filter(t=>t.policy===policy).map(t=>trials.find(a=>a.policy==='default'&&a.order===t.order&&a.pass===t.pass).step_ms/t.step_ms);return Math.exp(v.reduce((a,b)=>a+Math.log(b),0)/v.length);};
+ assert.equal(new Set(trials.filter(t=>t.policy==='reserved_normal').map(t=>t.window_bytes)).size,1);
+ assert.equal(trials.find(t=>t.policy==='reserved_normal').window_bytes,0);
+ const targeting=gm('persist_state')/gm('reserved_normal');
+ if(size===64)assert(targeting>1.1,`64 MiB targeting gain collapsed to ${targeting}`);
+ else assert(Math.abs(targeting-1)<0.01,`256 MiB targeting effect is not neutral: ${targeting}`);
 }
 // Execute the existing structural calculator with lightweight controls, then check conservation over its full input grid.
 const elements=new Map();function el(id){if(!elements.has(id))elements.set(id,{value:'',textContent:'',innerHTML:'',insertAdjacentHTML(){},addEventListener(){}});return elements.get(id);}

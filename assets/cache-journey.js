@@ -23,13 +23,14 @@
     const c = Object.assign({ capacityBytes: L2_BYTES, tileBytes: 16 * MiB,
       hbmTBps: 8, l2TBps: 30, nearTBps: 20, hbmLatencyNs: 400,
       l2LatencyNs: 100, nearLatencyNs: 50, nearAvailable: true,
-      nearLabel: '3D SRAM', primaryKind: 'kv', otherKinds: ['weight','kv','state'], pattern: 'compare' }, input);
+      nearLabel: '3D SRAM', primaryKind: 'kv', otherKinds: ['weight','kv','state'], pattern: 'compare',
+      nearPrefill: false }, input);
     if (!(c.tileBytes > 0) || c.capacityBytes < 0) throw new Error('Invalid cache size');
     for (const k of ['hbmLatencyNs','l2LatencyNs','nearLatencyNs']) if (c[k] < 0) throw new Error('Negative latency');
     timings(c);
     const resident = new Map(), events = [], requests = [];
     let used = 0, now = 0;
-    const stats = { hits: 0, misses: 0, nearHits: 0, hbmRead: 0, hbmWrite: 0, l2Read: 0, l2Write: 0, nearRead: 0, evictions: 0 };
+    const stats = { hits: 0, misses: 0, nearHits: 0, hbmRead: 0, hbmWrite: 0, l2Read: 0, l2Write: 0, nearRead: 0, nearFill: 0, evictions: 0 };
     function snapshot() {
       return { used, entries: Array.from(resident, ([id, x]) => ({ id, bytes: x.bytes, dirty: x.dirty, kind: x.kind })), stats: { ...stats } };
     }
@@ -87,6 +88,17 @@
       emit('ready', id, 0, '', op === 'write' ? `${id} 수정 완료.` : `${id}가 연산부에 도착했습니다. 연산 자체의 시간은 제외합니다.`);
       req.endNs = now; req.durationNs = now - start; req.lastEvent = events.length - 1;
     }
+    // Phase 0: the near tier does not start populated. Charge the HBM read that fills it once.
+    // The near-side write is not charged separately; only the HBM link and its fixed delay are counted.
+    function prefillNear(id) {
+      const start = now, kind = id === 'A' ? c.primaryKind : c.otherKinds[0];
+      const req = { id, kind, op: 'fill', near: true, source: `HBM → ${c.nearLabel} 최초 적재`, startNs: start, firstEvent: events.length };
+      requests.push(req);
+      emit('nearfill', id, c.hbmLatencyNs + transferNs(c.tileBytes, c.hbmTBps), 'nearfill',
+        `단계 0: ${id}를 HBM에서 읽어 ${c.nearLabel}에 처음 채웁니다.`, () => { stats.hbmRead += c.tileBytes; stats.nearFill += c.tileBytes; });
+      emit('ready', id, 0, '', `${id} 최초 적재 완료. 단계 1부터 ${c.nearLabel}가 직접 전달합니다.`);
+      req.endNs = now; req.durationNs = now - start; req.lastEvent = events.length - 1;
+    }
     // Warm-cache scenario starts with an explicit preloaded copy; warm-up traffic is excluded.
     if (c.pattern === 'hit' && c.tileBytes <= c.capacityBytes) {
       resident.set('A', {bytes:c.tileBytes, dirty:false, kind:c.primaryKind}); used=c.tileBytes;
@@ -99,6 +111,7 @@
     } else if (c.pattern === 'mixed') {
       access('A'); access('B1'); access('A'); access('B2'); access('A'); access('B1');
     } else if (c.pattern === 'near') {
+      if (c.nearAvailable && c.nearPrefill) prefillNear('A');
       access('A', 'read', c.nearAvailable);
     } else if (c.pattern === 'compare') {
       access('A'); access('A'); if (c.nearAvailable) access('A', 'read', true);

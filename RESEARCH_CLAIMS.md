@@ -64,7 +64,7 @@ subject to Σ x_i ≤ C,  0 ≤ x_i ≤ S_i
 
 18개 조건, 1,620 trial, validation 오류 0이다.
 
-| 객체 크기 | 보호 비율 | state가 default보다 빠른 셀 | state가 W/KV보다 빠른 셀 | 결론 |
+| 객체 크기 | persisting 예약 비율 | state가 default보다 빠른 셀 | state가 W/KV보다 빠른 셀 | 결론 |
 |---:|---:|---:|---:|---|
 | 16 MiB | 100% | 27/54 | 28/54 | 기본 캐시로 충분해 강제 배치 이득이 거의 없음 |
 | 32 MiB | 100% | 54/54 | 48/54 | 입장, state 우선 |

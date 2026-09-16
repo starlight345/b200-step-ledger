@@ -20,4 +20,18 @@ const slowNear=simulate({...base,nearTBps:10,pattern:'compare'});assert(slowNear
 r=simulate({...base,capacityBytes:0,pattern:'dirty'});assert(r.final.entries.length===0);assert.equal(r.final.stats.hbmWrite,16*MiB);
 r=simulate({...base,nearAvailable:false,pattern:'compare'});assert.equal(r.requests.length,2);assert.equal(r.final.stats.nearHits,0);
 assert.equal(transferNs(8e6,8),1000);
-console.log('Cache journey: read conservation, hit/miss, LRU eviction, dirty writeback, timing sensitivity and zero capacity passed.');
+// Phase 0 initial fill, then phase 1 service from the near tier.
+r=simulate({...base,pattern:'near',nearAvailable:true,nearPrefill:true});
+assert.equal(r.requests.length,2);assert.equal(r.requests[0].op,'fill');
+assert.equal(r.final.stats.nearFill,16*MiB);assert.equal(r.final.stats.hbmRead,16*MiB);assert.equal(r.final.stats.nearRead,16*MiB);
+assert(r.events.findIndex(e=>e.type==='nearfill')<r.events.findIndex(e=>e.type==='near'));
+assert.equal(r.events.find(e=>e.type==='nearfill').durationNs,base.hbmLatencyNs+transferNs(16*MiB,base.hbmTBps));
+const noFill=simulate({...base,pattern:'near',nearAvailable:true});
+assert.equal(noFill.final.stats.nearFill,0);assert.equal(noFill.final.stats.hbmRead,0);
+assert(r.totalNs>noFill.totalNs);
+assert.equal(simulate({...base,pattern:'near',nearAvailable:false,nearPrefill:true}).final.stats.nearFill,0);
+// nearFill labels the same bytes the fill already charged to hbmRead; it is not additional traffic.
+assert.equal(r.final.stats.nearFill,r.final.stats.hbmRead);
+assert.equal(r.events.filter(e=>e.type==='nearfill').length,1);
+assert.equal(r.events.filter(e=>e.type==='fetch').length,0);
+console.log('Cache journey: read conservation, hit/miss, LRU eviction, dirty writeback, timing sensitivity, zero capacity and near-tier initial fill passed.');
