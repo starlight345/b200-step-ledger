@@ -93,7 +93,7 @@
     $('current-address').textContent=req.id;$('compute-state').textContent=e.type==='ready'?(req.op==='write'?'수정 완료':'데이터 도착'):e.type==='store'?'수정 중':'데이터 대기';
     $('play').textContent=playing?'Ⅱ 멈춤':finished?'▶ 다시 재생':'▶ 재생';
   }
-  function reset(override){exampleOverride=override||null;result=J.simulate({...config(),...exampleOverride});index=0;modelNs=0;lastShown=-1;finished=false;lastFrame=0;renderTiming();paint();}
+  function reset(override){setPlaying(false);exampleOverride=override||null;result=J.simulate({...config(),...exampleOverride});index=0;modelNs=0;lastShown=-1;finished=false;lastFrame=0;renderTiming();paint();}
   function setPlaying(value){playing=value;lastFrame=0;$('play').textContent=value?'Ⅱ 멈춤':'▶ 재생';}
   function frame(timestamp){
     if(playing&&result&&!finished){

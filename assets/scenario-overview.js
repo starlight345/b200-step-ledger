@@ -20,7 +20,7 @@ const cases={
  llama:{label:'실제 Llama decode',title:'Llama-3.1-8B · B200에서 실행한 조건',kind:'decode',model:'llama',key:'llama31_8b'},
  granite:{label:'실제 Granite decode',title:'Granite 하이브리드 · B200에서 실행한 조건',kind:'decode',model:'granite',key:'granite_4h'}
 };
-let selected='model',view='system',evidence={},loadError='',cachePhase='final',l2View='steady',running=!matchMedia('(prefers-reduced-motion: reduce)').matches,current;
+let selected='model',view='system',evidence={},loadError='',cachePhase='final',l2View='steady',conditionKey=null,conditionUpdated=false,running=!matchMedia('(prefers-reduced-motion: reduce)').matches,current;
 $('system-panel').innerHTML=`<div class="system-intro"><h3>상황을 골라 전체 지도를 비교하세요</h3><p>상자 안 색은 저장 구성, 연결선은 데이터 경로입니다. 저장량과 이동량은 서로 다른 값입니다.</p></div><div class="case-groups"><div class="case-group" id="sim-cases"><span>구조 계산 · 설명용 상황</span></div><div class="case-group" id="measured-cases"><span>저장된 B200 실험 · 실제 기록에서 불러옴</span></div></div><div id="system-content"></div>`;
 for(const [key,c]of Object.entries(cases)){const btn=document.createElement('button');btn.className='case-button';btn.textContent=c.label;btn.dataset.case=key;btn.setAttribute('aria-pressed','false');if(['proxy','decode'].includes(c.kind))btn.dataset.measured='';btn.addEventListener('click',()=>select(key));$(['proxy','decode'].includes(c.kind)?'measured-cases':'sim-cases').append(btn);}
 const note=document.createElement('p');note.id='scenario-control-note';note.className='scenario-control-note';document.querySelector('.controls').append(note);
@@ -153,16 +153,19 @@ function memoryContext(d){
 }
 function draw(d){
  current=d;const measured=['proxy','decode'].includes(d.type),routeSpecs=[['fetch','HBM → L2 · 읽기'],['writeback','L2 → HBM · 되쓰기'],['deliver',measured?'연산의 논리 읽기':'L2 → 연산부 · 읽기'],['store',measured?'연산의 논리 쓰기':'연산부 → L2 · 쓰기'],['near',d.partition?'보호 L2 서비스':'추가 SRAM 서비스']];
- $('system-content').innerHTML=`<div class="system-heading"><span class="basis-tag ${measured?'measured':''}">${esc(d.tag)}</span><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div><div class="system-facts">${d.facts.map(([n,v,f])=>`<div class="system-fact"><span>${esc(n)}</span><strong>${esc(v)}</strong><small>${esc(f)}</small></div>`).join('')}</div>${memoryContext(d)}<div class="system-map-wrap">${map(d)}</div><div class="system-map-controls">${d.type==='sim'?`<button class="play" id="cache-phase">L2: ${cachePhase==='final'?'실행 후 → 실행 전 보기':'실행 전 → 실행 후 보기'}</button>`:''}${!measured?`<button class="play" id="map-play">${running?'Ⅱ 이동 표시 멈춤':'▶ 이동 표시 재생'}</button>`:''}<span>${esc(d.unit)} 합계 · 지도는 동시 경로 요약</span>${d.type==='sim'?'<button class="system-detail-link" id="open-detail">이 상황을 한 요청씩 따라가기 →</button>':''}</div><div class="system-legend">${K.map(k=>`<span><i style="background:${C[k]}"></i>${N[k]}</span>`).join('')}<span>실선: 읽기 / 점선: 쓰기 또는 미계측 경로</span><span>빗금: 점유 미계측</span></div>${d.warnings?`<div class="sys-alert">${esc(d.warnings)}</div>`:''}${speedPanel(d)}<div class="system-transfers">${routeSpecs.map(([k,n])=>`<article class="transfer-card"><h4>${esc(n)}</h4><strong>${esc(val(d.flows[k]))}</strong><div class="transfer-parts">${d.flows[k]?K.map(a=>`<span style="color:${C[a]}">${N[a]} ${b(d.flows[k][a])}</span>`).join(''):'물리 바이트를 측정한 카운터 없음'}</div><p>${d.flows[k]===null?'기록된 실행시간으로 대체하거나 역산하지 않습니다.':measured?'논리 접근량 · 실제 링크 전송량 아님':'가정과 요청 순서에서 계산'}</p></article>`).join('')}</div><p class="system-description">${esc(d.explanation)}</p>${proofs(d)}`;
+ $('system-content').innerHTML=`<div class="system-heading"><span class="basis-tag ${measured?'measured':''}">${esc(d.tag)}</span><h3>${esc(d.title)}</h3><p>${esc(d.desc)}</p></div><div class="system-facts">${d.facts.map(([n,v,f])=>`<div class="system-fact"><span>${esc(n)}</span><strong>${esc(v)}</strong><small>${esc(f)}</small></div>`).join('')}</div>${memoryContext(d)}<div class="system-map-wrap">${map(d)}</div><div class="system-map-controls">${d.type==='sim'?`<button class="play" id="cache-phase">L2: ${cachePhase==='final'?'실행 후 → 실행 전 보기':'실행 전 → 실행 후 보기'}</button>`:''}${!measured?`<button class="play" id="map-play">${running?'Ⅱ 경로 애니메이션 멈춤':'▶ 경로 애니메이션 재생'}</button>`:''}<span>${esc(d.unit)} 합계 · 지도는 동시 경로 요약</span>${!measured?'<span>반복 경로 애니메이션 · 실제 모델 실행 아님 · 조건 변경 후 재생을 눌러 시작</span>':''}${conditionUpdated?`<span id="system-condition-status" role="status">현재 ${esc(d.x?.m.name||cases[selected].label)} · 새 조건으로 다시 계산됨</span>`:''}${d.type==='sim'?'<button class="system-detail-link" id="open-detail">이 상황을 한 요청씩 따라가기 →</button>':''}</div><div class="system-legend">${K.map(k=>`<span><i style="background:${C[k]}"></i>${N[k]}</span>`).join('')}<span>실선: 읽기 / 점선: 쓰기 또는 미계측 경로</span><span>빗금: 점유 미계측</span></div>${d.warnings?`<div class="sys-alert">${esc(d.warnings)}</div>`:''}${speedPanel(d)}<div class="system-transfers">${routeSpecs.map(([k,n])=>`<article class="transfer-card"><h4>${esc(n)}</h4><strong>${esc(val(d.flows[k]))}</strong><div class="transfer-parts">${d.flows[k]?K.map(a=>`<span style="color:${C[a]}">${N[a]} ${b(d.flows[k][a])}</span>`).join(''):'물리 바이트를 측정한 카운터 없음'}</div><p>${d.flows[k]===null?'기록된 실행시간으로 대체하거나 역산하지 않습니다.':measured?'논리 접근량 · 실제 링크 전송량 아님':'가정과 요청 순서에서 계산'}</p></article>`).join('')}</div><p class="system-description">${esc(d.explanation)}</p>${proofs(d)}`;
  $('l2-view')?.addEventListener('change',()=>{l2View=$('l2-view').value;refresh();});
  $('show-llm')?.addEventListener('click',()=>{applyScenario('short');});
  $('cache-phase')?.addEventListener('click',()=>{cachePhase=cachePhase==='final'?'initial':'final';refresh();});
- $('map-play')?.addEventListener('click',()=>{running=!running;setAnimation();$('map-play').textContent=running?'Ⅱ 이동 표시 멈춤':'▶ 이동 표시 재생';});
+ $('map-play')?.addEventListener('click',()=>{running=!running;setAnimation();$('map-play').textContent=running?'Ⅱ 경로 애니메이션 멈춤':'▶ 경로 애니메이션 재생';});
  $('open-detail')?.addEventListener('click',()=>{$('journey-pattern').value=cases[selected].pattern;$('journey-tile').value='16';window.journeyApp.reset({primaryKind:current.r.config.primaryKind,otherKinds:K});setView('journey');});
  setAnimation();
 }
 function setAnimation(){const svg=$('system-map');if(!svg)return;if(running&&view==='system')svg.unpauseAnimations();else svg.pauseAnimations();}
 function refresh(){
+ const nextKey=selected+'|'+['model','batch','context','capacity','policy','mode','hbm','l2-bandwidth','near-bandwidth','l2-latency','hbm-latency','near-latency'].map(id=>$(id).value).join('|');
+ if(conditionKey!==null&&nextKey!==conditionKey){running=false;conditionUpdated=true;}
+ conditionKey=nextKey;
  document.querySelector('[data-case="model"]').textContent=$('model').value==='proxy'?'대리실험 구성 · 가정':'모델 한 스텝';
  document.querySelectorAll('[data-case]').forEach(el=>el.setAttribute('aria-pressed',el.dataset.case===selected?'true':'false'));
  if(controlNote)controlNote.textContent=['proxy','decode'].includes(cases[selected].kind)?'현재는 고정된 실측 조건입니다. 모델·용량을 바꾸면 ‘모델 한 스텝’ 가정 계산으로 전환합니다.':cases[selected].kind==='sim'?'예시 데이터는 16 MiB 조각입니다. 위 용량·속도 입력을 공유하며, 모델 크기와는 별개입니다.':'모델·배치·문맥·정책을 바꾸면 전체 지도가 함께 바뀝니다.';
@@ -172,7 +175,7 @@ function refresh(){
 }
 function setView(next){view=next;$('system-panel').hidden=next!=='system';$('journey-panel').hidden=next!=='journey';for(const key of ['system','journey']){$('view-'+key).setAttribute('aria-pressed',next===key?'true':'false');$('view-'+key).classList.toggle('active',next===key);}if(window.journeyApp.setVisible)window.journeyApp.setVisible(next==='journey');setAnimation();}
 function select(key){
- selected=key;cachePhase='final';const c=cases[key];
+ selected=key;cachePhase='final';running=false;conditionUpdated=true;const c=cases[key];
  if(c.kind==='decode'){$('model').value=c.model;$('batch').value=batches.indexOf(8);$('context').value=contexts.indexOf(2048);$('capacity').value=0;$('mode').value='added';scenario='';render();}
  else if(c.kind==='proxy'){$('model').value='proxy';$('batch').value=0;$('context').value=contexts.indexOf(c.size*1024);$('capacity').value=caps.indexOf(128);$('mode').value='partition';$('policy').value='state';scenario='';render();}
  else refresh();
@@ -180,7 +183,7 @@ function select(key){
 }
 $('view-system').addEventListener('click',()=>setView('system'));$('view-journey').addEventListener('click',()=>setView('journey'));
 $('speed').addEventListener('change',refresh);
-window.overviewApp={refresh,useModel(){selected='model';},conditionChanged(id){if(cases[selected].kind==='sim'&&['hbm','capacity','mode'].includes(id))return;selected='model';}};
+window.overviewApp={refresh,useModel(){selected='model';running=false;conditionUpdated=true;},conditionChanged(id){if(cases[selected].kind==='sim'&&['hbm','capacity','mode'].includes(id))return;selected='model';}};
 setView('system');refresh();
 (async()=>{try{const urls={sweep:'assets/placement_sweep_summary.json',models:'assets/model_evidence.json',raw64:'assets/experiments/placement_sweep_20260916/placement_m64_l36.jsonl',raw256:'assets/experiments/placement_sweep_20260916/placement_m256_l36.jsonl'};const entries=await Promise.all(Object.entries(urls).map(async([key,url])=>{const response=await fetch(url);if(!response.ok)throw Error('Evidence unavailable');const text=await response.text();return[key,key.startsWith('raw')?text.trim().split('\n').map(s=>JSON.parse(s)):JSON.parse(text)];}));evidence=Object.fromEntries(entries);if(['proxy','decode'].includes(cases[selected].kind))refresh();}catch(error){loadError='원자료를 불러오지 못했습니다. 새로고침 후 다시 선택해 주세요. 실측 수치를 임의로 채우지 않았습니다.';if(['proxy','decode'].includes(cases[selected].kind))refresh();}})();
 })();
