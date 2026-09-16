@@ -163,6 +163,7 @@ function draw(d){
 }
 function setAnimation(){const svg=$('system-map');if(!svg)return;if(running&&view==='system')svg.unpauseAnimations();else svg.pauseAnimations();}
 function refresh(){
+ document.querySelector('[data-case="model"]').textContent=$('model').value==='proxy'?'대리실험 구성 · 가정':'모델 한 스텝';
  document.querySelectorAll('[data-case]').forEach(el=>el.setAttribute('aria-pressed',el.dataset.case===selected?'true':'false'));
  if(controlNote)controlNote.textContent=['proxy','decode'].includes(cases[selected].kind)?'현재는 고정된 실측 조건입니다. 모델·용량을 바꾸면 ‘모델 한 스텝’ 가정 계산으로 전환합니다.':cases[selected].kind==='sim'?'예시 데이터는 16 MiB 조각입니다. 위 용량·속도 입력을 공유하며, 모델 크기와는 별개입니다.':'모델·배치·문맥·정책을 바꾸면 전체 지도가 함께 바뀝니다.';
  const kind=cases[selected].kind;
