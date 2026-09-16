@@ -192,15 +192,15 @@ button[aria-pressed=true]{border-color:var(--ok);color:var(--ok)}
   <span id="dock-read" class="mono" style="color:var(--muted);min-width:170px"></span>
 </div>
 <main>
-<section class="panel"><h2>메모리 내용과 수치 근거</h2><p>관측 기록 → 데이터별 용량·논리적 접근량 → 가상 배치의 경로 시간 순서로 읽습니다. <a href="memory.html">데이터의 내용·수명, 계산 예시, 측정 방법과 원자료 →</a></p><p class="cap">이 화면의 배치·트래픽 분해는 모델 계산입니다. 용량에 들어맞는 것은 지속 데이터의 필요조건이며 전체 모델 실행 가능성을 보증하지 않습니다. 실제 L2 내용과 HBM 읽기/쓰기별 카운터는 수집하지 못했습니다. 중간값·작업 공간·런타임 예약량은 미계측이며 0 B로 간주하지 않습니다.</p></section>
+<section class="panel"><h2>메모리 내용과 수치 근거</h2><p>관측 기록 → 데이터별 용량·논리적 접근량 → 가상 배치의 경로 시간 순서로 읽습니다. <a href="memory.html">데이터의 내용·수명, 계산 예시, 측정 방법과 원자료 →</a></p><p><b>실제 B200 검증:</b> 같은 64 MiB를 상주시켰을 때 두 GPU 통합 결과는 weight 1.0554×, KV 1.0562×, state 1.1099×였습니다. <a href="memory.html#placement-proof">배치 순위·용량 초과 반례·원자료 보기 →</a></p><p class="cap">이 화면의 배치·트래픽 분해는 모델 계산입니다. 용량에 들어맞는 것은 지속 데이터의 필요조건이며 전체 모델 실행 가능성을 보증하지 않습니다. 실제 L2 내용과 HBM 읽기/쓰기별 카운터는 수집하지 못했습니다. 중간값·작업 공간·런타임 예약량은 미계측이며 0 B로 간주하지 않습니다.</p></section>
 
 <!-- ⓪ 세 개념을 먼저 분리한다 -->
 <section class="panel">
   <h2>먼저 구분할 세 가지</h2>
   <div class="core-message" id="core-message">
     <span class="kind">CORE QUESTION</span>
-    <strong>고정된 3D SRAM을 KV에 쓸까, 가중치에 쓸까?</strong>
-    <p>문맥 길이에 따라 더 나은 상주 정책이 달라진다. 상주 비율 → 모델로 계산한 바이트 이동 → 직렬·완전 겹침 시간 경계까지 이어서 비교한다.</p>
+    <strong>고정된 3D SRAM을 weight·KV·state 중 어디에 쓸까?</strong>
+    <p>데이터마다 상주 바이트당 피할 수 있는 이동량이 다르고, 용량을 넘으면 이득이 뒤집힐 수 있다. 상주량 → 접근량 → 실제 트래픽·시간 → 배치 순서로 이어서 비교한다.</p>
   </div>
   <div class="term-strip" id="term-glossary" aria-label="핵심 용어 정의">
     <div class="term-item"><b>가중치</b>학습이 끝난 뒤 크기가 고정된 모델 데이터</div>
@@ -1704,7 +1704,7 @@ function initThree(){
 
   three = {renderer, scene, camera, root, sm, smDummy:dummy, smShown:NSM, l2, tier, hbmGroup, hbmMat, hbf, hbfGroup, hbfBufs:()=>hbfBufs, buildHBF, buildHBM, paintHBM, buildLadder, NSM,
            get lay(){ return lay; }, get NL(){ return NL; }, get layKind(){ return layKind; },
-           cWGT, cKV, colTmp, colTmp2:new THREE.Color(), cHot:new THREE.Color('#FFFFFF'), labels, anchors, place, resize,
+           cWGT, cKV, cST, colTmp, colTmp2:new THREE.Color(), cHot:new THREE.Color('#FFFFFF'), labels, anchors, place, resize,
            resetCam(){ theta = 0.70; phi = 1.10; dist = 16.8; },
            get cam(){ return {theta, phi, dist}; },
            tick(){ camera.position.set(dist*Math.sin(phi)*Math.sin(theta), dist*Math.cos(phi) + 1.3, dist*Math.sin(phi)*Math.cos(theta));
@@ -1722,7 +1722,7 @@ function updateThree(k, m, dt){
   const th = Math.max(0.001, k.tierCap / 3.072e9 * 0.9);
   T.tier.scale.y = th; T.tier.position.y = 0.60 + th/2;
   T.tier.visible = k.tierCap > 0;
-  T.tier.material.color.copy(k.policy === 'kv' ? T.cKV : T.cWGT);
+  T.tier.material.color.copy(k.policy === 'kv' ? T.cKV : (k.policy === 'state' ? T.cST : T.cWGT));
   T.buildLadder(k.M);    // 층 수·갈래가 바뀌면 사다리를 다시 짓는다
 
   // HBM 스택 개수

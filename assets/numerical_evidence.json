@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "review_date": "2026-09-16",
   "units": {
     "GB": 1000000000,
@@ -66,5 +66,16 @@
       "sha256": "369565c61db4c24a37454930830e21a62b4e207788d5e7bf983a995a62acf9c5"
     }
   ],
-  "dump_limit": "mx3_llama31.json와 mx3_gemma3.json의 kv_tensor_count는 0, mx5_dsv2lite.json의 capture는 비어 있다. ok:true만으로 실제 텐서 덤프 성공을 판정하지 않는다."
+  "dump_limit": "mx3_llama31.json와 mx3_gemma3.json의 kv_tensor_count는 0, mx5_dsv2lite.json의 capture는 비어 있다. ok:true만으로 실제 텐서 덤프 성공을 판정하지 않는다.",
+  "placement_validation": {
+    "evidence_file": "assets/placement_evidence.json",
+    "pooled_geomean_speedup_vs_default": {
+      "reserved_normal": 0.953153901073094,
+      "persist_weight": 1.0553946279864828,
+      "persist_kv": 1.0561746159603551,
+      "persist_state": 1.1099264017618298
+    },
+    "validation_errors": 0,
+    "scope": "Actual B200 L2 placement proxy; not fabricated 3D SRAM."
+  }
 }

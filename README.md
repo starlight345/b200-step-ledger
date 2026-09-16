@@ -29,3 +29,16 @@ python3 -m http.server 4173
 - 기존 영상은 이전 설명판이므로 최신 측정 방법과 증거 등급은 `memory.html`을 기준으로 읽는다.
 
 현재 화면의 객체별 읽기/쓰기와 가상 메모리 시간은 계산값이다. 중간값·작업 공간·런타임 여유와 실제 R/W 카운터 검증은 미완료이며, 배치 가능 판정은 지속 데이터에 대한 필요조건이다. 전체 실행 가능 여부를 보증하지 않는다.
+
+
+## B200 배치 검증 (2026-09-16)
+
+- 동일한 64 MiB weight·KV·state를 실제 B200 persisting L2에 하나씩 배치한 사전등록 통제 실험.
+- 물리 GPU 2개, GPU당 90 trial, validation 오류 0.
+- 통합 기하평균: weight `1.0554×`, KV `1.0562×`, state `1.1099×` (matched default 대비).
+- Granite-state 용량 실험은 작은 상태에서 최대 `1.1364×`, 보호 용량을 넘긴 B=8에서 `0.8259×`로 역전됨.
+- `assets/placement_evidence.json`: 공개 요약과 주장 경계.
+- `assets/experiments/ledger3d_placement_20260916/`: 사전등록, CUDA source, raw JSONL, 두 GPU summary와 해시.
+- `assets/experiments/cache_policy_20260916/`: 용량/간섭 sweep의 사전등록, source, raw JSONL, summary와 telemetry.
+
+이 검증은 실제 B200 L2에서 배치 순위를 측정한 대리 실험이다. 제작된 3D SRAM의 PPA·열 특성이나 end-to-end vLLM 배치 구현으로 표시하지 않는다.

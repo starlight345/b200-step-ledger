@@ -1,0 +1,83 @@
+{
+  "source": "/NHNHOME/WORKSPACE/0526050040_A/starlight345/ledger3d_placement_20260916/placement.jsonl",
+  "trial_count": 90,
+  "validation_errors": 0,
+  "orders": {
+    "KSW": {
+      "reserved_normal": 0.9529464196449489,
+      "persist_weight": 1.0567543218077684,
+      "persist_kv": 1.055006767233656,
+      "persist_state": 1.1135071630199982
+    },
+    "KWS": {
+      "reserved_normal": 0.9546252023868327,
+      "persist_weight": 1.0558089253253096,
+      "persist_kv": 1.0587318096162184,
+      "persist_state": 1.1080085872919385
+    },
+    "SKW": {
+      "reserved_normal": 0.9544147166738605,
+      "persist_weight": 1.0562434072380753,
+      "persist_kv": 1.0548501278792934,
+      "persist_state": 1.1112989043023076
+    },
+    "SWK": {
+      "reserved_normal": 0.9553562810029774,
+      "persist_weight": 1.0546398591901376,
+      "persist_kv": 1.05906034327838,
+      "persist_state": 1.10980539831891
+    },
+    "WKS": {
+      "reserved_normal": 0.9542146176450489,
+      "persist_weight": 1.0533828212987357,
+      "persist_kv": 1.0590353285515985,
+      "persist_state": 1.111590338661138
+    },
+    "WSK": {
+      "reserved_normal": 0.9558915879508773,
+      "persist_weight": 1.0554548535178443,
+      "persist_kv": 1.056272206890743,
+      "persist_state": 1.108733033974637
+    }
+  },
+  "aggregate": {
+    "reserved_normal": {
+      "geomean_speedup": 0.9540683771211486,
+      "median_speedup": 0.9543867057887494,
+      "min_speedup": 0.9472302547408811,
+      "max_speedup": 0.9592482846086675,
+      "wins": 0,
+      "cells": 18
+    },
+    "persist_weight": {
+      "geomean_speedup": 1.0559535694227853,
+      "median_speedup": 1.0561018307472338,
+      "min_speedup": 1.04977484216071,
+      "max_speedup": 1.062463711378883,
+      "wins": 18,
+      "cells": 18
+    },
+    "persist_kv": {
+      "geomean_speedup": 1.0565897748509934,
+      "median_speedup": 1.056611850435651,
+      "min_speedup": 1.0477917019871155,
+      "max_speedup": 1.063889085188946,
+      "wins": 18,
+      "cells": 18
+    },
+    "persist_state": {
+      "geomean_speedup": 1.1116338452530814,
+      "median_speedup": 1.1106833999607522,
+      "min_speedup": 1.1054925987152193,
+      "max_speedup": 1.1303272241546742,
+      "wins": 18,
+      "cells": 18
+    }
+  },
+  "ranking": [
+    "persist_state",
+    "persist_kv",
+    "persist_weight",
+    "reserved_normal"
+  ]
+}

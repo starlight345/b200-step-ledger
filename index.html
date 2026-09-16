@@ -158,6 +158,7 @@
           <tr><td>KV 구조 실측</td><td>8개 모델</td><td>설정·페이지 구조·예산/슬롯 비율을 확인했습니다. 일부 텐서 덤프는 비어 있어 실물 합산 검증 완료로 해석할 수 없습니다. <a href="memory.html#sources">방법과 한계</a></td></tr>
           <tr><td>공통 시간·전력 기준선</td><td>8개 모델 보존</td><td>같은 nb1 하네스의 B=8·L=2K 비교점은 모두 있습니다. prefill을 제외한 63개 완료 시각의 차분에서 처음 2개를 빼고, 60개 간격의 중앙값을 씁니다. gpt-oss만 B=32 확장 셀이 없고, Llama-2 장문 조건은 L=3,584입니다.</td></tr>
           <tr><td>구조 예측</td><td>8개 모델</td><td>가중치·KV·상태·슬라이딩·MLA 구조식과 출처 배지를 인터랙티브 판에 보존합니다. 실측값과 예측값은 같은 배지로 표시하지 않습니다.</td></tr>
+          <tr><td>실제 배치 순위</td><td>B200 2개 · 180 trial</td><td>동일 64 MiB의 weight·KV·state를 실제 persisting L2에 배치했습니다. 통합 기하평균은 1.0554×·1.0562×·1.1099×, 검증 오류는 0입니다. <a href="memory.html#placement-proof">방법·용량 경계·원자료</a></td></tr>
           <tr><td>모델별 공개 색인</td><td>JSON</td><td><a href="assets/model_evidence.json">8개 모델의 측정 종류·대표값·원자료 SHA-256 파일 지문 내려받기</a></td></tr>
         </tbody>
       </table></div>

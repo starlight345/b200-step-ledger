@@ -1,0 +1,334 @@
+{
+  "device": {
+    "kind": "device",
+    "name": "NVIDIA B200",
+    "l2_bytes": 132644864,
+    "persisting_max_bytes": 82903040,
+    "window_max_bytes": 134217728,
+    "sm": 148,
+    "cc_major": 10,
+    "cc_minor": 0,
+    "runtime": 13010,
+    "driver": 13000,
+    "free_bytes": 190847057920,
+    "total_bytes": 191503138816
+  },
+  "trial_count": 192,
+  "validation_errors": 0,
+  "aggregate": {
+    "reserved_normal": {
+      "geomean_speedup": 0.9592760098616127,
+      "median_speedup": 0.9993795212872986,
+      "min_speedup": 0.824591832887146,
+      "max_speedup": 1.0016663517529591,
+      "wins": 3,
+      "cells": 16
+    },
+    "persist_state_1": {
+      "geomean_speedup": 1.0065276809071246,
+      "median_speedup": 1.0028323029678665,
+      "min_speedup": 0.8255520535746249,
+      "max_speedup": 1.136361135673224,
+      "wins": 8,
+      "cells": 16
+    },
+    "persist_state_tuned": {
+      "geomean_speedup": 1.010387216412303,
+      "median_speedup": 1.0131952159128672,
+      "min_speedup": 0.8258600461824184,
+      "max_speedup": 1.136361135673224,
+      "wins": 10,
+      "cells": 16
+    }
+  },
+  "cells": [
+    {
+      "B": 1,
+      "pollution_mib_per_layer": 0,
+      "state_bytes": 29030400,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 0.05122541,
+        "reserved_normal": 0.05118451,
+        "persist_state_1": 0.04507846,
+        "persist_state_tuned": 0.04507846
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 1.0007990698748508,
+        "persist_state_1": 1.136361135673224,
+        "persist_state_tuned": 1.136361135673224
+      }
+    },
+    {
+      "B": 1,
+      "pollution_mib_per_layer": 8,
+      "state_bytes": 29030400,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 0.29655328,
+        "reserved_normal": 0.29605994,
+        "persist_state_1": 0.27623659,
+        "persist_state_tuned": 0.27707076
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 1.0016663517529591,
+        "persist_state_1": 1.0735481494323398,
+        "persist_state_tuned": 1.0703160448977003
+      }
+    },
+    {
+      "B": 1,
+      "pollution_mib_per_layer": 64,
+      "state_bytes": 29030400,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 1.13376868,
+        "reserved_normal": 1.13395548,
+        "persist_state_1": 1.11770463,
+        "persist_state_tuned": 1.11789536
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9998352669013072,
+        "persist_state_1": 1.0143723570331815,
+        "persist_state_tuned": 1.0141992896365541
+      }
+    },
+    {
+      "B": 1,
+      "pollution_mib_per_layer": 256,
+      "state_bytes": 29030400,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 3.88533545,
+        "reserved_normal": 3.88681245,
+        "persist_state_1": 3.89129734,
+        "persist_state_tuned": 3.89097595
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9996199971007091,
+        "persist_state_1": 0.9984678914307792,
+        "persist_state_tuned": 0.9985503636947435
+      }
+    },
+    {
+      "B": 2,
+      "pollution_mib_per_layer": 0,
+      "state_bytes": 58060800,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 0.07368601,
+        "reserved_normal": 0.0880602,
+        "persist_state_1": 0.07369392,
+        "persist_state_tuned": 0.07189881
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.8367685969370953,
+        "persist_state_1": 0.9998926641437991,
+        "persist_state_tuned": 1.0248571568847942
+      }
+    },
+    {
+      "B": 2,
+      "pollution_mib_per_layer": 8,
+      "state_bytes": 58060800,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 0.32314453,
+        "reserved_normal": 0.32441854,
+        "persist_state_1": 0.2920014,
+        "persist_state_tuned": 0.29269302
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9960729433034253,
+        "persist_state_1": 1.1066540434395176,
+        "persist_state_tuned": 1.10403907137929
+      }
+    },
+    {
+      "B": 2,
+      "pollution_mib_per_layer": 64,
+      "state_bytes": 58060800,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 1.15176344,
+        "reserved_normal": 1.15257943,
+        "persist_state_1": 1.11887181,
+        "persist_state_tuned": 1.11941004
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9992920314394298,
+        "persist_state_1": 1.0293971388911838,
+        "persist_state_tuned": 1.028902188513514
+      }
+    },
+    {
+      "B": 2,
+      "pollution_mib_per_layer": 256,
+      "state_bytes": 58060800,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 1.0,
+      "median_step_ms": {
+        "default": 3.90990043,
+        "reserved_normal": 3.90989709,
+        "persist_state_1": 3.91345596,
+        "persist_state_tuned": 3.91353893
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 1.0000008542424323,
+        "persist_state_1": 0.9990914603265396,
+        "persist_state_tuned": 0.9990702788281705
+      }
+    },
+    {
+      "B": 4,
+      "pollution_mib_per_layer": 0,
+      "state_bytes": 116121600,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 0.71393299,
+      "median_step_ms": {
+        "default": 0.13451342,
+        "reserved_normal": 0.15507841,
+        "persist_state_1": 0.13460308,
+        "persist_state_tuned": 0.12720339
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.8673897288474908,
+        "persist_state_1": 0.9993338933997645,
+        "persist_state_tuned": 1.0574672577515425
+      }
+    },
+    {
+      "B": 4,
+      "pollution_mib_per_layer": 8,
+      "state_bytes": 116121600,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 0.71393299,
+      "median_step_ms": {
+        "default": 0.35574785,
+        "reserved_normal": 0.37282819,
+        "persist_state_1": 0.34395435,
+        "persist_state_tuned": 0.34621146
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9541871015708334,
+        "persist_state_1": 1.034287980367162,
+        "persist_state_tuned": 1.027544986523554
+      }
+    },
+    {
+      "B": 4,
+      "pollution_mib_per_layer": 64,
+      "state_bytes": 116121600,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 0.71393299,
+      "median_step_ms": {
+        "default": 1.20244431,
+        "reserved_normal": 1.20274329,
+        "persist_state_1": 1.18150401,
+        "persist_state_tuned": 1.1879617
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9997514182764636,
+        "persist_state_1": 1.0177234269395328,
+        "persist_state_tuned": 1.01219114218918
+      }
+    },
+    {
+      "B": 4,
+      "pollution_mib_per_layer": 256,
+      "state_bytes": 116121600,
+      "window_coverage": 1.0,
+      "hit_ratio_hint": 0.71393299,
+      "median_step_ms": {
+        "default": 3.96654177,
+        "reserved_normal": 3.96865702,
+        "persist_state_1": 3.94377851,
+        "persist_state_tuned": 3.9539175
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9994670111351673,
+        "persist_state_1": 1.005771941791934,
+        "persist_state_tuned": 1.0031928511406725
+      }
+    },
+    {
+      "B": 8,
+      "pollution_mib_per_layer": 0,
+      "state_bytes": 232243200,
+      "window_coverage": 0.57791887,
+      "hit_ratio_hint": 0.61767578,
+      "median_step_ms": {
+        "default": 0.1990079,
+        "reserved_normal": 0.2413411,
+        "persist_state_1": 0.24106039,
+        "persist_state_tuned": 0.24097049
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.824591832887146,
+        "persist_state_1": 0.8255520535746249,
+        "persist_state_tuned": 0.8258600461824184
+      }
+    },
+    {
+      "B": 8,
+      "pollution_mib_per_layer": 8,
+      "state_bytes": 232243200,
+      "window_coverage": 0.57791887,
+      "hit_ratio_hint": 0.61767578,
+      "median_step_ms": {
+        "default": 0.42068192,
+        "reserved_normal": 0.46450636,
+        "persist_state_1": 0.46456388,
+        "persist_state_tuned": 0.46475857
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.905653735290083,
+        "persist_state_1": 0.9055416017276247,
+        "persist_state_tuned": 0.9051622652165403
+      }
+    },
+    {
+      "B": 8,
+      "pollution_mib_per_layer": 64,
+      "state_bytes": 232243200,
+      "window_coverage": 0.57791887,
+      "hit_ratio_hint": 0.61767578,
+      "median_step_ms": {
+        "default": 1.26782787,
+        "reserved_normal": 1.2703166,
+        "persist_state_1": 1.27000368,
+        "persist_state_tuned": 1.26925373
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9980408584757533,
+        "persist_state_1": 0.9982867687438512,
+        "persist_state_tuned": 0.9988766154738817
+      }
+    },
+    {
+      "B": 8,
+      "pollution_mib_per_layer": 256,
+      "state_bytes": 232243200,
+      "window_coverage": 0.57791887,
+      "hit_ratio_hint": 0.61767578,
+      "median_step_ms": {
+        "default": 4.0384078,
+        "reserved_normal": 4.04011154,
+        "persist_state_1": 4.04027605,
+        "persist_state_tuned": 4.04020834
+      },
+      "speedup_vs_default": {
+        "reserved_normal": 0.9995782938210661,
+        "persist_state_1": 0.9995375934770595,
+        "persist_state_tuned": 0.9995543447643097
+      }
+    }
+  ]
+}
