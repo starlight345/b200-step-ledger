@@ -1,0 +1,211 @@
+{
+  "schema_version": 1,
+  "source": "B200 persisting-L2 placement proxy",
+  "complete_conditions": 18,
+  "trial_count": 1620,
+  "validation_errors": 0,
+  "paired_cell_definition": "one access order and one rotated policy pass; five policies are matched within the cell",
+  "independence_caveat": "Counts are descriptive robustness checks over fixed orders and repetitions, not independent samples from all LLM workloads.",
+  "sizes": [
+    {
+      "size_mib": 16,
+      "protected_fraction": 1.0,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 1.000198664071839,
+      "state_beats_default_cells": 27,
+      "state_beats_weight_and_kv_cells": 28,
+      "decision": "no_clear_forced_placement_benefit",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 1.0101255638165438,
+          "state_beats_default_cells": 11,
+          "state_beats_weight_and_kv_cells": 10
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 0.9933177300140271,
+          "state_beats_default_cells": 6,
+          "state_beats_weight_and_kv_cells": 5
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 0.9972298296222019,
+          "state_beats_default_cells": 10,
+          "state_beats_weight_and_kv_cells": 13
+        }
+      ]
+    },
+    {
+      "size_mib": 32,
+      "protected_fraction": 1.0,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 1.1150603612671395,
+      "state_beats_default_cells": 54,
+      "state_beats_weight_and_kv_cells": 48,
+      "decision": "admit_state_first",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 1.173912114993935,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 1.092872460291452,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 17
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 1.080662461703768,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 13
+        }
+      ]
+    },
+    {
+      "size_mib": 64,
+      "protected_fraction": 1.0,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 1.146965923925715,
+      "state_beats_default_cells": 54,
+      "state_beats_weight_and_kv_cells": 54,
+      "decision": "admit_state_first",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 1.2475290667937962,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 1.1082874735605317,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 1.0913107871364767,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        }
+      ]
+    },
+    {
+      "size_mib": 96,
+      "protected_fraction": 0.8235677083333334,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 1.0472345095267332,
+      "state_beats_default_cells": 53,
+      "state_beats_weight_and_kv_cells": 53,
+      "decision": "admit_state_first_under_this_proxy",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 1.0935858029622734,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 1.0340210327007477,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 1.0156629236981929,
+          "state_beats_default_cells": 17,
+          "state_beats_weight_and_kv_cells": 17
+        }
+      ]
+    },
+    {
+      "size_mib": 128,
+      "protected_fraction": 0.61767578125,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 0.9602108195859802,
+      "state_beats_default_cells": 36,
+      "state_beats_weight_and_kv_cells": 41,
+      "decision": "granularity_sensitive_remeasure",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 0.8582810800383162,
+          "state_beats_default_cells": 0,
+          "state_beats_weight_and_kv_cells": 5
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 1.0246217933294706,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 1.0067152739824257,
+          "state_beats_default_cells": 18,
+          "state_beats_weight_and_kv_cells": 18
+        }
+      ]
+    },
+    {
+      "size_mib": 256,
+      "protected_fraction": 0.308837890625,
+      "conditions": 3,
+      "paired_cells": 54,
+      "state_geomean_speedup": 0.9053960925854846,
+      "state_beats_default_cells": 0,
+      "state_beats_weight_and_kv_cells": 19,
+      "decision": "reject_forced_placement",
+      "condition_details": [
+        {
+          "layers": 1,
+          "state_geomean_speedup": 0.8334001081593254,
+          "state_beats_default_cells": 0,
+          "state_beats_weight_and_kv_cells": 5
+        },
+        {
+          "layers": 36,
+          "state_geomean_speedup": 0.937532514483214,
+          "state_beats_default_cells": 0,
+          "state_beats_weight_and_kv_cells": 5
+        },
+        {
+          "layers": 144,
+          "state_geomean_speedup": 0.9498957766788609,
+          "state_beats_default_cells": 0,
+          "state_beats_weight_and_kv_cells": 9
+        }
+      ]
+    }
+  ],
+  "raw_sha256": {
+    "placement_m16_l1.jsonl": "53c027073874932a664e3bc6f31487508da79e26daa5d6b2b4c58c83d516fda0",
+    "placement_m16_l36.jsonl": "c70ad0b338dd2f54867999daad1428240571eb7f8978e0c5cc6ac1315ed901e1",
+    "placement_m16_l144.jsonl": "980ab5331cf24c24205b1ed852274ca81f94dc81f211362efb432c608dddf8ae",
+    "placement_m32_l1.jsonl": "d1d88e3d00e249682faae0dfa8d2694c675307e2bee31f19f0234512e31d7818",
+    "placement_m32_l36.jsonl": "3c6245afb5d5971791e90d3fff4553e54c34b3767b803dd0702246b54cb5d0e9",
+    "placement_m32_l144.jsonl": "9bd34a2cd71d33bd9297fb9bc928240e84f6fa4de8dfe884b013c898a49b201a",
+    "placement_m64_l1.jsonl": "0d69cbb6b38c875a66b47d1be12649703667d18df7029f321201ea54438a85f1",
+    "placement_m64_l36.jsonl": "4482ef0f45720a2870fe8dae8cf754e9e887fef45132f8a3e41b3d188823965f",
+    "placement_m64_l144.jsonl": "f917d167a4552f59ce3f3cb221c4b19345cd091c314b667d2f8fa4095cdefc57",
+    "placement_m96_l1.jsonl": "9918dfce47f790ab39e1efcc2125e9f48c8d71659854cb5b2ade585fd77a4d86",
+    "placement_m96_l36.jsonl": "5f8fe7f1d965dc813438087d6f0432a4b0bfd6d597f14e01754b33b4c6386188",
+    "placement_m96_l144.jsonl": "bc179b77f3990b109af36566799773841c623fd2b96a33eab872d38817bdd964",
+    "placement_m128_l1.jsonl": "0ea0f77d5c327e02ad5fbb89bb946c6047b523cac69d31623ce5500f707b87fb",
+    "placement_m128_l36.jsonl": "e54781e0e8fc6def6684e19b8a5d0b55567a5d00db8431ca9556dc9cfed8309d",
+    "placement_m128_l144.jsonl": "fad556e124b4737680f4e0a4eabb3e5c880b10d073636f0c27433a423719336b",
+    "placement_m256_l1.jsonl": "6943e7524b2693f4dc6cd9111e6ea65592e882a5ab4a5069d7c4adbe3a7a3467",
+    "placement_m256_l36.jsonl": "3357d1c2386bd7a7e8997e63bdcf54d18367f055aa58ea6c814bcab6b11cdb3e",
+    "placement_m256_l144.jsonl": "d9fe905d5467ce3ee47bf4911ed538655c10c3cf2a15ca9e6c41fd13dc8dd34d"
+  }
+}

@@ -43,6 +43,7 @@ python3 -m http.server 4173
 - `assets/experiments/ledger3d_placement_20260916/`: 사전등록, CUDA source, raw JSONL, 두 GPU summary와 해시.
 - `assets/experiments/cache_policy_20260916/`: 용량/간섭 sweep의 사전등록, source, raw JSONL, summary와 telemetry.
 - `assets/experiments/placement_sweep_20260916/`: 16–256 MiB × 1/36/144 layer slice, 18조건·1,620 trial 원자료와 SHA-256.
+- `scripts/analyze_admission_policy.py` → `assets/admission_policy_summary.json`: 공개 표의 paired-cell 판정을 원시 JSONL에서 다시 만드는 분석기와 출력.
 - `assets/figures/placement-policy-boundary.svg`: admission window와 capacity cliff를 보여 주는 논문용 벡터 그림. PDF·PNG도 함께 제공.
 
 이 검증은 실제 B200 L2에서 배치 순위를 측정한 대리 실험이다. 제작된 3D SRAM의 PPA·열 특성이나 end-to-end vLLM 배치 구현으로 표시하지 않는다.

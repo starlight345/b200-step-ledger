@@ -27,7 +27,7 @@ References: [NVIDIA Nsight Compute cache and memory guide](https://docs.nvidia.c
 
 ## Whole-system overview
 
-The default view presents all stores and links simultaneously. Storage bars use the capacity of each memory as their denominator. Gray HBM capacity is unmodeled, not measured free space. Unknown L2 contents use hatching, not an invented occupancy estimate. Near-memory read and write paths are separate; link totals are not summed into HBM traffic. Link service bars show aggregate read+write bytes divided by the chosen bandwidth on a common time scale. These are not measured end-to-end step latencies.
+The default view presents all stores and links simultaneously. Storage bars use the capacity of each memory as their denominator. Gray HBM capacity is unmodeled, not measured free space. Recorded cases use hatching for unknown L2 contents. What-if model cases default to a visibly labeled hypothetical steady-state composition, with an option to show unknown contents instead. Near-memory read and write paths are separate; link totals are not summed into HBM traffic. Link service bars show aggregate read+write bytes divided by the chosen bandwidth on a common time scale. These are not measured end-to-end step latencies.
 
 The moving dots are a fixed 16 MiB link-service illustration, using the same time multiplier on every link. Their count and line width do not encode aggregate traffic. The adjacent byte labels and service bars show the whole scenario's volume and duration. Sequential dependencies and eviction order can be inspected in the separate request view.
 
@@ -68,3 +68,13 @@ Whole-model service time is `HBM bytes/HBM BW + near bytes/near BW`, with reques
 ### Overview verification
 
 `tests/scenario-overview.test.cjs` validates warm/cold/mixed read conservation, insufficient-capacity behavior, near-memory fallback, measured geometric-mean reproduction from all 18 matching trial pairs per policy, and placement/traffic conservation across 648 model/mode/capacity/batch/context combinations. Browser checks cover all 11 scenario choices, recorded/what-if transitions, the initial/final occupancy toggle, overview-to-request continuity, bandwidth sensitivity and console errors.
+
+## L2 composition estimate and HBM scale
+
+The what-if overview can draw a steady-state hypothesis even though an actual per-object L2 snapshot is unavailable. For each object, define `W_i = allocation_i - placed_near_i`. Let `U = min(normal_L2_capacity, sum(W_i))`. Draw `U * W_i / sum(W_i)` bytes for each object, or zero when the remaining working set is zero. This assumes uniformly mixed eligible bytes, excluding the idealized near-memory copies. It does not infer real line residency, sets, recent kernel access order or expert routing. It cannot be read as a measured or predicted hit rate. Toggle `L2 내용 표시` to compare this hypothesis with the unknown-state display. The toggle does not alter the existing traffic or timing calculation.
+
+If the working set exceeds normal L2 capacity, this hypothesis fills the available normal region. Smaller working sets do not necessarily fill it. Actual warm cache fullness is not a guarantee of hits: a requested address can be absent even when all eligible lines are occupied. Cold start, small accessed working sets, invalidation and mapping/policy constraints can change occupancy. NVIDIA documents hit rate as the fraction of requested sectors that do not miss, a different quantity from capacity usage: https://docs.nvidia.com/nsight-compute/ProfilingGuide/#l2-cache .
+
+The partition model is an idealized fixed-region approximation. Actual CUDA persisting L2 is a priority mechanism; unused set-aside capacity can be used by normal/streaming accesses. The diagram is not evidence of physically exclusive regions: https://docs.nvidia.com/cuda/archive/13.0.0/cuda-c-programming-guide/index.html#l2-cache-set-aside-for-persisting-accesses .
+
+An equal-object 64 MiB proxy allocates approximately 192 MiB of test objects (exact aligned sizes are recorded separately), which is only about 0.11% of the CUDA-reported 191.5 GB device. It is not an entire LLM. Proxy views are explicitly labeled and never display their internal size selector as a token count. HBM remains scaled to device capacity, with a separate expanded composition bar whose denominator is only the displayed payload. Full-model payload omits reserved KV pools, activations, workspace and allocator overhead; unmodeled HBM capacity is not measured free memory.

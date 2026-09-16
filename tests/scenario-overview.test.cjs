@@ -38,3 +38,11 @@ for(const model of ['llama','qwen','mistral','llama2','granite','gemma','gptoss'
  checks++;
 }
 console.log(`Overview: warm/cold/mixed conservation, zero capacity, near fallback, exact 18-cell measured ratios and ${checks} structural conditions passed.`);
+
+const full=J.steadyContents({weight:64,kv:64,state:0},48);
+assert.equal(full.used,48);assert.equal(full.values.weight,24);assert.equal(full.values.kv,24);
+const small=J.steadyContents({weight:8,kv:4,state:2},48);assert.equal(small.used,14);assert.deepEqual(small.values,{weight:8,kv:4,state:2});
+assert.equal(J.steadyContents({weight:0,kv:0,state:0},48).used,0);
+assert.equal(J.steadyContents({weight:64,kv:64,state:64},0).used,0);
+assert.throws(()=>J.steadyContents({weight:-1},48));
+console.log('Steady-state composition: full/small/empty/zero-capacity budgets and per-object bounds passed.');
