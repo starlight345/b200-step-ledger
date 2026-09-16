@@ -4,6 +4,7 @@ GitHub Pages에서 서버 없이 여는 정적 보관판입니다.
 
 - `index.html`: 설명 글과 영상
 - `replay.html`: B200 녹화 인터랙티브 재생
+- `scenario-lab.html`: 녹화 없이 모델·배치·문맥·배치 정책을 바꾸는 one-step memory traffic simulator
 - `assets/b200_replay.json`: 원본 JSONL에서 만든 359,118 B (350.701 KiB) 델타 파생물
 - `assets/b200_walkthrough.mp4`: 약 6분 5초 한국어 음성 해설 영상. 핵심 용어, 직렬 합·완전 겹침의 상하한, 모델 맞추기·가중치 적재 대기, 3D SRAM·HBF 포함/제외, 여덟 모델의 B200 검산 범위를 실제 UI로 설명
 - `assets/b200_walkthrough.ko.vtt`: 켜고 끌 수 있는 한국어 자막
