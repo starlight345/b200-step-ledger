@@ -1,0 +1,434 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="607.247312pt" height="314.838531pt" viewBox="0 0 607.247312 314.838531" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-23T12:01:09.819833</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M -0 314.838531 
+L 607.247312 314.838531 
+L 607.247312 0 
+L -0 0 
+z
+" style="fill: #fcfcfb"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 64.367312 280.673375 
+L 600.047312 280.673375 
+L 600.047312 25.649375 
+L 64.367312 25.649375 
+z
+" style="fill: #fcfcfb"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 64.367312 280.673375 
+L 64.367312 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m0fb80686b5" d="M 0 0 
+L 0 3.5 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m0fb80686b5" x="64.367312" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="64.367312" y="294.495094" transform="rotate(-0 64.367312 294.495094)">0.0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 129.377021 280.673375 
+L 129.377021 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="129.377021" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="129.377021" y="294.495094" transform="rotate(-0 129.377021 294.495094)">2.5</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 194.38673 280.673375 
+L 194.38673 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="194.38673" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="194.38673" y="294.495094" transform="rotate(-0 194.38673 294.495094)">5.0</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 259.396439 280.673375 
+L 259.396439 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="259.396439" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="259.396439" y="294.495094" transform="rotate(-0 259.396439 294.495094)">7.5</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 324.406147 280.673375 
+L 324.406147 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="324.406147" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="324.406147" y="294.495094" transform="rotate(-0 324.406147 294.495094)">10.0</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_11">
+      <path d="M 389.415856 280.673375 
+L 389.415856 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="389.415856" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="389.415856" y="294.495094" transform="rotate(-0 389.415856 294.495094)">12.5</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_13">
+      <path d="M 454.425565 280.673375 
+L 454.425565 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="454.425565" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="454.425565" y="294.495094" transform="rotate(-0 454.425565 294.495094)">15.0</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_15">
+      <path d="M 519.435274 280.673375 
+L 519.435274 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="519.435274" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="519.435274" y="294.495094" transform="rotate(-0 519.435274 294.495094)">17.5</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_17">
+      <path d="M 584.444982 280.673375 
+L 584.444982 25.649375 
+" clip-path="url(#p7f0be8c4f5)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_18">
+      <g>
+       <use xlink:href="#m0fb80686b5" x="584.444982" y="280.673375" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="fill: #898781; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="584.444982" y="294.495094" transform="rotate(-0 584.444982 294.495094)">20.0</text>
+     </g>
+    </g>
+    <g id="text_10">
+     <text style="fill: #52514e; font: 9px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: middle" x="332.207312" y="306.685094" transform="rotate(-0 332.207312 306.685094)">정상 상태 트래픽  [GB / decode step]</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_19">
+      <defs>
+       <path id="m8199a07420" d="M 0 0 
+L -3.5 0 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m8199a07420" x="64.367312" y="59.192503" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(23.116 58.75191)">일반 캐시</text>
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(35.563312 68.09451)">(LRU)</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_20">
+      <g>
+       <use xlink:href="#m8199a07420" x="64.367312" y="121.838418" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(23.116 121.416512)">수요 충전</text>
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(39.41725 130.759112)">(LIP)</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m8199a07420" x="64.367312" y="184.484332" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_13">
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(7.2 183.961082)">미스에 비할당</text>
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(15.701375 193.502057)">+ 즉시 반환</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_22">
+      <g>
+       <use xlink:href="#m8199a07420" x="64.367312" y="247.130247" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_14">
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(23.116 246.647247)">관리 상주</text>
+      <text style="fill: #898781; font: 9.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(35.617937 256.091622)">(상한)</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 64.367312 280.673375 
+L 600.047312 280.673375 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="fill: #2a78d6; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="516.2628" y="46.830812" transform="rotate(-0 516.2628 46.830812)">17.16</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #2a78d6; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="430.554" y="109.476726" transform="rotate(-0 430.554 109.476726)">13.86</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #2a78d6; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="430.527996" y="172.122641" transform="rotate(-0 430.527996 172.122641)">13.86</text>
+   </g>
+   <g id="text_18">
+    <text style="fill: #2a78d6; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="430.527996" y="234.768555" transform="rotate(-0 430.527996 234.768555)">13.86</text>
+   </g>
+   <g id="text_19">
+    <text style="fill: #898781; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="70.088167" y="61.865832" transform="rotate(-0 70.088167 61.865832)">0.00</text>
+   </g>
+   <g id="text_20">
+    <text style="fill: #1b9e77; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="155.796967" y="124.511746" transform="rotate(-0 155.796967 124.511746)">3.30</text>
+   </g>
+   <g id="text_21">
+    <text style="fill: #1b9e77; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="155.822971" y="187.15766" transform="rotate(-0 155.822971 187.15766)">3.30</text>
+   </g>
+   <g id="text_22">
+    <text style="fill: #1b9e77; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="155.822971" y="249.803575" transform="rotate(-0 155.822971 249.803575)">3.30</text>
+   </g>
+   <g id="text_23">
+    <text style="fill: #eb6834; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="516.236796" y="76.900851" transform="rotate(-0 516.236796 76.900851)">17.16</text>
+   </g>
+   <g id="text_24">
+    <text style="fill: #eb6834; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="430.554" y="139.546765" transform="rotate(-0 430.554 139.546765)">13.86</text>
+   </g>
+   <g id="text_25">
+    <text style="fill: #898781; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="70.088167" y="202.19268" transform="rotate(-0 70.088167 202.19268)">0.00</text>
+   </g>
+   <g id="text_26">
+    <text style="fill: #898781; font: 700 8.2px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="70.088167" y="264.838594" transform="rotate(-0 70.088167 264.838594)">0.00</text>
+   </g>
+   <g id="text_27">
+    <text style="fill: #1b9e77; font: 700 9.4px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="225.59139" y="221.570714" transform="rotate(-0 225.59139 221.570714)">충전 막대가 아예 없다</text>
+   </g>
+   <g id="patch_4">
+    <path d="M 483.423217 144.214451 
+Q 455.120536 140.668281 428.149088 137.288907 
+" style="fill: none; stroke: #eb6834; stroke-width: 1.2; stroke-linecap: round"/>
+    <path d="M 431.348565 139.423232 
+L 428.149088 137.288907 
+L 431.776234 136.00992 
+" style="fill: none; stroke: #eb6834; stroke-width: 1.2; stroke-linecap: round"/>
+   </g>
+   <g id="text_28">
+    <text style="fill: #eb6834; font: 700 8.6px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(500.82612 146.829099)">쓰고 나서</text>
+    <text style="fill: #eb6834; font: 700 8.6px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif" transform="translate(487.406088 155.667212)">한 번도 안 읽는다</text>
+   </g>
+   <g id="text_29">
+    <text style="fill: #0b0b0b; font: 11px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="64.367312" y="15.649375" transform="rotate(-0 64.367312 15.649375)">HBM 만 세면 LIP 가 좋아 보인다. 티어 쓰기를 세면 뒤집힌다</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 64.367312 51.073593 
+L 510.541946 51.073593 
+L 510.541946 37.241375 
+L 64.367312 37.241375 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 64.367312 113.719507 
+L 424.833146 113.719507 
+L 424.833146 99.887289 
+L 64.367312 99.887289 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 64.367312 176.365422 
+L 424.807142 176.365422 
+L 424.807142 162.533204 
+L 64.367312 162.533204 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 64.367312 239.011336 
+L 424.807142 239.011336 
+L 424.807142 225.179118 
+L 64.367312 225.179118 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 64.367312 66.108612 
+L 64.367312 66.108612 
+L 64.367312 52.276394 
+L 64.367312 52.276394 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #1b9e77"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 64.367312 128.754527 
+L 150.076112 128.754527 
+L 150.076112 114.922309 
+L 64.367312 114.922309 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #1b9e77"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 64.367312 191.400441 
+L 150.102116 191.400441 
+L 150.102116 177.568223 
+L 64.367312 177.568223 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #1b9e77"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 64.367312 254.046356 
+L 150.102116 254.046356 
+L 150.102116 240.214138 
+L 64.367312 240.214138 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #1b9e77"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 64.367312 81.143632 
+L 510.515942 81.143632 
+L 510.515942 67.311414 
+L 64.367312 67.311414 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 64.367312 143.789546 
+L 424.833146 143.789546 
+L 424.833146 129.957328 
+L 64.367312 129.957328 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 64.367312 206.435461 
+L 64.367312 206.435461 
+L 64.367312 192.603243 
+L 64.367312 192.603243 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #eb6834"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 64.367312 269.081375 
+L 64.367312 269.081375 
+L 64.367312 255.249157 
+L 64.367312 255.249157 
+z
+" clip-path="url(#p7f0be8c4f5)" style="fill: #eb6834"/>
+   </g>
+   <g id="legend_1">
+    <g id="patch_17">
+     <path d="M 462.878656 253.316917 
+L 480.078656 253.316917 
+L 480.078656 247.296917 
+L 462.878656 247.296917 
+z
+" style="fill: #2a78d6"/>
+    </g>
+    <g id="text_30">
+     <text style="fill: #0b0b0b; font: 8.6px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="486.958656" y="253.316917" transform="rotate(-0 486.958656 253.316917)">HBM 읽기 (줄이려는 것)</text>
+    </g>
+    <g id="patch_18">
+     <path d="M 462.878656 265.184917 
+L 480.078656 265.184917 
+L 480.078656 259.164918 
+L 462.878656 259.164918 
+z
+" style="fill: #1b9e77"/>
+    </g>
+    <g id="text_31">
+     <text style="fill: #0b0b0b; font: 8.6px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="486.958656" y="265.184917" transform="rotate(-0 486.958656 265.184917)">티어 읽기 (실제 이득)</text>
+    </g>
+    <g id="patch_19">
+     <path d="M 462.878656 277.122792 
+L 480.078656 277.122792 
+L 480.078656 271.102792 
+L 462.878656 271.102792 
+z
+" style="fill: #eb6834"/>
+    </g>
+    <g id="text_32">
+     <text style="fill: #0b0b0b; font: 8.6px 'Apple SD Gothic Neo', 'Helvetica', 'DejaVu Sans', sans-serif; text-anchor: start" x="486.958656" y="277.122792" transform="rotate(-0 486.958656 277.122792)">티어 쓰기 = 충전 (숨어 있던 것)</text>
+    </g>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7f0be8c4f5">
+   <rect x="64.367312" y="25.649375" width="535.68" height="255.024"/>
+  </clipPath>
+ </defs>
+</svg>

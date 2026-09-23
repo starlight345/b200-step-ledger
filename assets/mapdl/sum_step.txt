@@ -1,0 +1,1 @@
+RESULT tier_max= 0.8442841E+00 tier_min= 0.3501333E-01 logic_max= 0.6676440E+00

@@ -1,0 +1,43 @@
+{
+  "model": "/home/sychoe/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B/snapshots/060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "batch": 8,
+  "kv_dtype": "auto",
+  "rows": [
+    {
+      "context": 512,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 6.776229294094567,
+      "kv_GB": 0.050331648,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 1024,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 6.518816323174785,
+      "kv_GB": 0.100663296,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 2048,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 6.465777871198952,
+      "kv_GB": 0.201326592,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 4096,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 6.369825976435095,
+      "kv_GB": 0.402653184,
+      "kv_bytes_per_token": 12288
+    }
+  ],
+  "slope_ms_per_GB": -0.9359513549991563,
+  "B_eff_TBs": -1.0684315959998814,
+  "intercept_ms": 6.709317269269377,
+  "r2": 0.704937082807833
+}

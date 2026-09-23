@@ -1,0 +1,42 @@
+{
+  "_about": "3D SRAM 논문 A의 정본 상수. 모든 스크립트와 문서는 이 파일의 값을 인용한다. 등급: measured(실측) / measured-derived(실측 회귀) / third-party(외부 벤치) / deck(소자팀 v2.0 덱) / slack(소자팀 슬랙 회신, 미문서화) / assumption(우리 가정) / scenario(민감도 축).",
+  "_updated": "2026-09-21",
+  "workload": {
+    "llama31_8b_params": {"value": 8030261248, "unit": "params", "grade": "public", "source": "Llama-3.1-8B config"},
+    "llama31_8b_embedding_bytes": {"value": 1050673152, "unit": "B", "grade": "public", "source": "128256 x 4096 x 2 B; LM head untied, same size"},
+    "llama31_8b_weight_read_per_step_GB": {"value": 15.010, "unit": "GB", "grade": "public-derived", "source": "all params minus embedding table (LM head IS read every decode step). Replaces rounded 15.1 (+0.6%) and the block-only 13.959 (excludes LM head, -7%)."},
+    "llama31_8b_weight_resident_GB": {"value": 16.061, "unit": "GB", "grade": "public-derived", "source": "8.03B params x 2 B"},
+    "llama31_8b_kv_bytes_per_token": {"value": 131072, "unit": "B", "grade": "public", "source": "32 layers x 8 KV heads x 128 x 2 (K,V) x 2 B"}
+  },
+  "b200_baseline": {
+    "hbm_pin_TBs": {"value": 8.0, "unit": "TB/s", "grade": "spec", "source": "NVIDIA B200; HBM<->L2 link rate, NOT a compute-delivered rate"},
+    "hbm_effective_TBs_llama": {"value": 6.40, "unit": "TB/s", "grade": "measured-derived", "source": "slope of step_ms = t0 + logical_GB / B over 4 measured decode anchors (B=1/8/32 N=2048, B=8 N=8192), vLLM 0.28.0. Causal marginal rate NOT validated: existing B200 microbenchmarks are latency-bound (0.8 TB/s achieved)."},
+    "t0_ms_llama": {"value": 1.85, "unit": "ms", "grade": "measured-derived", "source": "same fit; compute + launch + latency, not traffic"},
+    "l2_capacity_bytes": {"value": 132644864, "unit": "B", "grade": "measured", "source": "cudaDeviceProp on B200"},
+    "l2_to_sm_TBs": {"value": [16.8, 21.0], "unit": "TB/s", "grade": "third-party", "source": "Chips and Cheese Vulkan compute-shader microbenchmark; 21 within partition, 16.8 across. Read path only."},
+    "l2_hit_on_streaming_decode": {"value": 0.0, "unit": "fraction", "grade": "assumption", "source": "reuse distance = working set (18 GB) >> 126 MB. Verify with lts__t_sectors_hit_rate."}
+  },
+  "device_3dsram": {
+    "macro_area_mm2": {"C3": 0.120048, "C2": 0.079254, "C1": 0.056658, "grade": "deck+slack", "source": "v2.0 deck (C3 183x656 um) and 2026-09-20 Slack Q1 (C2 153x518, C1 133x426)"},
+    "macro_read_GBs": {"value": 22.4, "unit": "GB/s", "grade": "deck", "source": "128 b x 1.4 GHz (Si 2.0 GHz x 0.7 user assumption)"},
+    "bits_per_macro": {"value": 1000000, "unit": "bit", "grade": "deck", "source": "reproduces 2664 macros -> 333 MB raw; Mb vs Mib unresolved (+4.86% if 2^20)"},
+    "usable_fraction": {"value": 0.836, "unit": "fraction", "grade": "deck", "source": "(1-0.12 ECC/tag) x (1-0.05 redundancy/BIST)"},
+    "array_peak_320mm2_TBs": {"value": 59.7, "unit": "TB/s", "grade": "deck", "source": "2664 x 22.4 GB/s, all macros read simultaneously"},
+    "read_projection_320mm2_TBs": {"value": 17.7, "unit": "TB/s", "grade": "deck", "source": "59.7 / 3.37; derate = model H100 L2 12.8 / measured 3.8 (Chips and Cheese). Read-oriented. Bound to the 320 mm2 point."},
+    "derate": {"value": 3.37, "unit": "x", "grade": "deck", "source": "H100 L2 anchored; not a property of the array; becomes moot when the fabric is the cap"},
+    "bw_r_table_slack": {"value": {"1.0": 15.0, "0.8": 9.4, "0.6": 3.8}, "unit": "TB/s", "grade": "slack", "source": "2026-09-20 01:30 Q4; 15 = 17.7 x eta_sched 0.85; eta_bank(r, N_bank=16) form not given; r=0.6 value equals the deck's H100 L2 3.8 (coincidence unconfirmed). Implied beta_W 0.25 (r=0.8) / 0.12 (r=0.6); not one constant beta."},
+    "thermal_cap_example_TBs": {"value": 5.0, "unit": "TB/s", "grade": "slack", "source": "P/E with 0.5 pJ/bit and 20 W, Q3; E/bit unmeasured per device team"},
+    "c1_lower_si_mm2_per_320mm2_tier": {"value": 128, "unit": "mm2", "grade": "slack", "source": "Q2; scales with tier area -> C1 infeasible at full-die coverage"}
+  },
+  "design_point_axes": {
+    "die_area_mm2": {"value": 800, "grade": "scenario", "source": "B200-class planning outline; NOT legal placement area"},
+    "net_placeable_area_mm2_per_die_per_layer": {"value": [500, 600, 700, 800], "grade": "scenario", "source": "3DSRAM_AREA_BUDGET.md; 800 = full placement geometric upper bound; legal polygon unknown"},
+    "layers": {"value": [1, 2], "grade": "scenario"},
+    "dies": {"value": 2, "grade": "spec", "source": "B200 two reticle dies"},
+    "tier_path": {"value": ["via-L2 (cap = L2->SM read microbench)", "direct-to-SM (cap unknown)"], "grade": "assumption", "source": "our architecture choice; deck is silent"},
+    "read_delivery_cap_TBs": {"value": {"slack_r1": 15.0, "deck_320": 17.7, "via_L2_fabric": 19.0}, "grade": "scenario", "source": "three caps carried in parallel until path and fabric are defined; at >=500 mm2 the array raw (>=187 TB/s) exceeds all three, so delivered BW is cap-bound and area-independent"},
+    "beta_W": {"value": "sweep 0.05-1.0", "grade": "assumption", "source": "write/fill capability relative to read; device team has not supplied"},
+    "cache_organization": {"value": ["tag-first (R=hD, W=(1-h)D)", "tag/data parallel (R=D, W=(1-h)D)"], "grade": "assumption"},
+    "timing_bound": {"value": ["serial (tier time adds)", "overlapped (tier time hides under HBM)"], "grade": "assumption"}
+  }
+}

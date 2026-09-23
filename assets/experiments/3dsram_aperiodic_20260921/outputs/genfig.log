@@ -1,0 +1,12 @@
+wrote outputs/dead_kv_generalization.{png,svg}
+  churn 8 points (ctx 2048), window control 2 points (ctx 8192)
+    churn   mean output 10000  dead   0.0%  delta 0.006p  slope 2.346p  normalised 0.003
+    churn   mean output 1000   dead  12.5%  delta 0.300p  slope 2.347p  normalised 0.128
+    churn   mean output 300    dead  37.5%  delta 0.888p  slope 2.350p  normalised 0.378
+    churn   mean output 120    dead  87.5%  delta 2.069p  slope 2.357p  normalised 0.878
+    churn   mean output 60     dead 100.0%  delta 2.362p  slope 2.356p  normalised 1.003
+    churn   mean output 30     dead 100.0%  delta 2.367p  slope 2.361p  normalised 1.003
+    churn   mean output 16     dead 100.0%  delta 2.366p  slope 2.360p  normalised 1.003
+    churn   mean output 10     dead 100.0%  delta 2.369p  slope 2.363p  normalised 1.003
+    window  24 steps           dead  75.9%  delta 3.608p  slope 4.747p  normalised 0.760
+    window  64 steps           dead 100.0%  delta 4.747p  slope 4.742p  normalised 1.001

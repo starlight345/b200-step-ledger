@@ -1,0 +1,28 @@
+{
+  "model": "/home/sychoe/.cache/huggingface/hub/models--NousResearch--Meta-Llama-3.1-8B/snapshots/1f47e50cdbe801ad8a5174156ec3a0655108fb9f",
+  "batch": 8,
+  "prefill_ctx": 8192,
+  "decode_ctx": 2048,
+  "idle": {
+    "n": 45,
+    "mean": 67.09866666666667,
+    "p95": 74.75,
+    "peak": 124.28,
+    "sd": 10.996705284361816
+  },
+  "prefill": {
+    "n": 335,
+    "mean": 271.3802388059702,
+    "p95": 301.04,
+    "peak": 305.18,
+    "sd": 59.63682899917885
+  },
+  "decode": {
+    "n": 394,
+    "mean": 260.7564974619289,
+    "p95": 263.57,
+    "peak": 263.73,
+    "sd": 2.0931922324704875
+  },
+  "ratio_mean": 1.040742000477255
+}

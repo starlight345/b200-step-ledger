@@ -1,0 +1,359 @@
+{
+  "scenarios": [
+    {
+      "net_area_mm2_per_die_per_tier": 400,
+      "unallocated_from_800_mm2": 400.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "macros_per_die_per_tier": 3332,
+      "capacity_GB_gpu": 0.696388,
+      "capacity_GiB_gpu": 0.6485618650913239,
+      "occupied_macro_area_mm2_per_die_per_tier": 399.999936,
+      "serial_speedup_at_assumed_15_tbps": 1.0131503477887662,
+      "overlap_speedup_at_assumed_15_tbps": 1.0231508519153014
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 400,
+      "unallocated_from_800_mm2": 400.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "macros_per_die_per_tier": 3332,
+      "capacity_GB_gpu": 1.392776,
+      "capacity_GiB_gpu": 1.2971237301826477,
+      "occupied_macro_area_mm2_per_die_per_tier": 399.999936,
+      "serial_speedup_at_assumed_15_tbps": 1.0266511677017875,
+      "overlap_speedup_at_assumed_15_tbps": 1.0473990317966557
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 400,
+      "unallocated_from_800_mm2": 400.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "macros_per_die_per_tier": 5047,
+      "capacity_GB_gpu": 1.054823,
+      "capacity_GiB_gpu": 0.9823804721236229,
+      "occupied_macro_area_mm2_per_die_per_tier": 399.99493800000005,
+      "serial_speedup_at_assumed_15_tbps": 1.0200546502816532,
+      "overlap_speedup_at_assumed_15_tbps": 1.0354896216382905
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 400,
+      "unallocated_from_800_mm2": 400.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "macros_per_die_per_tier": 5047,
+      "capacity_GB_gpu": 2.109646,
+      "capacity_GiB_gpu": 1.9647609442472458,
+      "occupied_macro_area_mm2_per_die_per_tier": 399.99493800000005,
+      "serial_speedup_at_assumed_15_tbps": 1.0409301402112217,
+      "overlap_speedup_at_assumed_15_tbps": 1.0735909585515762
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 500,
+      "unallocated_from_800_mm2": 300.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "macros_per_die_per_tier": 4165,
+      "capacity_GB_gpu": 0.870485,
+      "capacity_GiB_gpu": 0.8107023313641548,
+      "occupied_macro_area_mm2_per_die_per_tier": 499.99992000000003,
+      "serial_speedup_at_assumed_15_tbps": 1.0164921541265954,
+      "overlap_speedup_at_assumed_15_tbps": 1.0291070280179613
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 500,
+      "unallocated_from_800_mm2": 300.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "macros_per_die_per_tier": 4165,
+      "capacity_GB_gpu": 1.74097,
+      "capacity_GiB_gpu": 1.6214046627283096,
+      "occupied_macro_area_mm2_per_die_per_tier": 499.99992000000003,
+      "serial_speedup_at_assumed_15_tbps": 1.03353741242796,
+      "overlap_speedup_at_assumed_15_tbps": 1.0599592928529298
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 500,
+      "unallocated_from_800_mm2": 300.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "macros_per_die_per_tier": 6308,
+      "capacity_GB_gpu": 1.318372,
+      "capacity_GiB_gpu": 1.2278296053409576,
+      "occupied_macro_area_mm2_per_die_per_tier": 499.934232,
+      "serial_speedup_at_assumed_15_tbps": 1.0251915595720908,
+      "overlap_speedup_at_assumed_15_tbps": 1.0447535891408148
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 500,
+      "unallocated_from_800_mm2": 300.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "macros_per_die_per_tier": 6308,
+      "capacity_GB_gpu": 2.636744,
+      "capacity_GiB_gpu": 2.4556592106819153,
+      "occupied_macro_area_mm2_per_die_per_tier": 499.934232,
+      "serial_speedup_at_assumed_15_tbps": 1.0516851486452719,
+      "overlap_speedup_at_assumed_15_tbps": 1.0937006172063226
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 600,
+      "unallocated_from_800_mm2": 200.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "macros_per_die_per_tier": 4998,
+      "capacity_GB_gpu": 1.044582,
+      "capacity_GiB_gpu": 0.9728427976369858,
+      "occupied_macro_area_mm2_per_die_per_tier": 599.999904,
+      "serial_speedup_at_assumed_15_tbps": 1.019856078854478,
+      "overlap_speedup_at_assumed_15_tbps": 1.0351329568132166
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 600,
+      "unallocated_from_800_mm2": 200.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "macros_per_die_per_tier": 4998,
+      "capacity_GB_gpu": 2.089164,
+      "capacity_GiB_gpu": 1.9456855952739716,
+      "occupied_macro_area_mm2_per_die_per_tier": 599.999904,
+      "serial_speedup_at_assumed_15_tbps": 1.0405166596988566,
+      "overlap_speedup_at_assumed_15_tbps": 1.0728244519518022
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 600,
+      "unallocated_from_800_mm2": 200.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "macros_per_die_per_tier": 7570,
+      "capacity_GB_gpu": 1.58213,
+      "capacity_GiB_gpu": 1.473473384976387,
+      "occupied_macro_area_mm2_per_die_per_tier": 599.9527800000001,
+      "serial_speedup_at_assumed_15_tbps": 1.0303846045748128,
+      "overlap_speedup_at_assumed_15_tbps": 1.054192359170578
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 600,
+      "unallocated_from_800_mm2": 200.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "macros_per_die_per_tier": 7570,
+      "capacity_GB_gpu": 3.16426,
+      "capacity_GiB_gpu": 2.946946769952774,
+      "occupied_macro_area_mm2_per_die_per_tier": 599.9527800000001,
+      "serial_speedup_at_assumed_15_tbps": 1.0626735192493286,
+      "overlap_speedup_at_assumed_15_tbps": 1.1145948855373051
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 700,
+      "unallocated_from_800_mm2": 100.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "macros_per_die_per_tier": 5831,
+      "capacity_GB_gpu": 1.218679,
+      "capacity_GiB_gpu": 1.1349832639098167,
+      "occupied_macro_area_mm2_per_die_per_tier": 699.999888,
+      "serial_speedup_at_assumed_15_tbps": 1.0232423422937824,
+      "overlap_speedup_at_assumed_15_tbps": 1.0412298708272845
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 700,
+      "unallocated_from_800_mm2": 100.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "macros_per_die_per_tier": 5831,
+      "capacity_GB_gpu": 2.437358,
+      "capacity_GiB_gpu": 2.2699665278196335,
+      "occupied_macro_area_mm2_per_die_per_tier": 699.999888,
+      "serial_speedup_at_assumed_15_tbps": 1.0475908063999497,
+      "overlap_speedup_at_assumed_15_tbps": 1.086005747515017
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 700,
+      "unallocated_from_800_mm2": 100.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "macros_per_die_per_tier": 8832,
+      "capacity_GB_gpu": 1.845888,
+      "capacity_GiB_gpu": 1.7191171646118164,
+      "occupied_macro_area_mm2_per_die_per_tier": 699.9713280000001,
+      "serial_speedup_at_assumed_15_tbps": 1.0356305275298359,
+      "overlap_speedup_at_assumed_15_tbps": 1.063803232174297
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 700,
+      "unallocated_from_800_mm2": 100.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "macros_per_die_per_tier": 8832,
+      "capacity_GB_gpu": 3.691776,
+      "capacity_GiB_gpu": 3.438234329223633,
+      "occupied_macro_area_mm2_per_die_per_tier": 699.9713280000001,
+      "serial_speedup_at_assumed_15_tbps": 1.0738939349429442,
+      "overlap_speedup_at_assumed_15_tbps": 1.136303038777796
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 800,
+      "unallocated_from_800_mm2": 0.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "macros_per_die_per_tier": 6664,
+      "capacity_GB_gpu": 1.392776,
+      "capacity_GiB_gpu": 1.2971237301826477,
+      "occupied_macro_area_mm2_per_die_per_tier": 799.999872,
+      "serial_speedup_at_assumed_15_tbps": 1.0266511677017875,
+      "overlap_speedup_at_assumed_15_tbps": 1.0473990317966557
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 800,
+      "unallocated_from_800_mm2": 0.0,
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "macros_per_die_per_tier": 6664,
+      "capacity_GB_gpu": 2.785552,
+      "capacity_GiB_gpu": 2.5942474603652954,
+      "occupied_macro_area_mm2_per_die_per_tier": 799.999872,
+      "serial_speedup_at_assumed_15_tbps": 1.0547618013551432,
+      "overlap_speedup_at_assumed_15_tbps": 1.09951497715996
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 800,
+      "unallocated_from_800_mm2": 0.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "macros_per_die_per_tier": 10094,
+      "capacity_GB_gpu": 2.109646,
+      "capacity_GiB_gpu": 1.9647609442472458,
+      "occupied_macro_area_mm2_per_die_per_tier": 799.9898760000001,
+      "serial_speedup_at_assumed_15_tbps": 1.0409301402112217,
+      "overlap_speedup_at_assumed_15_tbps": 1.0735909585515762
+    },
+    {
+      "net_area_mm2_per_die_per_tier": 800,
+      "unallocated_from_800_mm2": 0.0,
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "macros_per_die_per_tier": 10094,
+      "capacity_GB_gpu": 4.219292,
+      "capacity_GiB_gpu": 3.9295218884944916,
+      "occupied_macro_area_mm2_per_die_per_tier": 799.9898760000001,
+      "serial_speedup_at_assumed_15_tbps": 1.085353824423668,
+      "overlap_speedup_at_assumed_15_tbps": 1.1588735758375546
+    }
+  ],
+  "thresholds": [
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "target_speedup": 1.05,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "target_speedup": 1.05,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "target_speedup": 1.085,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 1,
+      "target_speedup": 1.085,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "target_speedup": 1.05,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": 733.853424
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "target_speedup": 1.05,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": 421.008336
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "target_speedup": 1.085,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C3_BEOL_2.5x",
+      "layers": 2,
+      "target_speedup": 1.085,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": 692.556912
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "target_speedup": 1.05,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "target_speedup": 1.05,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": 555.808302
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "target_speedup": 1.085,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 1,
+      "target_speedup": 1.085,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": null
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "target_speedup": 1.05,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": 484.47970200000003
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "target_speedup": 1.05,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": 277.943778
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "target_speedup": 1.085,
+      "bound": "serial",
+      "min_area_only_mm2_per_die_per_tier": 796.9782240000001
+    },
+    {
+      "case": "C2_BEOL_uncompensated",
+      "layers": 2,
+      "target_speedup": 1.085,
+      "bound": "overlap",
+      "min_area_only_mm2_per_die_per_tier": 457.21632600000004
+    }
+  ],
+  "edge_band_equivalent_to_600mm2_if_square_mm": 1.8946869098150607
+}

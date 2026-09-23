@@ -1,0 +1,623 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="849.6pt" height="338.4pt" viewBox="0 0 849.6 338.4" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-23T03:17:48.653657</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 338.4 
+L 849.6 338.4 
+L 849.6 0 
+L 0 0 
+z
+" style="fill: #fcfcfb"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 148.68 245.34 
+L 428.333667 245.34 
+L 428.333667 96.444 
+L 148.68 96.444 
+z
+" style="fill: #fcfcfb"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <path d="M 182.23844 245.34 
+L 182.23844 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_2">
+      <defs>
+       <path id="m042e91342f" d="M 0 0 
+L 0 3.5 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m042e91342f" x="182.23844" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="182.23844" y="258.652625" transform="rotate(-0 182.23844 258.652625)">10</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_3">
+      <path d="M 238.169174 245.34 
+L 238.169174 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#m042e91342f" x="238.169174" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="238.169174" y="258.652625" transform="rotate(-0 238.169174 258.652625)">15</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_5">
+      <path d="M 294.099907 245.34 
+L 294.099907 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m042e91342f" x="294.099907" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="294.099907" y="258.652625" transform="rotate(-0 294.099907 258.652625)">20</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_7">
+      <path d="M 350.03064 245.34 
+L 350.03064 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m042e91342f" x="350.03064" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="350.03064" y="258.652625" transform="rotate(-0 350.03064 258.652625)">25</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_9">
+      <path d="M 405.961374 245.34 
+L 405.961374 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m042e91342f" x="405.961374" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="405.961374" y="258.652625" transform="rotate(-0 405.961374 258.652625)">30</text>
+     </g>
+    </g>
+    <g id="text_6">
+     <text style="fill: #52514e; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="288.506834" y="270.842125" transform="rotate(-0 288.506834 270.842125)">delivered read bandwidth ceiling  [TB/s]</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_11">
+      <defs>
+       <path id="m38ef4bd136" d="M 0 0 
+L -3.5 0 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="231.755309" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="234.655934" transform="rotate(-0 141.68 234.655934)">a-IGZO k [W/m/K]</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="207.409986" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="210.279361" transform="rotate(-0 141.68 210.279361)">inter-tier ILD [um]</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_13">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="183.064662" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="185.965287" transform="rotate(-0 141.68 185.965287)">Si substrate [um]</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="158.719338" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="161.588713" transform="rotate(-0 141.68 161.588713)">tier count</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_15">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="134.374014" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="137.274639" transform="rotate(-0 141.68 137.274639)">BEOL above tier [um]</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="148.68" y="110.028691" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_12">
+      <text style="fill: #898781; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="141.68" y="112.929316" transform="rotate(-0 141.68 112.929316)">BEOL effective k [W/m/K]</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 148.68 245.34 
+L 148.68 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 428.333667 245.34 
+L 428.333667 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 148.68 245.34 
+L 428.333667 245.34 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 148.68 96.444 
+L 428.333667 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 277.859675 238.572 
+L 278.574759 238.572 
+L 278.574759 224.938619 
+L 277.859675 224.938619 
+z
+" clip-path="url(#p98633c807a)" style="fill: #898781; opacity: 0.75"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 276.179831 214.226676 
+L 278.567715 214.226676 
+L 278.567715 200.593295 
+L 276.179831 200.593295 
+z
+" clip-path="url(#p98633c807a)" style="fill: #898781; opacity: 0.75"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 273.655162 189.881353 
+L 287.484894 189.881353 
+L 287.484894 176.247971 
+L 273.655162 176.247971 
+z
+" clip-path="url(#p98633c807a)" style="fill: #898781; opacity: 0.75"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 265.997372 165.536029 
+L 280.453328 165.536029 
+L 280.453328 151.902647 
+L 265.997372 151.902647 
+z
+" clip-path="url(#p98633c807a)" style="fill: #898781; opacity: 0.75"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 215.107892 141.190705 
+L 366.23918 141.190705 
+L 366.23918 127.557324 
+L 215.107892 127.557324 
+z
+" clip-path="url(#p98633c807a)" style="fill: #eb6834; opacity: 0.75"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 179.495371 116.845381 
+L 376.345627 116.845381 
+L 376.345627 103.212 
+L 179.495371 103.212 
+z
+" clip-path="url(#p98633c807a)" style="fill: #eb6834; opacity: 0.75"/>
+   </g>
+   <g id="text_13">
+    <text style="fill: #0b0b0b; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="283.696791" y="96.188965" transform="rotate(-0 283.696791 96.188965)">baseline 18.6 TB/s</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #0b0b0b; font: 9.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(148.68 78.33665)">(a)  the device's own thermal conductivity is the LEAST</text>
+    <text style="fill: #0b0b0b; font: 9.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(148.68 88.444)">important unmeasured number; the BEOL around it is the most</text>
+   </g>
+   <g id="line2d_17">
+    <path d="M 278.103717 245.34 
+L 278.103717 96.444 
+" clip-path="url(#p98633c807a)" style="fill: none; stroke: #0b0b0b; stroke-width: 1.4; stroke-linecap: square"/>
+   </g>
+   <g id="text_15">
+    <text style="fill: #898781; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="286.405061" y="233.740044" transform="rotate(-0 286.405061 233.740044)">0%</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #898781; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="286.398018" y="209.39472" transform="rotate(-0 286.398018 209.39472)">1%</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #898781; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="295.315197" y="185.049396" transform="rotate(-0 295.315197 185.049396)">7%</text>
+   </g>
+   <g id="text_18">
+    <text style="fill: #898781; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="288.283631" y="160.704073" transform="rotate(-0 288.283631 160.704073)">7%</text>
+   </g>
+   <g id="text_19">
+    <text style="fill: #eb6834; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="374.069483" y="136.358749" transform="rotate(-0 374.069483 136.358749)">73%</text>
+   </g>
+   <g id="text_20">
+    <text style="fill: #eb6834; font: 7.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="384.17593" y="112.013425" transform="rotate(-0 384.17593 112.013425)">95%</text>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_13">
+    <path d="M 585.182898 245.34 
+L 828.36 245.34 
+L 828.36 96.444 
+L 585.182898 96.444 
+z
+" style="fill: #fcfcfb"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_6">
+     <g id="line2d_18">
+      <path d="M 606.328733 245.34 
+L 606.328733 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_19">
+      <g>
+       <use xlink:href="#m042e91342f" x="606.328733" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_21">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="606.328733" y="258.652625" transform="rotate(-0 606.328733 258.652625)">1.0</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_20">
+      <path d="M 648.620403 245.34 
+L 648.620403 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_21">
+      <g>
+       <use xlink:href="#m042e91342f" x="648.620403" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="648.620403" y="258.652625" transform="rotate(-0 648.620403 258.652625)">1.2</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_22">
+      <path d="M 690.912073 245.34 
+L 690.912073 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_23">
+      <g>
+       <use xlink:href="#m042e91342f" x="690.912073" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="690.912073" y="258.652625" transform="rotate(-0 690.912073 258.652625)">1.4</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_24">
+      <path d="M 733.203743 245.34 
+L 733.203743 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#m042e91342f" x="733.203743" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="733.203743" y="258.652625" transform="rotate(-0 733.203743 258.652625)">1.6</text>
+     </g>
+    </g>
+    <g id="xtick_10">
+     <g id="line2d_26">
+      <path d="M 775.495413 245.34 
+L 775.495413 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#m042e91342f" x="775.495413" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="775.495413" y="258.652625" transform="rotate(-0 775.495413 258.652625)">1.8</text>
+     </g>
+    </g>
+    <g id="xtick_11">
+     <g id="line2d_28">
+      <path d="M 817.787083 245.34 
+L 817.787083 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.5; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#m042e91342f" x="817.787083" y="245.34" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="fill: #898781; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="817.787083" y="258.652625" transform="rotate(-0 817.787083 258.652625)">2.0</text>
+     </g>
+    </g>
+    <g id="text_27">
+     <text style="fill: #52514e; font: 8.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="706.771449" y="270.820125" transform="rotate(-0 706.771449 270.820125)">bandwidth ceiling, relative to the 4-tier baseline</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_30">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="231.537161" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="fill: #898781; font: 7.6px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="578.182898" y="234.337286" transform="rotate(-0 578.182898 234.337286)">higher-k ILD + BEOL 4 um combined</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="207.279097" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <!-- thinned substrate 500 $\rightarrow$ 200 um -->
+      <g style="fill: #898781" transform="translate(466.158898 210.005003)">
+       <text>
+        <tspan style="font: 7.6px 'Helvetica'" x="0 2.109787 6.333069 8.020157 12.243439 16.466721 20.690002 24.913284 27.023071 30.819946 35.043228 39.26651 43.063385 45.173172 47.70195 51.925232 54.035019 58.258301 60.368088 64.59137 68.814651 73.037933 84.507706 86.617493 90.840775 95.064056 99.287338 101.397125 105.620407" y="-0.53125">thinned substrate 500  200 um</tspan>
+        <tspan style="font: 7.6px 'DejaVu Sans'" x="76.633255" y="-0.53125">→</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_32">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="183.021032" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <!-- tier closer to Si: BEOL 8 $\rightarrow$ 4 um -->
+      <g style="fill: #898781" transform="translate(466.614898 185.746939)">
+       <text>
+        <tspan style="font: 7.6px 'Helvetica'" x="0 2.109787 3.796875 8.020157 10.548935 12.658722 16.455597 18.142685 22.365967 26.162842 30.386124 32.914902 35.024689 37.134476 41.357758 43.467545 48.532516 50.219604 52.329391 54.439178 59.50415 64.569122 70.475784 74.699066 76.808853 81.032135 92.501907 94.611694 98.834976 100.944763 105.168045" y="-0.40625">tier closer to Si: BEOL 8  4 um</tspan>
+        <tspan style="font: 7.6px 'DejaVu Sans'" x="84.627457" y="-0.40625">→</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="158.762968" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <!-- higher-k ILD (2.5 $\rightarrow$ 5.0 W/m/K) -->
+      <g style="fill: #898781" transform="translate(469.958898 161.536968)">
+       <text>
+        <tspan style="font: 7.6px 'Helvetica'" x="0 4.223282 5.91037 10.133652 14.356934 18.580215 21.108994 23.637772 27.434647 29.544434 31.654221 35.877502 41.361465 43.471252 46.000031 50.223312 52.333099 56.556381 68.026154 70.135941 74.359222 76.469009 80.692291 82.802078 89.969421 92.079208 98.404861 100.514648 105.57962" y="-0.46875">higher-k ILD (2.5  5.0 W/m/K)</tspan>
+        <tspan style="font: 7.6px 'DejaVu Sans'" x="60.151703" y="-0.46875">→</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="134.504903" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <!-- thinner inter-tier ILD, 300 $\rightarrow$ 150 nm -->
+      <g style="fill: #898781" transform="translate(455.214898 137.230809)">
+       <text>
+        <tspan style="font: 7.6px 'Helvetica'" x="0 2.109787 6.333069 8.020157 12.243439 16.466721 20.690002 23.218781 25.328568 27.015656 31.238937 33.348724 37.572006 40.100784 42.629562 44.739349 46.426437 50.649719 53.178497 55.288284 57.398071 61.621353 67.105316 69.215103 71.32489 75.548172 79.771454 83.994736 95.464508 97.574295 101.797577 106.020859 110.244141 112.353928 116.577209" y="-0.53125">thinner inter-tier ILD, 300  150 nm</tspan>
+        <tspan style="font: 7.6px 'DejaVu Sans'" x="87.590057" y="-0.53125">→</tspan>
+       </text>
+      </g>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#m38ef4bd136" x="585.182898" y="110.246839" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="fill: #898781; font: 7.6px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="578.182898" y="112.972745" transform="rotate(-0 578.182898 112.972745)">baseline, 4 tiers</text>
+     </g>
+    </g>
+   </g>
+   <g id="patch_14">
+    <path d="M 585.182898 245.34 
+L 585.182898 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 828.36 245.34 
+L 828.36 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_16">
+    <path d="M 585.182898 245.34 
+L 828.36 245.34 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 585.182898 96.444 
+L 828.36 96.444 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_18">
+    <path d="M 394.870383 238.572 
+L 788.940666 238.572 
+L 788.940666 224.502323 
+L 394.870383 224.502323 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #1baf7a; opacity: 0.8"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 394.870383 214.313935 
+L 615.709604 214.313935 
+L 615.709604 200.244258 
+L 394.870383 200.244258 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #898781; opacity: 0.8"/>
+   </g>
+   <g id="patch_20">
+    <path d="M 394.870383 190.055871 
+L 691.4387 190.055871 
+L 691.4387 175.986194 
+L 394.870383 175.986194 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #1baf7a; opacity: 0.8"/>
+   </g>
+   <g id="patch_21">
+    <path d="M 394.870383 165.797806 
+L 706.691852 165.797806 
+L 706.691852 151.728129 
+L 394.870383 151.728129 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #1baf7a; opacity: 0.8"/>
+   </g>
+   <g id="patch_22">
+    <path d="M 394.870383 141.539742 
+L 608.518439 141.539742 
+L 608.518439 127.470065 
+L 394.870383 127.470065 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #898781; opacity: 0.8"/>
+   </g>
+   <g id="patch_23">
+    <path d="M 394.870383 117.281677 
+L 606.328733 117.281677 
+L 606.328733 103.212 
+L 394.870383 103.212 
+z
+" clip-path="url(#pd01abd3b5a)" style="fill: #898781; opacity: 0.8"/>
+   </g>
+   <g id="text_34">
+    <text style="fill: #0b0b0b; font: 9.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="585.182898" y="88.444" transform="rotate(-0 585.182898 88.444)">(b)  and the fixes are integration choices, not device choices</text>
+   </g>
+   <g id="line2d_36">
+    <path d="M 606.328733 245.34 
+L 606.328733 96.444 
+" clip-path="url(#pd01abd3b5a)" style="fill: none; stroke: #0b0b0b; stroke-width: 1.2; stroke-linecap: square"/>
+   </g>
+   <g id="text_35">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="792.112541" y="233.572786" transform="rotate(-0 792.112541 233.572786)">1.86x</text>
+   </g>
+   <g id="text_36">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="618.88148" y="209.314722" transform="rotate(-0 618.88148 209.314722)">1.04x</text>
+   </g>
+   <g id="text_37">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="694.610575" y="185.056657" transform="rotate(-0 694.610575 185.056657)">1.40x</text>
+   </g>
+   <g id="text_38">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="709.863728" y="160.798593" transform="rotate(-0 709.863728 160.798593)">1.47x</text>
+   </g>
+   <g id="text_39">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="611.690314" y="136.540528" transform="rotate(-0 611.690314 136.540528)">1.01x</text>
+   </g>
+   <g id="text_40">
+    <text style="fill: #52514e; font: 8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="609.500608" y="112.282464" transform="rotate(-0 609.500608 112.282464)">1.00x</text>
+   </g>
+  </g>
+  <g id="text_41">
+   <text style="fill: #0b0b0b; font: 12px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="16.992" y="24.0705" transform="rotate(-0 16.992 24.0705)">The thermal answer belongs to the BEOL integration, not to the memory device</text>
+  </g>
+  <g id="text_42">
+   <!-- Verified 1D transient solver (analytic x2; MAPDL 1D 0.02%; MAPDL 3D 1.3%). Ceiling is set by a temperature budget, dT = R$_{th}$ x 20 W, -->
+   <g style="fill: #52514e" transform="translate(16.992 41.9808)">
+    <text>
+     <tspan style="font: 7.8px 'Helvetica'" x="0 5.200455 9.536697 12.133118 13.865326 16.03154 17.763748 22.099991 26.436234 28.602448 32.93869 38.569336 40.73555 42.901764 45.498184 49.834427 54.17067 58.069107 59.801315 64.137558 68.473801 70.640015 72.806229 76.704666 81.040909 82.773117 86.671555 91.007797 93.604218 95.770432 98.366852 102.703094 107.039337 111.37558 113.107788 117.006226 119.17244 120.904648 124.803085 126.969299 130.867737 135.203979 137.370193 139.536407 146.031265 151.23172 156.432175 162.06282 166.399063 168.565277 172.90152 178.532166 180.69838 185.034622 187.200836 191.537079 195.873322 202.805984 204.972198 207.138412 213.63327 218.833725 224.03418 229.664825 234.001068 236.167282 240.503525 246.134171 248.300385 252.636627 254.802841 259.139084 266.071747 268.668167 270.834381 273.000595 278.631241 282.967484 284.699692 286.4319 288.164108 292.500351 296.836594 299.002808 300.735016 304.633453 306.799667 310.698105 315.034348 317.200562 319.366776 323.703018 327.601456 329.76767 334.103912 336.270126 338.43634 342.772583 349.267441 353.603683 357.939926 360.536346 364.872589 367.038803 371.375046 373.971466 378.307709 380.473923 384.810165 389.146408 393.482651 397.818893 402.155136 404.32135 406.487564 408.653778 412.990021 417.752655 419.918869 424.472122 426.638336 438.129687 440.295901 444.194339 446.360553 450.696796 455.033038 457.199252 464.558307" y="-0.25">Verified 1D transient solver (analytic x2; MAPDL 1D 0.02%; MAPDL 3D 1.3%). Ceiling is set by a temperature budget, dT = R x 20 W,</tspan>
+     <tspan style="font: oblique 5.46px 'DejaVu Sans'" x="432.345544 434.472632" y="1.0625">th</tspan>
+    </text>
+   </g>
+   <!-- so that geometry changes move R$_{th}$ and the peak fraction independently rather than being hidden inside a fixed watt budget. -->
+   <g style="fill: #52514e" transform="translate(16.992 52.3158)">
+    <text>
+     <tspan style="font: 7.8px 'Helvetica'" x="0 3.898438 8.23468 10.400894 12.567108 16.903351 21.239594 23.405807 25.572021 29.908264 34.244507 38.58075 45.075607 49.41185 51.578064 54.174484 58.072922 60.239136 64.137573 68.473816 72.810059 77.146301 81.482544 85.818787 89.717224 91.883438 98.378296 102.714539 106.612976 110.949219 113.115433 124.606784 126.772998 131.109241 135.445483 139.781726 141.94794 144.114154 148.450397 152.786639 154.952853 159.289096 163.625339 167.961581 171.860019 174.026233 176.192447 178.788867 183.12511 187.023547 189.189761 190.92197 195.258212 199.594455 201.760669 203.492877 207.82912 212.165363 216.501605 220.837848 225.174091 229.510333 233.846576 238.182819 242.519061 244.685275 246.417484 250.315921 252.482135 255.078555 259.414798 261.581012 265.917255 270.253497 272.849918 275.016132 277.182346 281.518588 285.854831 290.191074 292.357288 296.69353 301.029773 302.761981 307.098224 311.434467 313.600681 317.936923 319.669131 324.005374 328.341617 332.677859 337.014102 339.180316 340.912524 345.248767 349.147205 350.879413 355.215656 359.551898 361.718112 366.054355 368.220569 370.386783 372.118991 376.017429 380.353671 384.689914 386.856128 392.486774 396.823016 398.98923 401.155444 403.321658 407.657901 411.994144 416.330386 420.666629 425.002872 427.169086" y="-0.328125">so that geometry changes move R and the peak fraction independently rather than being hidden inside a fixed watt budget.</tspan>
+     <tspan style="font: oblique 5.46px 'DejaVu Sans'" x="118.822641 120.949728" y="0.984375">th</tspan>
+    </text>
+   </g>
+  </g>
+  <g id="text_43">
+   <text style="fill: #1baf7a; font: 7.6px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="16.992" y="305.013" transform="rotate(-0 16.992 305.013)">E/bit is off the left scale: 0.014-0.260 pJ/bit spans 35.7-688 TB/s, so it remains the one measurement worth asking for.</text>
+  </g>
+  <g id="text_44">
+   <!-- Substrate thinning is the odd one out: it lowers R$_{th}$ but removes the thermal mass that does the duty-cycle averaging, so the two nearly -->
+   <g style="fill: #d03b3b" transform="translate(16.992 317.6288)">
+    <text>
+     <tspan style="font: 7.6px 'Helvetica'" x="0 5.064972 9.288254 13.511536 17.308411 19.418198 21.946976 26.170258 28.280045 32.503326 34.613113 36.7229 40.946182 42.63327 46.856552 51.079834 52.766922 56.990204 61.213486 63.323273 65.010361 68.807236 70.917023 73.02681 77.250092 81.473373 83.58316 87.806442 92.029724 96.253006 98.362793 102.586075 106.809357 111.032639 113.142426 117.365707 121.588989 123.698776 125.808563 127.91835 129.605438 131.715225 133.825012 135.5121 139.735382 145.219345 149.442627 151.971405 155.76828 157.878067 169.132971 171.242758 175.46604 179.689322 181.799109 183.908896 186.437674 190.660956 196.986609 201.209891 205.006766 209.230048 213.026923 215.13671 217.246497 221.469778 225.69306 227.802847 229.912634 234.135916 238.359198 240.887976 247.213629 251.436911 253.123999 255.233786 261.559439 265.782721 269.579596 273.376471 275.486258 277.596045 281.819327 286.042609 288.152396 290.262183 294.485464 298.708746 302.932028 306.728903 308.83869 310.948477 315.171759 319.395041 321.504828 325.72811 329.951392 332.061179 335.858054 338.386832 342.183707 345.980582 349.777457 351.464545 355.687827 357.797614 362.020895 365.81777 370.041052 372.56983 376.793112 381.016394 382.703482 386.926764 391.150046 393.259833 395.36962 399.166495 403.389777 405.499564 407.609351 411.832632 416.055914 418.165701 420.275488 425.759451 429.982733 432.09252 436.315802 440.539084 444.762366 447.291144 448.978232" y="-0.40625">Substrate thinning is the odd one out: it lowers R but removes the thermal mass that does the duty-cycle averaging, so the two nearly</tspan>
+     <tspan style="font: oblique 5.32px 'DejaVu Sans'" x="163.438593 165.531372" y="0.90625">th</tspan>
+    </text>
+   </g>
+   <!-- cancel and only 1.04x survives. A steady-state study would have credited it with the full R$_{th}$ improvement. -->
+   <g style="fill: #d03b3b" transform="translate(16.992 327.6988)">
+    <text>
+     <tspan style="font: 7.6px 'Helvetica'" x="0 3.796875 8.020157 12.243439 16.040314 20.263596 21.950684 24.060471 28.283752 32.507034 36.730316 38.840103 43.063385 47.286667 48.973755 52.77063 54.880417 59.103699 61.213486 65.436768 69.660049 73.456924 75.566711 79.363586 83.586868 86.115646 89.912521 91.599609 95.396484 99.619766 103.416641 105.526428 107.636215 112.701187 114.810974 118.607849 120.717636 124.940918 129.1642 133.387482 137.184357 139.713135 143.51001 145.619797 149.843079 151.952866 156.176147 158.285934 162.082809 164.192596 168.415878 172.63916 176.436035 178.545822 184.029785 188.253067 192.476349 194.163437 198.386719 200.496506 204.719788 208.943069 212.739944 216.963226 219.073013 222.869888 225.398666 229.621948 233.84523 235.532318 237.642105 241.865387 246.088669 248.198456 249.885544 251.995331 254.105118 259.589081 261.276169 263.385956 267.609238 269.719025 271.828812 276.052094 280.275375 282.385162 284.494949 288.718231 290.405319 292.092407 294.202194 305.457098 307.566885 309.253973 315.579626 319.802908 322.331686 326.554968 330.351843 334.575125 340.900778 345.12406 349.347342 351.457129" y="-0.46875">cancel and only 1.04x survives. A steady-state study would have credited it with the full R improvement.</tspan>
+     <tspan style="font: oblique 5.32px 'DejaVu Sans'" x="299.76272 301.855499" y="0.84375">th</tspan>
+    </text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p98633c807a">
+   <rect x="148.68" y="96.444" width="279.653667" height="148.896"/>
+  </clipPath>
+  <clipPath id="pd01abd3b5a">
+   <rect x="585.182898" y="96.444" width="243.177102" height="148.896"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,13 @@
+quantity,value,unit,grade
+duty_cycle,0.04799,fraction,trace-replay-derived
+burst_length,216.7,us,trace-replay-derived
+step_time,4.515,ms,regression-derived
+ebit_breakeven_vs_HBM_10W,0.1953,pJ/bit,derived
+ebit_breakeven_vs_HBM_10W_dutycorrected,4.0695,pJ/bit,derived
+ebit_for_fabric_cap_10W,0.0658,pJ/bit,derived
+ebit_breakeven_vs_HBM_20W,0.3906,pJ/bit,derived
+ebit_breakeven_vs_HBM_20W_dutycorrected,8.1389,pJ/bit,derived
+ebit_for_fabric_cap_20W,0.1316,pJ/bit,derived
+ebit_breakeven_vs_HBM_50W,0.9766,pJ/bit,derived
+ebit_breakeven_vs_HBM_50W_dutycorrected,20.3473,pJ/bit,derived
+ebit_for_fabric_cap_50W,0.3289,pJ/bit,derived

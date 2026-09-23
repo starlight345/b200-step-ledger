@@ -1,0 +1,46 @@
+{
+  "model": "/home/sychoe/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B/snapshots/060db6499f32faf8b98477b0a26969ef7d8b9987",
+  "batch": 16,
+  "kv_dtype": "auto",
+  "rows": [
+    {
+      "context": 1024,
+      "batch": 16,
+      "kv_dtype": "auto",
+      "step_ms": 4.0378272024099715,
+      "kv_GB": 0.201326592,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 2048,
+      "batch": 16,
+      "kv_dtype": "auto",
+      "step_ms": 3.8117063959361985,
+      "kv_GB": 0.402653184,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 4096,
+      "batch": 16,
+      "kv_dtype": "auto",
+      "step_ms": 3.905779194610659,
+      "kv_GB": 0.805306368,
+      "kv_bytes_per_token": 12288
+    },
+    {
+      "context": 8192,
+      "batch": 16,
+      "kv_dtype": "auto",
+      "step_ms": 3.9350380466203205,
+      "kv_GB": 1.610612736,
+      "kv_bytes_per_token": 12288
+    }
+  ],
+  "slope_ms_per_GB": -0.01281145737253101,
+  "B_eff_TBs": -78.05513228683067,
+  "intercept_ms": 3.932260036336906,
+  "r2": 0.007352884170159335,
+  "fixed_fraction": 0.9738554522565854,
+  "bandwidth_bound": false,
+  "eager": false
+}

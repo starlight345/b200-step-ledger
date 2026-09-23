@@ -1,0 +1,660 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="892.8pt" height="324pt" viewBox="0 0 892.8 324" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-09-21T13:40:46.609335</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.9.4, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 324 
+L 892.8 324 
+L 892.8 0 
+L 0 0 
+z
+" style="fill: #fcfcfb"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 49.104 273.78 
+L 393.914631 273.78 
+L 393.914631 69.66 
+L 49.104 69.66 
+z
+" style="fill: #fcfcfb"/>
+   </g>
+   <g id="PolyCollection_1">
+    <defs>
+     <path id="md996ca5e53" d="M 49.104 -104.613449 
+L 49.104 -50.22 
+L 393.914631 -50.22 
+L 393.914631 -104.613449 
+L 393.914631 -104.613449 
+L 49.104 -104.613449 
+z
+" style="stroke: #d03b3b; stroke-opacity: 0.055"/>
+    </defs>
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#md996ca5e53" x="0" y="324" style="fill: #d03b3b; fill-opacity: 0.055; stroke: #d03b3b; stroke-opacity: 0.055"/>
+    </g>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mf073708b88" d="M 0 0 
+L 0 2.5 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mf073708b88" x="67.494101" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="67.494101" y="285.877422" transform="rotate(-0 67.494101 285.877422)">126 MB</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mf073708b88" x="151.355771" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="151.355771" y="285.877422" transform="rotate(-0 151.355771 285.877422)">1 GB</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mf073708b88" x="244.573783" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="244.573783" y="285.877422" transform="rotate(-0 244.573783 285.877422)">10 GB</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mf073708b88" x="361.587791" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="361.587791" y="285.877422" transform="rotate(-0 361.587791 285.877422)">180 GB</text>
+     </g>
+    </g>
+    <g id="text_5">
+     <text style="fill: #52514e; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="221.509316" y="297.746562" transform="rotate(-0 221.509316 297.746562)">capacity</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_5">
+      <path d="M 49.104 273.78 
+L 393.914631 273.78 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_6">
+      <defs>
+       <path id="mc8866ca74c" d="M 0 0 
+L -2.5 0 
+" style="stroke: #898781; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="276.828711" transform="rotate(-0 43.104 276.828711)">0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_7">
+      <path d="M 49.104 231.255 
+L 393.914631 231.255 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="231.255" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="234.303711" transform="rotate(-0 43.104 234.303711)">5</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_9">
+      <path d="M 49.104 219.348 
+L 393.914631 219.348 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="219.348" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="222.396711" transform="rotate(-0 43.104 222.396711)">6.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_11">
+      <path d="M 49.104 188.73 
+L 393.914631 188.73 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_12">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="188.73" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="191.778711" transform="rotate(-0 43.104 191.778711)">10</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_13">
+      <path d="M 49.104 146.205 
+L 393.914631 146.205 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_14">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="146.205" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="149.253711" transform="rotate(-0 43.104 149.253711)">15</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_15">
+      <path d="M 49.104 103.68 
+L 393.914631 103.68 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_16">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="49.104" y="103.68" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="43.104" y="106.728711" transform="rotate(-0 43.104 106.728711)">20</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="fill: #52514e; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="25.517281" y="171.72" transform="rotate(-90 25.517281 171.72)">effective rate delivered to compute [TB/s]</text>
+    </g>
+   </g>
+   <g id="patch_3">
+    <path d="M 164.687326 231.255 
+L 209.646155 231.255 
+L 209.646155 146.205 
+L 164.687326 146.205 
+z
+" clip-path="url(#p45a2c90a2b)" style="fill: #2a78d6; opacity: 0.16; stroke: #2a78d6; stroke-width: 1.2; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 49.104 273.78 
+L 49.104 69.66 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 49.104 273.78 
+L 393.914631 273.78 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="fill: #2a78d6; font: 700 9px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="187.134277" y="141.102" transform="rotate(-0 187.134277 141.102)">3D SRAM tier</text>
+   </g>
+   <g id="text_14">
+    <text style="fill: #52514e; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(165.535995 177.521359)">1.39–4.22 GB</text>
+    <text style="fill: #52514e; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(171.181933 185.006109)">5–15 TB/s</text>
+    <text style="fill: #52514e; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(160.480136 192.552547)">(derate anchored</text>
+    <text style="fill: #52514e; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(157.755605 200.098984)">to H100, not B200)</text>
+   </g>
+   <g id="text_15">
+    <text style="fill: #0b0b0b; font: 7.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(48.316953 71.984344)">L2  126 MB</text>
+    <text style="fill: #0b0b0b; font: 7.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(45.189805 80.003719)">16.8–21 TB/s</text>
+   </g>
+   <g id="text_16">
+    <text style="fill: #0b0b0b; font: 7.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(338.454979 203.850395)">HBM  180 GB</text>
+    <text style="fill: #0b0b0b; font: 7.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(331.366307 211.86977)">6.4 TB/s delivered</text>
+   </g>
+   <g id="text_17">
+    <text style="fill: #898781; font: 6.4px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(339.534291 239.5751)">8 TB/s pin spec</text>
+    <text style="fill: #898781; font: 6.4px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(338.826791 246.4747)">(HBM-to-L2, not</text>
+    <text style="fill: #898781; font: 6.4px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(339.178791 253.4079)">a compute rate)</text>
+   </g>
+   <g id="line2d_17">
+    <path d="M 49.104 219.386551 
+L 393.914631 219.386551 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #d03b3b; stroke-width: 1.3; stroke-linecap: square"/>
+   </g>
+   <g id="text_18">
+    <text style="fill: #d03b3b; font: 7.4px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="53.872336" y="229.447801" transform="rotate(-0 53.872336 229.447801)">what compute actually receives from HBM: 6.4 TB/s</text>
+   </g>
+   <g id="text_19">
+    <text style="fill: #d03b3b; font: 7.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(53.872336 251.82315)">a tier below this line costs</text>
+    <text style="fill: #d03b3b; font: 7.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(53.872336 259.52175)">more time than it saves</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 70.502451 234.657 
+Q 116.091 234.657 161.679549 234.657 
+" style="fill: none; stroke: #898781; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 73.902451 236.357 
+L 70.502451 234.657 
+L 73.902451 232.957 
+" style="fill: none; stroke: #898781; stroke-width: 0.9; stroke-linecap: round"/>
+    <path d="M 158.279549 232.957 
+L 161.679549 234.657 
+L 158.279549 236.357 
+" style="fill: none; stroke: #898781; stroke-width: 0.9; stroke-linecap: round"/>
+   </g>
+   <g id="text_20">
+    <text style="fill: #898781; font: 7.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="116.235819" y="240.6105" transform="rotate(-0 116.235819 240.6105)">11× capacity gap</text>
+   </g>
+   <g id="text_21">
+    <text style="fill: #0b0b0b; font: 9.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="61.66" transform="rotate(-0 49.104 61.66)">A  Where the tier sits</text>
+   </g>
+   <g id="LineCollection_1">
+    <path d="M 67.494101 130.896 
+L 67.494101 95.175 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #0b0b0b; stroke-width: 1.1"/>
+   </g>
+   <g id="line2d_18">
+    <defs>
+     <path id="m09d605b53d" d="M 3 0 
+L -3 -0 
+" style="stroke: #0b0b0b"/>
+    </defs>
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#m09d605b53d" x="67.494101" y="130.896" style="fill: #0b0b0b; stroke: #0b0b0b"/>
+    </g>
+   </g>
+   <g id="line2d_19">
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#m09d605b53d" x="67.494101" y="95.175" style="fill: #0b0b0b; stroke: #0b0b0b"/>
+    </g>
+   </g>
+   <g id="line2d_20">
+    <path d="M 361.587791 205.74 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #898781; stroke-width: 1.5; stroke-linecap: square"/>
+    <defs>
+     <path id="m5bae302824" d="M 5.5 0 
+L -5.5 -0 
+" style="stroke: #898781; stroke-width: 1.4"/>
+    </defs>
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#m5bae302824" x="361.587791" y="205.74" style="fill: #898781; stroke: #898781; stroke-width: 1.4"/>
+    </g>
+   </g>
+   <g id="line2d_21">
+    <path d="M 67.494101 112.185 
+" clip-path="url(#p45a2c90a2b)" style="fill: none; stroke: #0b0b0b; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_22">
+    <defs>
+     <path id="m8f3aac4201" d="M 0 4.5 
+C 1.193414 4.5 2.338109 4.025852 3.181981 3.181981 
+C 4.025852 2.338109 4.5 1.193414 4.5 0 
+C 4.5 -1.193414 4.025852 -2.338109 3.181981 -3.181981 
+C 2.338109 -4.025852 1.193414 -4.5 0 -4.5 
+C -1.193414 -4.5 -2.338109 -4.025852 -3.181981 -3.181981 
+C -4.025852 -2.338109 -4.5 -1.193414 -4.5 0 
+C -4.5 1.193414 -4.025852 2.338109 -3.181981 3.181981 
+C -2.338109 4.025852 -1.193414 4.5 0 4.5 
+z
+" style="stroke: #ffffff; stroke-width: 1.4"/>
+    </defs>
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#m8f3aac4201" x="67.494101" y="112.185" style="fill: #0b0b0b; stroke: #ffffff; stroke-width: 1.4"/>
+    </g>
+   </g>
+   <g id="line2d_23">
+    <g clip-path="url(#p45a2c90a2b)">
+     <use xlink:href="#m8f3aac4201" x="361.587791" y="219.386551" style="fill: #0b0b0b; stroke: #ffffff; stroke-width: 1.4"/>
+    </g>
+   </g>
+  </g>
+  <g id="axes_2">
+   <g id="patch_7">
+    <path d="M 482.875774 273.78 
+L 879.408 273.78 
+L 879.408 69.66 
+L 482.875774 69.66 
+z
+" style="fill: #fcfcfb"/>
+   </g>
+   <g id="matplotlib.axis_3">
+    <g id="xtick_5">
+     <g id="line2d_24">
+      <path d="M 542.956414 273.78 
+L 542.956414 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_25">
+      <g>
+       <use xlink:href="#mf073708b88" x="542.956414" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_22">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="542.956414" y="285.877422" transform="rotate(-0 542.956414 285.877422)">0.50</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_26">
+      <path d="M 618.057215 273.78 
+L 618.057215 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_27">
+      <g>
+       <use xlink:href="#mf073708b88" x="618.057215" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_23">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="618.057215" y="285.877422" transform="rotate(-0 618.057215 285.877422)">0.75</text>
+     </g>
+    </g>
+    <g id="xtick_7">
+     <g id="line2d_28">
+      <path d="M 693.158015 273.78 
+L 693.158015 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_29">
+      <g>
+       <use xlink:href="#mf073708b88" x="693.158015" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_24">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="693.158015" y="285.877422" transform="rotate(-0 693.158015 285.877422)">1.00</text>
+     </g>
+    </g>
+    <g id="xtick_8">
+     <g id="line2d_30">
+      <path d="M 768.258815 273.78 
+L 768.258815 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_31">
+      <g>
+       <use xlink:href="#mf073708b88" x="768.258815" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_25">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="768.258815" y="285.877422" transform="rotate(-0 768.258815 285.877422)">1.25</text>
+     </g>
+    </g>
+    <g id="xtick_9">
+     <g id="line2d_32">
+      <path d="M 843.359616 273.78 
+L 843.359616 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.6; stroke-linecap: square"/>
+     </g>
+     <g id="line2d_33">
+      <g>
+       <use xlink:href="#mf073708b88" x="843.359616" y="273.78" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_26">
+      <text style="fill: #898781; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="843.359616" y="285.877422" transform="rotate(-0 843.359616 285.877422)">1.50</text>
+     </g>
+    </g>
+    <g id="text_27">
+     <text style="fill: #52514e; font: 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle" x="681.141887" y="297.766484" transform="rotate(-0 681.141887 297.766484)">predicted decode step-time speedup vs. B200 baseline</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_4">
+    <g id="ytick_7">
+     <g id="line2d_34">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="89.762727" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_28">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="92.703837" transform="rotate(-0 476.875774 92.703837)">M0  capacity only</text>
+     </g>
+    </g>
+    <g id="ytick_8">
+     <g id="line2d_35">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="120.69" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_29">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="123.631109" transform="rotate(-0 476.875774 123.631109)">M1  + fixed term, tier BW</text>
+     </g>
+    </g>
+    <g id="ytick_9">
+     <g id="line2d_36">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="151.617273" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_30">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="154.63846" transform="rotate(-0 476.875774 154.63846)">M2  + L2-to-SM ceiling</text>
+     </g>
+    </g>
+    <g id="ytick_10">
+     <g id="line2d_37">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="182.544545" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_31">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="185.495264" transform="rotate(-0 476.875774 185.495264)">M3  pinned store</text>
+     </g>
+    </g>
+    <g id="ytick_11">
+     <g id="line2d_38">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="213.471818" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_32">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="216.412928" transform="rotate(-0 476.875774 216.412928)">M3  demand-filled cache</text>
+     </g>
+    </g>
+    <g id="ytick_12">
+     <g id="line2d_39">
+      <g>
+       <use xlink:href="#mc8866ca74c" x="482.875774" y="244.399091" style="fill: #898781; stroke: #898781; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_33">
+      <text style="fill: #0b0b0b; font: 8.2px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="476.875774" y="247.3402" transform="rotate(-0 476.875774 247.3402)">M4  cache + real LRU</text>
+     </g>
+    </g>
+   </g>
+   <g id="line2d_40">
+    <path d="M 693.158015 273.78 
+L 693.158015 69.66 
+" clip-path="url(#p7d8332f8ff)" style="fill: none; stroke: #c3c2b7; stroke-width: 1.1; stroke-linecap: square"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 482.875774 273.78 
+L 879.408 273.78 
+" style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 693.158015 97.803818 
+L 783.530711 97.803818 
+L 783.530711 81.721636 
+L 693.158015 81.721636 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6"/>
+   </g>
+   <g id="text_34">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="787.135549" y="91.925579" transform="rotate(-0 787.135549 91.925579)">1.301x</text>
+   </g>
+   <g id="text_35">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="79.025483" transform="rotate(-0 488.883838 79.025483)">traffic cut = time cut</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 693.158015 128.731091 
+L 718.803247 128.731091 
+L 718.803247 112.648909 
+L 693.158015 112.648909 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 718.803247 128.731091 
+L 740.893427 128.731091 
+L 740.893427 112.648909 
+L 718.803247 112.648909 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6; opacity: 0.35"/>
+   </g>
+   <g id="text_36">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="744.498265" y="122.852852" transform="rotate(-0 744.498265 122.852852)">1.085-1.159x</text>
+   </g>
+   <g id="text_37">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="109.952756" transform="rotate(-0 488.883838 109.952756)">1.85 ms is not traffic</text>
+   </g>
+   <g id="patch_12">
+    <path d="M 693.158015 159.658364 
+L 718.803247 159.658364 
+L 718.803247 143.576182 
+L 693.158015 143.576182 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 718.803247 159.658364 
+L 740.893427 159.658364 
+L 740.893427 143.576182 
+L 718.803247 143.576182 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6; opacity: 0.35"/>
+   </g>
+   <g id="text_38">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="744.498265" y="153.780124" transform="rotate(-0 744.498265 153.780124)">1.085-1.159x</text>
+   </g>
+   <g id="text_39">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="140.880028" transform="rotate(-0 488.883838 140.880028)">no bind below 19 TB/s</text>
+   </g>
+   <g id="patch_14">
+    <path d="M 693.158015 190.585636 
+L 718.803247 190.585636 
+L 718.803247 174.503455 
+L 693.158015 174.503455 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_15">
+    <path d="M 718.803247 190.585636 
+L 740.893427 190.585636 
+L 740.893427 174.503455 
+L 718.803247 174.503455 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #2a78d6; opacity: 0.35"/>
+   </g>
+   <g id="text_40">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="744.498265" y="184.707397" transform="rotate(-0 744.498265 184.707397)">1.085-1.159x</text>
+   </g>
+   <g id="text_41">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="171.807301" transform="rotate(-0 488.883838 171.807301)">r = 1.0, so 15 TB/s</text>
+   </g>
+   <g id="patch_16">
+    <path d="M 693.158015 221.512909 
+L 606.571174 221.512909 
+L 606.571174 205.430727 
+L 693.158015 205.430727 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #d03b3b"/>
+   </g>
+   <g id="patch_17">
+    <path d="M 606.571174 221.512909 
+L 554.197727 221.512909 
+L 554.197727 205.430727 
+L 606.571174 205.430727 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #d03b3b; opacity: 0.35"/>
+   </g>
+   <g id="text_42">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="550.592888" y="215.63467" transform="rotate(-0 550.592888 215.63467)">0.54-0.71x</text>
+   </g>
+   <g id="text_43">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="202.734574" transform="rotate(-0 488.883838 202.734574)">if Slack BW(0.6) = 3.8 holds</text>
+   </g>
+   <g id="patch_18">
+    <path d="M 693.158015 252.440182 
+L 606.571174 252.440182 
+L 606.571174 236.358 
+L 693.158015 236.358 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #d03b3b"/>
+   </g>
+   <g id="patch_19">
+    <path d="M 606.571174 252.440182 
+L 543.117635 252.440182 
+L 543.117635 236.358 
+L 606.571174 236.358 
+z
+" clip-path="url(#p7d8332f8ff)" style="fill: #d03b3b; opacity: 0.35"/>
+   </g>
+   <g id="text_44">
+    <text style="fill: #0b0b0b; font: 700 8.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="539.512796" y="246.561942" transform="rotate(-0 539.512796 246.561942)">0.50-0.71x</text>
+   </g>
+   <g id="text_45">
+    <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="488.883838" y="233.620284" transform="rotate(-0 488.883838 233.620284)">zero hits, fills only</text>
+   </g>
+   <g id="text_46">
+    <text style="fill: #eb6834; font: 6.9px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(699.166079 102.048001)">M0-&gt;M1 splits: fixed 1.85 ms term 1.301-&gt;1.159 (-14%p);</text>
+    <text style="fill: #eb6834; font: 6.9px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(699.166079 109.522857)">finite tier service 1.159-&gt;1.085 (-7%p, serial bound)</text>
+   </g>
+   <g id="text_47">
+    <text style="fill: #d03b3b; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(699.166079 212.059161)">harmful iff mixed-traffic BW &lt; HBM 6.4;</text>
+    <text style="fill: #d03b3b; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif" transform="translate(699.166079 219.642348)">serial bound needs only the deck (27.7 &gt; 17.7)</text>
+   </g>
+   <g id="text_48">
+    <text style="fill: #898781; font: 6.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end" x="840.355584" y="268.43154" transform="rotate(-0 840.355584 268.43154)">bars: solid = serial-sum bound, faint = overlapped bound</text>
+   </g>
+   <g id="text_49">
+    <text style="fill: #0b0b0b; font: 9.5px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="482.875774" y="61.66" transform="rotate(-0 482.875774 61.66)">B  What each rung of modeling refinement does</text>
+   </g>
+  </g>
+  <g id="text_50">
+   <text style="fill: #0b0b0b; font: 9.6px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="16.146" transform="rotate(-0 49.104 16.146)">A 3D SRAM tier on a B200-class GPU: C2, 2 layers, 4.22 GB (geometric upper bound: full 800 mm² placement per layer per die) on Llama-3.1-8B decode, B=8, N=2048</text>
+  </g>
+  <g id="text_51">
+   <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="28.512" transform="rotate(-0 49.104 28.512)">All three rates are bytes a kernel consumes per unit time, not link pin rates. HBM: logical bytes / measured B200 decode step time, fitted slope over four anchors.</text>
+  </g>
+  <g id="text_52">
+   <text style="fill: #898781; font: 7px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="39.528" transform="rotate(-0 49.104 39.528)">L2: Vulkan compute-shader benchmark, 21 TB/s within a partition and 16.8 across. 3D: device-team deck gives 17.7 read-oriented (3.37x derate calibrated on H100 L2); the read/fill mix table is from a Slack reply, not the deck.</text>
+  </g>
+  <g id="text_53">
+   <text style="fill: #898781; font: 6.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="311.04" transform="rotate(-0 49.104 311.04)">Model calculation, not a measurement. BW(r) = 15 / 9.4 / 3.8 at r = 1.0 / 0.8 / 0.6 comes from a device-team Slack reply (2026-09-20), not the audited deck; its derivation is unconfirmed.</text>
+  </g>
+  <g id="text_54">
+   <text style="fill: #898781; font: 6.8px 'Helvetica', 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start" x="49.104" y="320.112" transform="rotate(-0 49.104 320.112)">The cache rungs therefore hold only if that table holds: the serial bound (solid) needs no such table, the overlapped bound (faint) rests on BW(0.6) = 3.8 &lt; 6.4. B200 L2 is not a counterexample: its 19 TB/s exceeds HBM.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p45a2c90a2b">
+   <rect x="49.104" y="69.66" width="344.810631" height="204.12"/>
+  </clipPath>
+  <clipPath id="p7d8332f8ff">
+   <rect x="482.875774" y="69.66" width="396.532226" height="204.12"/>
+  </clipPath>
+ </defs>
+</svg>

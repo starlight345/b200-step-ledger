@@ -1,0 +1,2246 @@
+
+ Ansys Mechanical Enterprise Academic Research     
+
+
+ *------------------------------------------------------------------*
+ |                                                                  |
+ |   W E L C O M E   T O   T H E   A N S Y S (R)  P R O G R A M     |
+ |                                                                  |
+ *------------------------------------------------------------------*
+
+
+
+
+ ***************************************************************
+ *         ANSYS MAPDL                  LEGAL NOTICES          *
+ ***************************************************************
+ *                                                             *
+ * Copyright (c) 2026 Synopsys, Inc. and ANSYS, Inc.           *
+ * All rights reserved.                                        *
+ * Unauthorized use, distribution or duplication is            *
+ * prohibited.                                                 *
+ *                                                             *
+ * Ansys is a registered trademark of Ansys, Inc. or its       *
+ * subsidiaries in the United States or other countries.       *
+ * See the Ansys, Inc. online documentation or the Ansys, Inc. *
+ * documentation CD or online help for the complete Legal      *
+ * Notice.                                                     *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * THIS ANSYS SOFTWARE PRODUCT AND PROGRAM DOCUMENTATION       *
+ * INCLUDE TRADE SECRETS AND CONFIDENTIAL AND PROPRIETARY      *
+ * PRODUCTS OF ANSYS, INC., ITS SUBSIDIARIES, OR LICENSORS.    *
+ * The software products and documentation are furnished by    *
+ * Ansys, Inc. or its subsidiaries under a software license    *
+ * agreement that contains provisions concerning               *
+ * non-disclosure, copying, length and nature of use,          *
+ * compliance with exporting laws, warranties, disclaimers,    *
+ * limitations of liability, and remedies, and other           *
+ * provisions.  The software products and documentation may be *
+ * used, disclosed, transferred, or copied only in accordance  *
+ * with the terms and conditions of that software license      *
+ * agreement.                                                  *
+ *                                                             *
+ * Ansys, Inc. is a UL registered                              *
+ * ISO 9001:2015 company.                                      *
+ *                                                             *
+ ***************************************************************
+ *                                                             *
+ * This product is subject to U.S. laws governing export and   *
+ * re-export.                                                  *
+ *                                                             *
+ * For U.S. Government users, except as specifically granted   *
+ * by the Ansys, Inc. software license agreement, the use,     *
+ * duplication, or disclosure by the United States Government  *
+ * is subject to restrictions stated in the Ansys, Inc.        *
+ * software license agreement and FAR 12.212 (for non-DOD      *
+ * licenses).                                                  *
+ *                                                             *
+ ***************************************************************
+
+
+
+          *****  MAPDL COMMAND LINE ARGUMENTS  *****
+  BATCH MODE REQUESTED (-b)    = LIST
+  INPUT FILE COPY MODE (-c)    = COPY
+       1 PARALLEL PROCESSES REQUESTED WITH SINGLE THREAD PER PROCESS
+    TOTAL OF     1 CORES REQUESTED
+  INPUT FILE NAME              = /home/sychoe/ectc_thermal/stack_2tier_step_tieronly.dat
+  OUTPUT FILE NAME             = /home/sychoe/ectc_thermal/stack_2tier_step_tieronly.out
+
+ RELEASE=                      BUILD= 26.1      UP20260202   VERSION=LINUX x64   
+ CURRENT JOBNAME=file  01:09:25  SEP 23, 2026  Elapsed Time=       0.226
+
+     1  /BATCH  
+     2  /TITLE, ECTC BEOL SRAM tier transient thermal - LINK33 1D column
+     3  /PREP7  
+     4  ET,1,LINK33            ! 3-D conduction bar 
+     5  R,1,1.000000000e-08     ! cross-sectional area [m2] 
+     6  MP,KXX,1,5  
+     7  MP,DENS,1,1.0            ! DENS*C folded into C so rho*c = 2e+06
+     8  MP,C,1,2000000  
+     9  MP,KXX,2,110
+    10  MP,DENS,2,1.0            ! DENS*C folded into C so rho*c = 1.631e+06
+    11  MP,C,2,1631000  
+    12  MP,KXX,3,2.5
+    13  MP,DENS,3,1.0            ! DENS*C folded into C so rho*c = 2.07e+06 
+    14  MP,C,3,2070000  
+    15  MP,KXX,4,3  
+    16  MP,DENS,4,1.0            ! DENS*C folded into C so rho*c = 2.07e+06 
+    17  MP,C,4,2070000  
+    18  N,1,0,0,0.000000000e+00 
+    19  N,2,0,0,6.250000000e-07 
+    20  N,3,0,0,1.250000000e-06 
+    21  N,4,0,0,1.875000000e-06 
+    22  N,5,0,0,2.500000000e-06 
+    23  N,6,0,0,3.125000000e-06 
+    24  N,7,0,0,3.750000000e-06 
+    25  N,8,0,0,4.375000000e-06 
+    26  N,9,0,0,5.000000000e-06 
+    27  N,10,0,0,5.625000000e-06
+    28  N,11,0,0,6.250000000e-06
+    29  N,12,0,0,6.875000000e-06
+    30  N,13,0,0,7.500000000e-06
+    31  N,14,0,0,8.125000000e-06
+    32  N,15,0,0,8.750000000e-06
+    33  N,16,0,0,9.375000000e-06
+    34  N,17,0,0,1.000000000e-05
+    35  N,18,0,0,1.062500000e-05
+    36  N,19,0,0,1.125000000e-05
+    37  N,20,0,0,1.187500000e-05
+    38  N,21,0,0,1.250000000e-05
+    39  N,22,0,0,1.312500000e-05
+    40  N,23,0,0,1.375000000e-05
+    41  N,24,0,0,1.437500000e-05
+    42  N,25,0,0,1.500000000e-05
+    43  N,26,0,0,1.562500000e-05
+    44  N,27,0,0,1.625000000e-05
+    45  N,28,0,0,1.687500000e-05
+    46  N,29,0,0,1.750000000e-05
+    47  N,30,0,0,1.812500000e-05
+    48  N,31,0,0,1.875000000e-05
+    49  N,32,0,0,1.937500000e-05
+    50  N,33,0,0,2.000000000e-05
+    51  N,34,0,0,2.062500000e-05
+    52  N,35,0,0,2.125000000e-05
+    53  N,36,0,0,2.187500000e-05
+    54  N,37,0,0,2.250000000e-05
+    55  N,38,0,0,2.312500000e-05
+    56  N,39,0,0,2.375000000e-05
+    57  N,40,0,0,2.437500000e-05
+    58  N,41,0,0,2.500000000e-05
+    59  N,42,0,0,2.562500000e-05
+    60  N,43,0,0,2.625000000e-05
+    61  N,44,0,0,2.687500000e-05
+    62  N,45,0,0,2.750000000e-05
+    63  N,46,0,0,2.812500000e-05
+    64  N,47,0,0,2.875000000e-05
+    65  N,48,0,0,2.937500000e-05
+    66  N,49,0,0,3.000000000e-05
+    67  N,50,0,0,3.062500000e-05
+    68  N,51,0,0,3.125000000e-05
+    69  N,52,0,0,3.187500000e-05
+    70  N,53,0,0,3.250000000e-05
+    71  N,54,0,0,3.312500000e-05
+    72  N,55,0,0,3.375000000e-05
+    73  N,56,0,0,3.437500000e-05
+    74  N,57,0,0,3.500000000e-05
+    75  N,58,0,0,3.562500000e-05
+    76  N,59,0,0,3.625000000e-05
+    77  N,60,0,0,3.687500000e-05
+    78  N,61,0,0,3.750000000e-05
+    79  N,62,0,0,3.812500000e-05
+    80  N,63,0,0,3.875000000e-05
+    81  N,64,0,0,3.937500000e-05
+    82  N,65,0,0,4.000000000e-05
+    83  N,66,0,0,4.062500000e-05
+    84  N,67,0,0,4.125000000e-05
+    85  N,68,0,0,4.187500000e-05
+    86  N,69,0,0,4.250000000e-05
+    87  N,70,0,0,4.312500000e-05
+    88  N,71,0,0,4.375000000e-05
+    89  N,72,0,0,4.437500000e-05
+    90  N,73,0,0,4.500000000e-05
+    91  N,74,0,0,4.562500000e-05
+    92  N,75,0,0,4.625000000e-05
+    93  N,76,0,0,4.687500000e-05
+    94  N,77,0,0,4.750000000e-05
+    95  N,78,0,0,4.812500000e-05
+    96  N,79,0,0,4.875000000e-05
+    97  N,80,0,0,4.937500000e-05
+    98  N,81,0,0,5.000000000e-05
+    99  N,82,0,0,5.625000000e-05
+   100  N,83,0,0,6.250000000e-05
+   101  N,84,0,0,6.875000000e-05
+   102  N,85,0,0,7.500000000e-05
+   103  N,86,0,0,8.125000000e-05
+   104  N,87,0,0,8.750000000e-05
+   105  N,88,0,0,9.375000000e-05
+   106  N,89,0,0,1.000000000e-04
+   107  N,90,0,0,1.062500000e-04
+   108  N,91,0,0,1.125000000e-04
+   109  N,92,0,0,1.187500000e-04
+   110  N,93,0,0,1.250000000e-04
+   111  N,94,0,0,1.312500000e-04
+   112  N,95,0,0,1.375000000e-04
+   113  N,96,0,0,1.437500000e-04
+   114  N,97,0,0,1.500000000e-04
+   115  N,98,0,0,1.562500000e-04
+   116  N,99,0,0,1.625000000e-04
+   117  N,100,0,0,1.687500000e-04   
+   118  N,101,0,0,1.750000000e-04   
+   119  N,102,0,0,1.812500000e-04   
+   120  N,103,0,0,1.875000000e-04   
+   121  N,104,0,0,1.937500000e-04   
+   122  N,105,0,0,2.000000000e-04   
+   123  N,106,0,0,2.062500000e-04   
+   124  N,107,0,0,2.125000000e-04   
+   125  N,108,0,0,2.187500000e-04   
+   126  N,109,0,0,2.250000000e-04   
+   127  N,110,0,0,2.312500000e-04   
+   128  N,111,0,0,2.375000000e-04   
+   129  N,112,0,0,2.437500000e-04   
+   130  N,113,0,0,2.500000000e-04   
+   131  N,114,0,0,2.562500000e-04   
+   132  N,115,0,0,2.625000000e-04   
+   133  N,116,0,0,2.687500000e-04   
+   134  N,117,0,0,2.750000000e-04   
+   135  N,118,0,0,2.812500000e-04   
+   136  N,119,0,0,2.875000000e-04   
+   137  N,120,0,0,2.937500000e-04   
+   138  N,121,0,0,3.000000000e-04   
+   139  N,122,0,0,3.062500000e-04   
+   140  N,123,0,0,3.125000000e-04   
+   141  N,124,0,0,3.187500000e-04   
+   142  N,125,0,0,3.250000000e-04   
+   143  N,126,0,0,3.312500000e-04   
+   144  N,127,0,0,3.375000000e-04   
+   145  N,128,0,0,3.437500000e-04   
+   146  N,129,0,0,3.500000000e-04   
+   147  N,130,0,0,3.562500000e-04   
+   148  N,131,0,0,3.625000000e-04   
+   149  N,132,0,0,3.687500000e-04   
+   150  N,133,0,0,3.750000000e-04   
+   151  N,134,0,0,3.812500000e-04   
+   152  N,135,0,0,3.875000000e-04   
+   153  N,136,0,0,3.937500000e-04   
+   154  N,137,0,0,4.000000000e-04   
+   155  N,138,0,0,4.062500000e-04   
+   156  N,139,0,0,4.125000000e-04   
+   157  N,140,0,0,4.187500000e-04   
+   158  N,141,0,0,4.250000000e-04   
+   159  N,142,0,0,4.312500000e-04   
+   160  N,143,0,0,4.375000000e-04   
+   161  N,144,0,0,4.437500000e-04   
+   162  N,145,0,0,4.500000000e-04   
+   163  N,146,0,0,4.562500000e-04   
+   164  N,147,0,0,4.625000000e-04   
+   165  N,148,0,0,4.687500000e-04   
+   166  N,149,0,0,4.750000000e-04   
+   167  N,150,0,0,4.812500000e-04   
+   168  N,151,0,0,4.875000000e-04   
+   169  N,152,0,0,4.937500000e-04   
+   170  N,153,0,0,5.000000000e-04   
+   171  N,154,0,0,5.062500000e-04   
+   172  N,155,0,0,5.125000000e-04   
+   173  N,156,0,0,5.187500000e-04   
+   174  N,157,0,0,5.250000000e-04   
+   175  N,158,0,0,5.312500000e-04   
+   176  N,159,0,0,5.375000000e-04   
+   177  N,160,0,0,5.437500000e-04   
+   178  N,161,0,0,5.500000000e-04   
+   179  N,162,0,0,5.505000000e-04   
+   180  N,163,0,0,5.510000000e-04   
+   181  N,164,0,0,5.515000000e-04   
+   182  N,165,0,0,5.520000000e-04   
+   183  N,166,0,0,5.525000000e-04   
+   184  N,167,0,0,5.530000000e-04   
+   185  N,168,0,0,5.535000000e-04   
+   186  N,169,0,0,5.540000000e-04   
+   187  N,170,0,0,5.545000000e-04   
+   188  N,171,0,0,5.550000000e-04   
+   189  N,172,0,0,5.555000000e-04   
+   190  N,173,0,0,5.560000000e-04   
+   191  N,174,0,0,5.565000000e-04   
+   192  N,175,0,0,5.570000000e-04   
+   193  N,176,0,0,5.575000000e-04   
+   194  N,177,0,0,5.580000000e-04   
+   195  N,178,0,0,5.585000000e-04   
+   196  N,179,0,0,5.590000000e-04   
+   197  N,180,0,0,5.595000000e-04   
+   198  N,181,0,0,5.600000000e-04   
+   199  N,182,0,0,5.605000000e-04   
+   200  N,183,0,0,5.610000000e-04   
+   201  N,184,0,0,5.615000000e-04   
+   202  N,185,0,0,5.620000000e-04   
+   203  N,186,0,0,5.625000000e-04   
+   204  N,187,0,0,5.630000000e-04   
+   205  TYPE,1 $ REAL,1 
+   206  MAT,1 $ E,1,2   
+   207  MAT,1 $ E,2,3   
+   208  MAT,1 $ E,3,4   
+   209  MAT,1 $ E,4,5   
+   210  MAT,1 $ E,5,6   
+   211  MAT,1 $ E,6,7   
+   212  MAT,1 $ E,7,8   
+   213  MAT,1 $ E,8,9   
+   214  MAT,1 $ E,9,10  
+   215  MAT,1 $ E,10,11 
+   216  MAT,1 $ E,11,12 
+   217  MAT,1 $ E,12,13 
+   218  MAT,1 $ E,13,14 
+   219  MAT,1 $ E,14,15 
+   220  MAT,1 $ E,15,16 
+   221  MAT,1 $ E,16,17 
+   222  MAT,1 $ E,17,18 
+   223  MAT,1 $ E,18,19 
+   224  MAT,1 $ E,19,20 
+   225  MAT,1 $ E,20,21 
+   226  MAT,1 $ E,21,22 
+   227  MAT,1 $ E,22,23 
+   228  MAT,1 $ E,23,24 
+   229  MAT,1 $ E,24,25 
+   230  MAT,1 $ E,25,26 
+   231  MAT,1 $ E,26,27 
+   232  MAT,1 $ E,27,28 
+   233  MAT,1 $ E,28,29 
+   234  MAT,1 $ E,29,30 
+   235  MAT,1 $ E,30,31 
+   236  MAT,1 $ E,31,32 
+   237  MAT,1 $ E,32,33 
+   238  MAT,1 $ E,33,34 
+   239  MAT,1 $ E,34,35 
+   240  MAT,1 $ E,35,36 
+   241  MAT,1 $ E,36,37 
+   242  MAT,1 $ E,37,38 
+   243  MAT,1 $ E,38,39 
+   244  MAT,1 $ E,39,40 
+   245  MAT,1 $ E,40,41 
+   246  MAT,1 $ E,41,42 
+   247  MAT,1 $ E,42,43 
+   248  MAT,1 $ E,43,44 
+   249  MAT,1 $ E,44,45 
+   250  MAT,1 $ E,45,46 
+   251  MAT,1 $ E,46,47 
+   252  MAT,1 $ E,47,48 
+   253  MAT,1 $ E,48,49 
+   254  MAT,1 $ E,49,50 
+   255  MAT,1 $ E,50,51 
+   256  MAT,1 $ E,51,52 
+   257  MAT,1 $ E,52,53 
+   258  MAT,1 $ E,53,54 
+   259  MAT,1 $ E,54,55 
+   260  MAT,1 $ E,55,56 
+   261  MAT,1 $ E,56,57 
+   262  MAT,1 $ E,57,58 
+   263  MAT,1 $ E,58,59 
+   264  MAT,1 $ E,59,60 
+   265  MAT,1 $ E,60,61 
+   266  MAT,1 $ E,61,62 
+   267  MAT,1 $ E,62,63 
+   268  MAT,1 $ E,63,64 
+   269  MAT,1 $ E,64,65 
+   270  MAT,1 $ E,65,66 
+   271  MAT,1 $ E,66,67 
+   272  MAT,1 $ E,67,68 
+   273  MAT,1 $ E,68,69 
+   274  MAT,1 $ E,69,70 
+   275  MAT,1 $ E,70,71 
+   276  MAT,1 $ E,71,72 
+   277  MAT,1 $ E,72,73 
+   278  MAT,1 $ E,73,74 
+   279  MAT,1 $ E,74,75 
+   280  MAT,1 $ E,75,76 
+   281  MAT,1 $ E,76,77 
+   282  MAT,1 $ E,77,78 
+   283  MAT,1 $ E,78,79 
+   284  MAT,1 $ E,79,80 
+   285  MAT,1 $ E,80,81 
+   286  MAT,2 $ E,81,82 
+   287  MAT,2 $ E,82,83 
+   288  MAT,2 $ E,83,84 
+   289  MAT,2 $ E,84,85 
+   290  MAT,2 $ E,85,86 
+   291  MAT,2 $ E,86,87 
+   292  MAT,2 $ E,87,88 
+   293  MAT,2 $ E,88,89 
+   294  MAT,2 $ E,89,90 
+   295  MAT,2 $ E,90,91 
+   296  MAT,2 $ E,91,92 
+   297  MAT,2 $ E,92,93 
+   298  MAT,2 $ E,93,94 
+   299  MAT,2 $ E,94,95 
+   300  MAT,2 $ E,95,96 
+   301  MAT,2 $ E,96,97 
+   302  MAT,2 $ E,97,98 
+   303  MAT,2 $ E,98,99 
+   304  MAT,2 $ E,99,100
+   305  MAT,2 $ E,100,101   
+   306  MAT,2 $ E,101,102   
+   307  MAT,2 $ E,102,103   
+   308  MAT,2 $ E,103,104   
+   309  MAT,2 $ E,104,105   
+   310  MAT,2 $ E,105,106   
+   311  MAT,2 $ E,106,107   
+   312  MAT,2 $ E,107,108   
+   313  MAT,2 $ E,108,109   
+   314  MAT,2 $ E,109,110   
+   315  MAT,2 $ E,110,111   
+   316  MAT,2 $ E,111,112   
+   317  MAT,2 $ E,112,113   
+   318  MAT,2 $ E,113,114   
+   319  MAT,2 $ E,114,115   
+   320  MAT,2 $ E,115,116   
+   321  MAT,2 $ E,116,117   
+   322  MAT,2 $ E,117,118   
+   323  MAT,2 $ E,118,119   
+   324  MAT,2 $ E,119,120   
+   325  MAT,2 $ E,120,121   
+   326  MAT,2 $ E,121,122   
+   327  MAT,2 $ E,122,123   
+   328  MAT,2 $ E,123,124   
+   329  MAT,2 $ E,124,125   
+   330  MAT,2 $ E,125,126   
+   331  MAT,2 $ E,126,127   
+   332  MAT,2 $ E,127,128   
+   333  MAT,2 $ E,128,129   
+   334  MAT,2 $ E,129,130   
+   335  MAT,2 $ E,130,131   
+   336  MAT,2 $ E,131,132   
+   337  MAT,2 $ E,132,133   
+   338  MAT,2 $ E,133,134   
+   339  MAT,2 $ E,134,135   
+   340  MAT,2 $ E,135,136   
+   341  MAT,2 $ E,136,137   
+   342  MAT,2 $ E,137,138   
+   343  MAT,2 $ E,138,139   
+   344  MAT,2 $ E,139,140   
+   345  MAT,2 $ E,140,141   
+   346  MAT,2 $ E,141,142   
+   347  MAT,2 $ E,142,143   
+   348  MAT,2 $ E,143,144   
+   349  MAT,2 $ E,144,145   
+   350  MAT,2 $ E,145,146   
+   351  MAT,2 $ E,146,147   
+   352  MAT,2 $ E,147,148   
+   353  MAT,2 $ E,148,149   
+   354  MAT,2 $ E,149,150   
+   355  MAT,2 $ E,150,151   
+   356  MAT,2 $ E,151,152   
+   357  MAT,2 $ E,152,153   
+   358  MAT,2 $ E,153,154   
+   359  MAT,2 $ E,154,155   
+   360  MAT,2 $ E,155,156   
+   361  MAT,2 $ E,156,157   
+   362  MAT,2 $ E,157,158   
+   363  MAT,2 $ E,158,159   
+   364  MAT,2 $ E,159,160   
+   365  MAT,2 $ E,160,161   
+   366  MAT,2 $ E,161,162   
+   367  MAT,2 $ E,162,163   
+   368  MAT,3 $ E,163,164   
+   369  MAT,3 $ E,164,165   
+   370  MAT,3 $ E,165,166   
+   371  MAT,3 $ E,166,167   
+   372  MAT,3 $ E,167,168   
+   373  MAT,3 $ E,168,169   
+   374  MAT,3 $ E,169,170   
+   375  MAT,3 $ E,170,171   
+   376  MAT,3 $ E,171,172   
+   377  MAT,3 $ E,172,173   
+   378  MAT,3 $ E,173,174   
+   379  MAT,3 $ E,174,175   
+   380  MAT,3 $ E,175,176   
+   381  MAT,3 $ E,176,177   
+   382  MAT,3 $ E,177,178   
+   383  MAT,3 $ E,178,179   
+   384  MAT,4 $ E,179,180   
+   385  MAT,4 $ E,180,181   
+   386  MAT,3 $ E,181,182   
+   387  MAT,3 $ E,182,183   
+   388  MAT,4 $ E,183,184   
+   389  MAT,4 $ E,184,185   
+   390  MAT,3 $ E,185,186   
+   391  MAT,3 $ E,186,187   
+   392  ! 186 elements, 187 nodes, total thickness 563.00 um
+   393  FINISH  
+   394  /SOLU   
+   395  ANTYPE,TRANS $ TRNOPT,FULL  
+   396  TUNIF,0 $ OUTRES,ALL,ALL $ KBC,1
+   397  D,1,TEMP,0             ! sink face; node n+1 is the board side, left adiabatic  
+   398  ! tier elements 179,180,183,184 
+   399  ! logic elements 161,162
+   400  BFE,161,HGEN,,0.000000000e+00   
+   401  BFE,162,HGEN,,0.000000000e+00   
+   402  BFE,179,HGEN,,2.375000000e+10   
+   403  BFE,180,HGEN,,2.375000000e+10   
+   404  BFE,183,HGEN,,2.375000000e+10   
+   405  BFE,184,HGEN,,2.375000000e+10   
+   406  ! step response, log-ish sampling via successive load steps 
+   407  TIME,2.000000000e-04 $ NSUBST,20 $ SOLVE
+   408  TIME,1.000000000e-03 $ NSUBST,20 $ SOLVE
+   409  TIME,5.000000000e-03 $ NSUBST,20 $ SOLVE
+   410  TIME,2.000000000e-02 $ NSUBST,30 $ SOLVE
+   411  TIME,4.000000000e-02 $ NSUBST,20 $ SOLVE
+   412  FINISH  
+   413  /POST26 
+   414  NUMVAR,10   
+   415  NSOL,2,184,TEMP,,TIER     ! deepest tier node   
+   416  NSOL,3,161,TEMP,,LOGIC  
+   417  /OUT,hist,txt   
+   418  PRVAR,2,3   
+   419  /OUT
+   420  *GET,TMAXT,VARI,2,EXTREM,VMAX   
+   421  *GET,TMINT,VARI,2,EXTREM,VMIN   
+   422  *GET,TMAXL,VARI,3,EXTREM,VMAX   
+   423  /OUT,summary,txt
+   424  *VWRITE,TMAXT,TMINT,TMAXL   
+   425  ('RESULT tier_max=',E14.7,' tier_min=',E14.7,' logic_max=',E14.7)   
+   426  /OUT
+   427  FINISH  
+
+ TITLE= 
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.446
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+          ***** MAPDL ANALYSIS DEFINITION (PREP7) *****
+
+ ELEMENT TYPE          1 IS LINK33       3-D CONDUCTION BAR          
+  KEYOPT( 1- 6)=        0      0      0        0      0      0
+  KEYOPT( 7-12)=        0      0      0        0      0      0
+  KEYOPT(13-18)=        0      0      0        0      0      0
+
+ CURRENT NODAL DOF SET IS  TEMP
+  THREE-DIMENSIONAL MODEL
+
+ REAL CONSTANT SET          1  ITEMS   1 TO   6
+   0.10000E-07   0.0000       0.0000       0.0000       0.0000       0.0000    
+
+ MATERIAL          1     KXX  =   5.000000      
+
+ MATERIAL          1     DENS =   1.000000      
+
+ MATERIAL          1     C    =   2000000.      
+
+ MATERIAL          2     KXX  =   110.0000      
+
+ MATERIAL          2     DENS =   1.000000      
+
+ MATERIAL          2     C    =   1631000.      
+
+ MATERIAL          3     KXX  =   2.500000      
+
+ MATERIAL          3     DENS =   1.000000      
+
+ MATERIAL          3     C    =   2070000.      
+
+ MATERIAL          4     KXX  =   3.000000      
+
+ MATERIAL          4     DENS =   1.000000      
+
+ MATERIAL          4     C    =   2070000.      
+
+ NODE          1  KCS=      0  X,Y,Z=  0.0000       0.0000       0.0000     
+
+ NODE          2  KCS=      0  X,Y,Z=  0.0000       0.0000      0.62500E-006
+
+ NODE          3  KCS=      0  X,Y,Z=  0.0000       0.0000      0.12500E-005
+
+ NODE          4  KCS=      0  X,Y,Z=  0.0000       0.0000      0.18750E-005
+
+ NODE          5  KCS=      0  X,Y,Z=  0.0000       0.0000      0.25000E-005
+
+ NODE          6  KCS=      0  X,Y,Z=  0.0000       0.0000      0.31250E-005
+
+ NODE          7  KCS=      0  X,Y,Z=  0.0000       0.0000      0.37500E-005
+
+ NODE          8  KCS=      0  X,Y,Z=  0.0000       0.0000      0.43750E-005
+
+ NODE          9  KCS=      0  X,Y,Z=  0.0000       0.0000      0.50000E-005
+
+ NODE         10  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56250E-005
+
+ NODE         11  KCS=      0  X,Y,Z=  0.0000       0.0000      0.62500E-005
+
+ NODE         12  KCS=      0  X,Y,Z=  0.0000       0.0000      0.68750E-005
+
+ NODE         13  KCS=      0  X,Y,Z=  0.0000       0.0000      0.75000E-005
+
+ NODE         14  KCS=      0  X,Y,Z=  0.0000       0.0000      0.81250E-005
+
+ NODE         15  KCS=      0  X,Y,Z=  0.0000       0.0000      0.87500E-005
+
+ NODE         16  KCS=      0  X,Y,Z=  0.0000       0.0000      0.93750E-005
+
+ NODE         17  KCS=      0  X,Y,Z=  0.0000       0.0000      0.10000E-004
+
+ NODE         18  KCS=      0  X,Y,Z=  0.0000       0.0000      0.10625E-004
+
+ NODE         19  KCS=      0  X,Y,Z=  0.0000       0.0000      0.11250E-004
+
+ NODE         20  KCS=      0  X,Y,Z=  0.0000       0.0000      0.11875E-004
+
+ NODE         21  KCS=      0  X,Y,Z=  0.0000       0.0000      0.12500E-004
+
+ NODE         22  KCS=      0  X,Y,Z=  0.0000       0.0000      0.13125E-004
+
+ NODE         23  KCS=      0  X,Y,Z=  0.0000       0.0000      0.13750E-004
+
+ NODE         24  KCS=      0  X,Y,Z=  0.0000       0.0000      0.14375E-004
+
+ NODE         25  KCS=      0  X,Y,Z=  0.0000       0.0000      0.15000E-004
+
+ NODE         26  KCS=      0  X,Y,Z=  0.0000       0.0000      0.15625E-004
+
+ NODE         27  KCS=      0  X,Y,Z=  0.0000       0.0000      0.16250E-004
+
+ NODE         28  KCS=      0  X,Y,Z=  0.0000       0.0000      0.16875E-004
+
+ NODE         29  KCS=      0  X,Y,Z=  0.0000       0.0000      0.17500E-004
+
+ NODE         30  KCS=      0  X,Y,Z=  0.0000       0.0000      0.18125E-004
+
+ NODE         31  KCS=      0  X,Y,Z=  0.0000       0.0000      0.18750E-004
+
+ NODE         32  KCS=      0  X,Y,Z=  0.0000       0.0000      0.19375E-004
+
+ NODE         33  KCS=      0  X,Y,Z=  0.0000       0.0000      0.20000E-004
+
+ NODE         34  KCS=      0  X,Y,Z=  0.0000       0.0000      0.20625E-004
+
+ NODE         35  KCS=      0  X,Y,Z=  0.0000       0.0000      0.21250E-004
+
+ NODE         36  KCS=      0  X,Y,Z=  0.0000       0.0000      0.21875E-004
+
+ NODE         37  KCS=      0  X,Y,Z=  0.0000       0.0000      0.22500E-004
+
+ NODE         38  KCS=      0  X,Y,Z=  0.0000       0.0000      0.23125E-004
+
+ NODE         39  KCS=      0  X,Y,Z=  0.0000       0.0000      0.23750E-004
+
+ NODE         40  KCS=      0  X,Y,Z=  0.0000       0.0000      0.24375E-004
+
+ NODE         41  KCS=      0  X,Y,Z=  0.0000       0.0000      0.25000E-004
+
+ NODE         42  KCS=      0  X,Y,Z=  0.0000       0.0000      0.25625E-004
+
+ NODE         43  KCS=      0  X,Y,Z=  0.0000       0.0000      0.26250E-004
+
+ NODE         44  KCS=      0  X,Y,Z=  0.0000       0.0000      0.26875E-004
+
+ NODE         45  KCS=      0  X,Y,Z=  0.0000       0.0000      0.27500E-004
+
+ NODE         46  KCS=      0  X,Y,Z=  0.0000       0.0000      0.28125E-004
+
+ NODE         47  KCS=      0  X,Y,Z=  0.0000       0.0000      0.28750E-004
+
+ NODE         48  KCS=      0  X,Y,Z=  0.0000       0.0000      0.29375E-004
+
+ NODE         49  KCS=      0  X,Y,Z=  0.0000       0.0000      0.30000E-004
+
+ NODE         50  KCS=      0  X,Y,Z=  0.0000       0.0000      0.30625E-004
+
+ NODE         51  KCS=      0  X,Y,Z=  0.0000       0.0000      0.31250E-004
+
+ NODE         52  KCS=      0  X,Y,Z=  0.0000       0.0000      0.31875E-004
+
+ NODE         53  KCS=      0  X,Y,Z=  0.0000       0.0000      0.32500E-004
+
+ NODE         54  KCS=      0  X,Y,Z=  0.0000       0.0000      0.33125E-004
+
+ NODE         55  KCS=      0  X,Y,Z=  0.0000       0.0000      0.33750E-004
+
+ NODE         56  KCS=      0  X,Y,Z=  0.0000       0.0000      0.34375E-004
+
+ NODE         57  KCS=      0  X,Y,Z=  0.0000       0.0000      0.35000E-004
+
+ NODE         58  KCS=      0  X,Y,Z=  0.0000       0.0000      0.35625E-004
+
+ NODE         59  KCS=      0  X,Y,Z=  0.0000       0.0000      0.36250E-004
+
+ NODE         60  KCS=      0  X,Y,Z=  0.0000       0.0000      0.36875E-004
+
+ NODE         61  KCS=      0  X,Y,Z=  0.0000       0.0000      0.37500E-004
+
+ NODE         62  KCS=      0  X,Y,Z=  0.0000       0.0000      0.38125E-004
+
+ NODE         63  KCS=      0  X,Y,Z=  0.0000       0.0000      0.38750E-004
+
+ NODE         64  KCS=      0  X,Y,Z=  0.0000       0.0000      0.39375E-004
+
+ NODE         65  KCS=      0  X,Y,Z=  0.0000       0.0000      0.40000E-004
+
+ NODE         66  KCS=      0  X,Y,Z=  0.0000       0.0000      0.40625E-004
+
+ NODE         67  KCS=      0  X,Y,Z=  0.0000       0.0000      0.41250E-004
+
+ NODE         68  KCS=      0  X,Y,Z=  0.0000       0.0000      0.41875E-004
+
+ NODE         69  KCS=      0  X,Y,Z=  0.0000       0.0000      0.42500E-004
+
+ NODE         70  KCS=      0  X,Y,Z=  0.0000       0.0000      0.43125E-004
+
+ NODE         71  KCS=      0  X,Y,Z=  0.0000       0.0000      0.43750E-004
+
+ NODE         72  KCS=      0  X,Y,Z=  0.0000       0.0000      0.44375E-004
+
+ NODE         73  KCS=      0  X,Y,Z=  0.0000       0.0000      0.45000E-004
+
+ NODE         74  KCS=      0  X,Y,Z=  0.0000       0.0000      0.45625E-004
+
+ NODE         75  KCS=      0  X,Y,Z=  0.0000       0.0000      0.46250E-004
+
+ NODE         76  KCS=      0  X,Y,Z=  0.0000       0.0000      0.46875E-004
+
+ NODE         77  KCS=      0  X,Y,Z=  0.0000       0.0000      0.47500E-004
+
+ NODE         78  KCS=      0  X,Y,Z=  0.0000       0.0000      0.48125E-004
+
+ NODE         79  KCS=      0  X,Y,Z=  0.0000       0.0000      0.48750E-004
+
+ NODE         80  KCS=      0  X,Y,Z=  0.0000       0.0000      0.49375E-004
+
+ NODE         81  KCS=      0  X,Y,Z=  0.0000       0.0000      0.50000E-004
+
+ NODE         82  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56250E-004
+
+ NODE         83  KCS=      0  X,Y,Z=  0.0000       0.0000      0.62500E-004
+
+ NODE         84  KCS=      0  X,Y,Z=  0.0000       0.0000      0.68750E-004
+
+ NODE         85  KCS=      0  X,Y,Z=  0.0000       0.0000      0.75000E-004
+
+ NODE         86  KCS=      0  X,Y,Z=  0.0000       0.0000      0.81250E-004
+
+ NODE         87  KCS=      0  X,Y,Z=  0.0000       0.0000      0.87500E-004
+
+ NODE         88  KCS=      0  X,Y,Z=  0.0000       0.0000      0.93750E-004
+
+ NODE         89  KCS=      0  X,Y,Z=  0.0000       0.0000      0.10000E-003
+
+ NODE         90  KCS=      0  X,Y,Z=  0.0000       0.0000      0.10625E-003
+
+ NODE         91  KCS=      0  X,Y,Z=  0.0000       0.0000      0.11250E-003
+
+ NODE         92  KCS=      0  X,Y,Z=  0.0000       0.0000      0.11875E-003
+
+ NODE         93  KCS=      0  X,Y,Z=  0.0000       0.0000      0.12500E-003
+
+ NODE         94  KCS=      0  X,Y,Z=  0.0000       0.0000      0.13125E-003
+
+ NODE         95  KCS=      0  X,Y,Z=  0.0000       0.0000      0.13750E-003
+
+ NODE         96  KCS=      0  X,Y,Z=  0.0000       0.0000      0.14375E-003
+
+ NODE         97  KCS=      0  X,Y,Z=  0.0000       0.0000      0.15000E-003
+
+ NODE         98  KCS=      0  X,Y,Z=  0.0000       0.0000      0.15625E-003
+
+ NODE         99  KCS=      0  X,Y,Z=  0.0000       0.0000      0.16250E-003
+
+ NODE        100  KCS=      0  X,Y,Z=  0.0000       0.0000      0.16875E-003
+
+ NODE        101  KCS=      0  X,Y,Z=  0.0000       0.0000      0.17500E-003
+
+ NODE        102  KCS=      0  X,Y,Z=  0.0000       0.0000      0.18125E-003
+
+ NODE        103  KCS=      0  X,Y,Z=  0.0000       0.0000      0.18750E-003
+
+ NODE        104  KCS=      0  X,Y,Z=  0.0000       0.0000      0.19375E-003
+
+ NODE        105  KCS=      0  X,Y,Z=  0.0000       0.0000      0.20000E-003
+
+ NODE        106  KCS=      0  X,Y,Z=  0.0000       0.0000      0.20625E-003
+
+ NODE        107  KCS=      0  X,Y,Z=  0.0000       0.0000      0.21250E-003
+
+ NODE        108  KCS=      0  X,Y,Z=  0.0000       0.0000      0.21875E-003
+
+ NODE        109  KCS=      0  X,Y,Z=  0.0000       0.0000      0.22500E-003
+
+ NODE        110  KCS=      0  X,Y,Z=  0.0000       0.0000      0.23125E-003
+
+ NODE        111  KCS=      0  X,Y,Z=  0.0000       0.0000      0.23750E-003
+
+ NODE        112  KCS=      0  X,Y,Z=  0.0000       0.0000      0.24375E-003
+
+ NODE        113  KCS=      0  X,Y,Z=  0.0000       0.0000      0.25000E-003
+
+ NODE        114  KCS=      0  X,Y,Z=  0.0000       0.0000      0.25625E-003
+
+ NODE        115  KCS=      0  X,Y,Z=  0.0000       0.0000      0.26250E-003
+
+ NODE        116  KCS=      0  X,Y,Z=  0.0000       0.0000      0.26875E-003
+
+ NODE        117  KCS=      0  X,Y,Z=  0.0000       0.0000      0.27500E-003
+
+ NODE        118  KCS=      0  X,Y,Z=  0.0000       0.0000      0.28125E-003
+
+ NODE        119  KCS=      0  X,Y,Z=  0.0000       0.0000      0.28750E-003
+
+ NODE        120  KCS=      0  X,Y,Z=  0.0000       0.0000      0.29375E-003
+
+ NODE        121  KCS=      0  X,Y,Z=  0.0000       0.0000      0.30000E-003
+
+ NODE        122  KCS=      0  X,Y,Z=  0.0000       0.0000      0.30625E-003
+
+ NODE        123  KCS=      0  X,Y,Z=  0.0000       0.0000      0.31250E-003
+
+ NODE        124  KCS=      0  X,Y,Z=  0.0000       0.0000      0.31875E-003
+
+ NODE        125  KCS=      0  X,Y,Z=  0.0000       0.0000      0.32500E-003
+
+ NODE        126  KCS=      0  X,Y,Z=  0.0000       0.0000      0.33125E-003
+
+ NODE        127  KCS=      0  X,Y,Z=  0.0000       0.0000      0.33750E-003
+
+ NODE        128  KCS=      0  X,Y,Z=  0.0000       0.0000      0.34375E-003
+
+ NODE        129  KCS=      0  X,Y,Z=  0.0000       0.0000      0.35000E-003
+
+ NODE        130  KCS=      0  X,Y,Z=  0.0000       0.0000      0.35625E-003
+
+ NODE        131  KCS=      0  X,Y,Z=  0.0000       0.0000      0.36250E-003
+
+ NODE        132  KCS=      0  X,Y,Z=  0.0000       0.0000      0.36875E-003
+
+ NODE        133  KCS=      0  X,Y,Z=  0.0000       0.0000      0.37500E-003
+
+ NODE        134  KCS=      0  X,Y,Z=  0.0000       0.0000      0.38125E-003
+
+ NODE        135  KCS=      0  X,Y,Z=  0.0000       0.0000      0.38750E-003
+
+ NODE        136  KCS=      0  X,Y,Z=  0.0000       0.0000      0.39375E-003
+
+ NODE        137  KCS=      0  X,Y,Z=  0.0000       0.0000      0.40000E-003
+
+ NODE        138  KCS=      0  X,Y,Z=  0.0000       0.0000      0.40625E-003
+
+ NODE        139  KCS=      0  X,Y,Z=  0.0000       0.0000      0.41250E-003
+
+ NODE        140  KCS=      0  X,Y,Z=  0.0000       0.0000      0.41875E-003
+
+ NODE        141  KCS=      0  X,Y,Z=  0.0000       0.0000      0.42500E-003
+
+ NODE        142  KCS=      0  X,Y,Z=  0.0000       0.0000      0.43125E-003
+
+ NODE        143  KCS=      0  X,Y,Z=  0.0000       0.0000      0.43750E-003
+
+ NODE        144  KCS=      0  X,Y,Z=  0.0000       0.0000      0.44375E-003
+
+ NODE        145  KCS=      0  X,Y,Z=  0.0000       0.0000      0.45000E-003
+
+ NODE        146  KCS=      0  X,Y,Z=  0.0000       0.0000      0.45625E-003
+
+ NODE        147  KCS=      0  X,Y,Z=  0.0000       0.0000      0.46250E-003
+
+ NODE        148  KCS=      0  X,Y,Z=  0.0000       0.0000      0.46875E-003
+
+ NODE        149  KCS=      0  X,Y,Z=  0.0000       0.0000      0.47500E-003
+
+ NODE        150  KCS=      0  X,Y,Z=  0.0000       0.0000      0.48125E-003
+
+ NODE        151  KCS=      0  X,Y,Z=  0.0000       0.0000      0.48750E-003
+
+ NODE        152  KCS=      0  X,Y,Z=  0.0000       0.0000      0.49375E-003
+
+ NODE        153  KCS=      0  X,Y,Z=  0.0000       0.0000      0.50000E-003
+
+ NODE        154  KCS=      0  X,Y,Z=  0.0000       0.0000      0.50625E-003
+
+ NODE        155  KCS=      0  X,Y,Z=  0.0000       0.0000      0.51250E-003
+
+ NODE        156  KCS=      0  X,Y,Z=  0.0000       0.0000      0.51875E-003
+
+ NODE        157  KCS=      0  X,Y,Z=  0.0000       0.0000      0.52500E-003
+
+ NODE        158  KCS=      0  X,Y,Z=  0.0000       0.0000      0.53125E-003
+
+ NODE        159  KCS=      0  X,Y,Z=  0.0000       0.0000      0.53750E-003
+
+ NODE        160  KCS=      0  X,Y,Z=  0.0000       0.0000      0.54375E-003
+
+ NODE        161  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55000E-003
+
+ NODE        162  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55050E-003
+
+ NODE        163  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55100E-003
+
+ NODE        164  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55150E-003
+
+ NODE        165  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55200E-003
+
+ NODE        166  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55250E-003
+
+ NODE        167  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55300E-003
+
+ NODE        168  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55350E-003
+
+ NODE        169  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55400E-003
+
+ NODE        170  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55450E-003
+
+ NODE        171  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55500E-003
+
+ NODE        172  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55550E-003
+
+ NODE        173  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55600E-003
+
+ NODE        174  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55650E-003
+
+ NODE        175  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55700E-003
+
+ NODE        176  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55750E-003
+
+ NODE        177  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55800E-003
+
+ NODE        178  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55850E-003
+
+ NODE        179  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55900E-003
+
+ NODE        180  KCS=      0  X,Y,Z=  0.0000       0.0000      0.55950E-003
+
+ NODE        181  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56000E-003
+
+ NODE        182  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56050E-003
+
+ NODE        183  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56100E-003
+
+ NODE        184  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56150E-003
+
+ NODE        185  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56200E-003
+
+ NODE        186  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56250E-003
+
+ NODE        187  KCS=      0  X,Y,Z=  0.0000       0.0000      0.56300E-003
+
+ ELEMENT TYPE SET TO         1
+
+ REAL CONSTANT NUMBER=        1
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      1       1      2
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      2       2      3
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      3       3      4
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      4       4      5
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      5       5      6
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      6       6      7
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      7       7      8
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      8       8      9
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT      9       9     10
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     10      10     11
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     11      11     12
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     12      12     13
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     13      13     14
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     14      14     15
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     15      15     16
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     16      16     17
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     17      17     18
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     18      18     19
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     19      19     20
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     20      20     21
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     21      21     22
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     22      22     23
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     23      23     24
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     24      24     25
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     25      25     26
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     26      26     27
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     27      27     28
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     28      28     29
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     29      29     30
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     30      30     31
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     31      31     32
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     32      32     33
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     33      33     34
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     34      34     35
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     35      35     36
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     36      36     37
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     37      37     38
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     38      38     39
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     39      39     40
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     40      40     41
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     41      41     42
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     42      42     43
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     43      43     44
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     44      44     45
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     45      45     46
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     46      46     47
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     47      47     48
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     48      48     49
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     49      49     50
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     50      50     51
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     51      51     52
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     52      52     53
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     53      53     54
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     54      54     55
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     55      55     56
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     56      56     57
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     57      57     58
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     58      58     59
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     59      59     60
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     60      60     61
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     61      61     62
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     62      62     63
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     63      63     64
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     64      64     65
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     65      65     66
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     66      66     67
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     67      67     68
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     68      68     69
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     69      69     70
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     70      70     71
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     71      71     72
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     72      72     73
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     73      73     74
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     74      74     75
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     75      75     76
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     76      76     77
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     77      77     78
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     78      78     79
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     79      79     80
+
+ MATERIAL NUMBER SET TO         1
+
+ ELEMENT     80      80     81
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     81      81     82
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     82      82     83
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     83      83     84
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     84      84     85
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     85      85     86
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     86      86     87
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     87      87     88
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     88      88     89
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     89      89     90
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     90      90     91
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     91      91     92
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     92      92     93
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     93      93     94
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     94      94     95
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     95      95     96
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     96      96     97
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     97      97     98
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     98      98     99
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT     99      99    100
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    100     100    101
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    101     101    102
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    102     102    103
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    103     103    104
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    104     104    105
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    105     105    106
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    106     106    107
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    107     107    108
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    108     108    109
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    109     109    110
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    110     110    111
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    111     111    112
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    112     112    113
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    113     113    114
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    114     114    115
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    115     115    116
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    116     116    117
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    117     117    118
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    118     118    119
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    119     119    120
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    120     120    121
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    121     121    122
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    122     122    123
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    123     123    124
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    124     124    125
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    125     125    126
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    126     126    127
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    127     127    128
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    128     128    129
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    129     129    130
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    130     130    131
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    131     131    132
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    132     132    133
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    133     133    134
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    134     134    135
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    135     135    136
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    136     136    137
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    137     137    138
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    138     138    139
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    139     139    140
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    140     140    141
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    141     141    142
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    142     142    143
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    143     143    144
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    144     144    145
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    145     145    146
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    146     146    147
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    147     147    148
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    148     148    149
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    149     149    150
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    150     150    151
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    151     151    152
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    152     152    153
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    153     153    154
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    154     154    155
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    155     155    156
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    156     156    157
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    157     157    158
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    158     158    159
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    159     159    160
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    160     160    161
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    161     161    162
+
+ MATERIAL NUMBER SET TO         2
+
+ ELEMENT    162     162    163
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    163     163    164
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    164     164    165
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    165     165    166
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    166     166    167
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    167     167    168
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    168     168    169
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    169     169    170
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    170     170    171
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    171     171    172
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    172     172    173
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    173     173    174
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    174     174    175
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    175     175    176
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    176     176    177
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    177     177    178
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    178     178    179
+
+ MATERIAL NUMBER SET TO         4
+
+ ELEMENT    179     179    180
+
+ MATERIAL NUMBER SET TO         4
+
+ ELEMENT    180     180    181
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    181     181    182
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    182     182    183
+
+ MATERIAL NUMBER SET TO         4
+
+ ELEMENT    183     183    184
+
+ MATERIAL NUMBER SET TO         4
+
+ ELEMENT    184     184    185
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    185     185    186
+
+ MATERIAL NUMBER SET TO         3
+
+ ELEMENT    186     186    187
+
+
+ ***** ROUTINE COMPLETED *****  ELAPSED TIME =         1.452
+
+
+
+ *****  MAPDL SOLUTION ROUTINE  *****
+
+
+ PERFORM A TRANSIENT ANALYSIS
+  THIS WILL BE A NEW ANALYSIS
+
+ PERFORM A FULL TRANSIENT ANALYSIS
+  USING NEWMARK ALGORITHM
+
+ UNIFORM TEMPERATURE=     0.000  (TREF=     0.000)
+
+ WRITE ALL  ITEMS TO THE DATABASE WITH A FREQUENCY OF ALL 
+   FOR ALL APPLICABLE ENTITIES
+
+ STEP BOUNDARY CONDITION KEY= 1
+
+ SPECIFIED CONSTRAINT TEMP FOR SELECTED NODES            1 TO           1 BY           1
+ REAL=  0.00000000       IMAG=  0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     161 AT STARTING LOCATION      1
+    0.00000000      0.00000000      0.00000000      0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     162 AT STARTING LOCATION      1
+    0.00000000      0.00000000      0.00000000      0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     179 AT STARTING LOCATION      1
+   2.375000000E+10  0.00000000      0.00000000      0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     180 AT STARTING LOCATION      1
+   2.375000000E+10  0.00000000      0.00000000      0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     183 AT STARTING LOCATION      1
+   2.375000000E+10  0.00000000      0.00000000      0.00000000    
+
+ SPECIFIED BODY FORCE HGEN FOR ELEMENT     184 AT STARTING LOCATION      1
+   2.375000000E+10  0.00000000      0.00000000      0.00000000    
+
+ TIME= 0.20000E-03
+
+ USE    20 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.454
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+                       S O L U T I O N   O P T I O N S
+
+   PROBLEM DIMENSIONALITY. . . . . . . . . . . . .3-D                  
+   DEGREES OF FREEDOM. . . . . . TEMP
+   ANALYSIS TYPE . . . . . . . . . . . . . . . . .TRANSIENT            
+      SOLUTION METHOD. . . . . . . . . . . . . . .FULL                 
+   GLOBALLY ASSEMBLED MATRIX . . . . . . . . . . .SYMMETRIC  
+
+ *** NOTE ***                            ELAPSED TIME =       1.455   TIME= 01:09:25
+ The conditions for direct assembly have been met.  No .emat or .erot    
+ files will be produced.                                                 
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     1
+   TIME AT END OF THE LOAD STEP. . . . . . . . . . 0.20000E-03
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     2
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   TRANSIENT (INERTIA) EFFECTS
+      THERMAL DOFS . . . . . . . . . . . . . . . .    ON
+   TRANSIENT INTEGRATION PARAMETERS
+      THETA. . . . . . . . . . . . . . . . . . . .  1.0000    
+      OSCILLATION LIMIT CRITERION. . . . . . . . . 0.50000    
+      TOLERANCE. . . . . . . . . . . . . . . . . .  0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+
+
+
+            **** CENTER OF MASS, MASS, AND MASS MOMENTS OF INERTIA ****
+
+  CALCULATIONS ASSUME ELEMENT MASS AT ELEMENT CENTROID
+
+  TOTAL MASS =  0.56300E-11
+
+                           MOM. OF INERTIA         MOM. OF INERTIA
+  CENTER OF MASS            ABOUT ORIGIN        ABOUT CENTER OF MASS
+
+  XC =   0.0000          IXX =   0.5948E-18      IXX =   0.1487E-18
+  YC =   0.0000          IYY =   0.5948E-18      IYY =   0.1487E-18
+  ZC =  0.28150E-03      IZZ =    0.000          IZZ =    0.000    
+                         IXY =    0.000          IXY =    0.000    
+                         IYZ =    0.000          IYZ =    0.000    
+                         IZX =    0.000          IZX =    0.000    
+
+
+  *** MASS SUMMARY BY ELEMENT TYPE ***
+
+  TYPE      MASS
+     1  0.563000E-11
+
+ Range of element maximum matrix coefficients in global coordinates
+ Maximum = 2.2 at element 162.                                           
+ Minimum = 5.E-02 at element 186.                                        
+
+   *** ELEMENT MATRIX FORMULATION TIMES
+     TYPE    NUMBER     ENAME   TOTAL ELAPSED   AVG ELAPSED
+
+        1       186    LINK33          0.0008   0.000004197
+ Elapsed Time at end of element matrix formulation = 1.46600861.         
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= file.rdb
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+ SPARSE MATRIX DIRECT SOLVER.
+  Number of equations =         186,    Maximum wavefront =      2
+
+
+  Memory allocated on this process
+  -------------------------------------------------------------------
+  Equation solver memory allocated                     =     0.140 MB
+  Equation solver memory required for in-core mode     =     0.136 MB
+  Equation solver memory required for out-of-core mode =     0.128 MB
+  Total (solver and non-solver) memory allocated       =   499.538 MB
+
+ *** NOTE ***                            ELAPSED TIME =       1.476   TIME= 01:09:25
+ The Sparse Matrix Solver is currently running in the in-core memory     
+ mode.  This memory mode uses the most amount of memory in order to      
+ avoid using the hard drive as much as possible, which most often        
+ results in the fastest solution time.  This mode is recommended if      
+ enough physical memory is present to accommodate all of the solver      
+ data.                                                                   
+ Sparse solver maximum pivot= 4.4008155 at node 162 TEMP.                
+ Sparse solver minimum pivot= 1.491099798E-02 at node 179 TEMP.          
+ Sparse solver minimum pivot in absolute value= 1.491099798E-02 at node  
+ 179 TEMP.                                                               
+
+   *** ELEMENT RESULT CALCULATION TIMES
+     TYPE    NUMBER     ENAME   TOTAL ELAPSED   AVG ELAPSED
+
+        1       186    LINK33          0.0010   0.000005247
+
+   *** NODAL LOAD CALCULATION TIMES
+     TYPE    NUMBER     ENAME   TOTAL ELAPSED   AVG ELAPSED
+
+        1       186    LINK33          0.0011   0.000005815
+ *** LOAD STEP     1   SUBSTEP     1  COMPLETED.    CUM ITER =      1
+ *** TIME =  0.100000E-04     TIME INC =  0.100000E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE = 0.3270E+05   OSCILLATION LIMIT = 0.3270    
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.10000E-04  UNCHANGED
+
+ *** LOAD STEP     1   SUBSTEP     2  COMPLETED.    CUM ITER =      2
+ *** TIME =  0.200000E-04     TIME INC =  0.100000E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE = 0.1972E+05   OSCILLATION LIMIT = 0.1972    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.25356E-04  INCREASED (FACTOR = 2.5356)
+
+ *** LOAD STEP     1   SUBSTEP     3  COMPLETED.    CUM ITER =      3
+ *** TIME =  0.453564E-04     TIME INC =  0.253564E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE = 0.1499E+05   OSCILLATION LIMIT = 0.3800    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.50713E-04  INCREASED (FACTOR = 2.0000)
+
+ *** LOAD STEP     1   SUBSTEP     4  COMPLETED.    CUM ITER =      4
+ *** TIME =  0.960692E-04     TIME INC =  0.507128E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  9791.       OSCILLATION LIMIT = 0.4965    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.51965E-04  INCREASED (FACTOR = 1.0247)
+
+ *** LOAD STEP     1   SUBSTEP     5  COMPLETED.    CUM ITER =      5
+ *** TIME =  0.148035E-03     TIME INC =  0.519654E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  5584.       OSCILLATION LIMIT = 0.2902    
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.51965E-04  UNCHANGED
+
+ *** LOAD STEP     1   SUBSTEP     6  COMPLETED.    CUM ITER =      6
+ *** TIME =  0.200000E-03     TIME INC =  0.519654E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  3129.       OSCILLATION LIMIT = 0.1626    
+
+
+ *** MAPDL BINARY FILE STATISTICS
+  BUFFER SIZE USED= 16384
+        0.062 MB WRITTEN ON ASSEMBLED MATRIX FILE: file.full
+        0.625 MB WRITTEN ON RESULTS FILE: file.rth
+
+ TIME= 0.10000E-02
+
+ USE    20 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.499
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     2
+   TIME AT END OF THE LOAD STEP. . . . . . . . . . 0.10000E-02
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     2
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   TRANSIENT (INERTIA) EFFECTS
+      THERMAL DOFS . . . . . . . . . . . . . . . .    ON
+   TRANSIENT INTEGRATION PARAMETERS
+      THETA. . . . . . . . . . . . . . . . . . . .  1.0000    
+      OSCILLATION LIMIT CRITERION. . . . . . . . . 0.50000    
+      TOLERANCE. . . . . . . . . . . . . . . . . .  0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+ *** LOAD STEP     2   SUBSTEP     1  COMPLETED.    CUM ITER =      7
+ *** TIME =  0.240000E-03     TIME INC =  0.400000E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  2087.       OSCILLATION LIMIT = 0.8350E-01
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.40000E-04  UNCHANGED
+
+ *** LOAD STEP     2   SUBSTEP     2  COMPLETED.    CUM ITER =      8
+ *** TIME =  0.280000E-03     TIME INC =  0.400000E-04  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  1513.       OSCILLATION LIMIT = 0.6053E-01
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.12000E-03  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     2   SUBSTEP     3  COMPLETED.    CUM ITER =      9
+ *** TIME =  0.400000E-03     TIME INC =  0.120000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  866.9       OSCILLATION LIMIT = 0.1040    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.36000E-03  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     2   SUBSTEP     4  COMPLETED.    CUM ITER =     10
+ *** TIME =  0.760000E-03     TIME INC =  0.360000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  342.4       OSCILLATION LIMIT = 0.1233    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.24000E-03  DECREASED (FACTOR = 0.6667)
+
+ *** LOAD STEP     2   SUBSTEP     5  COMPLETED.    CUM ITER =     11
+ *** TIME =  0.100000E-02     TIME INC =  0.240000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  202.3       OSCILLATION LIMIT = 0.4856E-01
+
+ TIME= 0.50000E-02
+
+ USE    20 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.518
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     3
+   TIME AT END OF THE LOAD STEP. . . . . . . . . . 0.50000E-02
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     2
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   TRANSIENT (INERTIA) EFFECTS
+      THERMAL DOFS . . . . . . . . . . . . . . . .    ON
+   TRANSIENT INTEGRATION PARAMETERS
+      THETA. . . . . . . . . . . . . . . . . . . .  1.0000    
+      OSCILLATION LIMIT CRITERION. . . . . . . . . 0.50000    
+      TOLERANCE. . . . . . . . . . . . . . . . . .  0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+ *** LOAD STEP     3   SUBSTEP     1  COMPLETED.    CUM ITER =     12
+ *** TIME =  0.120000E-02     TIME INC =  0.200000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  147.9       OSCILLATION LIMIT = 0.2958E-01
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.20000E-03  UNCHANGED
+
+ *** LOAD STEP     3   SUBSTEP     2  COMPLETED.    CUM ITER =     13
+ *** TIME =  0.140000E-02     TIME INC =  0.200000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  122.1       OSCILLATION LIMIT = 0.2442E-01
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.60000E-03  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     3   SUBSTEP     3  COMPLETED.    CUM ITER =     14
+ *** TIME =  0.200000E-02     TIME INC =  0.600000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  103.5       OSCILLATION LIMIT = 0.6211E-01
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.18000E-02  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     3   SUBSTEP     4  COMPLETED.    CUM ITER =     15
+ *** TIME =  0.380000E-02     TIME INC =  0.180000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.55       OSCILLATION LIMIT = 0.1792    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.12000E-02  DECREASED (FACTOR = 0.6667)
+
+ *** LOAD STEP     3   SUBSTEP     5  COMPLETED.    CUM ITER =     16
+ *** TIME =  0.500000E-02     TIME INC =  0.120000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.38       OSCILLATION LIMIT = 0.1193    
+
+ TIME= 0.20000E-01
+
+ USE    30 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.536
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     4
+   TIME AT END OF THE LOAD STEP. . . . . . . . . . 0.20000E-01
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .    30
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    30
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     3
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   TRANSIENT (INERTIA) EFFECTS
+      THERMAL DOFS . . . . . . . . . . . . . . . .    ON
+   TRANSIENT INTEGRATION PARAMETERS
+      THETA. . . . . . . . . . . . . . . . . . . .  1.0000    
+      OSCILLATION LIMIT CRITERION. . . . . . . . . 0.50000    
+      TOLERANCE. . . . . . . . . . . . . . . . . .  0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+ *** LOAD STEP     4   SUBSTEP     1  COMPLETED.    CUM ITER =     17
+ *** TIME =  0.550000E-02     TIME INC =  0.500000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.4968E-01
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.50000E-03  UNCHANGED
+
+ *** LOAD STEP     4   SUBSTEP     2  COMPLETED.    CUM ITER =     18
+ *** TIME =  0.600000E-02     TIME INC =  0.500000E-03  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.4968E-01
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.15000E-02  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     4   SUBSTEP     3  COMPLETED.    CUM ITER =     19
+ *** TIME =  0.750000E-02     TIME INC =  0.150000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.1490    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.45000E-02  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     4   SUBSTEP     4  COMPLETED.    CUM ITER =     20
+ *** TIME =  0.120000E-01     TIME INC =  0.450000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.4471    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.50000E-02  INCREASED (FACTOR = 1.1111)
+
+ *** LOAD STEP     4   SUBSTEP     5  COMPLETED.    CUM ITER =     21
+ *** TIME =  0.170000E-01     TIME INC =  0.500000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.4968    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.30000E-02  DECREASED (FACTOR = 0.6000)
+
+ *** LOAD STEP     4   SUBSTEP     6  COMPLETED.    CUM ITER =     22
+ *** TIME =  0.200000E-01     TIME INC =  0.300000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.2981    
+
+ TIME= 0.40000E-01
+
+ USE    20 SUBSTEP(S) THIS LOAD STEP FOR ALL  DEGREES OF FREEDOM
+
+ *****  MAPDL SOLVE    COMMAND  *****
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.558
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+                      L O A D   S T E P   O P T I O N S
+
+   LOAD STEP NUMBER. . . . . . . . . . . . . . . .     5
+   TIME AT END OF THE LOAD STEP. . . . . . . . . . 0.40000E-01
+   AUTOMATIC TIME STEPPING . . . . . . . . . . . .    ON
+      INITIAL NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MAXIMUM NUMBER OF SUBSTEPS . . . . . . . . .    20
+      MINIMUM NUMBER OF SUBSTEPS . . . . . . . . .     2
+   STEP CHANGE BOUNDARY CONDITIONS . . . . . . . .   YES
+   TRANSIENT (INERTIA) EFFECTS
+      THERMAL DOFS . . . . . . . . . . . . . . . .    ON
+   TRANSIENT INTEGRATION PARAMETERS
+      THETA. . . . . . . . . . . . . . . . . . . .  1.0000    
+      OSCILLATION LIMIT CRITERION. . . . . . . . . 0.50000    
+      TOLERANCE. . . . . . . . . . . . . . . . . .  0.0000    
+   PRINT OUTPUT CONTROLS . . . . . . . . . . . . .NO PRINTOUT
+   DATABASE OUTPUT CONTROLS
+      ITEM     FREQUENCY   COMPONENT
+       ALL        ALL               
+
+
+ SOLUTION MONITORING INFO IS WRITTEN TO FILE= file.mntr                                                                                                                                                                                                                                                           
+
+ *** LOAD STEP     5   SUBSTEP     1  COMPLETED.    CUM ITER =     23
+ *** TIME =  0.210000E-01     TIME INC =  0.100000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.9936E-01
+ *** AUTO STEP TIME:  NEXT TIME INC = 0.10000E-02  UNCHANGED
+
+ *** LOAD STEP     5   SUBSTEP     2  COMPLETED.    CUM ITER =     24
+ *** TIME =  0.220000E-01     TIME INC =  0.100000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.9936E-01
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.30000E-02  INCREASED (FACTOR = 3.0000)
+
+ *** LOAD STEP     5   SUBSTEP     3  COMPLETED.    CUM ITER =     25
+ *** TIME =  0.250000E-01     TIME INC =  0.300000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.2981    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.60000E-02  INCREASED (FACTOR = 2.0000)
+
+ *** LOAD STEP     5   SUBSTEP     4  COMPLETED.    CUM ITER =     26
+ *** TIME =  0.310000E-01     TIME INC =  0.600000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.5962    
+ *** AUTO TIME STEP:  NEXT TIME INC = 0.90000E-02  INCREASED (FACTOR = 1.5000)
+
+ *** LOAD STEP     5   SUBSTEP     5  COMPLETED.    CUM ITER =     27
+ *** TIME =  0.400000E-01     TIME INC =  0.900000E-02  NEW TRIANG MATRIX
+ *** RESPONSE EIGENVALUE =  99.36       OSCILLATION LIMIT = 0.8942    
+
+ FINISH SOLUTION PROCESSING
+
+
+ ***** ROUTINE COMPLETED *****  ELAPSED TIME =         1.576
+
+
+
+ *** MAPDL - ENGINEERING ANALYSIS SYSTEM  RELEASE                  26.1     ***
+ Ansys Mechanical Enterprise Academic Research     
+ 00602929  VERSION=LINUX x64     01:09:25  SEP 23, 2026 Elapsed Time=      1.577
+
+  ECTC BEOL SRAM tier transient thermal - LINK33 1D column                     
+
+
+
+
+          ***** TIME-HISTORY POSTPROCESSOR (POST26) *****
+
+ ALL POST26 SPECIFICATIONS ARE RESET TO INITIAL DEFAULTS
+
+ MAXIMUM NUMBER OF VARIABLES= 10
+
+ VARIABLE  2  IS AT NODE     184  ITEM= TEMP COMP=       NAME= TIER    
+
+ VARIABLE  3  IS AT NODE     161  ITEM= TEMP COMP=       NAME= LOGIC   
+
+ /OUTPUT FILE= hist.txt
+
+ *GET  TMAXT     FROM  VARI      2  ITEM=EXTR VMAX  VALUE= 0.844284073    
+
+ *GET  TMINT     FROM  VARI      2  ITEM=EXTR VMIN  VALUE= 0.350133343E-01
+
+ *GET  TMAXL     FROM  VARI      3  ITEM=EXTR VMAX  VALUE= 0.667643970    
+
+ /OUTPUT FILE= summary.txt
+
+
+ ***** ROUTINE COMPLETED *****  ELAPSED TIME =         1.578
+
+
+
+ ***** END OF INPUT ENCOUNTERED *****
+
+ PURGE ALL SOLUTION AND POST DATA
+ SAVE ALL MODEL DATA
+
+ ALL CURRENT MAPDL DATA WRITTEN TO FILE NAME= file.db
+  FOR POSSIBLE RESUME FROM THIS POINT
+
+
+ NUMBER OF WARNING MESSAGES ENCOUNTERED=          0
+ NUMBER OF ERROR   MESSAGES ENCOUNTERED=          0
+
++--------------------- M A P D L   S T A T I S T I C S ------------------------+
+
+Release:                    Build: 26.1       Update: UP20260202   Platform: LINUX x64   
+Date Run: 09/23/2026   Time: 01:09     Process ID: 623881
+Operating System: Rocky Linux release 9.8 (Blue Onyx)
+
+Processor Model: AMD EPYC 9354 32-Core Processor
+
+Compiler: Intel(R) Fortran Compiler Classic Version 2021.9  (Build: 20230302)
+          Intel(R) C/C++ Compiler Classic Version 2021.9  (Build: 20230302)
+          AOCL-BLAS 5.1.1 Build 20251007
+          Intel(R) oneAPI Math Kernel Library Version 2024.2-Product Build 20240605
+
+Number of machines requested            :    1
+Total number of cores available         :   64
+Number of physical cores available      :   32
+Number of processes requested           :    1
+Number of threads per process requested :    1
+Total number of cores requested         :    1 (Shared Memory Parallel)                    
+
+GPU Acceleration: Not Requested
+
+Job Name: file
+Input File: stack_2tier_step_tieronly.dat
+Working Directory: /home/sychoe/ectc_thermal
+
+Total CPU time for main thread                    :        0.5 seconds
+Total CPU time summed for all threads             :        0.3 seconds
+
+Elapsed time spent obtaining a license            :        1.3 seconds
+Elapsed time spent pre-processing model (/PREP7)  :        0.0 seconds
+Elapsed time spent solution - preprocessing       :        0.0 seconds
+Elapsed time spent computing solution             :        0.1 seconds
+   Elapsed time in element formation & assembly   :        0.0 seconds
+   Elapsed time in equation solver                :        0.0 seconds
+   Elapsed time in element result calculations    :        0.1 seconds
+Elapsed time spent solution - postprocessing      :        0.0 seconds
+Elapsed time spent post-processing model (/POST1) :        0.0 seconds
+Elapsed time spent post-processing model (/POST26):        0.0 seconds
+ 
+Equation solver used                              :            Sparse (symmetric)
+Sparse direct equation solver computational rate  :        0.1 Gflops
+
+Sum of disk space used on all processes           :        1.8 MB
+
+Sum of memory used on all processes               :       41.0 MB
+Sum of memory allocated on all processes          :     2304.0 MB
+Physical memory available                         :        251 GB
+Total amount of I/O written to disk               :        0.0 GB
+Total amount of I/O read from disk                :        0.0 GB
+
++------------------ E N D   M A P D L   S T A T I S T I C S -------------------+
+
+
+ *-----------------------------------------------------------------------------*
+ |                                                                             |
+ |                               RUN COMPLETED                                 |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Ansys MAPDL                 Build 26.1         UP20260202    LINUX x64     |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |  Database Requested(-db)     1024 MB     Scratch Memory Requested   1024 MB |
+ |  Max Database Used(Master)      1 MB     Max Scratch Used(Master)     40 MB |
+ |  Max Database Used(Workers)     0 MB     Max Scratch Used(Workers)     0 MB |
+ |  Sum Database Used(All)         1 MB     Sum Scratch Used(All)        40 MB |
+ |                                                                             |
+ |-----------------------------------------------------------------------------|
+ |                                                                             |
+ |        CP Time      (sec) =          0.315       Time  =  01:09:25          |
+ |        Elapsed Time (sec) =          1.628       Date  =  09/23/2026        |
+ |                                                                             |
+ *-----------------------------------------------------------------------------*

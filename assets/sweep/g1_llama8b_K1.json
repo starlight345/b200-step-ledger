@@ -1,0 +1,46 @@
+{
+  "model": "/home/sychoe/.cache/huggingface/hub/models--NousResearch--Meta-Llama-3.1-8B/snapshots/1f47e50cdbe801ad8a5174156ec3a0655108fb9f",
+  "batch": 8,
+  "kv_dtype": "auto",
+  "rows": [
+    {
+      "context": 1024,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 16.39370141492691,
+      "kv_GB": 1.073741824,
+      "kv_bytes_per_token": 131072
+    },
+    {
+      "context": 2048,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 17.24978327547433,
+      "kv_GB": 2.147483648,
+      "kv_bytes_per_token": 131072
+    },
+    {
+      "context": 4096,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 19.10393468278926,
+      "kv_GB": 4.294967296,
+      "kv_bytes_per_token": 131072
+    },
+    {
+      "context": 8192,
+      "batch": 8,
+      "kv_dtype": "auto",
+      "step_ms": 22.58500464085955,
+      "kv_GB": 8.589934592,
+      "kv_bytes_per_token": 131072
+    }
+  ],
+  "slope_ms_per_GB": 0.8257981801558232,
+  "B_eff_TBs": 1.210949629134937,
+  "intercept_ms": 15.508003337701034,
+  "r2": 0.9998367708595327,
+  "fixed_fraction": 0.6866504383906481,
+  "bandwidth_bound": true,
+  "eager": false
+}

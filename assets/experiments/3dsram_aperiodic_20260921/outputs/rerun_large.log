@@ -1,0 +1,3 @@
+ctx 16384: 델타 5.022p, managed 9.864%, 비중 50.9%, f_res 0.489, 죽은KV 100.0%
+ctx 32768: 델타 4.361p, managed 6.425%, 비중 67.9%, f_res 0.651, 죽은KV 100.0%
+wrote outputs/context_peak_64.csv

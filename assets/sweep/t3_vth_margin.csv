@@ -1,0 +1,8 @@
+S,tolerable_dVth_mV,survives_full_range,survives_operating_span
+0.05,3100.0,True,True
+0.1,1550.0,True,True
+0.2,775.0,False,False
+0.3,516.6666666666667,False,False
+0.5,310.0,False,False
+0.7,221.42857142857144,False,False
+1.0,155.0,False,False

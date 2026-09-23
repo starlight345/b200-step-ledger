@@ -1,0 +1,7 @@
+sigma_mV,k,n_sigma,S_max,verdict
+20.0,1,7.202,1.0761,clears the whole range
+20.0,2,7.202,0.7609,decided inside the range (fails above S=0.76)
+20.0,4,7.202,0.538,decided inside the range (fails above S=0.54)
+40.0,1,7.202,0.538,decided inside the range (fails above S=0.54)
+40.0,2,7.202,0.3804,decided inside the range (fails above S=0.38)
+40.0,4,7.202,0.269,fails the whole range

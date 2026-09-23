@@ -1,0 +1,9 @@
+area_mm2,config,hbm_reduction_pct,tier_read_GB,fill_GB,fill_frac_of_D_pct
+600,integrated LRU,-0.7698,0.0,17.1574,99.99
+600,integrated LIP,18.586,3.2958,13.8616,80.79
+600,integrated LIP+bypass,18.5926,3.2969,0.0,0.0
+600,managed residency,18.5926,3.2969,0.0,0.0
+800,integrated LRU,-0.7698,0.0,17.1574,99.99
+800,integrated LIP,24.7813,4.3507,12.8067,74.64
+800,integrated LIP+bypass,24.7887,4.3519,0.0,0.0
+800,managed residency,24.7887,4.3519,0.0,0.0

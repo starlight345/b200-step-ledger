@@ -1,0 +1,67 @@
+{
+  "model": "/home/sychoe/.cache/huggingface/hub/models--NousResearch--Meta-Llama-3.1-8B/snapshots/1f47e50cdbe801ad8a5174156ec3a0655108fb9f",
+  "f_red": 0.24,
+  "B_R_TBs": 19.0,
+  "rows": [
+    {
+      "batch": 8,
+      "context": 2048,
+      "step_ms": 17.367823966196738,
+      "demand_GB": 17.157483648,
+      "power_mean_W": 258.46322033898304,
+      "power_sd_W": 12.561797269752683,
+      "power_peak_W": 285.57,
+      "tier_served_GB": 4.117796075519999,
+      "burst_ms": 0.2167261092378947,
+      "duty": 0.012478598911395697
+    },
+    {
+      "batch": 8,
+      "context": 8192,
+      "step_ms": 22.807812456449028,
+      "demand_GB": 23.599934592,
+      "power_mean_W": 283.4991472868217,
+      "power_sd_W": 14.530058874649729,
+      "power_peak_W": 300.23,
+      "tier_served_GB": 5.66398430208,
+      "burst_ms": 0.29810443695157895,
+      "duty": 0.013070277455183492
+    },
+    {
+      "batch": 16,
+      "context": 2048,
+      "step_ms": 19.370745569176506,
+      "demand_GB": 19.304967296,
+      "power_mean_W": 281.438024691358,
+      "power_sd_W": 10.223852698439577,
+      "power_peak_W": 300.02,
+      "tier_served_GB": 4.63319215104,
+      "burst_ms": 0.2438522184757895,
+      "duty": 0.012588685221482479
+    },
+    {
+      "batch": 32,
+      "context": 2048,
+      "step_ms": 23.967484055901878,
+      "demand_GB": 23.599934592,
+      "power_mean_W": 298.12145161290323,
+      "power_sd_W": 1.668988342190677,
+      "power_peak_W": 300.07,
+      "tier_served_GB": 5.66398430208,
+      "burst_ms": 0.29810443695157895,
+      "duty": 0.012437869417427324
+    },
+    {
+      "batch": 32,
+      "context": 4096,
+      "step_ms": 31.49690529971849,
+      "demand_GB": 32.189869184,
+      "power_mean_W": 299.6966203703704,
+      "power_sd_W": 0.6983175312133179,
+      "power_peak_W": 300.36,
+      "tier_served_GB": 7.72556860416,
+      "burst_ms": 0.4066088739031579,
+      "duty": 0.012909486504592947
+    }
+  ]
+}

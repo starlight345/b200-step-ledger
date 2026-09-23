@@ -1,0 +1,45 @@
+{
+  "order_sweep": {
+    "layer-interleaved (nominal)": null,
+    "all weight first": null,
+    "all activation first": null
+  },
+  "activation_sweep": [
+    {
+      "act_roundtrips": 2.0,
+      "activation_GB": 8.589934592,
+      "bypass_ss_pct": 14.671318822762093,
+      "managed_ss_pct": 18.612183723610364
+    },
+    {
+      "act_roundtrips": 4,
+      "activation_GB": 17.179869184,
+      "bypass_ss_pct": 12.307049998172225,
+      "managed_ss_pct": 18.612183723610364
+    },
+    {
+      "act_roundtrips": 8,
+      "activation_GB": 34.359738368,
+      "bypass_ss_pct": 9.154723631529226,
+      "managed_ss_pct": 18.612183723610364
+    },
+    {
+      "act_roundtrips": 12,
+      "activation_GB": 51.539607552,
+      "bypass_ss_pct": 8.120398107584482,
+      "managed_ss_pct": 18.612183723610364
+    },
+    {
+      "act_roundtrips": 16,
+      "activation_GB": 68.719476736,
+      "bypass_ss_pct": 6.002397264886228,
+      "managed_ss_pct": 18.612183723610364
+    },
+    {
+      "act_roundtrips": 21.0,
+      "activation_GB": 90.194313216,
+      "bypass_ss_pct": 5.165086126454765,
+      "managed_ss_pct": 18.612183723610364
+    }
+  ]
+}
