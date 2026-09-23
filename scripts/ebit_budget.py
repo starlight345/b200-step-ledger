@@ -25,13 +25,18 @@ import ectc_thermal_model as M
 #   128 kb array ~34 fJ/bit. We carry the 5 nm HP..HD span as the array term.
 ARRAY_PJ = (0.017, 0.055)
 # BEOL oxide-semiconductor arrays versus 6T SRAM. The earlier 1-3x guess assumed weaker
-# drive must cost energy; the literature says the opposite for the cell types that are
-# actually being built in BEOL. Monolithically stackable gain-cell arrays are reported at
-# ~50% of 6T SRAM read/write energy at equal access latency (8 KiB N7 arrays, sub-2 ns at
-# 27 C / sub-0.3 ns at 85 C, 0.015 um2 bitcell). Our design point is a 6T-style BEOL SRAM
-# rather than a gain cell, so the optimistic corner takes the reported 0.5x and the
-# pessimistic corner keeps a 2x penalty for the 6T variant. [third-party + assumption]
-BEOL_PENALTY = (0.5, 2.0)
+# drive must cost energy; the literature says the opposite for the cell types actually
+# being built in BEOL. The measured claim, checked against the source rather than a note
+# about it: Waqar et al. report an IWO 2T gain-cell last-level-cache macro at 3 nm giving
+# "29% lower read latency and 18% lower read energy with comparable write
+# performance/energy at ~0.5x the leakage and total area" versus 3 nm SRAM.
+#
+# CORRECTION (2026-09-23): this file previously carried 0.5 as the optimistic energy
+# ratio. That 0.5x in the source is LEAKAGE AND AREA, not energy. The reported energy
+# advantage is 18%, i.e. a ratio of 0.82. The optimistic corner now uses 0.82.
+# Our design point is a 6T-style BEOL SRAM rather than a gain cell, so the pessimistic
+# corner keeps a 2x penalty for the 6T variant. [third-party + assumption]
+BEOL_PENALTY = (0.82, 2.0)
 # Sense amps, decoders, timing. Commonly comparable to the array itself. [ASSUMPTION]
 PERIPHERY_MULT = (1.0, 2.0)
 # One short vertical hop (MIV / hybrid bond) plus the tier-local bus. Sub-mm, so small

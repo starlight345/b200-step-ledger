@@ -205,7 +205,7 @@ ax2.set_yticks(range(len(mt))); ax2.set_yticklabels([MN.get(m['change'],m['chang
 ax2.set_xlim(0.9,2.15); ax2.set_xlabel('완화 후 / 기준', fontsize=10.5)
 fig.text(0.015, 0.95, '측정되지 않은 값을 각자 범위 전체로 흔들었을 때', fontsize=12, weight='bold')
 fig.text(0.735, 0.95, '무엇으로 되찾을 수 있는가', fontsize=12, weight='bold')
-fig.text(0.015, 0.045, '* E/bit 는 축 밖이다: 0.014~0.260 pJ/bit 가 35.7~688 TB/s 에 대응하므로 여전히 물어야 할 값이다.', fontsize=9.5, color=GREY)
+fig.text(0.015, 0.045, '* E/bit 는 축 밖이다: 0.019~0.260 pJ/bit 가 35.7~688 TB/s 에 대응하므로 여전히 물어야 할 값이다.', fontsize=9.5, color=GREY)
 fig.savefig(os.path.join(FIG,'bw-sensitivity.png'), dpi=230, facecolor='white'); plt.close(fig)
 
 # ---------------------------------------------------------------- 7. E/bit budget

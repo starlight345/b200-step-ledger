@@ -252,3 +252,23 @@ Codex 소유 파일을 Claude가 이어받아 아래를 처리했다. 요청 네
   이 티어는 같은 다이 BEOL에 모놀리식으로 올라간다. 수직 경로는 통상 BEOL 비아 스택이고
   그게 곧 BEOL 층이다.
 - 덱 15장. 새 슬라이드 "Method: 상용 솔버로 실제로 세운 모델".
+
+## 2026-09-23 — 참고문헌 실측 + E/bit 계수 오독 정정
+
+초록 참고문헌을 실제로 찾아 채우다가 **계수 오독 하나를 잡았다.**
+
+- **정정: BEOL 어레이 에너지비 0.5 → 0.82.** 원문(Waqar 외, arXiv:2503.06304)은
+  3 nm IWO 2T gain-cell LLC 매크로가 SRAM 대비 *"29% lower read latency and 18% lower
+  read energy with comparable write performance/energy at **~0.5x the leakage and total
+  area**"* 라고 쓴다. 리포는 그 **0.5배를 에너지로 옮겨 적었다** — 실제로는 누설·면적이고
+  에너지 이점은 18%(비 0.82)다. `ebit_budget.py` 수정.
+  **영향: 밴드 0.014~0.260 → 0.019~0.260. 비관 코너는 불변이므로 "20 W 바 0.391을
+  비관 코너에서도 1.5배 여유로 통과"는 그대로다.** 낙관 끝만 움직였다.
+- **확정한 참고문헌 6건.** [1] imec IEDM 2025 17-3. [2] Mitard 외, ECS Trans. 98, 205
+  (2020)/arXiv:2411.16299. [3] Yoshikawa 외, Appl. Phys. Express 6, 021101 (2013) —
+  200 nm a-IGZO 1.4 W/m·K, thermoreflectance. [4] Khan 외, Nanomaterials 11(6), 1547
+  (2021) — 3ω, PO2 0/10/65%에서 1.65/1.76/2.58. [5] Waqar 외 arXiv:2503.06304 (gain cell).
+  [6] Waqar 외, MEMSYS 2025 — **CMOS+X**, 같은 하드웨어를 열 없이 다룬 인접 선행.
+- **못 찾은 것 1건.** 공개 5 nm Si SRAM 어레이 read 에너지 17~55 fJ/bit의 출처. 리포에도
+  "public 5-7 nm Si SRAM"까지만 있다. [7]에 `TO FILL`로 남김.
+- 초록에 인용 마커를 넣고 700/700 유지. 저자 소속 위첨자 교정(Choe→KAIST, Kwon→UNIST).

@@ -114,17 +114,49 @@ table(s, rows, .7, 1.55, 11.9, 4.3, colw=[2.4, 9.5], fs=12.5)
 note(s, .7, 6.1, 11.9, [
  ('이것이 닫히지 않으면 "몇 배 빨라진다"를 한 문장도 쓸 수 없다.', 15, RED, True)])
 
-# ============================================ 3. R1 이득 포화 / 비용 선형
+# ============================================ 2b. 지표 정의
 s = prs.slides.add_slide(BLANK)
-title(s, 'Result 1: 정책 축을 올려도 이득은 안 늘고 비용만 는다',
+title(s, 'Metrics', 'replay 가 직접 내는 세 값과, 거기서 정의되는 세 지표')
+rows = [['','정의','단위','등급'],
+        ['replay 직접 출력',
+         'R_HBM (HBM 읽기) · R_tier (티어 읽기) · W_fill (티어 쓰기 = 충전)','GB / decode step','측정'],
+        ['HBM reduction','( R_HBM^base − R_HBM ) / R_HBM^base','%','측정'],
+        ['Fill cost','W_fill  —  정규화하지 않고 절대량 그대로','GB / decode step','측정'],
+        ['Speedup','T_base / T_config','배','projection'],
+        ['T_config',
+         'T = t0 + [직렬: Σ 서비스 시간]  또는  [겹침: max(...)]\n'
+         '서비스 시간 = R_HBM/B_HBM + R_tier/B_R + W_fill/B_W','ms','projection']]
+table(s, rows, .7, 1.6, 11.9, 3.2, colw=[2.3, 6.1, 2.0, 1.5], fs=12.5)
+note(s, .7, 5.1, 11.9, [
+ ('기준선 base = 기존 B200 L2 (126 MB) 만 둔 구성. 티어를 더한 구성과 같은 logical access 를 재생한다.',
+  13, INK2, False),
+ ('', 8, MUTED, False),
+ ('Speedup 만 projection 이다 — t0 = 1.85 ms 와 B_HBM = 6.40 TB/s 는 실측 앵커 회귀값이고, '
+  '같은 워크로드에서 HBM 바이트만 줄였을 때의 인과 계수는 아직 검증되지 않았다.', 12, RED, True)])
+
+# ============================================ 3. R1 이득 포화 / 비용 선형  (실제 단위, 2단)
+s = prs.slides.add_slide(BLANK)
+title(s, 'Result 1: 더 적극적으로 채워도 이득은 안 늘고 비용만 는다',
       '600 mm², C2 2층 · 32스텝 정상 상태, 시드 3개 · p = 미스 시 티어에 할당할 확률')
-d = CategoryChartData(); d.categories = ['0','0.02','0.05','0.10','0.20','0.35','0.50','0.75','1.00']
-d.add_series('이득  HBM 감소', (-4.14,100,100,100,100,100,100,100,100))
-d.add_series('비용  티어 충전', (0,2.07,4.95,10.04,19.82,34.51,49.84,74.73,100))
-ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(1.6), Inches(11.7), Inches(5.2), d).chart
-quiet(ch, 'admission 확률  p', '항상 충전(p = 1) 대비  [%]')
-sline(ch.series[0], BLUE2, 3.0, ms=8); sline(ch.series[1], ORANGE, 3.0, ms=8)
-ch.value_axis.minimum_scale, ch.value_axis.maximum_scale = -10, 110
+CATS = ['0','0.02','0.05','0.10','0.20','0.35','0.50','0.75','1.00']
+
+d = CategoryChartData(); d.categories = CATS
+d.add_series('HBM 감소', (-0.77, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59))
+ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(1.5), Inches(11.7), Inches(2.45), d).chart
+quiet(ch, '', 'HBM 감소  [%]', legend=False)
+sline(ch.series[0], BLUE2, 3.0, ms=8)
+ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = -4, 24, 8
+
+d = CategoryChartData(); d.categories = CATS
+d.add_series('티어 충전', (0.00, 0.29, 0.69, 1.39, 2.75, 4.78, 6.91, 10.36, 13.86))
+ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(4.05), Inches(11.7), Inches(2.45), d).chart
+quiet(ch, 'admission 확률  p', '티어 충전  [GB / step]', legend=False)
+sline(ch.series[0], ORANGE, 3.0, ms=8)
+ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = 0, 16, 4
+
+note(s, .8, 6.6, 11.7, [
+ ('p = 0.02 에서 이미 18.59 % — 이후 어떤 p 에서도 18.59 % 그대로다. '
+  '같은 구간에서 충전만 0.29 → 13.86 GB/step 으로 48 배 는다.', 14.5, INK, True)])
 
 # ============================================ 4. R2 최적점은 β 무관
 s = prs.slides.add_slide(BLANK)
