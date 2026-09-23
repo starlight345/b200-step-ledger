@@ -162,26 +162,65 @@ for ser in ch.series:
     dl.number_format, dl.number_format_is_linked = '0.00', False
     dl.position = XL_LABEL_POSITION.OUTSIDE_END
 ch.value_axis.minimum_scale, ch.value_axis.maximum_scale = -4, 22
-note(s, 1.1, 6.05, 11.1, [
+note(s, 1.1, 6.0, 11.1, [
  ('비할당 하나만 쓰면 0 ~ 19.4 %p 로 흔들린다. 즉시 반환을 붙이면 전 순서에서 관리 상주와 같아진다.', 15, INK, True),
- ('티어는 데이터 종류를 모른다. free(buffer) 신호만 받는다 — 서빙 엔진이 이미 내보내는 신호다.', 12.5, INK2, False)])
+ ('티어는 데이터 종류를 모른다. free(buffer) 신호만 받는다 — 서빙 엔진이 이미 내보내는 신호다.', 12.5, INK2, False),
+ ('Validation — decode 만 있는 장부에서는 6개 발행 순서(preserved / forward / weight-first / KV-first / '
+  'operation-aware / shuffled)를 바꿔도 변화가 0.01 %p 미만이다. 모든 타일의 스텝당 상주 가치가 같기 때문이며, '
+  '순서가 문제가 되는 것은 위처럼 가치가 다른 객체가 섞일 때뿐이다.', 11, MUTED, False)])
 
-# ============================================ 6. R4 순서 불변성
+# ============================================ 6. R4 수미상관
 s = prs.slides.add_slide(BLANK)
-title(s, 'Result 4: decode 결과는 발행 순서에 의존하지 않는다',
-      '주기 decode 장부에서 모든 타일이 스텝당 정확히 1회 읽혀 상주 가치가 균일하기 때문')
-rows = [['발행 순서','p = 0.02','p = 0.10','p = 1.00','q = 1'],
-        ['preserved (현재 장부)','18.60 / 0.29','18.60 / 1.39','18.60 / 13.86','18.60 / 0'],
-        ['forward (embedding → layers → LM head)','18.60 / 0.29','18.60 / 1.39','18.60 / 13.86','18.60 / 0'],
-        ['weight 먼저 → KV','18.60 / 0.29','18.60 / 1.39','18.60 / 13.86','18.60 / 0'],
-        ['KV 먼저 → weight','18.60 / 0.29','18.60 / 1.39','18.60 / 13.86','18.60 / 0'],
-        ['operation-aware (QKV → KV → O → MLP)','18.60 / 0.29','18.60 / 1.39','18.60 / 13.86','18.60 / 0'],
-        ['shuffled (무작위 대조군)','18.59 / 0.29','18.60 / 1.39','18.59 / 13.86','18.60 / 0']]
-table(s, rows, .7, 1.7, 11.9, 3.0, colw=[4.7, 1.8, 1.8, 1.8, 1.8], fs=12)
-note(s, .7, 5.0, 11.9, [
- ('각 칸: HBM 감소 [%] / 티어 충전 [GB per step]', 11.5, MUTED, False),
+title(s, 'Result 4: 처음 질문으로 — 만들 수 있는 용량 중 실제로 몇 GB 가 트래픽을 없애나',
+      '정책을 정하고 나서야 용량이 useful 해진다 · 전환율 = 실제 HBM 감소 바이트 / 티어 용량')
+d = CategoryChartData(); d.categories = ['400','500','600','700','800']
+d.add_series('패브릭 상한  L2 → SM  19', (19.0,)*5)
+d.add_series('소자팀 덱  like-for-like  17.7', (17.7,)*5)
+d.add_series('C2 2층', (7.27, 7.52, 7.79, 8.08, 8.40))
+d.add_series('C3 2층', (6.95, 7.10, 7.26, 7.42, 7.59))
+d.add_series('C2 1층', (6.81, 6.91, 7.03, 7.14, 7.27))
+d.add_series('C3 1층', (6.66, 6.73, 6.80, 6.87, 6.95))
+ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(1.6), Inches(7.6), Inches(4.5), d).chart
+quiet(ch, '순배치 면적  [mm² / die / layer]', '필요한 읽기 전달 대역폭  [TB/s]')
+sline(ch.series[0], INK, 2.0, dash=4, marker=False)
+sline(ch.series[1], GREY, 2.0, dash=4, marker=False)
+for ser, col in zip(list(ch.series)[2:], (BLUE, BLUE3, BLUE4, BLUE5)): sline(ser, col, 2.6, ms=7)
+ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = 5, 21, 2
+
+rows = [['정책','전환율','용량 4.22 GB 가'],
+        ['관리 상주 · 비할당+반환','96.9 %','4.09 GB 만큼 HBM 을 없앤다'],
+        ['일반 캐시 (LRU)','−4.0 %','하나도 없애지 못한다']]
+table(s, rows, 8.65, 1.75, 4.0, .95, colw=[1.9, 0.9, 1.2], fs=11)
+note(s, 8.65, 3.0, 4.0, [
+ ('B_min = B_HBM / (1 − ΔR / D)', 13, INK, True),
  ('', 6, MUTED, False),
- ('순서가 중요해지는 것은 상주 가치가 다른 객체가 섞일 때뿐이다 — 그것이 Result 3 의 prefill 활성값이다.', 15, INK, True)])
+ ('처음 숙제에서는 이 자리에 명목 용량 C 를 넣었다. 이제 replay 로 얻은 실제 감소 ΔR 을 넣는다.', 11.5, INK2, False),
+ ('', 6, MUTED, False),
+ ('모든 설계점이 덱 17.7 과 패브릭 19 아래에 있다. 최대 요구는 C2 2층 800 mm² 에서 8.40 TB/s 다.', 12, INK, True),
+ ('', 6, MUTED, False),
+ ('읽기 대역폭은 구속 조건이 아니다. 구속 조건은 정책이다.', 13.5, ORANGE, True)])
+
+# ============================================ 7. Conclusion
+s = prs.slides.add_slide(BLANK)
+title(s, 'Conclusion', 'Turning added capacity into useful traffic reduction')
+rows = [['','',''],
+        ['1', 'Added capacity does not directly translate into HBM traffic reduction.',
+         '일반 캐시는 20개 설계 셀 전부에서 −0.75 %, 분산 0'],
+        ['2', 'Selective admission + lifetime-aware reclaim convert capacity into useful\nresidency while avoiding fill cost.',
+         '충전 13.86 → 0 GB/step · 본전 쓰기 요구 43.18 TB/s → 없음'],
+        ['3', 'Therefore capacity, bandwidth, and management policy must be co-designed;\nthe framework translates workload behavior into a technology target.',
+         '전환율 96.9 % · 필요 읽기 BW ≤ 8.40 TB/s · 의미론 요구 둘']]
+tb = table(s, rows, .7, 1.6, 11.9, 3.2, colw=[0.55, 7.15, 4.2], fs=13)
+for j2 in range(3):
+    c = tb.cell(0, j2); c.text = ['', 'Contribution', '근거'][j2]
+    for r in c.text_frame.paragraphs[0].runs: r.font.size, r.font.bold, r.font.color.rgb = Pt(13), True, INK
+note(s, .7, 5.1, 11.9, [
+ ('소자 목표', 15, INK, True),
+ ('전달 BW > 6.4 필수 / 15 권장 / ~19 상한   ·   용량 ≥ 4.2 GB   ·   E/bit ≤ 0.2 pJ   ·   BEOL 페리만', 13, INK2, False),
+ ('의미론 ①  미스에 무조건 할당하지 말 것        의미론 ②  해제 신호를 받아 즉시 반환할 것', 13.5, ORANGE, True),
+ ('', 8, MUTED, False),
+ ('Limitation — 트래픽 결과는 replay 로 얻었고, end-to-end latency 개선은 projection 이다. '
+  'B200 인과 검증(ΔT = ΔD / 6.40)이 남아 있다.', 11.5, MUTED, False)])
 
 out = '/Users/choeseoyeon/Desktop/DSIL/2026/09/260923_results_charts.pptx'
 prs.save(out); print('저장:', out)

@@ -366,3 +366,62 @@ axt.text(0, 0.40, '최악에서도 1.17배 여유 —\n얇지만 E/bit 0.5 라�
 axt.text(0, 0.20, '=> 물성이 정하는 것은 여유의 크기이지\n     여유의 유무가 아니다.\n     그래서 점이 아니라 구간을 보고한다.', fontsize=11.5, weight='bold', va='top')
 fig.savefig(os.path.join(FIG,'bw-corners.png'), dpi=230, facecolor='white'); plt.close(fig)
 print('wrote bw-t3 (closed), bw-order, bw-corners')
+
+# ---------------------------------------------------------------- 13. MAPDL evidence
+from PIL import Image, ImageChops
+import numpy as _np
+MP = os.path.join(ROOT, 'assets', 'mapdl', 'png')
+
+def _model_crop(name, pad=14):
+    """Crop to the rendered MODEL only.
+
+    An autocrop of the raw PNG keeps MAPDL's header text and the colour bar, which span
+    nearly the full canvas and leave the geometry a few percent of the frame. The model
+    is the only strongly-chromatic region, so select saturated pixels and drop the bottom
+    band where the colour bar lives."""
+    im = Image.open(os.path.join(MP, name)).convert('RGB')
+    a = _np.asarray(im).astype(int)
+    sat = a.max(2) - a.min(2)
+    mask = sat > 45
+    mask[int(mask.shape[0]*0.80):, :] = False        # colour bar band
+    ys, xs = _np.where(mask)
+    y0, y1 = max(ys.min()-pad, 0), min(ys.max()+pad, a.shape[0])
+    x0, x1 = max(xs.min()-pad, 0), min(xs.max()+pad, a.shape[1])
+    return im.crop((x0, y0, x1, y1))
+
+panels = [('plot_full002.png',  1.0, 'a.  세운 모델',
+           'SOLID70 육면체 54,400개\n두께의 89%가 Si 500 um 라 BEOL 은 맨 위 몇 픽셀이다'),
+          ('rep_kxy10001.png',  0.34, 'b.  349 W 로직 위에 얹으면',
+           '싱크쪽 93.6 → 티어 100.01 °C\n티어 자기발열은 7.5 mK'),
+          ('plot_100um004.png', 1.0, 'c.  한 변 0.1 mm 로 모으면',
+           '옆으로 못 퍼진다\n같은 전력에 피크 425 K')]
+FW, FH = 13.0, 4.8
+fig = plt.figure(figsize=(FW, FH), facecolor='white')
+# Panels a and c are portrait, so headings placed ABOVE the row cost more height than the
+# pictures can spare in a 2.6:1 band. Captions go underneath instead and the band takes
+# the rest, which roughly doubles the rendered size of each panel.
+BOT, BANDH = 0.235, 0.715
+ims = []
+for fn, xf, _, _ in panels:
+    im = _model_crop(fn)
+    if xf < 1.0: im = im.crop((0, 0, int(im.width*xf), im.height))   # laterally uniform
+    ims.append(im)
+AVAIL, GAPMIN = 0.90, 0.055
+wfr = [BANDH*(FH/FW)*(im.width/im.height) for im in ims]
+if sum(wfr) + GAPMIN*(len(ims)-1) > AVAIL:
+    BANDH *= (AVAIL - GAPMIN*(len(ims)-1))/sum(wfr)
+    wfr = [BANDH*(FH/FW)*(im.width/im.height) for im in ims]
+gap = max(GAPMIN, (AVAIL - sum(wfr))/(len(ims)-1))
+x = (1.0 - (sum(wfr) + gap*(len(ims)-1)))/2.0
+for im, w, (fn, xf, head, sub) in zip(ims, wfr, panels):
+    ax = fig.add_axes([x, BOT, w, BANDH])
+    ax.imshow(im); ax.set_xticks([]); ax.set_yticks([])
+    for sp in ax.spines.values(): sp.set_edgecolor(K); sp.set_linewidth(1.3)
+    fig.text(x, 0.195, head, fontsize=12.5, weight='bold', va='top')
+    fig.text(x, 0.128, sub, fontsize=10, va='top', linespacing=1.5)
+    x += w + gap
+fig.text(0.012, 0.018, 'Ansys Mechanical APDL 26.1  ·  정상상태 전도  ·  쿼터 대칭, 측면 단열  ·  '
+                       '싱크는 h = 8187 W/m²K 대류(접합 100 °C 동작점에 캘리브레이션)',
+         fontsize=9, color=GREY)
+fig.savefig(os.path.join(FIG,'bw-mapdl.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote bw-mapdl')

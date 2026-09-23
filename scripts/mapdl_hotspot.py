@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.dirname(__file__))
 import thermal_stack_solver as T
 
 def deck(n_tiers=2, q_tier_W=38.0, patch_um=None, half_span_um=2000.0, nlat=40,
-         area_m2=T.DIE_AREA_M2):
+         area_m2=T.DIE_AREA_M2, kxy_over_kz=1.0):
     """Steady-state 3D conduction. patch_um = side of the ACTIVE square (full width,
     centred); None means the whole quarter-domain is active (the 1D-equivalent case).
     The total tier watts are held fixed, so a smaller patch means a hotter patch."""
@@ -50,10 +50,15 @@ def deck(n_tiers=2, q_tier_W=38.0, patch_um=None, half_span_um=2000.0, nlat=40,
     # sanity: at patch == half this reproduces the 1D volumetric source exactly
     hgen = q_quarter/(active_area*t_tier)
 
+    # BEOL is copper wiring in low-k, so in-plane conduction beats through-plane. That
+    # only matters when the power is NOT uniform -- with a uniform tier there is no
+    # lateral gradient for kxy to act on -- which is exactly why it is swept HERE, on the
+    # concentrated-patch cases, and not on the representative uniform model.
     props, mat_of = {}, []
     for name, d in zc:
         k, rho, cp = T.MAT[name]
-        key = (k, rho*cp)
+        kxy = k*kxy_over_kz if name == 'BEOL' else k
+        key = (kxy, k, rho*cp)
         if key not in props: props[key] = len(props)+1
         mat_of.append(props[key])
 
@@ -61,11 +66,13 @@ def deck(n_tiers=2, q_tier_W=38.0, patch_um=None, half_span_um=2000.0, nlat=40,
     NPX = (nlat+1)*NPL               # node increment per y row
     L = []; A = L.append
     A('/BATCH')
-    A(f'/TITLE, ECTC V-2 hotspot spreading, patch={patch_um if patch_um else "full"} um')
+    A(f'/TITLE, ECTC V-2 hotspot, patch={patch_um if patch_um else "full"} um, BEOL kxy/kz={kxy_over_kz:g}')
     A('/PREP7')
     A('ET,1,SOLID70')
-    for (k, rc), mid in sorted(props.items(), key=lambda x: x[1]):
-        A(f'MP,KXX,{mid},{k:.6g}')
+    for (kxy, kz, rc), mid in sorted(props.items(), key=lambda x: x[1]):
+        A(f'MP,KXX,{mid},{kxy:.6g}')
+        A(f'MP,KYY,{mid},{kxy:.6g}')
+        A(f'MP,KZZ,{mid},{kz:.6g}')
         A(f'MP,DENS,{mid},1.0')
         A(f'MP,C,{mid},{rc:.9g}')
     A('! z column of nodes at (0,0), then replicate in x and y')
