@@ -1,0 +1,265 @@
+# ECTC 논문: 듀티 사이클 열 예산으로 본 BEOL 3D SRAM
+
+> **Duty-Cycled Thermal Budgeting for BEOL-Stacked 3D SRAM on LLM Inference GPUs**
+
+작성 2026-09-22 (Claude). 이 문서는 ECTC 투고본의 **스토리와 주장 목록**만 소유한다. 계층 모델의 근거는 [SRAM_HIERARCHY_MODEL.md](SRAM_HIERARCHY_MODEL.md), 게이트 결과는 [GATE_RESULTS_3DSRAM_v2.md](GATE_RESULTS_3DSRAM_v2.md), 소자 설계점은 [DESIGN_POINT_3DSRAM.md](DESIGN_POINT_3DSRAM.md), 동기화는 [WORKLOG_3DSRAM.md](WORKLOG_3DSRAM.md). 숫자는 `assets/sweep/canonical_constants.json`에서 오고 문서에 쓰기 전에 `python3 scripts/canon_3dsram.py --check`를 돌린다.
+
+**논문 A(아키텍처·DAC 계열)와의 분담.** 논문 A는 "이 티어를 어떻게 쓸 것인가"를 묻는다. ECTC는 **"이 티어를 물리적으로 만들 수 있는가, 그리고 무엇이 그것을 막는가"**를 묻는다. 두 논문은 주장 10에서 만난다 — 관리 상주는 아키텍처 선택인 동시에 **소자 요구 스펙을 지우는** 선택이다.
+
+## 한 줄 결론
+
+LLM decode 워크로드에서 3D SRAM 티어를 막는 것은 용량도, 대역폭도, 수직 인터커넥트도 아니다. **전력과 열 하나**이고, 그마저도 패키징 관행인 정상상태 관계식 `BW ≤ P/E_bit`를 **듀티 4.80% 부하에 잘못 적용**했을 때만 막는다. 같은 소자가 스택 시정수에 따라 5.0 TB/s(사용 불가)에서 104 TB/s(패브릭 한계)까지 **20배** 움직인다. 이 갈림을 정하는 두 숫자(E/bit, τ = R_th·C_th)는 아직 아무도 측정하지 않았고, **그것을 측정하는 것이 이 논문의 요구사항**이다.
+
+## 1. 단일 설계점
+
+전 그림이 같은 점을 쓴다. 그림마다 다른 점을 쓰다가 한 번 어긋난 적이 있어(Fig.1이 600 mm², Fig.3이 800 mm²) 공용 모델 `scripts/ectc_thermal_model.py`에서 가져오도록 묶었다.
+
+| 항목 | 값 | 등급 |
+|---|---:|---|
+| 워크로드 | Llama-3.1-8B decode, B=8, N=2048 | — |
+| 티어 | C2 2층 2다이, 800 mm²/다이/층 = **4.22 GB** | scenario (기하 상한, 적법 폴리곤 미확정) |
+| 스텝 수요 | **17.158 GB/step** | trace replay |
+| 스텝 시간 | **4.515 ms** (= t0 1.852 + 17.031/6.40) | regression-derived |
+| 실측 스텝 시간 | 4.5556 ms | **measured** |
+| HBM 유효 | **6.40 TB/s** | regression-derived, 인과성 Gate 4 대기 |
+| 읽기 전달 cap | **19 TB/s** (L2 경유 패브릭) | scenario |
+| 티어 서비스 | 24.0% = 4.12 GB/step | trace replay |
+| **듀티** | **4.80%**, 버스트 **217 µs** | 위에서 유도 |
+| 실측 패키지 전력 | **698.7 W** | **measured** (`assets/model_evidence.json`) |
+
+## 2. 스토리 여섯 걸음
+
+**1걸음 — 체인에서 불확실한 것은 하나뿐이다.** 용량은 기하다. 읽기 대역폭은 GB급에서 어레이가 아니라 패브릭이 상한이라 면적과 무관하다. 쓰기 대역폭은 Gate 5에서 최악 1.14%로 닫혔다. 수직 인터커넥트는 19 TB/s에 1 Gb/s/link 기준 152,000개로, 하이브리드 본딩 1 µm 피치 800 mm²의 **0.019%**다(세 자리 여유). 남는 것은 **전력/열**이다.
+
+**2걸음 — 그런데 그 하나를 재는 방식이 틀렸다.** 소자팀 Q3의 `BW ≤ P_budget / E_bit`는 **정상상태** 관계식이다. decode 티어는 정상상태 부하가 아니라 217 µs 버스트가 4.515 ms마다 오는 **듀티 4.80%** 부하다. 1차 RC 주기 정상상태로 풀면 20 W·0.5 pJ/bit에서 실효 cap이:
+
+| 모델 | peak_frac | 실효 cap (20 W, 0.5 pJ/bit) |
+|---|---:|---:|
+| 정상상태 관계식 (소자 덱) | 1.0000 | **5.0 TB/s** — HBM 6.40 미달, 티어 무용 |
+| 럼프드 RC (이 문서 v1) | 0.0650 | 76.9 |
+| **1D 과도 솔버 + MAPDL (0.02% 일치)** | **0.2693** | **18.6** |
+| 완전 평균화 (하한) | 0.0480 | 104.2 |
+
+**완화는 3.7배다** — 20.8배가 아니다. `scripts/thermal_stack_solver.py`(해석해 2건 검증, 오차 0.07% / 2.30%)로 실제 층상 스택을 풀면 **럼프드 RC가 peak를 4.16배 낙관**했음이 드러난다. 얇고 저-k인 티어가 두껍고 느린 기판 위에 있으면 **단일 1차 노드가 아니다** — 스택 전체 τ는 6.8 ms인데 티어는 4.5 ms 주기 안에서 국소적으로 데워진다. 그래도 **6.40 TB/s 바닥은 넘고**, 18.6은 패브릭 상한 19와 거의 정확히 공동 제약이다. → **[Fig.1]**
+
+**3걸음 — decode가 열 최악 케이스다(검증됨).** 듀티 4.80%는 decode 숫자이므로 prefill을 확인해야 했다. 티어는 두 phase에서 **같은 상주 바이트(4.12 GB)**를 나르므로 `duty_prefill/duty_decode = t_decode/t_prefill`이고, 이 부호는 FLOPS 스펙 없이 정해진다. 16,384 토큰 prefill은 BF16 피크에 100% MFU라는 비물리적 값에서도 52.8 ms라 실측 decode 4.5556 ms의 10배를 넘는다. **prefill 듀티 0.083 ~ 0.414%.** 활성 트래픽을 물리적 상한(90.19 GB)까지 올려도 prefill은 compute-bound(17.1 ms 트래픽 대 175.9 ms 연산)라 결론이 불변이다.
+
+**4걸음 — 층수는 열이 아니라 입장 판정이 멈춘다.** 이득은 admission이 weight만 받으므로 티어 용량이 **15.01 GB weight 스트림을 덮는 8층에서 85.4%로 포화**한다. **정정 (2026-09-23).** 예전에 "최악 열 스택도 같은 8층에서 헤드룸을 쓴다"고 적었는데 그건 럼프드 모델 값이었다. 검증 솔버로 다시 풀면 **최악 BEOL k(1.0 W/m·K)에서도 0.43 K이고 층수와 거의 무관**하다. **층수를 멈추는 것은 열이 아니라 admission 하나다.** → **[Fig.2]**
+
+**5걸음 — 진짜 바인딩은 ΔT가 아니라 절대 Tj다 (이제 형상 근거가 있다).** 0.5 pJ/bit에서 티어 버스트 전력은 76 W지만 평균은 **3.65 W**이고, 이는 **실측 패키지 698.7 W의 0.52%**다. 1D 솔버로 풀면 **티어 peak가 로직 접합보다 0.18 ~ 0.20 K 높을 뿐이고 층수에 거의 무관**하다(BEOL이 저-k여도 8 µm로 얇아 R이 4 mK/W). 즉 티어는 사실상 로직 접합 온도에 앉는다. 물어야 할 것은 "티어가 몇 도 올리나"가 아니라 **"BEOL/2D 소자가 700 W 로직 위의 절대 접합 온도를 견디나"**이고, 이것은 미측정이다. → **[Fig.3]**
+
+**6걸음 — 아키텍처 권고는 소자 요구 스펙을 지운다.** 관리 상주는 정상 상태 충전이 0이라 **B_W 요구 자체가 없다.** 그리고 세 축(prefill 발행 순서, prefill 활성 볼륨, 요청 회전) 전부에서 **값이 평탄한 유일한 정책**이다. 경쟁 정책(bypass)은 같은 축에서 0 ~ 19.4%p를 움직인다. → **[Fig.4]**
+
+## 3. 주장 목록 — 네 개
+
+> **압축 이력 (2026-09-23).** E1~E10으로 열 개까지 늘어났는데, ECTC 논문은 보통 하나의 헤드라인 주장을 숫자 한 쌍으로 나른다(가장 가까운 선례인 ECTC 2020 face-to-face 3D 마이크로프로세서 열 연구는 "logic-over-memory 6 °C 대 naive 12 °C" 하나로 논문을 끌고 간다). 아래 **R1~R4**가 논문이 서는 자리이고, 나머지는 뒷받침 문장으로 내린다.
+
+| # | 주장 | 숫자 | 근거 |
+|---|---|---|---|
+| **R1** | **관행적 스크리닝 식이 이 부하에 안 맞는다.** decode 티어는 듀티 4.80% 부하인데 정상상태 `BW ≤ P/E`는 이를 3.7배 과소평가하고, 자연스러운 보정인 단일노드 럼프드는 반대로 4.16배 과대평가한다. **관행 두 가지가 서로 다른 답을 준다.** | **5.0 / 18.6 / 77.3 TB/s** (정상상태 / 검증 / 럼프드) | 1D 과도 솔버(해석해×2) + **MAPDL 26.1 상관검증 0.02%** |
+| **R2** | **제대로 재면 통과한다.** 문헌 앵커 E/bit 예산이 보수적 정상상태 바를 비관 코너에서도 넘는다 | 밴드 **0.014~0.260** 대 바 **0.391 pJ/bit**, 여유 **1.5배** | 공개 5 nm Si 어레이 에너지 + gain-cell 에너지비 |
+| **R3** | **열의 주인은 소자가 아니라 BEOL 집적이다.** 소자 자체 열전도도는 답을 0.3% 움직이는데 주변 BEOL은 95%·73% 움직이고, 완화책도 전부 집적 선택이다 | 민감도 **0.3% 대 95%**, 완화 **1.86배** | 민감도 랭킹 + 완화 스윕 |
+| **R4** | **1D가 이 워크로드에서 맞는 이유가 워크로드에 있다.** decode는 상주 weight를 전 매크로에서 스트리밍하므로 티어가 균일 활성이다. 국소화되면 저-k BEOL이 대가를 물린다 | 균일 **0.848 K**(1D와 1.3%) 대 100 µm 패치 **425 K = 502배** | MAPDL 3D 정상상태 |
+
+**뒷받침 문장으로 내린 것** (본문 한 줄씩, 별도 주장으로 세우지 않는다)
+- decode가 열 최악 케이스다 — prefill 듀티 0.083~0.414%이고, **로직 베이스라인도 prefill에서 4.1%밖에 안 오른다**(실측, 5-F절) (구 E3)
+- 이득은 admission 때문에 8층에서 포화한다 — 열이 아니라 정책이 멈춘다 (구 E4)
+- 티어 자기발열은 로직 접합 대비 0.18~0.20 K, 실측 패키지 698.7 W의 0.52%다 (구 E5)
+- 수직 인터커넥트는 3자리 여유라 제약이 아니다 (구 E6)
+- 기판 박막화는 R_th를 낮추지만 듀티 평균화를 해주던 열용량을 없애 1.04배에 그친다 — **정상상태 연구였다면 과대평가했을 항목** (R1의 두 번째 사례)
+
+**논문 B(DAC)로 보내는 것.** 관리 상주만이 트레이스 독립이라는 결과(구 E7, Fig.4)는 아키텍처·정책 기여이고 `CMOS+X` 영역과 겹치므로 ECTC에서 세우지 않는다. 5-D절 참조.
+
+**주장하지 않는 것.**
+- "3D SRAM을 넣으면 X% 빨라진다"는 단일 수치.
+- **BEOL 소자가 100 °C 로직 접합에서 SRAM으로 동작한다**는 것. T-3은 경계만 잡혔다(5절).
+- 6.40 TB/s의 인과성. 문턱 **구조**는 견고하고 숫자만 움직이므로 함수로 제시한다. Gate 4 대기.
+- 합성 비주기 장부에서 나온 %p를 워크로드 독립 상수로.
+- 우리가 소자팀의 **실제** 소자를 모델링했다는 것. 명시적 파라메트릭 설계 연구다(5-C절).
+
+## 4. 그림 4장
+
+| # | 파일 | 무엇을 보이는가 | 스크립트 |
+|---|---|---|---|
+| Fig.1 | `assets/figures/ectc-thermal-envelope.{png,svg}` | (a) 같은 소자가 어느 전력 관계식을 쓰느냐로 admissible/무용이 갈린다 (b) 갈림은 τ의 성질이다 | `ectc_thermal_envelope.py` |
+| Fig.2 | `assets/figures/ectc-layer-sweep.{png,svg}` | (a) 이득은 admission 때문에 8층에서 포화 (b) 최악 열 스택도 같은 무릎에서 헤드룸을 쓴다 | `ectc_layer_sweep.py` |
+| Fig.3 | `assets/figures/ectc-requirements.{png,svg}` | (a) (E/bit, τ) admissibility 지도 = 소자팀 요청서 (b) 인터커넥트 3자리 여유 | `ectc_requirements.py` |
+| Fig.4 | `assets/figures/policy-fragility.{png,svg}` | 관리 상주만 트레이스 독립 | `make_policy_fragility_figure.py` |
+| Fig.5 | `assets/figures/hotspot-spreading.{png,svg,pdf}` | R4 — 1D가 맞는 구간과, 벗어났을 때 저-k BEOL이 물리는 대가 | `make_hotspot_figure.py` |
+| Fig.6 | `assets/figures/thermal-sensitivity.{png,svg,pdf}` | R3 — 민감도 랭킹과 완화책 | `make_sensitivity_figure.py` |
+| Fig.7 | `assets/figures/g1-causal.{png,svg,pdf}` | G-1 — 전달 바이트가 하드웨어 대역폭으로 시간이 된다 | `make_g1_figure.py` |
+
+### 4-A. 발표용 흑백 세트 — `scripts/make_bw_figures.py`
+
+논문 그림과 별개로, 슬라이드용 흑백 세트를 따로 둔다. 랩 덱의 작도 언어를 따른다 —
+검정 글씨, 검정 테두리 사각형, 채움은 연회색 워시만. 색 없음.
+
+| 파일 | 슬라이드에서 답하는 질문 |
+|---|---|
+| `bw-setup.png` | decode 한 스텝은 무엇을 읽는가, 관행 식은 어떻게 판정하는가 |
+| `bw-duty.png` | **듀티를 정의하고** 4.80%를 산식 그대로 유도 |
+| `bw-envelope.png` | 운전점을 바꾸면 그 4.80%가 흔들리는가 |
+| `bw-bracket.png` | 세 모델이 각각 얼마를 주는가 (3.7배 낮음 / 4.16배 높음 / 18.6) |
+| `bw-verify.png` | 모델을 어디까지 검증했는가 |
+| `bw-sensitivity.png` | 측정 안 된 값 중 무엇이 답을 움직이는가 |
+| `bw-ebit.png` | E/bit 대역이 기준선 아래로 들어오는가 |
+| `bw-layers.png` | 이득은 어디서 포화하고, 열은 층수에 반응하는가 |
+| `bw-hotspot.png` | 1D로 충분한가, 집중되면 얼마를 무는가 |
+| `bw-t3.png` | 소자팀에 물을 것은 ΔVth 절대값이 아니라 무엇인가 |
+
+용어는 처음 쓰는 슬라이드에서 정의한다 — 티어(Intro), 듀티(Problem), E/bit(Result).
+
+재생: `python3 scripts/make_bw_figures.py`
+덱 빌더: 스크래치패드 `build/mk3.py` → `260923_DB_서연_ECTC_storyline.pptx` (12장)
+
+## 5. 열린 항목 — 크리티컬 패스는 시뮬레이션이 아니다
+
+**소자·패키지팀 (이것이 크리티컬 패스)**
+
+| # | 필요한 것 | 왜 |
+|---|---|---|
+| **T-1** | **E/bit 실측** (어레이 + 페리 + MIV, 온도 조건 포함) | **E9로 예산은 세웠다**(0.022~0.370 pJ/bit). 비관 코너 여유가 1.06배뿐이라 실측이 abstract에서 가장 약한 숫자다 |
+| **T-2** | **스택 단면** — 층 두께, 재료, 방열 방향, 층간 열저항 | 솔버의 입력. 현재는 우리가 공개 문헌으로 **세운 가정 스택**이고, E8의 4.2배도 그 스택에 걸려 있다 |
+| **T-3** | **BEOL/2D 소자의 절대 Tj 상한** | **정량화됨 (5-H절).** 경계는 문헌으로, BEOL 산화물 반도체 소자의 **최대 동작 접합온도 규격은 공개된 것이 없다.** 흔히 인용되는 400 °C는 **공정 열예산이지 동작 한계가 아니다** — 혼동하면 안 된다. 바인딩 증거는 **bias-temperature 불안정성**이고, 보고된 최고 온도 안정성이 **−25 ~ 105 °C 구간 ΔVth ≈ −1.5 V**(Zn-rich IGZO)다. 우리 티어는 로직 접합(≈90~105 °C)에 앉으므로 **정확히 그 구간 상단**이고, 그 정도 Vth 이동은 덱 자신의 **read SNM 155 mV**(`D11`) 대비 크다. → **C2/C3의 2D 페리 전제가 여기서 시험받는다.** 실측 필요 |
+| T-4 | 전력 예산이 지속인지 순간인지 (D-3) | 2걸음 전체가 이 위에 있다. 듀티 논증이 이 질문의 **답을 제안**한다 |
+
+**우리 쪽 측정**
+
+| # | 필요한 것 | 왜 |
+|---|---|---|
+| ~~G-1~~ | **닫힘 (2026-09-23).** 인과 계수를 자체 GPU로 실측 | 아래 5-E절 |
+| **G-4** | **prefill 패키지 전력 실측** | 5걸음의 베이스라인. decode 698.7 W는 있고 prefill은 없다 |
+| **G-5** | **vLLM 층내 커널 발행 순서 수집** | Fig.4(a)의 수직 span 0 ~ 19.4%p를 한 점으로 좁힌다. `REQUEST_GATE4_CAUSAL.md`에 이미 요청 |
+| G-6 | 실제 엔진의 활성 트래픽 왕복 횟수 | Fig.4(a)의 가로축. 현재 물리 상하한 2 ~ 21로만 묶여 있다 |
+
+**일정 리스크.** ECTC는 통상 전년 10월 abstract 마감이다(확인 필요). T-1·T-2가 그 전에 오지 않으면 abstract는 **지도 형태**로 내고 본문에서 점을 찍는 전략이 된다. 그 경우에도 E3·E4·E6·E7은 이미 닫혀 있으므로 투고 가능하다.
+
+## 5-B. 투고
+
+초안은 [ECTC_ABSTRACT.md](ECTC_ABSTRACT.md). ECTC 2027, **마감 2026-10-05**, 700단어 + novelty 50단어 + 그림 1개. 서브커미티 1순위 **Thermal/Mechanical Simulation & Characterization**, 2순위 **Packaging Technologies**. 그림은 `assets/figures/ectc-abstract.pdf`.
+
+**선행 경계 (2026-09-22 조사).** 듀티 과도 열 해석 자체는 패키징 교과서이고, imec이 IEDM 2025에서 3D HBM-on-GPU thermal STCO를 이미 했으며, 6~8 tier 적층 한계도 기존 결과다. 우리 것으로 남는 것은 **BEOL SRAM(≠HBM)**, **decode(≠training)**, **측정 장부에서 유도한 역설계 스펙**, 그리고 **E8의 축약모델 4.2배**다. 기여는 중간 수준이며 강하다고 쓰지 않는다.
+
+## 5-G. G-5 닫힘 — 듀티 4.80%는 한 점이 아니라 운전 포락선의 끌개다 (2026-09-23)
+
+ECTC 템플릿(ECTC 2020)은 패키지를 워크로드 **하나**로 특성화하지 않고 평균·최악 두 벡터를 쓴다. 우리 열 작업은 decode 한 점(B=8, N=2048) 위에 서 있었다. 실측으로 포락선을 만들었다.
+
+| 운전점 | 스텝 | 수요 | 전력 | sd | 듀티 |
+|---|---:|---:|---:|---:|---:|
+| B=8 N=2048 | 17.368 ms | 17.16 GB | 258.5 W | 12.6 | **1.248%** |
+| B=8 N=8192 | 22.808 | 23.60 | 283.5 | 14.5 | **1.307%** |
+| B=16 N=2048 | 19.371 | 19.31 | 281.4 | 10.2 | **1.259%** |
+| B=32 N=2048 | 23.967 | 23.60 | 298.1 | 1.7 | **1.244%** |
+| B=32 N=4096 | 31.497 | 32.19 | 299.7 | 0.7 | **1.291%** |
+
+**수요가 1.88배, 스텝이 1.81배 움직이는데 듀티는 5.1%밖에 안 움직인다.** 이유는 구조적이다 — `burst = f_red·D/B_R`이고 `step ≈ t0 + D/B_eff`라 **둘 다 D에 비례해 상쇄**되고, 듀티는 `f_red·B_eff/B_R`로 수렴한다(이 부품에서 1.53%).
+
+**그리고 그 구조를 B200으로 옮기면 설계점이 재현된다:** `0.24 × 6.40/19 × (1 − t0/step) = 4.77%` 대 설계점 **4.80%**.
+
+→ **듀티 4.80%는 한 점에서 뽑은 취약한 수가 아니라 운전 포락선의 끌개다.** R1이 한 운전점에 걸려 있다는 반론이 닫힌다.
+
+**부수.** 전력 표준편차가 큰 배치에서 12.6 → 0.7 W로 떨어진다. 큰 배치 decode는 전력이 거의 완전히 평탄하며, 5-F절의 관찰(주기적 정상 상태)을 강화한다. 절대값은 이 부품 것이다.
+
+## 5-F. G-4 닫힘 — prefill이 더 뜨겁긴 한데 4%뿐이다 (2026-09-23)
+
+5걸음에서 "prefill은 compute-bound라 TDP 근처로 돈다"고 **단언했는데 측정한 적이 없었다.** 같은 부품·같은 실행에서 두 phase를 재서 비로 보고한다(절대값은 부품에 딸리고 비는 덜 딸린다). RTX PRO 5000 Blackwell, Llama-3.1-8B, vLLM 0.10.2, nvidia-smi 20 Hz 샘플링.
+
+| phase | 평균 | p95 | peak | 표준편차 |
+|---|---:|---:|---:|---:|
+| idle (모델 적재 상태) | 67.1 W | — | — | — |
+| **prefill** B=8 N=8192 | **271.4 W** | 301.0 | 305.2 | **59.6** |
+| **decode** B=8 N=2048 | **260.8 W** | 263.6 | 263.7 | **2.1** |
+| 비 | **1.041배** | | **1.157배** | |
+
+**정정.** prefill이 더 뜨겁지만 평균으로 **4.1%**, peak로 15.7%다. "TDP 근처 대 한참 아래" 같은 큰 차이가 아니다. → **E3(decode가 열 최악)이 두 축 모두에서 강해진다** — 티어 듀티가 prefill에서 10배 이상 낮을 뿐 아니라 **로직 베이스라인도 4%밖에 안 오른다.**
+
+**부수로 나온 것.** 표준편차가 prefill 59.6 W 대 decode 2.1 W로 **28배** 차이다. decode는 전력이 거의 완전히 평탄하고, 이는 듀티 사이클 모델이 가정하는 **주기적 정상 상태를 실측이 뒷받침**한다는 뜻이다.
+
+**한계.** 측정 부품은 B200이 아니다. 절대값(260~271 W)은 이 부품 것이고 canon의 decode 698.7 W와 비교할 수 없다. **비만 인용한다.**
+
+## 5-H. T-3 정량화 — 물어야 할 것은 ΔVth가 아니라 그 mismatch 성분이다 (2026-09-23)
+
+지금까지 T-3은 숫자 두 개를 나란히 놓고 그 사이 산술이 없었다 — 덱의 **read SNM 155 mV**와 문헌의 **ΔVth ≈ −1.5 V(−25~105 °C)**. 빠진 양은 셀의 SNM-대-Vth 민감도 `S = −dSNM/dVth`인데 아무도 주지 않았으므로 **S를 축으로 놓고** 셀이 읽기 마진을 소진하는 지점을 푼다.
+
+| S | 견딜 수 있는 \|ΔVth\| | 전 구간 1500 mV | 우리 구간 865 mV |
+|---:|---:|---|---|
+| 0.05 | 3100 mV | OK | OK |
+| 0.10 | 1550 | OK | OK |
+| **0.20** | **775** | FAILS | FAILS |
+| 0.50 | 310 | FAILS | FAILS |
+| 1.00 | 155 | FAILS | FAILS |
+
+**break-even S: 전 구간 0.103, 우리 운전 구간(25~100 °C, 보고 구간의 58%) 0.179.** 6T 셀에서 **mismatch** 성 Vth 이동은 통상 S = 0.3~1.0으로 읽기 마진을 갉는다 — **break-even보다 한 자릿수 위다.**
+
+**따라서 정확한 진술은 이렇다.** 보고된 이동이 **mismatch로 내려앉으면 셀에 읽기 마진이 남지 않는다.** 살아남는 경우는 이동이 **거의 균일**할 때뿐이고(온도에 대해 계통적이며 설계로 보상 가능), 그러면 실제로 작아야 하는 것은 **다이 내 소자 간 spread**다.
+
+→ **소자팀에 물을 것이 바뀐다.** ΔVth(T) 절대값은 이미 공개돼 있다. 필요한 것은 **동작 온도에서의 mismatch 성분**이다. 재현: `python3 scripts/t3_vth_margin.py`, 표 `assets/sweep/t3_vth_margin.csv`.
+
+## 5-E. G-1 닫힘 — 계수는 회귀의 산물이 아니라 메모리 경로다 (2026-09-23)
+
+canon의 6.40 TB/s는 (B, N) 네 점 회귀라 트래픽·연산·런치 오버헤드가 같이 움직여 **인과가 아니었다.** 한 가지만 움직이는 두 손잡이로 바꿔 자체 GPU(RTX PRO 5000 Blackwell, Llama-3.1-8B, vLLM 0.10.2)에서 실측했다.
+
+| 손잡이 | 기울기 | B_eff | R² | 대응 실측 모드 | 일치 |
+|---|---:|---:|---:|---|---:|
+| **K1** 문맥 길이 (B=8 고정) | 0.8258 ms/GB | **1.211 TB/s** | 0.99984 | read only **1.211** | **0.00%** |
+| **K2** 배치 (N=4096 고정) | 0.9012 ms/GB | **1.110 TB/s** | 0.99993 | copy(read+write) **1.105** | **0.42%** |
+
+**메커니즘까지 맞는다.** K1은 배치 고정이라 쓰기 트래픽이 불변이므로 **읽기 경로를 분리**하고, K2는 배치가 늘면 각 시퀀스가 새 KV 토큰을 쓰므로 **read+write 경로**에 앉는다. 두 손잡이가 각자 앉아야 할 모드에 앉았다.
+
+→ **계수는 회귀의 산물이 아니라 메모리 경로 자체다.** B200의 6.40 TB/s는 같은 종류의 양이고 그 부품의 대역폭을 넣은 것이며, **구조가 검증됐으므로 문턱을 숫자가 아니라 함수로 제시한다는 우리 방침이 근거를 얻었다.**
+
+**재현 시 함정 둘.** ① **prefix caching을 반드시 끈다** — 스텝 시간을 두 생성 길이의 차분으로 뽑는데 2차 호출이 1차의 prefill을 재사용하면 상쇄가 틀리고 오차가 N과 함께 커져 기울기를 과소·B_eff를 과대평가한다(끄기 전 2.388 TB/s, 실측 상한 1.211). ② **절편을 지연으로 읽지 않는다** — 이 실험의 절편은 문맥 불변인 weight 트래픽 15.01 GB/스텝을 담고 있어 큰 것이 정상이다. 0.5B 모델로는 원리적으로 불가하다(지연 지배, 고정항 97.4%, 기울기 음수).
+
+## 5-C. 문헌 앵커 (2026-09-23)
+
+소자팀 방침이 **"기존 문헌을 찾아 그 값으로 가정하라"**였으므로, 이전에 `assumption`이던 항목들을 문헌값으로 올렸다. **우리는 소자팀의 실제 소자를 모델링했다고 주장하지 않는다 — 명시적 파라메트릭 설계 연구다.**
+
+| 항목 | 값 | 등급 | 출처 성격 |
+|---|---|---|---|
+| a-IGZO 열전도도 | **1.4 ~ 2.6 W/m·K** (nominal 1.6) | third-party, **측정** | 200 nm 박막 thermoreflectance 1.4; three-omega로 O₂ 분압 0/10/65%에서 1.65/1.76/2.58; 비정질 산화물 일반 1.3~3.0 |
+| 티어 간 ILD | **300 nm** PECVD SiO₂ | third-party | monolithic-3D 다단 적층의 표준 ILD |
+| 소자 두께 | IGZO 채널 **6 nm**, HfO₂ 게이트 **10 nm** | third-party | 티어 실효 두께를 50 nm로 잡음(전극·배선 여유 포함) |
+| MIV 직경 | 30 ~ 50 nm | third-party | TSV 대비 I/O 밀도 24배 |
+| BEOL 유효 수직 열전도도 | 2.5 W/m·K | **추정, 스윕 유지** | 문헌이 "이방성·레이아웃 의존이라 벌크 유전체로 유추 불가"라고 명시 → 단일값으로 못 박지 않음 |
+| BEOL 어레이 에너지비 | **6T SRAM의 0.5배** (비관 코너는 2배 유지) | third-party | monolithically stackable gain-cell이 6T 대비 read/write 에너지 50% 감소, 지연 동등(8 KiB N7, 27 °C sub-2 ns / 85 °C sub-0.3 ns, 0.015 µm² 비트셀) |
+| BEOL 소자 동작 온도 | **최대 동작 Tj 규격 없음**; ΔVth ≈ −1.5 V(−25~105 °C) | third-party | 400 °C는 **공정 열예산**이지 동작 한계가 아님 |
+
+**형상을 문헌값으로 바꾼 효과: 결론이 2% 안에서 불변이다.** 이전 가정(티어 1 µm + ILD 1 µm = 2 µm/층)에서 문헌값(50 nm + 300 nm = 0.35 µm/층, 5.7배 얇음)으로 갔는데 peak_frac 0.2724 → 0.2693, cap 18.4 → 18.6 TB/s, 럼프드 오차 4.19 → 4.16배다. **열 결론이 내 초기 추측에 걸려 있지 않았다는 강건성 증거**로 쓴다.
+
+## 5-D. 인접 선행 (경계)
+
+**`CMOS+X` (Georgia Tech, Shimeng Yu 그룹) — "Stacking Persistent Embedded Memories based on Oxide Transistors upon GPGPU Platforms".** 산화물 트랜지스터 메모리를 GPGPU의 레지스터 파일·LLC에 적층하는 구조로 우리와 같은 하드웨어를 다룬다. **그러나 전문에 열·온도 언급이 0건이고** Rodinia 벤치마크 기반 아키텍처·에너지 논문이다. LLM은 동기 문장에만 나온다.
+
+→ **경계가 깨끗하다.** 그쪽이 아키텍처 전제를 세워 줬고(우리 동기를 강화한다), **열 타당성은 비어 있다.** ECTC에서는 열에만 서고 CMOS+X를 동기로 인용한다. 반대로 우리 아키텍처 측 기여(admission, 관리 상주)는 그쪽 영역과 겹치므로 **DAC 쪽으로 보낸다.**
+
+## 6. 재현
+
+```
+python3 scripts/canon_3dsram.py --check          # 정본 상수 동기화
+python3 scripts/ectc_thermal_model.py            # 설계점·듀티·ΔT 표
+python3 scripts/ectc_thermal_envelope.py         # Fig.1
+python3 scripts/ectc_layer_sweep.py              # Fig.2
+python3 scripts/ectc_requirements.py             # Fig.3
+python3 scripts/prefill_phase.py                 # prefill 장부 생성 + 듀티 비교
+python3 scripts/prefill_policy_replay.py         # prefill 정책 재생 + 순서·활성 스윕
+python3 scripts/gate6_bypass_refresh.py          # 동결 버그 정정 + 공정 baseline
+python3 scripts/make_policy_fragility_figure.py  # Fig.4
+python3 scripts/thermal_stack_solver.py          # 1D 과도 솔버 + 해석해 자체검증 + 럼프드 대조
+python3 scripts/ebit_budget.py                   # E/bit 예산 (achievable band vs requirement)
+python3 scripts/make_ectc_abstract_figure.py     # abstract 단일 그림
+python3 scripts/mapdl_correlation.py 2 periodic tieronly   # V-1 MAPDL 덱 (step/tieronly 조합)
+python3 scripts/mapdl_hotspot.py                 # V-2 3D 핫스팟 덱 6종
+python3 scripts/make_hotspot_figure.py           # Fig.5 횡확산
+python3 scripts/thermal_sensitivity.py           # 민감도 랭킹 + 완화 스윕
+python3 scripts/make_sensitivity_figure.py       # Fig.6
+# G-1 (GPU 필요, dsil-sy): venv-vllm128 사용, prefix caching OFF 필수
+#   python g1_causal_gpu.py --model <llama31-8b> --batch 8 --contexts 1024 2048 4096 8192 --gpu-frac 0.80
+#   python g1_causal_gpu.py --model <llama31-8b> --contexts 4096 --batches 2 4 8 16 --gpu-frac 0.80
+python3 scripts/make_g1_figure.py                # Fig.7
+python3 scripts/t3_vth_margin.py                 # T-3 정량화
+#   python g5_operating_points.py --model <llama31-8b> --points 8x2048,8x8192,16x2048,32x2048,32x4096
+#   python g4_phase_power.py --model <llama31-8b> --batch 8 --prefill-ctx 8192 --decode-ctx 2048
+#   서버: dsil-sy, MAPDL 26.1 번들 (RedHawk-SC ET), -np 1 필수 (-np 8은 HPC 라이선스 대기로 멈춤)
+```
+
+산출 표: `assets/sweep/ectc_thermal_envelope.csv`, `gate6_bypass_refresh.csv`, `prefill_policy_replay.json`.

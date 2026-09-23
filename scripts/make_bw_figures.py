@@ -1,0 +1,313 @@
+#!/usr/bin/env python3
+"""Monochrome slide figures, in the reference deck's own drawing language.
+
+The reference deck draws with unfilled rectangles (fill=BACKGROUND) and plain lines, and
+its text is black. No colour fills, no accent palette. Emphasis comes from line weight,
+hatching, a light grey wash, and bold text -- not from hue. These figures follow that.
+
+Terms are defined on the figure where they first appear, rather than assumed.
+"""
+import os, sys, json
+import numpy as np, matplotlib
+matplotlib.use('Agg'); import matplotlib.pyplot as plt
+sys.path.insert(0, os.path.dirname(__file__))
+import ectc_thermal_model as M
+
+ROOT = os.path.join(os.path.dirname(__file__), '..')
+FIG  = os.path.join(ROOT, 'assets', 'figures')
+K, GREY, LGREY = '#000000', '#666666', '#d9d9d9'
+plt.rcParams.update({'font.family':'sans-serif',
+                     'font.sans-serif':['Apple SD Gothic Neo','AppleGothic','Arial'],
+                     'font.size':11, 'text.color':K,
+                     'axes.edgecolor':K, 'axes.labelcolor':K,
+                     'xtick.color':K, 'ytick.color':K, 'svg.fonttype':'none',
+                     'axes.unicode_minus':False})
+
+def box(ax, x, y, w, h, text='', fs=11.5, bold=False, lw=1.3, wash=False, ls='-'):
+    ax.add_patch(plt.Rectangle((x, y), w, h, facecolor=(LGREY if wash else 'none'),
+                               edgecolor=K, lw=lw, linestyle=ls, zorder=3))
+    if text:
+        ax.text(x+w/2, y+h/2, text, ha='center', va='center', fontsize=fs,
+                weight='bold' if bold else 'normal', zorder=5)
+
+def arrow(ax, x1, y1, x2, y2, style='->', lw=1.2):
+    ax.annotate('', xy=(x2, y2), xytext=(x1, y1),
+                arrowprops=dict(arrowstyle=style, color=K, lw=lw), zorder=4)
+
+def canvas(w=12.0, h=4.6):
+    fig = plt.figure(figsize=(w, h), facecolor='white')
+    ax = fig.add_axes([0, 0, 1, 1]); ax.set_xlim(0, w); ax.set_ylim(0, h)
+    ax.axis('off'); ax.set_facecolor('white')
+    return fig, ax
+
+T0, TSTEP = 1.852, 4.515
+MEMT = TSTEP - T0
+C = M.capacity_GB(800.0, 2); DUTY = M.duty(C); BURST = M.burst_s(C)*1e3
+
+# ---------------------------------------------------------------- 1. setup
+fig, ax = canvas(12.0, 4.4)
+ax.text(0.30, 4.05, '한 스텝에서 읽는 바이트', fontsize=13, weight='bold')
+ax.text(0.30, 3.70, f'weight {M.W_READ:.2f} GB  +  KV 2.15 GB  =  {M.D_STEP:.2f} GB', fontsize=12)
+ax.text(0.30, 3.38, f'HBM 실질 {M.BW_HBM:.2f} TB/s 로 나누면  {MEMT:.2f} ms', fontsize=12)
+X0, BW_, BY, BH = 0.30, 6.10, 2.15, 0.62
+box(ax, X0, BY, BW_*T0/TSTEP, BH, f'{T0:.2f} ms', fs=12)
+box(ax, X0+BW_*T0/TSTEP, BY, BW_*MEMT/TSTEP, BH, f'{MEMT:.2f} ms', fs=13, bold=True, wash=True)
+ax.text(X0+BW_*T0/TSTEP/2, BY+BH+0.13, '연산·런치·지연', ha='center', fontsize=11, color=GREY)
+ax.text(X0+BW_*(T0+MEMT/2)/TSTEP, BY+BH+0.13, '메모리 대기', ha='center', fontsize=12, weight='bold')
+arrow(ax, X0, BY-0.28, X0+BW_, BY-0.28, '<->')
+ax.text(X0+BW_/2, BY-0.62, f'decode 스텝  {TSTEP:.3f} ms   (실측 4.5556 ms)', ha='center', fontsize=12)
+ax.text(X0+BW_+0.25, BY+BH/2, f'스텝의 {MEMT/TSTEP*100:.0f}% 가\n메모리 대기', va='center', fontsize=13, weight='bold')
+ax.plot([8.45, 8.45], [0.35, 4.15], color=K, lw=0.8)
+ax.text(8.75, 4.05, '관행 스크리닝의 판정', fontsize=13, weight='bold')
+for i, (v, lab) in enumerate([(5.0, 'BW ≤ P / E\n(20 W ÷ 0.5 pJ/bit)'), (M.BW_HBM, 'HBM 실질')]):
+    x = 9.05 + i*1.55; hgt = v/8.0*2.0
+    box(ax, x, 1.55, 0.95, hgt, wash=(i == 1))
+    ax.text(x+0.475, 1.55+hgt+0.14, f'{v:g}', ha='center', fontsize=20, weight='bold')
+    ax.text(x+0.475, 1.38, lab, ha='center', va='top', fontsize=10.5)
+ax.text(9.05, 0.68, '5.0 < 6.40  →  티어가 HBM 보다 느리다', fontsize=12.5, weight='bold')
+ax.text(9.05, 0.32, '단위 [TB/s]', fontsize=10.5, color=GREY)
+fig.savefig(os.path.join(FIG, 'bw-setup.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 2. duty (with the definition)
+fig, ax = canvas(12.0, 4.8)
+box(ax, 0.30, 3.62, 11.4, 0.85, '', lw=1.3)
+ax.text(0.52, 4.22, '정의', fontsize=12, weight='bold', va='center')
+ax.text(1.25, 4.22, '듀티 (duty)  =  한 스텝 동안 티어가 실제로 데이터를 내보내는 시간의 비율', fontsize=13, va='center')
+ax.text(1.25, 3.88, '= 티어가 나르는 바이트 ÷ 전달 대역폭 ÷ 스텝 시간', fontsize=11.5, va='center', color=GREY)
+SX, SW, SY, SH = 0.30, 11.4, 2.28, 0.58
+bw = SW/3*BURST/TSTEP
+# the burst label sits directly over the first sliver with a short tick, so no leader
+# line has to cross the definition box above or the arithmetic below
+ax.plot([SX+bw/2, SX+bw/2], [SY+SH, SY+SH+0.16], color=K, lw=1.0, zorder=5)
+ax.text(SX+bw/2+0.10, SY+SH+0.20, f'티어가 일하는 구간  {BURST:.3f} ms', fontsize=12, weight='bold')
+for k in range(3):
+    x0 = SX + k*SW/3
+    box(ax, x0, SY, SW/3, SH)
+    ax.add_patch(plt.Rectangle((x0, SY), bw, SH, facecolor=K, edgecolor=K, lw=0, zorder=4))
+    ax.text(x0+SW/6, SY-0.40, f'스텝 {k+1}', ha='center', fontsize=10.5, color=GREY)
+arrow(ax, SX, SY-0.22, SX+SW/3, SY-0.22, '<->')
+ax.text(SX+SW/6, SY-0.20, f'{TSTEP:.3f} ms', ha='center', va='bottom', fontsize=11.5)
+ax.text(0.30, 1.40, f'티어가 나르는 양   {M.f_red(C)*M.D_STEP:.2f} GB', fontsize=12.5)
+ax.text(0.30, 1.08, f'(한 스텝 수요 {M.D_STEP:.2f} GB 의 {M.f_red(C)*100:.0f}%)', fontsize=11, color=GREY)
+ax.text(0.30, 0.72, f'÷ 전달 대역폭 {M.B_R:.0f} TB/s   =   {BURST:.3f} ms', fontsize=12.5)
+ax.text(0.30, 0.34, f'÷ 스텝 {TSTEP:.3f} ms', fontsize=12.5)
+box(ax, 6.40, 0.30, 5.30, 1.45, '', lw=1.6)
+ax.text(9.05, 1.20, f'듀티 = {DUTY*100:.2f}%', ha='center', fontsize=23, weight='bold')
+ax.text(9.05, 0.62, '티어는 한 스텝의 95%를 쉰다', ha='center', fontsize=12.5)
+fig.savefig(os.path.join(FIG, 'bw-duty.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote bw-setup, bw-duty')
+
+def axbox(fig, rect):
+    ax = fig.add_axes(rect); ax.set_facecolor('white')
+    for sp in ax.spines.values(): sp.set_color(K); sp.set_linewidth(1.0)
+    ax.grid(True, color='#e6e6e6', lw=0.7, zorder=0)
+    return ax
+
+# ---------------------------------------------------------------- 3. envelope
+G5 = sorted(json.load(open(os.path.join(ROOT,'assets','sweep','g5_operating_points.json')))['rows'],
+            key=lambda r: r['demand_GB'])
+fig = plt.figure(figsize=(12.0, 4.4), facecolor='white')
+ax = axbox(fig, [0.075, 0.20, 0.52, 0.70])
+dem=[r['demand_GB'] for r in G5]; dty=[r['duty']*100 for r in G5]
+ax.plot(dem, dty, color=K, lw=1.8, marker='o', ms=9, mfc='white', mec=K, mew=1.8, zorder=5)
+for i,(x,y,r) in enumerate(zip(dem,dty,G5)):
+    ax.annotate(f"B={r['batch']} N={r['context']}", (x,y), textcoords='offset points',
+                xytext=(0, 16 if i%2==0 else -26), ha='center', fontsize=9.5, color=GREY)
+ax.set_ylim(0,2.4); ax.set_xlim(14,35)
+ax.set_xlabel('한 스텝의 메모리 수요  [GB]', fontsize=11.5)
+ax.set_ylabel('듀티  [%]', fontsize=11.5)
+ax.text(14.5, 2.15, f'듀티 {min(dty):.2f} ~ {max(dty):.2f}%', fontsize=12.5, weight='bold')
+axt = fig.add_axes([0.63, 0.16, 0.35, 0.74]); axt.axis('off'); axt.set_xlim(0,1); axt.set_ylim(0,1)
+axt.text(0, 0.97, '수요가 1.88배 늘어도\n듀티는 5.1%만 움직인다', fontsize=14, weight='bold', va='top')
+axt.text(0, 0.66, 'burst = f · D / B_R', fontsize=12, va='top')
+axt.text(0, 0.55, 'step  = t0 + D / B_eff', fontsize=12, va='top')
+axt.text(0, 0.40, '둘 다 수요 D 에 비례하므로\n나눌 때 상쇄된다', fontsize=11.5, va='top', color=GREY)
+axt.text(0, 0.18, 'B200 으로 옮기면 4.77%\n설계점 4.80% 와 같다', fontsize=12.5, weight='bold', va='top')
+fig.savefig(os.path.join(FIG,'bw-envelope.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 4. bracket
+fig = plt.figure(figsize=(12.0, 4.4), facecolor='white')
+ax = axbox(fig, [0.075, 0.22, 0.56, 0.68]); ax.set_yscale('log')
+ax.grid(True, which='both', color='#e6e6e6', lw=0.7, zorder=0)
+for i,(lab,v,note_,wash) in enumerate([('정상상태 관계식\n(관행 스크리닝)',5.0,'3.7배 낮다',False),
+                                       ('검증값\n1D 솔버 = MAPDL',18.6,'',True),
+                                       ('단일 노드 럼프드\n(듀티만 보정)',77.3,'4.16배 높다',False)]):
+    ax.bar([i],[v],width=0.5,facecolor=(LGREY if wash else 'white'),edgecolor=K,lw=1.6,zorder=5)
+    ax.text(i, v*1.12, f'{v:.1f}', ha='center', fontsize=21, weight='bold', zorder=6)
+    ax.text(i, 0.72, lab, ha='center', va='top', fontsize=11, zorder=6)
+    if note_: ax.text(i, v*0.45, note_, ha='center', fontsize=11.5, zorder=7)
+ax.plot([-0.5,2.42],[M.BW_HBM]*2,color=K,lw=1.4,zorder=4)
+ax.text(2.50, M.BW_HBM, f' HBM 실질 {M.BW_HBM:.2f}', va='center', fontsize=11)
+ax.plot([-0.5,2.42],[M.B_R]*2,color=K,lw=1.2,ls=(0,(5,3)),zorder=4)
+ax.text(2.50, M.B_R, f' 패브릭 상한 {M.B_R:.0f}', va='center', fontsize=11)
+ax.set_xlim(-0.55,3.6); ax.set_ylim(0.7,260); ax.set_xticks([])
+ax.set_ylabel('전달 가능한 읽기 대역폭  [TB/s]', fontsize=11.5)
+axt = fig.add_axes([0.66, 0.18, 0.32, 0.72]); axt.axis('off'); axt.set_xlim(0,1); axt.set_ylim(0,1)
+axt.text(0, 0.96, '같은 소자, 같은 20 W,\n같은 0.5 pJ/bit', fontsize=13, weight='bold', va='top')
+axt.text(0, 0.68, '관행 두 가지가\n서로 다른 답을 준다', fontsize=14, weight='bold', va='top')
+axt.text(0, 0.42, '얇고 열전도가 낮은 티어가\n두꺼운 실리콘 위에 앉으면\n열 노드 하나로 볼 수 없다', fontsize=11.5, va='top')
+axt.text(0, 0.16, '스택 시정수 6.8 ms\n티어는 4.5 ms 주기 안에서\n국소적으로 데워진다', fontsize=11.5, va='top', color=GREY)
+fig.savefig(os.path.join(FIG,'bw-bracket.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 5. verification
+fig, ax = canvas(12.0, 4.4)
+ax.text(0.30, 4.05, '같은 스택을 네 가지 경로로 확인했다', fontsize=13, weight='bold')
+rows = [('해석해 1', '직렬 열저항', '0.07%'),
+        ('해석해 2', '반무한 슬래브 스텝 응답', '2.30%'),
+        ('Ansys MAPDL 26.1 · 1D', 'peak fraction 0.2693 대 0.2693', '0.02%'),
+        ('Ansys MAPDL 26.1 · 3D', '균일 전력 0.848 K 대 0.836 K', '1.3%')]
+y = 3.25
+for a_, b_, c_ in rows:
+    box(ax, 0.30, y, 3.3, 0.62, a_, fs=11.5)
+    box(ax, 3.60, y, 5.6, 0.62, b_, fs=11.5)
+    box(ax, 9.20, y, 2.5, 0.62, c_, fs=14, bold=True)
+    y -= 0.72
+ax.text(0.30, 0.22, '계수 자체도 따로 실측했다  —  문맥 손잡이 1.211 TB/s, 배치 손잡이 1.110 TB/s.', fontsize=12)
+ax.text(0.30, -0.12, '같은 GPU 의 대역폭 프로브가 read 1.211 / copy 1.105 이므로 0.00% 와 0.42% 로 맞는다.', fontsize=12)
+ax.set_ylim(-0.35, 4.4)
+fig.savefig(os.path.join(FIG,'bw-verify.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote bw-envelope, bw-bracket, bw-verify')
+
+# ---------------------------------------------------------------- 6. sensitivity + mitigation
+import csv
+S1_ = list(csv.DictReader(open(os.path.join(ROOT,'assets','sweep','thermal_sensitivity.csv'))))
+MT = list(csv.DictReader(open(os.path.join(ROOT,'assets','sweep','thermal_mitigation.csv'))))
+NAME = {'a-IGZO k [W/m/K]':'소자(a-IGZO) 열전도도','BEOL effective k [W/m/K]':'BEOL 유효 열전도도',
+        'inter-tier ILD [um]':'티어 간 절연막 두께','BEOL above tier [um]':'티어 위 BEOL 두께',
+        'Si substrate [um]':'실리콘 기판 두께','tier count':'층수'}
+rows=[r for r in S1_ if 'E/bit' not in r['parameter']]
+rows.sort(key=lambda r: float(r['swing_frac']))
+fig = plt.figure(figsize=(12.0, 4.6), facecolor='white')
+ax = axbox(fig, [0.24, 0.20, 0.40, 0.68]); ax.grid(True, axis='x', color='#e6e6e6', lw=0.7, zorder=0)
+BASE=18.57
+for i,r in enumerate(rows):
+    lo,hi=float(r['cap_low_TBs']),float(r['cap_high_TBs']); x0,x1=min(lo,hi),max(lo,hi)
+    strong=(x1-x0)/BASE>0.25
+    ax.barh(i, x1-x0, left=x0, height=0.52, facecolor=(LGREY if strong else 'white'),
+            edgecolor=K, lw=1.3, zorder=4)
+    ax.text(x1+0.6, i, f'{(x1-x0)/BASE*100:.0f}%', va='center', fontsize=11,
+            weight='bold' if strong else 'normal')
+ax.axvline(BASE, color=K, lw=1.4, zorder=5)
+ax.set_yticks(range(len(rows))); ax.set_yticklabels([NAME.get(r['parameter'],r['parameter']) for r in rows], fontsize=11)
+ax.set_xlim(7,33); ax.set_xlabel('전달 가능한 읽기 대역폭  [TB/s]', fontsize=11)
+ax.text(BASE+0.5, len(rows)-0.4, f'기준 {BASE:.1f}', fontsize=10.5)
+MN={'baseline, 4 tiers':'기준 (4층)','thinner inter-tier ILD, 300 -> 150 nm':'티어 간 절연막 300→150 nm',
+    'higher-k ILD (2.5 -> 5.0 W/m/K)':'절연막 전도도 2.5→5.0','tier closer to Si: BEOL 8 -> 4 um':'티어를 Si 에 붙임 8→4 um',
+    'thinned substrate 500 -> 200 um':'기판 박막화 500→200 um','higher-k ILD + BEOL 4 um combined':'위 두 가지 동시'}
+ax2 = axbox(fig, [0.735, 0.20, 0.245, 0.68]); ax2.grid(True, axis='x', color='#e6e6e6', lw=0.7, zorder=0)
+mt=MT[::-1]
+for i,m in enumerate(mt):
+    v=float(m['vs_base'])
+    ax2.barh(i, v, height=0.54, facecolor=(LGREY if v>=1.35 else 'white'), edgecolor=K, lw=1.3, zorder=4)
+    ax2.text(v+0.02, i, f'{v:.2f}배', va='center', fontsize=10.5, weight='bold' if v>=1.35 else 'normal')
+ax2.axvline(1.0, color=K, lw=1.2, zorder=5)
+ax2.set_yticks(range(len(mt))); ax2.set_yticklabels([MN.get(m['change'],m['change']) for m in mt], fontsize=9.5)
+ax2.set_xlim(0.9,2.15); ax2.set_xlabel('완화 후 / 기준', fontsize=10.5)
+fig.text(0.015, 0.95, '측정되지 않은 값을 각자 범위 전체로 흔들었을 때', fontsize=12, weight='bold')
+fig.text(0.735, 0.95, '무엇으로 되찾을 수 있는가', fontsize=12, weight='bold')
+fig.text(0.015, 0.045, '* E/bit 는 축 밖이다: 0.014~0.260 pJ/bit 가 35.7~688 TB/s 에 대응하므로 여전히 물어야 할 값이다.', fontsize=9.5, color=GREY)
+fig.savefig(os.path.join(FIG,'bw-sensitivity.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 7. E/bit budget
+import ebit_budget as B
+lo_,hi_=B.budget(0)['total'],B.budget(1)['total']; bar=B.requirement(20,M.BW_HBM,1.0)
+fig, ax = canvas(12.0, 4.0)
+ax.text(0.30, 3.65, '한 비트를 옮기는 데 쓸 수 있는 에너지  [pJ/bit]', fontsize=13, weight='bold')
+L,R,Y,H2 = 0.60, 10.6, 1.85, 0.70
+def px(v): return L + (np.log10(v)-np.log10(0.008))/(np.log10(1.2)-np.log10(0.008))*(R-L)
+ax.plot([L,R],[Y,Y], color=K, lw=1.2)
+for t in (0.01,0.03,0.1,0.3,1.0):
+    ax.plot([px(t)]*2,[Y-0.10,Y],color=K,lw=1.0); ax.text(px(t),Y-0.30,f'{t:g}',ha='center',fontsize=10.5)
+ax.add_patch(plt.Rectangle((px(lo_),Y+0.12),px(hi_)-px(lo_),H2,facecolor=LGREY,edgecolor=K,lw=1.4,zorder=4))
+ax.text((px(lo_)+px(hi_))/2, Y+0.12+H2+0.16, f'만들 수 있는 범위  {lo_:.3f} ~ {hi_:.3f}',
+        ha='center', fontsize=12.5, weight='bold')
+ax.plot([px(bar)]*2,[Y+0.02,Y+1.55],color=K,lw=2.0,zorder=6)
+ax.text(px(bar)+0.12, Y+1.58, f'이 값을 넘으면 안 된다  {bar:.3f}', fontsize=12.5, weight='bold', va='bottom')
+ax.text(px(bar)+0.12, Y+1.28, '(20 W 에서 HBM 6.40 TB/s 를 내려면)', fontsize=10.5, va='bottom', color=GREY)
+ax.plot([px(0.5)]*2,[Y+0.02,Y+0.95],color=K,lw=1.2,ls=(0,(4,2)),zorder=6)
+ax.text(px(0.5)+0.10, Y+0.98, '소자 모델 예시 0.5', fontsize=11, va='bottom')
+ax.text(0.30, 0.95, f'=> 비관 코너 {hi_:.3f} 도 기준선 {bar:.3f} 보다 {bar/hi_:.1f}배 낮다.', fontsize=13, weight='bold')
+ax.text(0.30, 0.55, f'   소자 모델의 0.5 는 우리 비관 코너보다 {0.5/hi_:.1f}배 높았다.', fontsize=12)
+ax.set_xlim(0,12); ax.set_ylim(0.2,4.0)
+fig.savefig(os.path.join(FIG,'bw-ebit.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote bw-sensitivity, bw-ebit')
+
+# ---------------------------------------------------------------- 8. layers
+import thermal_sensitivity as SENS
+N = np.arange(1, 13)
+Cs = np.array([M.capacity_GB(800.0, int(n), 2, 'C2') for n in N])
+FR = np.array([M.f_red(c)*100 for c in Cs])
+knee = next(int(n) for n, c in zip(N, Cs) if M.f_red(c) >= M.F_MAX-1e-9)
+dT = [SENS.variant(n_tiers=int(n), beol_k=1.0)[1]*M.p_burst_W(0.5)/2.0 for n in N]
+fig = plt.figure(figsize=(12.0, 4.3), facecolor='white')
+ax = axbox(fig, [0.075, 0.20, 0.40, 0.68])
+ax.plot(N, FR, color=K, lw=1.8, marker='o', ms=7, mfc='white', mec=K, mew=1.6, zorder=5)
+ax.axhline(M.F_MAX*100, color=K, lw=1.1, ls=(0,(4,2)), zorder=4)
+ax.axvline(knee, color=K, lw=1.4, zorder=4)
+ax.text(knee+0.25, 20, f'{knee}층에서 포화', fontsize=11.5, weight='bold')
+ax.text(1.2, M.F_MAX*100+2.5, f'{M.F_MAX*100:.1f}%  (weight 스트림을 다 덮음)', fontsize=10.5)
+ax.set_xlim(0.5,12.5); ax.set_ylim(0,100)
+ax.set_xlabel('쌓은 층수', fontsize=11.5); ax.set_ylabel('HBM 트래픽 감소  [%]', fontsize=11.5)
+ax2 = axbox(fig, [0.575, 0.20, 0.40, 0.68])
+ax2.plot(N, dT, color=K, lw=1.8, marker='s', ms=6, mfc='white', mec=K, mew=1.6, zorder=5)
+ax2.axhline(10.0, color=K, lw=1.1, ls=(0,(4,2)), zorder=4)
+ax2.text(1.2, 10.35, '예시 여유 10 K', fontsize=10.5)
+ax2.axvline(knee, color=K, lw=1.4, zorder=4)
+ax2.set_ylim(0, 12.5); ax2.set_xlim(0.5,12.5)
+ax2.set_xlabel('쌓은 층수', fontsize=11.5); ax2.set_ylabel('티어 자체 온도 상승  [K]', fontsize=11.5)
+ax2.text(6.8, 1.35, '최악 조건에서도 0.43 K', fontsize=11.5, weight='bold', ha='center')
+fig.text(0.075, 0.945, '이득은 층수에 따라 늘다가 멈춘다', fontsize=12, weight='bold')
+fig.text(0.575, 0.945, '그런데 열은 층수와 거의 무관하다', fontsize=12, weight='bold')
+fig.savefig(os.path.join(FIG,'bw-layers.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 9. hotspot
+MAPDL=[(4000.0,0.8476753),(1000.0,6.220460),(500.0,18.02689),(200.0,96.93106),(100.0,425.4633)]
+frac=np.array([ (l/4000.0)**2*100 for l,_ in MAPDL]); Tp=np.array([t for _,t in MAPDL])
+fig = plt.figure(figsize=(12.0, 4.3), facecolor='white')
+ax = axbox(fig, [0.075, 0.20, 0.50, 0.68]); ax.set_xscale('log'); ax.set_yscale('log')
+ax.grid(True, which='both', color='#e6e6e6', lw=0.7, zorder=0)
+ax.plot(frac, Tp, color=K, lw=1.8, marker='o', ms=8, mfc='white', mec=K, mew=1.7, zorder=5)
+ax.plot([100],[0.8363], marker='s', ms=10, mfc=K, mec=K, zorder=7)
+ax.axhline(10.0, color=K, lw=1.1, ls=(0,(4,2)), zorder=4)
+ax.text(0.048, 11.8, '예시 여유 10 K', fontsize=10.5)
+for f_,t_,l_,dx,dy in [(frac[4],Tp[4],100.0,14,-2),(frac[1],Tp[1],1000.0,14,6)]:
+    ax.annotate(f'한 변 {l_/1000:g} mm 만 켠 경우', (f_,t_), textcoords='offset points',
+                xytext=(dx,dy), fontsize=10.5)
+ax.set_xticks([0.0625,0.25,1.5625,6.25,100.0])
+ax.set_xticklabels(['0.06','0.25','1.6','6.3','100'])
+ax.set_xlim(0.04,200); ax.set_ylim(0.4,900)
+ax.set_xlabel('버스트 동안 실제로 켜지는 티어 면적의 비율  [%]', fontsize=11)
+ax.set_ylabel('티어 최고 온도 상승  [K]', fontsize=11.5)
+axt = fig.add_axes([0.62, 0.18, 0.36, 0.72]); axt.axis('off'); axt.set_xlim(0,1); axt.set_ylim(0,1)
+axt.text(0, 0.96, '전력 총량은 같게 두고\n켜지는 면적만 줄였다', fontsize=13, weight='bold', va='top')
+axt.text(0, 0.70, '전면(100%)  0.848 K\n1D 솔버와 1.3% 로 같다', fontsize=12, va='top')
+axt.text(0, 0.46, '한 변 0.1 mm 만 켜면  425 K\n502배', fontsize=12.5, weight='bold', va='top')
+axt.text(0, 0.24, 'decode 는 상주 weight 를\n전 매크로에서 읽으므로\n전면 쪽이 실제 동작점이다', fontsize=11.5, va='top')
+fig.savefig(os.path.join(FIG,'bw-hotspot.png'), dpi=230, facecolor='white'); plt.close(fig)
+
+# ---------------------------------------------------------------- 10. T-3
+SNM, DV = 155.0, 865.0
+Sx = np.linspace(0.04,1.05,300); tol = SNM/Sx; Sb = SNM/DV
+fig = plt.figure(figsize=(12.0, 4.3), facecolor='white')
+ax = axbox(fig, [0.075, 0.20, 0.50, 0.68]); ax.set_yscale('log')
+ax.grid(True, which='both', color='#e6e6e6', lw=0.7, zorder=0)
+ax.axvspan(0.3, 1.0, facecolor=LGREY, edgecolor='none', zorder=1)
+ax.plot(Sx, tol, color=K, lw=2.0, zorder=5)
+ax.axhline(DV, color=K, lw=1.6, ls=(0,(5,3)), zorder=6)
+ax.plot([Sb],[DV], marker='o', ms=11, mfc='white', mec=K, mew=2.0, zorder=8)
+ax.annotate(f'여기서 갈린다  S = {Sb:.3f}', xy=(Sb,DV), xytext=(0.50,1900), fontsize=12,
+            weight='bold', ha='center', arrowprops=dict(arrowstyle='-', color=K, lw=1.1))
+ax.text(1.02, 990, f'문헌이 주는 이동  {DV:.0f} mV', ha='right', va='bottom', fontsize=11.5)
+ax.text(0.052, 2600, '셀이 견딜 수 있는 한계', fontsize=11.5, weight='bold')
+ax.text(0.65, 62, '실제 6T 셀이 사는 구간\nS = 0.3 ~ 1.0', ha='center', fontsize=11.5, weight='bold')
+ax.set_xlim(0.04,1.05); ax.set_ylim(50,3600)
+ax.set_xlabel('S  =  Vth 가 1 mV 움직일 때 잃는 읽기 마진 [mV]', fontsize=11)
+ax.set_ylabel('견딜 수 있는 Vth 이동  [mV]', fontsize=11.5)
+axt = fig.add_axes([0.62, 0.18, 0.36, 0.72]); axt.axis('off'); axt.set_xlim(0,1); axt.set_ylim(0,1)
+axt.text(0, 0.97, '덱의 read SNM 은 155 mV', fontsize=13, weight='bold', va='top')
+axt.text(0, 0.84, '문헌의 Vth 이동은 865 mV', fontsize=13, weight='bold', va='top')
+axt.text(0, 0.66, '둘을 잇는 값 S 를 아무도 주지 않았다.\n그래서 S 를 축으로 놓고 풀었다.', fontsize=11.5, va='top')
+axt.text(0, 0.42, f'갈리는 지점 S = {Sb:.3f}', fontsize=13, weight='bold', va='top')
+axt.text(0, 0.30, '실제 6T 셀은 0.3 ~ 1.0 —\n한 자릿수 위다.', fontsize=12, va='top')
+fig.savefig(os.path.join(FIG,'bw-t3.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote bw-layers, bw-hotspot, bw-t3')
