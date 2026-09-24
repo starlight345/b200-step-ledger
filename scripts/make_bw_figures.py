@@ -217,7 +217,7 @@ fig.savefig(os.path.join(FIG,'bw-sensitivity.png'), dpi=230, facecolor='white');
 # end is the macro-level 7 nm anchor at our 1 Mb macro size (ebit_budget.py, 2026-09-24).
 import ebit_budget as B
 lo_,hi_=B.budget(0)['total'],B.budget(1)['total']
-bar=B.requirement(20,M.BW_HBM,1.0); bar_v=B.requirement(20,M.BW_HBM,0.2724)
+bar=B.requirement(20,M.BW_HBM,1.0); bar_v=B.requirement(20,M.BW_HBM,0.2693)
 fig, ax = canvas(12.0, 4.2)
 ax.text(0.30, 3.85, '한 비트를 옮기는 데 쓸 수 있는 에너지  [pJ/bit]', fontsize=13, weight='bold')
 L,R,Y,H2 = 0.60, 11.2, 1.85, 0.70

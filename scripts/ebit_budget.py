@@ -86,7 +86,8 @@ def requirement(P_W, bw_TBs, peak_frac):
 
 if __name__ == '__main__':
     C = M.capacity_GB(800.0, 2); d = M.duty(C)
-    PF_SOLVER = 0.2724          # scripts/thermal_stack_solver.py, 2-tier stack
+    PF_SOLVER = 0.2693          # scripts/thermal_stack_solver.py, 2-tier literature stack (5-C);
+                                # 0.2724 was the pre-literature 1 um / 1 um guess
     print('=== achievable E/bit, bottom-up [pJ/bit] ===')
     print(f"{'term':>28} {'optimistic':>11} {'pessimistic':>12}   basis")
     lo, hi = budget(0), budget(1)
