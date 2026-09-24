@@ -77,7 +77,10 @@ fig.text(0.02, 0.955, 'The thermal answer belongs to the BEOL integration, not t
 fig.text(0.02, 0.893, 'Verified 1D transient solver (analytic x2; MAPDL 1D 0.02%; MAPDL 3D 1.3%). Ceiling is set by a temperature budget, '
          'dT = R$_{th}$ x 20 W,\nso that geometry changes move R$_{th}$ and the peak fraction independently rather than being hidden inside a fixed watt budget.',
          fontsize=7.8, color=INK2, va='top', linespacing=1.5)
-fig.text(0.02, 0.115, 'E/bit is off the left scale: 0.014-0.260 pJ/bit spans 35.7-688 TB/s, so it remains the one measurement worth asking for.',
+import ebit_budget as _B, ectc_thermal_model as _M
+_lo, _hi = _B.budget(0)['total'], _B.budget(1)['total']
+fig.text(0.02, 0.115, f'E/bit is off the left scale: {_lo:.3f}-{_hi:.3f} pJ/bit spans '
+                     f'{_M.bw_cap_TBs(20.0, _hi, 0.2693):.1f}-{_M.bw_cap_TBs(20.0, _lo, 0.2693):.0f} TB/s, so it remains the one measurement worth asking for.',
          fontsize=7.6, color=S3, va='top')
 fig.text(0.02, 0.078, 'Substrate thinning is the odd one out: it lowers R$_{th}$ but removes the thermal mass that does the duty-cycle averaging, so the two nearly\n'
          'cancel and only 1.04x survives. A steady-state study would have credited it with the full R$_{th}$ improvement.',

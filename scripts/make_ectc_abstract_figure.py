@@ -75,8 +75,8 @@ ax.grid(True, which='both', color=GRID, lw=0.5, zorder=0)
 fig.text(0.098, 0.965, 'A %.0f W BEOL SRAM tier clears the bar under the conservative rule, not just the generous one' % P_W,
          fontsize=11.4, color=INK, va='top')
 fig.text(0.098, 0.905, 'Llama-3.1-8B decode on a measured B200 ledger, B=8 N=2048. C2 2-layer 800 mm$^2$ = %.2f GB, tier duty %.2f%%,\n'
-         'burst %.0f $\\mu$s in a %.3f ms step. Achievable band is bottom-up from published silicon SRAM array energy and a\n'
-         'BEOL-array energy ratio from the gain-cell literature. Stack geometry and materials are literature-anchored and stated as a design study.'
+         'burst %.0f $\\mu$s in a %.3f ms step. Achievable band: 5 nm SRAM array estimate at the optimistic end, 7 nm 1 Mb macro read\n'
+         '(periphery included) x 2 BEOL penalty at the pessimistic end. Geometry and materials: a literature-anchored design study.'
          % (C_DP, DUTY*100, M.burst_s(C_DP)*1e6, M.T_STEP*1e3),
          fontsize=7.9, color=INK2, va='top', linespacing=1.5)
 for ext in ('png', 'svg', 'pdf'):

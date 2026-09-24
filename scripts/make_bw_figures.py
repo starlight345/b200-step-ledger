@@ -205,30 +205,39 @@ ax2.set_yticks(range(len(mt))); ax2.set_yticklabels([MN.get(m['change'],m['chang
 ax2.set_xlim(0.9,2.15); ax2.set_xlabel('완화 후 / 기준', fontsize=10.5)
 fig.text(0.015, 0.95, '측정되지 않은 값을 각자 범위 전체로 흔들었을 때', fontsize=12, weight='bold')
 fig.text(0.735, 0.95, '무엇으로 되찾을 수 있는가', fontsize=12, weight='bold')
-fig.text(0.015, 0.045, '* E/bit 는 축 밖이다: 0.019~0.260 pJ/bit 가 35.7~688 TB/s 에 대응하므로 여전히 물어야 할 값이다.', fontsize=9.5, color=GREY)
+import ebit_budget as B
+_lo, _hi = B.budget(0)['total'], B.budget(1)['total']
+fig.text(0.015, 0.045, f'* E/bit 는 축 밖이다: {_lo:.3f}~{_hi:.3f} pJ/bit 가 '
+                       f'{M.bw_cap_TBs(20.0, _hi, 0.2693):.1f}~{M.bw_cap_TBs(20.0, _lo, 0.2693):.0f} TB/s 에 대응하므로 여전히 물어야 할 값이다.', fontsize=9.5, color=GREY)
 fig.savefig(os.path.join(FIG,'bw-sensitivity.png'), dpi=230, facecolor='white'); plt.close(fig)
 
 # ---------------------------------------------------------------- 7. E/bit budget
+# Two bars, because the paper's point is which one is right: the steady-state rule's 0.391
+# and the verified transient model's 1.434 (same 20 W, same HBM 6.40 TB/s). The pessimistic
+# end is the macro-level 7 nm anchor at our 1 Mb macro size (ebit_budget.py, 2026-09-24).
 import ebit_budget as B
-lo_,hi_=B.budget(0)['total'],B.budget(1)['total']; bar=B.requirement(20,M.BW_HBM,1.0)
-fig, ax = canvas(12.0, 4.0)
-ax.text(0.30, 3.65, '한 비트를 옮기는 데 쓸 수 있는 에너지  [pJ/bit]', fontsize=13, weight='bold')
-L,R,Y,H2 = 0.60, 10.6, 1.85, 0.70
-def px(v): return L + (np.log10(v)-np.log10(0.008))/(np.log10(1.2)-np.log10(0.008))*(R-L)
+lo_,hi_=B.budget(0)['total'],B.budget(1)['total']
+bar=B.requirement(20,M.BW_HBM,1.0); bar_v=B.requirement(20,M.BW_HBM,0.2724)
+fig, ax = canvas(12.0, 4.2)
+ax.text(0.30, 3.85, '한 비트를 옮기는 데 쓸 수 있는 에너지  [pJ/bit]', fontsize=13, weight='bold')
+L,R,Y,H2 = 0.60, 11.2, 1.85, 0.70
+def px(v): return L + (np.log10(v)-np.log10(0.008))/(np.log10(2.5)-np.log10(0.008))*(R-L)
 ax.plot([L,R],[Y,Y], color=K, lw=1.2)
 for t in (0.01,0.03,0.1,0.3,1.0):
     ax.plot([px(t)]*2,[Y-0.10,Y],color=K,lw=1.0); ax.text(px(t),Y-0.30,f'{t:g}',ha='center',fontsize=10.5)
 ax.add_patch(plt.Rectangle((px(lo_),Y+0.12),px(hi_)-px(lo_),H2,facecolor=LGREY,edgecolor=K,lw=1.4,zorder=4))
 ax.text((px(lo_)+px(hi_))/2, Y+0.12+H2+0.16, f'만들 수 있는 범위  {lo_:.3f} ~ {hi_:.3f}',
         ha='center', fontsize=12.5, weight='bold')
-ax.plot([px(bar)]*2,[Y+0.02,Y+1.55],color=K,lw=2.0,zorder=6)
-ax.text(px(bar)+0.12, Y+1.58, f'이 값을 넘으면 안 된다  {bar:.3f}', fontsize=12.5, weight='bold', va='bottom')
-ax.text(px(bar)+0.12, Y+1.28, '(20 W 에서 HBM 6.40 TB/s 를 내려면)', fontsize=10.5, va='bottom', color=GREY)
-ax.plot([px(0.5)]*2,[Y+0.02,Y+0.95],color=K,lw=1.2,ls=(0,(4,2)),zorder=6)
-ax.text(px(0.5)+0.10, Y+0.98, '소자 모델 예시 0.5', fontsize=11, va='bottom')
-ax.text(0.30, 0.95, f'=> 비관 코너 {hi_:.3f} 도 기준선 {bar:.3f} 보다 {bar/hi_:.1f}배 낮다.', fontsize=13, weight='bold')
-ax.text(0.30, 0.55, f'   소자 모델의 0.5 는 우리 비관 코너보다 {0.5/hi_:.1f}배 높았다.', fontsize=12)
-ax.set_xlim(0,12); ax.set_ylim(0.2,4.0)
+ax.plot([px(bar)]*2,[Y+0.02,Y+1.55],color=K,lw=1.4,ls=(0,(4,2)),zorder=6)
+ax.text(px(bar)-0.10, Y+1.58, f'정상상태 식 기준  {bar:.3f}', fontsize=11.5, va='bottom', ha='right')
+ax.plot([px(bar_v)]*2,[Y+0.02,Y+1.55],color=K,lw=2.2,zorder=6)
+ax.text(px(bar_v)-0.10, Y+1.58, f'검증 모델 기준  {bar_v:.3f}', fontsize=12.5, weight='bold', va='bottom', ha='right')
+ax.text(px(bar)-0.10, Y+1.30, '(둘 다 20 W 에서 HBM 6.40 TB/s 를 내려면)', fontsize=10, va='bottom', ha='right', color=GREY)
+ax.text(0.30, 0.95, f'=> 비관 코너 {hi_:.3f} 도 정상상태 기준 {bar:.3f} 아래다. 검증 모델 기준으로는 {bar_v/hi_:.1f}배 여유.',
+        fontsize=13, weight='bold')
+ax.text(0.30, 0.55, '   비관 끝 = 7 nm 1 Mb 매크로 읽기(주변회로 포함) × BEOL 6T 페널티 2배 + 수직 링크.  낙관 끝 = 5 nm HP 어레이 × 0.82.',
+        fontsize=11)
+ax.set_xlim(0,12); ax.set_ylim(0.2,4.2)
 fig.savefig(os.path.join(FIG,'bw-ebit.png'), dpi=230, facecolor='white'); plt.close(fig)
 print('wrote bw-sensitivity, bw-ebit')
 
@@ -425,3 +434,29 @@ fig.text(0.012, 0.018, 'Ansys Mechanical APDL 26.1  ·  정상상태 전도  · 
          fontsize=9, color=GREY)
 fig.savefig(os.path.join(FIG,'bw-mapdl.png'), dpi=230, facecolor='white'); plt.close(fig)
 print('wrote bw-mapdl')
+
+# ---------------------------------------------------------------- 14. AEDT cross-check evidence
+# Ansys Electronics Desktop 2026 R1, Icepak FEA, run on the lab PC over Chrome Remote Desktop
+# (scripts/aedt/). AEDT's graphics area does not paint in that session -- neither the remote
+# viewer nor a capture taken on the Windows side shows it -- so the contour pictures are AEDT's
+# own offscreen renders (ExportModelImageToFile), and the full-window capture shows what does
+# paint: the project tree, the mesh statistics and the result messages. Crops only.
+AE = os.path.join(ROOT, 'assets', 'aedt')
+gui = Image.open(os.path.join(AE, 'aedtgui.png')).convert('RGB')
+gui.crop((0, 0, gui.width, 1032)).save(os.path.join(FIG, 'aedt-gui.png'))   # drop the taskbar
+panels = [('aedtsurfiso.png', 1130, 'a.  스택 전체', '싱크 93.6 → 티어 100.03 °C'),
+          ('aedttiertop.png', 1170, 'b.  티어 평면', 'L자 주변회로 100.000 → 100.031 °C')]
+ims = [Image.open(os.path.join(AE, f)).convert('RGB').crop((0, 0, w, 1000)) for f, w, _, _ in panels]
+FW, FH = 8.6, 4.3
+fig = plt.figure(figsize=(FW, FH), facecolor='white')
+BOT, BANDH, GAP = 0.20, 0.78, 0.03
+wfr = [BANDH*(FH/FW)*(im.width/im.height) for im in ims]
+x = (1.0 - (sum(wfr) + GAP))/2.0
+for im, w, (_, _, head, sub) in zip(ims, wfr, panels):
+    ax = fig.add_axes([x, BOT, w, BANDH]); ax.imshow(im); ax.set_xticks([]); ax.set_yticks([])
+    for sp in ax.spines.values(): sp.set_edgecolor(K); sp.set_linewidth(1.2)
+    fig.text(x, 0.155, head, fontsize=12, weight='bold', va='top')
+    fig.text(x, 0.075, sub, fontsize=10.5, va='top')
+    x += w + GAP
+fig.savefig(os.path.join(FIG, 'aedt-field.png'), dpi=230, facecolor='white'); plt.close(fig)
+print('wrote aedt-gui, aedt-field')

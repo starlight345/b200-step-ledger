@@ -1,0 +1,5 @@
+# Regenerable and 2.6-15 MB each: `python3 scripts/mapdl_macro.py` writes the solve decks, and
+# the Workbench CDB comes from running export_mechanical.dat (export_deck() in the same script)
+# through MAPDL on dsil-sy. The results (results.txt, png/) are what is committed.
+*.dat
+*.cdb

@@ -1,0 +1,16 @@
+verify 97s RESULT peak= 0.22449968E+00 peakmin= 0.22019809E+00 logic= 0.73470540E-01 prevpeak= 0.22484454E+00 trough= 0.24761412E-01 mean= 0.40688414E-01 errors=0
+prod_k1_phiU 100s RESULT peak= 0.10019709E+03 peakmin= 0.10019279E+03 logic= 0.10004606E+03 prevpeak= 0.10019725E+03 trough= 0.99997433E+02 mean= 0.10000951E+03 errors=0
+prod_k1_phi50 100s RESULT peak= 0.10034004E+03 peakmin= 0.10013633E+03 logic= 0.10007328E+03 prevpeak= 0.10034020E+03 trough= 0.99997434E+02 mean= 0.10001694E+03 errors=0
+prod_k1_phi70 106s RESULT peak= 0.10047309E+03 peakmin= 0.10008378E+03 logic= 0.10009861E+03 prevpeak= 0.10047324E+03 trough= 0.99997435E+02 mean= 0.10002386E+03 errors=0
+prod_k1_phi90 101s RESULT peak= 0.10060613E+03 peakmin= 0.10003123E+03 logic= 0.10012394E+03 prevpeak= 0.10060629E+03 trough= 0.99997435E+02 mean= 0.10003078E+03 errors=0
+prod_k10_phiU 100s RESULT peak= 0.10019709E+03 peakmin= 0.10019279E+03 logic= 0.10004606E+03 prevpeak= 0.10019725E+03 trough= 0.99997433E+02 mean= 0.10000951E+03 errors=0
+prod_k10_phi50 100s RESULT peak= 0.10033796E+03 peakmin= 0.10013687E+03 logic= 0.10007225E+03 prevpeak= 0.10033812E+03 trough= 0.99997434E+02 mean= 0.10001680E+03 errors=0
+prod_k10_phi70 100s RESULT peak= 0.10046907E+03 peakmin= 0.10008482E+03 logic= 0.10009663E+03 prevpeak= 0.10046923E+03 trough= 0.99997435E+02 mean= 0.10002359E+03 errors=0
+prod_k10_phi90 101s RESULT peak= 0.10060018E+03 peakmin= 0.10003277E+03 logic= 0.10012101E+03 prevpeak= 0.10060034E+03 trough= 0.99997435E+02 mean= 0.10003037E+03 errors=0
+conv_fine 1570s RESULT peak= 0.10060737E+03 peakmin= 0.10003128E+03 logic= 0.10012468E+03 prevpeak= 0.10060753E+03 trough= 0.99997422E+02 mean= 0.10003078E+03 errors=0
+DONE
+prod_kz1_phiU 98s RESULT peak= 0.10039740E+03 peakmin= 0.10038895E+03 logic= 0.10003820E+03 prevpeak= 0.10039756E+03 trough= 0.99997667E+02 mean= 0.10002066E+03 errors=0
+prod_kz1_phi90 98s RESULT peak= 0.10124948E+03 peakmin= 0.10005537E+03 logic= 0.10010589E+03 prevpeak= 0.10124964E+03 trough= 0.99997671E+02 mean= 0.10006598E+03 errors=0
+viz_phi90 100s RESULT peak= 0.10060613E+03 peakmin= 0.10003123E+03 logic= 0.10012394E+03 prevpeak= 0.10060629E+03 trough= 0.99997435E+02 mean= 0.10003078E+03 errors=0
+export_mechanical 6s  errors=0
+DONE2
