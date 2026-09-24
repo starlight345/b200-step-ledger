@@ -132,8 +132,11 @@ if __name__ == '__main__':
           f'{n8["rel_error"]*100:.0f}%,')
     if r5:
         print(f'  and {r5["N"]} nodes reach 5%. What the one-node model gets wrong is TOPOLOGY --')
-        print(f'  it merges a 50 nm tier with 500 um of silicon, so the burst appears to charge')
-        print(f'  a heat capacity it never reaches inside one {TS.PERIOD*1e3:.3f} ms step.')
+        print(f'  it merges a 50 nm tier with 500 um of silicon, so the burst energy is spread')
+        print(f'  over the whole stack heat capacity, while the real peak is set by the thin')
+        print(f'  BEOL right beside the tier. (Heat does reach the substrate within a step --')
+        print(f'  the Si diffusion length over {TS.PERIOD*1e3:.3f} ms is ~0.55 mm -- so the error is')
+        print(f'  not that the substrate is unreachable, it is that it is lumped with the tier.)')
         print(f'\n  Practical statement: a reduced model of this stack needs ~{r5["N"]} nodes, and')
         print(f'  the binding requirement is that the tier and the substrate stay separate.')
 

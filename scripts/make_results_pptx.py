@@ -84,7 +84,7 @@ s = prs.slides.add_slide(BLANK)
 title(s, 'More experiments are needed',
       '트래픽과 소자 요구는 측정으로 받쳐진다. 시간(성능)만 미검증 가정 위에 있다.')
 rows = [['','무엇을 주장하나','현재 근거','막혀 있는 것'],
-        ['트래픽 감소  18.6 ~ 24.8 %','HBM 논리 바이트가 준다','측정  trace replay','—'],
+        ['트래픽 감소  18.6 ~ 24.8 %','HBM 물리 바이트가 준다','측정  trace replay','—'],
         ['충전  13.86 → 0 GB/step','수요 충전은 쓰고 안 읽는다','측정  trace replay','—'],
         ['요구 쓰기 BW  43.18 → 없음','소자 스펙에서 쓰기가 빠진다','측정 유도','—'],
         ['순서 불변성  ±0.01 %p','결과가 trace 성질이 아니다','측정  6개 순서','—'],
@@ -119,13 +119,13 @@ s = prs.slides.add_slide(BLANK)
 title(s, 'Metrics', 'replay 가 직접 내는 세 값과, 거기서 정의되는 세 지표')
 rows = [['','정의','단위','등급'],
         ['replay 직접 출력',
-         'R_HBM (HBM 읽기) · R_tier (티어 읽기) · W_fill (티어 쓰기 = 충전)','GB / decode step','측정'],
-        ['HBM reduction','( R_HBM^base − R_HBM ) / R_HBM^base','%','측정'],
-        ['Fill cost','W_fill  —  정규화하지 않고 절대량 그대로','GB / decode step','측정'],
+         'V^R_HBM (HBM 읽기) · V^R_tier (티어 읽기) · V^W_fill (티어 쓰기 = 충전)','GB / decode step','측정'],
+        ['HBM reduction','( V^R_HBM(base) − V^R_HBM ) / V^R_HBM(base)','%','측정'],
+        ['Fill cost','V^W_fill  —  정규화하지 않고 절대량 그대로','GB / decode step','측정'],
         ['Speedup','T_base / T_config','배','projection'],
         ['T_config',
          'T = t0 + [직렬: Σ 서비스 시간]  또는  [겹침: max(...)]\n'
-         '서비스 시간 = R_HBM/B_HBM + R_tier/B_R + W_fill/B_W','ms','projection']]
+         '서비스 시간 = V^R_HBM/B_HBM + V^R_tier/B_R + V^W_fill/B_W','ms','projection']]
 table(s, rows, .7, 1.6, 11.9, 3.2, colw=[2.3, 6.1, 2.0, 1.5], fs=12.5)
 note(s, .7, 5.1, 11.9, [
  ('기준선 base = 기존 B200 L2 (126 MB) 만 둔 구성. 티어를 더한 구성과 같은 logical access 를 재생한다.',
@@ -134,29 +134,37 @@ note(s, .7, 5.1, 11.9, [
  ('Speedup 만 projection 이다 — t0 = 1.85 ms 와 B_HBM = 6.40 TB/s 는 실측 앵커 회귀값이고, '
   '같은 워크로드에서 HBM 바이트만 줄였을 때의 인과 계수는 아직 검증되지 않았다.', 12, RED, True)])
 
-# ============================================ 3. R1 이득 포화 / 비용 선형  (실제 단위, 2단)
+# ============================================ 3. R1  실제 GB/step, 교차점
 s = prs.slides.add_slide(BLANK)
-title(s, 'Result 1: 더 적극적으로 채워도 이득은 안 늘고 비용만 는다',
-      '600 mm², C2 2층 · 32스텝 정상 상태, 시드 3개 · p = 미스 시 티어에 할당할 확률')
+title(s, 'Result 1: p > 0.23 부터는 아끼는 바이트보다 쓰는 바이트가 많아진다',
+      '600 mm², C2 2층 · 32스텝 정상 상태, 시드 3개 · 둘 다 GB / decode step, 같은 축')
 CATS = ['0','0.02','0.05','0.10','0.20','0.35','0.50','0.75','1.00']
-
 d = CategoryChartData(); d.categories = CATS
-d.add_series('HBM 감소', (-0.77, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59, 18.59))
-ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(1.5), Inches(11.7), Inches(2.45), d).chart
-quiet(ch, '', 'HBM 감소  [%]', legend=False)
-sline(ch.series[0], BLUE2, 3.0, ms=8)
-ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = -4, 24, 8
+d.add_series('이득  HBM 절감  ΔV^R', (-0.131, 3.165, 3.165, 3.165, 3.165, 3.165, 3.165, 3.165, 3.165))
+d.add_series('비용  티어 충전  V^W_fill', (0.000, 0.287, 0.686, 1.392, 2.747, 4.784, 6.909, 10.359, 13.862))
+ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.7), Inches(1.6), Inches(8.1), Inches(4.5), d).chart
+quiet(ch, 'admission 확률  p   (미스 시 티어에 할당할 확률)', '바이트  [GB / decode step]')
+sline(ch.series[0], BLUE2, 3.2, ms=8); sline(ch.series[1], ORANGE, 3.2, ms=8)
+ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = -2, 15, 3
 
-d = CategoryChartData(); d.categories = CATS
-d.add_series('티어 충전', (0.00, 0.29, 0.69, 1.39, 2.75, 4.78, 6.91, 10.36, 13.86))
-ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.8), Inches(4.05), Inches(11.7), Inches(2.45), d).chart
-quiet(ch, 'admission 확률  p', '티어 충전  [GB / step]', legend=False)
-sline(ch.series[0], ORANGE, 3.0, ms=8)
-ch.value_axis.minimum_scale, ch.value_axis.maximum_scale, ch.value_axis.major_unit = 0, 16, 4
-
-note(s, .8, 6.6, 11.7, [
- ('p = 0.02 에서 이미 18.59 % — 이후 어떤 p 에서도 18.59 % 그대로다. '
-  '같은 구간에서 충전만 0.29 → 13.86 GB/step 으로 48 배 는다.', 14.5, INK, True)])
+rows = [['','정의','p = 1 에서'],
+        ['이득  ΔV^R','V^R_HBM(base) − V^R_HBM','3.165 GB'],
+        ['비용  V^W_fill','티어에 써 넣은 바이트','13.862 GB']]
+table(s, rows, 8.95, 1.7, 3.75, .95, colw=[1.15, 1.6, 1.0], fs=11)
+note(s, 8.95, 2.9, 3.75, [
+ ('base = 기존 B200 L2 (126 MB) 만 둔 구성', 10.5, MUTED, False),
+ ('V^R_HBM(base) = 17.027 GB / step', 10.5, MUTED, False),
+ ('', 7, MUTED, False),
+ ('이득은 p > 0 에서 3.165 GB 로 고정', 12.5, BLUE2, True),
+ ('비용은 p 에 선형,  V^W_fill = 13.862 · p', 12.5, ORANGE, True),
+ ('', 7, MUTED, False),
+ ('교차점', 13, INK, True),
+ ('p* = ΔV^R / 13.862 = 0.228', 13, INK, True),
+ ('', 7, MUTED, False),
+ ('p = 1 에서 비용이 이득의 4.38 배', 12.5, RED, True)])
+note(s, .7, 6.25, 8.1, [
+ ('충전은 미스마다 1:1 로 생긴다. 이득은 상주 집합이 차는 순간 포화하므로 더 채워도 늘지 않는다.',
+  13.5, INK, True)])
 
 # ============================================ 4. R2 최적점은 β 무관
 s = prs.slides.add_slide(BLANK)
@@ -185,7 +193,7 @@ d.add_series('미스에 비할당 만', (14.65, 18.59, -0.77))
 d.add_series('+ 즉시 반환', (18.59, 18.59, 18.59))
 d.add_series('관리 상주 (상한)', (18.59, 18.59, 18.59))
 ch = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1.1), Inches(1.6), Inches(11.1), Inches(4.4), d).chart
-quiet(ch, '', 'HBM 논리 트래픽 감소  [%]', pos=XL_LEGEND_POSITION.TOP)
+quiet(ch, '', 'HBM 물리 트래픽 감소  [%]', pos=XL_LEGEND_POSITION.TOP)
 for ser, col in zip(ch.series, (ORANGE, TEAL, GREY)): bar(ser, col)
 ch.plots[0].gap_width = 80
 for ser in ch.series:
@@ -224,9 +232,9 @@ rows = [['정책','전환율','용량 4.22 GB 가'],
         ['일반 캐시 (LRU)','−4.0 %','하나도 없애지 못한다']]
 table(s, rows, 8.65, 1.75, 4.0, .95, colw=[1.9, 0.9, 1.2], fs=11)
 note(s, 8.65, 3.0, 4.0, [
- ('B_min = B_HBM / (1 − ΔR / D)', 13, INK, True),
+ ('B_min = B_HBM / (1 − ΔV^R / D)', 13, INK, True),
  ('', 6, MUTED, False),
- ('처음 숙제에서는 이 자리에 명목 용량 C 를 넣었다. 이제 replay 로 얻은 실제 감소 ΔR 을 넣는다.', 11.5, INK2, False),
+ ('처음 숙제에서는 이 자리에 명목 용량 C 를 넣었다. 이제 replay 로 얻은 실제 감소 ΔV^R 을 넣는다.', 11.5, INK2, False),
  ('', 6, MUTED, False),
  ('모든 설계점이 덱 17.7 과 패브릭 19 아래에 있다. 최대 요구는 C2 2층 800 mm² 에서 8.40 TB/s 다.', 12, INK, True),
  ('', 6, MUTED, False),

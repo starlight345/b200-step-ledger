@@ -72,7 +72,7 @@ d.add_series('C2 1층', (6.00,7.50,9.00,10.50,12.00))
 d.add_series('C3 1층', (3.96,4.95,5.94,6.93,7.92))
 d.add_series('일반 캐시 (LRU) — 전 셀 동일', (-0.7455,)*5)
 ch = s.shapes.add_chart(XL_CHART_TYPE.LINE_MARKERS, Inches(.75), Inches(1.5), Inches(11.8), Inches(5.35), d).chart
-quiet(ch, '순배치 면적  [mm² / die / layer]', 'HBM 논리 트래픽 감소  [%]')
+quiet(ch, '순배치 면적  [mm² / die / layer]', 'HBM 물리 트래픽 감소  [%]')
 for ser, col, w, m in zip(ch.series, (BLUE, BLUE2, BLUE3, BLUE4, INK), (3.25,2.25,2.25,2.25,3.0), (8,6,6,6,0)):
     style_line(ser, col, w, marker=bool(m), msize=m or 6)
 ch.series[4].format.line.dash_style = 4
