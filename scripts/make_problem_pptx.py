@@ -59,6 +59,7 @@ def style_line(ser, rgb, width=2.5, dash=None, marker=True, msize=7):
         ser.marker.style = XL_MARKER_STYLE.NONE
 
 def bar_color(ser, rgb):
+    ser.invert_if_negative = False
     ser.format.fill.solid(); ser.format.fill.fore_color.rgb = rgb
     ser.format.line.fill.background()
 
@@ -92,7 +93,7 @@ quiet(ch, '', '트래픽  [GB / decode step]', pos=XL_LEGEND_POSITION.TOP)
 for ser, col in zip(ch.series, (BLUE2, TEAL, ORANGE)): bar_color(ser, col)
 ch.plots[0].gap_width, ch.plots[0].overlap = 70, -8
 for ser in ch.series:
-    ser.has_data_labels = True
+    ser.data_labels.show_value = True
     dl = ser.data_labels; dl.font.size = Pt(10.5); dl.font.color.rgb = INK2
     dl.number_format, dl.number_format_is_linked = '0.00', False
     dl.position = XL_LABEL_POSITION.OUTSIDE_END
@@ -112,7 +113,7 @@ ser = ch.series[0]; ch.plots[0].gap_width = 90
 for i, col in enumerate((BLUE2, BLUE2, TEAL, MUTED, MUTED)):
     pt = ser.points[i]; pt.format.fill.solid(); pt.format.fill.fore_color.rgb = col
     pt.format.line.fill.background()
-ser.has_data_labels = True
+ser.data_labels.show_value = True
 dl = ser.data_labels
 dl.font.size, dl.font.bold, dl.font.color.rgb = Pt(15), True, INK
 dl.number_format, dl.number_format_is_linked = '0.00', False

@@ -54,6 +54,7 @@ def sline(ser, rgb, w=2.5, dash=None, marker=True, ms=7):
     else: ser.marker.style = XL_MARKER_STYLE.NONE
 
 def bar(ser, rgb):
+    ser.invert_if_negative = False
     ser.format.fill.solid(); ser.format.fill.fore_color.rgb = rgb
     ser.format.line.fill.background()
 
@@ -188,16 +189,16 @@ s = prs.slides.add_slide(BLANK)
 title(s, 'Result 3: 정책 하나로는 부족하다 — prefill 을 넣으면 순서에 휘둘린다',
       'prefill 프롤로그 21.59 GB 중 4.29 GB 가 한 번 읽고 버려지는 활성값 · 600 mm², C2 2층')
 d = CategoryChartData()
-d.categories = ['층 인터리빙\n(기본)','weight 먼저','활성 먼저\n(최악)']
-d.add_series('미스에 비할당 만', (14.65, 18.59, -0.77))
-d.add_series('+ 즉시 반환', (18.59, 18.59, 18.59))
-d.add_series('관리 상주 (상한)', (18.59, 18.59, 18.59))
+d.categories = ['층 인터리빙 (기본)','Weight 먼저','Activation 먼저 (최악)']
+d.add_series('Admission only', (14.65, 18.59, -0.77))
+d.add_series('Admission + reclaim', (18.59, 18.59, 18.59))
+d.add_series('Resident (oracle)', (18.59, 18.59, 18.59))
 ch = s.shapes.add_chart(XL_CHART_TYPE.COLUMN_CLUSTERED, Inches(1.1), Inches(1.6), Inches(11.1), Inches(4.4), d).chart
 quiet(ch, '', 'HBM 물리 트래픽 감소  [%]', pos=XL_LEGEND_POSITION.TOP)
 for ser, col in zip(ch.series, (ORANGE, TEAL, GREY)): bar(ser, col)
 ch.plots[0].gap_width = 80
 for ser in ch.series:
-    ser.has_data_labels = True
+    ser.data_labels.show_value = True
     dl = ser.data_labels; dl.font.size = Pt(11); dl.font.color.rgb = INK2
     dl.number_format, dl.number_format_is_linked = '0.00', False
     dl.position = XL_LABEL_POSITION.OUTSIDE_END
