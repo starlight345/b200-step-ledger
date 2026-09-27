@@ -55,7 +55,8 @@ def _graded(t, n, ratio=1.0, fine_at_top=True):
 def zcells(layers, refine=1.0):
     """Per-layer cell counts. Resolution goes where the transient is: BEOL and the top of
     the silicon, where the burst's heat arrives within one 217 us pulse."""
-    base = {'TIM': 3, 'Si': 14, 'logic': 1, 'BEOL': 6, 'SRAM_tier': 1}
+    base = {'TIM': 3, 'Si': 14, 'logic': 1, 'BEOL': 6, 'SRAM_tier': 1,
+            'SRAM_Si': 4, 'bond': 1}          # the last two: hybrid-bond stacks (hb_stack_check)
     out = []
     for i, (name, t) in enumerate(layers):
         n = base.get(name, 1)
@@ -74,9 +75,13 @@ def lateral(refine=1.0):
     return xs, ys
 
 def deck(mode='prod', phi=None, kxy_over_kz=1.0, refine_xy=1.0, refine_z=1.0,
-         nper=6, sub_on=16, sub_off=30, plots=False, cdb=False, tag='macro'):
+         nper=6, sub_on=16, sub_off=30, plots=False, cdb=False, tag='macro',
+         layers=None, h=None):
+    """layers: any stack whose heat sources are tagged 'SRAM_tier' and 'logic' (default the
+    BEOL two-tier stack). h: sink convection coefficient; the default is sink_h's
+    calibration, which is for the BEOL stack's Si + TIM -- pass h for another stack."""
     phi = PERI_AREA_FRAC if phi is None else phi
-    layers = T.build_stack(n_tiers=2)
+    layers = T.build_stack(n_tiers=2) if layers is None else layers
     zc = zcells(layers, refine_z)
     z = [0.0]
     for _, d in zc: z.append(z[-1]+d)
@@ -92,7 +97,8 @@ def deck(mode='prod', phi=None, kxy_over_kz=1.0, refine_xy=1.0, refine_z=1.0,
     hg_per_on = phi*q_cell_on/(A_per*t_tier)
     duty, per = T.DUTY, T.PERIOD
     hg_log = (P_LOGIC_DIE/(A_die*t_logic)) if mode == 'prod' else 0.0
-    h, _, _ = sink_h(P_LOGIC_DIE + Q_BURST_DIE*duty, A_die)
+    if h is None:
+        h, _, _ = sink_h(P_LOGIC_DIE + Q_BURST_DIE*duty, A_die)
 
     props, mat_of = {}, []
     for name, d in zc:

@@ -1,0 +1,5 @@
+verify 194s RESULT peak= 0.18958445E+00 peakmin= 0.18943398E+00 logic= 0.69129064E-01 prevpeak= 0.18992093E+00 trough= 0.31528751E-01 mean= 0.47330431E-01 errors=0
+prod_phiU 200s RESULT peak= 0.10015443E+03 peakmin= 0.10015428E+03 logic= 0.10003399E+03 prevpeak= 0.10015451E+03 trough= 0.99996544E+02 mean= 0.10001013E+03 errors=0
+prod_phi90 201s RESULT peak= 0.10044016E+03 peakmin= 0.10003505E+03 logic= 0.10009121E+03 prevpeak= 0.10044024E+03 trough= 0.99996547E+02 mean= 0.10002804E+03 errors=0
+prod_k10_phi90 200s RESULT peak= 0.10042569E+03 peakmin= 0.10003984E+03 logic= 0.10008786E+03 prevpeak= 0.10042577E+03 trough= 0.99996547E+02 mean= 0.10002672E+03 errors=0
+DONE

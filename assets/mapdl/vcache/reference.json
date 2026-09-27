@@ -1,0 +1,7 @@
+{
+ "h_W_per_m2K": 8368.39895485836,
+ "r_stack_K_per_W": 0.02148400974025974,
+ "r_conv_K_per_W": 0.14937146361482917,
+ "verify_replica_peak_K": 0.189715744377253,
+ "verify_replica_prevpeak_K": 0.19005216577688794
+}

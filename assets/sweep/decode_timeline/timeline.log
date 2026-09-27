@@ -1,0 +1,28 @@
+17:21:46 gpu idle, start
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards:  75%|███████▌  | 3/4 [00:00<00:00, 21.41it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 28.19it/s]
+Capture range started in the application.
+Capture range ended in the application.
+Generating '/tmp/nsys-report-d3d0.qdstrm'
+[1/1] [0%                          ] tl_graph.nsys-repProcessing events...
+[1/1] [0%                          ] tl_graph.nsys-rep[1/1] [==========48%               ] tl_graph.nsys-rep[1/1] [============55%             ] tl_graph.nsys-rep[1/1] [==============61%           ] tl_graph.nsys-rep[1/1] [===============66%          ] tl_graph.nsys-rep[1/1] [===============67%          ] tl_graph.nsys-rep[1/1] [========================100%] tl_graph.nsys-rep[1/1] [========================100%] tl_graph.nsys-rep
+TIMELINE {"model": "NousResearch/Meta-Llama-3.1-8B", "batch": 8, "context": 2048, "mode": "graph", "step_ms_median": 19.567583084106445, "step_ms": [19.549888610839844, 19.552223205566406, 19.557344436645508, 19.561504364013672, 19.564544677734375, 19.567583084106445, 19.573759078979492, 19.57379150390625, 19.58025550842285, 21.57107162475586], "gpu": "NVIDIA RTX PRO 5000 Blackwell"}
+Generated:
+    /home/sychoe/ectc_thermal/timeline/tl_graph.nsys-rep
+Generating SQLite file tl_graph.sqlite from tl_graph.nsys-rep
+Processing [tl_graph.sqlite] with [/usr/local/cuda-12.8/nsight-systems-2024.6.2/host-linux-x64/reports/cuda_gpu_trace.py] to [tl_graph_cuda_gpu_trace.csv]... PROCESSED
+
+17:22:03 graph exit 0
+Loading checkpoint shards:   0%|          | 0/4 [00:00<?, ?it/s]Loading checkpoint shards: 100%|██████████| 4/4 [00:00<00:00, 260.65it/s]
+Capture range started in the application.
+Capture range ended in the application.
+Generating '/tmp/nsys-report-7179.qdstrm'
+[1/1] [0%                          ] tl_eager.nsys-repProcessing events...
+[1/1] [0%                          ] tl_eager.nsys-rep[1/1] [=======37%                  ] tl_eager.nsys-rep[1/1] [========41%                 ] tl_eager.nsys-rep[1/1] [=========46%                ] tl_eager.nsys-rep[1/1] [==================78%       ] tl_eager.nsys-rep[1/1] [===================79%      ] tl_eager.nsys-rep[1/1] [========================100%] tl_eager.nsys-rep[1/1] [========================100%] tl_eager.nsys-rep
+TIMELINE {"model": "NousResearch/Meta-Llama-3.1-8B", "batch": 8, "context": 2048, "mode": "eager", "step_ms_median": 21.645631790161133, "step_ms": [21.614240646362305, 21.624832153320312, 21.624832153320312, 21.633344650268555, 21.64022445678711, 21.645631790161133, 21.64806365966797, 21.65996742248535, 21.67673683166504, 22.665632247924805], "gpu": "NVIDIA RTX PRO 5000 Blackwell"}
+Generated:
+    /home/sychoe/ectc_thermal/timeline/tl_eager.nsys-rep
+Generating SQLite file tl_eager.sqlite from tl_eager.nsys-rep
+Processing [tl_eager.sqlite] with [/usr/local/cuda-12.8/nsight-systems-2024.6.2/host-linux-x64/reports/cuda_gpu_trace.py] to [tl_eager_cuda_gpu_trace.csv]... PROCESSED
+
+17:22:16 eager exit 0
+DONE

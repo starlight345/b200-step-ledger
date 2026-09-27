@@ -1,0 +1,53 @@
+{
+ "hotspot_commit": "f18831e48cef5d62580585cca0d7fab6c71bc3cc",
+ "mode": "as-used",
+ "stack": "V-Cache dims, F2B (6 um)",
+ "windows_s": [
+  7e-06,
+  0.0002,
+  0.001,
+  0.01
+ ],
+ "periods": 24.0,
+ "hotspot": {
+  "n_lcf_layers": 10,
+  "R_hotspot_K_per_W": 0.02595441001296149,
+  "static-avg": 0.047999440123172955,
+  "trace-7us": 0.22364079902421474,
+  "trace-200us": 0.22369078802663417,
+  "trace-1000us": 0.08868049029213579,
+  "trace-10000us": 0.06046669732658817,
+  "replica-7us": 0.22363791544810188,
+  "replica-200us": 0.22368934456243725,
+  "replica-1000us": 0.088685617296356,
+  "replica-10000us": 0.06046467301025094
+ },
+ "ours": {
+  "R_K_per_W": 0.025948701298675787,
+  "static-peak": 1.0,
+  "static-avg": 0.048,
+  "exact": 0.19346061298250208,
+  "burst": 0.19288704463145284,
+  "trace-10us": 0.19328269283821795,
+  "trace-50us": 0.1928668733225466,
+  "trace-100us": 0.19191467586517458,
+  "trace-200us": 0.19116316755495227,
+  "trace-217us": 0.193356079283254,
+  "trace-500us": 0.12978580810334875,
+  "trace-1000us": 0.09149444497397373,
+  "trace-4515us": 0.04800000000000486,
+  "trace-10000us": 0.05705958916220449,
+  "trace-200000us": 0.048761996328729566,
+  "trace-333000us": 0.04815999999942102,
+  "be1-10us": 0.19109370373064188,
+  "be1-100us": 0.17699440089025453,
+  "be1-1000us": 0.08384935514365514,
+  "be1-10000us": 0.055928862513167116,
+  "zth-datasheet": 0.19681198504203096,
+  "zth-eq22": 0.20314309541963677,
+  "zth-single": 0.1629654363651647,
+  "zth-exact": 0.19346061298225062,
+  "lumped": 0.05950770725974774
+ },
+ "note": "HotSpot values from the runs; replica-* (same rows, same start, same last quarter) and ours (current sota_comparators.json) attached afterwards with the functions in hotspot_rerun.py"
+}

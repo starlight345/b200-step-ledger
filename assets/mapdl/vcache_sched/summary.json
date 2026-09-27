@@ -1,0 +1,172 @@
+{
+ "rows": {
+  "static_phiU": {
+   "tier1": 99.6903446,
+   "tiermin1": 99.6903446,
+   "logic1": 99.6903446,
+   "tier2": 100.010129,
+   "tiermin2": 100.010118,
+   "logic2": 100.002006,
+   "tier3": 106.352511,
+   "tiermin3": 106.352295,
+   "logic3": 106.183284,
+   "errors": 0.0
+  },
+  "static_phi90": {
+   "tier1": 99.6903446,
+   "tiermin1": 99.6903446,
+   "logic1": 99.6903446,
+   "tier2": 100.028041,
+   "tiermin2": 100.001812,
+   "logic2": 100.006798,
+   "tier3": 106.725681,
+   "tiermin3": 106.179255,
+   "logic3": 106.283126,
+   "errors": 0.0
+  },
+  "s1_verify": {
+   "peak": 0.142788113,
+   "prevpeak": 0.142820647,
+   "logic": 0.0622196125,
+   "peakmin": 0.142662086,
+   "mean": 0.0473304312,
+   "ls": 468.0,
+   "errors": 0.0
+  },
+  "s1_phiU": {
+   "peak": 100.105749,
+   "prevpeak": 100.105755,
+   "logic": 100.025184,
+   "peakmin": 100.105623,
+   "mean": 100.010129,
+   "ls": 468.0,
+   "errors": 0.0
+  },
+  "s1_phi90": {
+   "peak": 100.291989,
+   "prevpeak": 100.291995,
+   "logic": 100.064088,
+   "peakmin": 100.025998,
+   "mean": 100.028041,
+   "ls": 468.0,
+   "errors": 0.0
+  },
+  "s3_phi90": {
+   "peak": 100.088273,
+   "prevpeak": 100.088244,
+   "logic": 100.011605,
+   "peakmin": 100.003853,
+   "mean": 100.028041,
+   "ls": 476.0,
+   "errors": 0.0
+  },
+  "lid_static_phi90": {
+   "tier1": 0.0,
+   "tiermin1": 0.0,
+   "logic1": 0.0,
+   "tier2": 0.0652424985,
+   "tiermin2": 0.0390142124,
+   "logic2": 0.0439998776,
+   "tier3": 1.35921872,
+   "tiermin3": 0.812796092,
+   "logic3": 0.916664118,
+   "errors": 0.0
+  },
+  "lid_s0_phi90": {
+   "peak": 0.481169703,
+   "prevpeak": 0.481505368,
+   "logic": 0.12772182,
+   "peakmin": 0.070625972,
+   "mean": 0.0652424985,
+   "ls": 12.0,
+   "errors": 0.0
+  },
+  "lid_s1_phi90": {
+   "peak": 0.329028327,
+   "prevpeak": 0.329060861,
+   "logic": 0.101123385,
+   "peakmin": 0.0630372746,
+   "mean": 0.0652424985,
+   "ls": 468.0,
+   "errors": 0.0
+  }
+ },
+ "table": {
+  "phiU": {
+   "static-peak map (Stratum Eq.1, A3D-MoE Ansys at max)": {
+    "tier_rise_K": 6.662166400000004,
+    "peak_fraction": 1.0,
+    "TBs": 5.0
+   },
+   "static-average map (Tasa, DeepStack, imec Icepak steady)": {
+    "tier_rise_K": 0.3197844000000032,
+    "peak_fraction": 0.04800006196182716,
+    "TBs": 104.16653220106949
+   },
+   "transient, one block (all models so far)": {
+    "tier_rise_K": 0.46408540000000187,
+    "peak_fraction": 0.06965983317378588,
+    "TBs": 71.77737545718931
+   },
+   "transient, S1 Gate-1 placement, kernel by kernel": {
+    "tier_rise_K": 0.4154043999999999,
+    "peak_fraction": 0.06235275060076549,
+    "TBs": 80.1889243349373
+   }
+  },
+  "phi90": {
+   "static-peak map (Stratum Eq.1, A3D-MoE Ansys at max)": {
+    "tier_rise_K": 7.035336399999991,
+    "peak_fraction": 1.0,
+    "TBs": 5.0
+   },
+   "static-average map (Tasa, DeepStack, imec Icepak steady)": {
+    "tier_rise_K": 0.3376963999999987,
+    "peak_fraction": 0.04800003593289428,
+    "TBs": 104.16658868735378
+   },
+   "transient, one block (all models so far)": {
+    "tier_rise_K": 0.7498154000000028,
+    "peak_fraction": 0.1065784714999561,
+    "TBs": 46.91378971410806
+   },
+   "transient, S1 Gate-1 placement, kernel by kernel": {
+    "tier_rise_K": 0.6016443999999979,
+    "peak_fraction": 0.08551750275935613,
+    "TBs": 58.46756323170312
+   },
+   "transient, S3 one down projection per layer": {
+    "tier_rise_K": 0.39792839999999785,
+    "peak_fraction": 0.05656138916114919,
+    "TBs": 88.39952614591003
+   }
+  },
+  "lid_phi90": {
+   "static-average map": {
+    "tier_rise_K": 0.0652424985,
+    "peak_fraction": 0.047999999955856985,
+    "TBs": 104.16666676246314
+   },
+   "transient, one block": {
+    "tier_rise_K": 0.481169703,
+    "peak_fraction": 0.35400461744670497,
+    "TBs": 14.124109555584385
+   },
+   "transient, S1 Gate-1 placement": {
+    "tier_rise_K": 0.329028327,
+    "peak_fraction": 0.2420716564292169,
+    "TBs": 20.655041047575214
+   }
+  }
+ },
+ "reference": {
+  "s1_verify": {
+   "replica_peak_K": 0.1429772044271857,
+   "replica_prevpeak_K": 0.14300973593612773
+  },
+  "exact_pf_S0": 0.1934606129825021,
+  "exact_pf_S1": 0.1447486940832552,
+  "exact_pf_S3": 0.06897357196679003,
+  "R_K_per_W": 0.025948701298675787
+ }
+}
