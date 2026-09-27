@@ -1,0 +1,34 @@
+{
+  "host": "ampere",
+  "gpu.props": "torch \uc5c6\uc74c(ModuleNotFoundError) \u2014 CUDA \ub7f0\ud0c0\uc784\uc5d0\uc11c \uc9c1\uc811 \uc77d\ub294\ub2e4",
+  "gpu.name": "NVIDIA RTX PRO 5000 Blackwell, 48935 MiB",
+  "gpu.capability": "12.0",
+  "gpu.l2_cache_bytes": 100663296,
+  "gpu.multi_processor_count": 110,
+  "gpu.persisting_l2_max_bytes": 62914560,
+  "gpu.access_policy_max_window_bytes": 134217728,
+  "persisting_l2.set_get_roundtrip": "set rc=0, get rc=0, got=31457280",
+  "gpu.mig_mode": "[N/A]",
+  "gpu.mps_daemon": "\uc5c6\uc74c",
+  "tool.ncu": "/usr/local/cuda-12.8/bin/ncu",
+  "counters.permission": "dram__bytes_read \uc218\uc9d1 \uc131\uacf5",
+  "counters_ok": true,
+  "tool.nsys": "/usr/local/cuda-12.8/bin/nsys",
+  "sweep.persist_bytes": [
+    0,
+    12582912,
+    25165824,
+    37748736,
+    50331648,
+    62914560
+  ],
+  "sweep.persist_MiB": [
+    0.0,
+    12.0,
+    24.0,
+    36.0,
+    48.0,
+    60.0
+  ],
+  "verdict_go": true
+}

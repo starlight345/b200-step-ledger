@@ -1,0 +1,4925 @@
+{
+ "created": "2026-09-25 00:44:45 KST",
+ "machine": "ampere",
+ "l2_bytes": 100663296,
+ "persist_max": 62914560,
+ "window_max": 134217728,
+ "calib": {
+  "t_launch_ms": 0.00208,
+  "B_dram_Bps": 1230184370381.403,
+  "B_l2_Bps": 6160167431613.732,
+  "source": "l2policy_bench on ampere (RTX PRO 5000 Blackwell), 2026-09-25: DRAM = llm ws=2048 layers=1; L2 = llm ws=32 reps=50; launch = llm ws=1 layers=64 / 64. None of these sizes is in the H1 grid.",
+  "raw": [
+   {
+    "mode": "llm",
+    "ws_mib": 2048.0,
+    "hot_mib": 96.0,
+    "chunk_mib": 96.0,
+    "layers": 1,
+    "reps": 1,
+    "setaside_req_mib": 0.0,
+    "setaside_got_bytes": 0,
+    "window_bytes": 0,
+    "hitratio": 0.0,
+    "step_bytes": 2147483648,
+    "iters": 40,
+    "ms_median": 1.74774,
+    "ms_mean": 1.74726,
+    "ms_p10": 1.7456,
+    "ms_p90": 1.75008,
+    "l2_bytes": 100663296,
+    "persist_max": 62914560,
+    "window_max": 134217728,
+    "gpu": "NVIDIA RTX PRO 5000 Blackwell"
+   },
+   {
+    "mode": "llm",
+    "ws_mib": 32.0,
+    "hot_mib": 96.0,
+    "chunk_mib": 96.0,
+    "layers": 1,
+    "reps": 50,
+    "setaside_req_mib": 0.0,
+    "setaside_got_bytes": 0,
+    "window_bytes": 0,
+    "hitratio": 0.0,
+    "step_bytes": 1677721600,
+    "iters": 60,
+    "ms_median": 0.27443,
+    "ms_mean": 0.27455,
+    "ms_p10": 0.27411,
+    "ms_p90": 0.27539,
+    "l2_bytes": 100663296,
+    "persist_max": 62914560,
+    "window_max": 134217728,
+    "gpu": "NVIDIA RTX PRO 5000 Blackwell"
+   },
+   {
+    "mode": "llm",
+    "ws_mib": 1.0,
+    "hot_mib": 96.0,
+    "chunk_mib": 96.0,
+    "layers": 64,
+    "reps": 1,
+    "setaside_req_mib": 0.0,
+    "setaside_got_bytes": 0,
+    "window_bytes": 0,
+    "hitratio": 0.0,
+    "step_bytes": 1048576,
+    "iters": 300,
+    "ms_median": 0.13312,
+    "ms_mean": 0.13311,
+    "ms_p10": 0.1328,
+    "ms_p90": 0.13347,
+    "l2_bytes": 100663296,
+    "persist_max": 62914560,
+    "window_max": 134217728,
+    "gpu": "NVIDIA RTX PRO 5000 Blackwell"
+   }
+  ]
+ },
+ "granularity_bytes": 65536,
+ "note": "H1b: same v1 model, unchanged since the H1 freeze; only the grid changes \u2014 windows equal to the device maximum (128 MiB) silently disable persistence (diagnostic D1), so these use 127 MiB. Written before measuring.",
+ "runs": [
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 113246208.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1586162890625,
+     "serial_ms": 0.1729146640625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 113246208.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1586162890625,
+     "serial_ms": 0.1729146640625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 113246208.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1586162890625,
+     "serial_ms": 0.1729146640625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 133169152.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0851
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 120651776.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.16463617370605466,
+     "serial_ms": 0.17773237878417966
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.1039
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 113246208.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1586162890625,
+     "serial_ms": 0.1729146640625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 125829120.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.168844765625,
+     "serial_ms": 0.181100515625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 125829120.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.168844765625,
+     "serial_ms": 0.181100515625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 125829120.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.168844765625,
+     "serial_ms": 0.181100515625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 133169152.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.1701
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 109707264.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.15573953002929686,
+     "serial_ms": 0.17061239331054687
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.2079
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 125829120.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.168844765625,
+     "serial_ms": 0.181100515625
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 167378944.0,
+    "cuda_policy_lip": 167378944.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.2551
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 166658048.0,
+    "cuda_policy_lip": 166658048.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.2020340411376953,
+     "serial_ms": 0.2076618985595703
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.2020340411376953,
+     "serial_ms": 0.2076618985595703
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.3118
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 167378944.0,
+    "cuda_policy_lip": 167378944.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.3402
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 154992640.0,
+    "cuda_policy_lip": 154992640.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19255139099121094,
+     "serial_ms": 0.20007293200683593
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19255139099121094,
+     "serial_ms": 0.20007293200683593
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.4157
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 133169152.0,
+    "cuda_policy_lip": 100663296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.174811376953125,
+     "serial_ms": 0.18587559570312498
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 167378944.0,
+    "cuda_policy_lip": 167378944.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.20262004760742186,
+     "serial_ms": 0.20813087963867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.4252
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 143327232.0,
+    "cuda_policy_lip": 143327232.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.18306874084472655,
+     "serial_ms": 0.19248396545410154
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.18306874084472655,
+     "serial_ms": 0.19248396545410154
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5197
+   },
+   "step_bytes": 201326592,
+   "dram_bytes": {
+    "no_residency": 201326592,
+    "capacity_only": 100663296,
+    "fixed_lru": 201326592.0,
+    "cuda_policy": 201326592.0,
+    "cuda_policy_lip": 201326592.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.1483878125,
+     "serial_ms": 0.1647288125
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.23021562499999998,
+     "serial_ms": 0.23021562499999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0851
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 390135808.0,
+    "cuda_policy_lip": 390135808.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.3836960467529297,
+     "serial_ms": 0.3857280330810547
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.3836960467529297,
+     "serial_ms": 0.3857280330810547
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.1039
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.1701
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 379191296.0,
+    "cuda_policy_lip": 379191296.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.3747994030761719,
+     "serial_ms": 0.3786080476074219
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.3747994030761719,
+     "serial_ms": 0.3786080476074219
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.2079
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 368705536.0,
+    "cuda_policy_lip": 368705536.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.2551
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 367984640.0,
+    "cuda_policy_lip": 367984640.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.3656896661376953,
+     "serial_ms": 0.3713175235595703
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.3656896661376953,
+     "serial_ms": 0.3713175235595703
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.3118
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 368705536.0,
+    "cuda_policy_lip": 368705536.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.3402
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 356319232.0,
+    "cuda_policy_lip": 356319232.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.35620701599121096,
+     "serial_ms": 0.363728557006836
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.35620701599121096,
+     "serial_ms": 0.363728557006836
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.4157
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 368705536.0,
+    "cuda_policy_lip": 368705536.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.36627567260742183,
+     "serial_ms": 0.37178650463867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.4252
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 344653824.0,
+    "cuda_policy_lip": 344653824.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.34672436584472655,
+     "serial_ms": 0.35613959045410154
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.34672436584472655,
+     "serial_ms": 0.35613959045410154
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5197
+   },
+   "step_bytes": 402653184,
+   "dram_bytes": {
+    "no_residency": 402653184,
+    "capacity_only": 301989888,
+    "fixed_lru": 402653184.0,
+    "cuda_policy": 402653184.0,
+    "cuda_policy_lip": 402653184.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "capacity_only": {
+     "overlap_ms": 0.31204343749999996,
+     "serial_ms": 0.32838443749999996
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.39387125,
+     "serial_ms": 0.39387125
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 0.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.0851
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 222363648.0,
+    "cuda_policy_lip": 222363648.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.18491635925292965,
+     "serial_ms": 0.18694834558105466
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.18491635925292965,
+     "serial_ms": 0.18694834558105466
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 12.0,
+    "hitratio": 0.1039
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.1701
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 211419136.0,
+    "cuda_policy_lip": 211419136.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.17601971557617185,
+     "serial_ms": 0.17982836010742184
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.17601971557617185,
+     "serial_ms": 0.17982836010742184
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 24.0,
+    "hitratio": 0.2079
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 200933376.0,
+    "cuda_policy_lip": 200933376.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.2551
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 200212480.0,
+    "cuda_policy_lip": 200212480.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.1669099786376953,
+     "serial_ms": 0.1725378360595703
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.1669099786376953,
+     "serial_ms": 0.1725378360595703
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 36.0,
+    "hitratio": 0.3118
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 200933376.0,
+    "cuda_policy_lip": 200933376.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.3402
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 188547072.0,
+    "cuda_policy_lip": 188547072.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.15742732849121094,
+     "serial_ms": 0.16494886950683593
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.15742732849121094,
+     "serial_ms": 0.16494886950683593
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.4157
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.25
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 200933376.0,
+    "cuda_policy_lip": 200933376.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.16749598510742186,
+     "serial_ms": 0.17300681713867186
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.75
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 1.0
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.4252
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 176881664.0,
+    "cuda_policy_lip": 176881664.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.14794467834472655,
+     "serial_ms": 0.15735990295410154
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.14794467834472655,
+     "serial_ms": 0.15735990295410154
+    }
+   }
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 128.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.5197
+   },
+   "step_bytes": 234881024,
+   "dram_bytes": {
+    "no_residency": 234881024,
+    "capacity_only": 134217728,
+    "fixed_lru": 234881024.0,
+    "cuda_policy": 234881024.0,
+    "cuda_policy_lip": 234881024.0
+   },
+   "time": {
+    "no_residency": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "capacity_only": {
+     "overlap_ms": 0.11326375,
+     "serial_ms": 0.12960475
+    },
+    "fixed_lru": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    },
+    "cuda_policy_lip": {
+     "overlap_ms": 0.19509156249999998,
+     "serial_ms": 0.19509156249999998
+    }
+   }
+  }
+ ]
+}

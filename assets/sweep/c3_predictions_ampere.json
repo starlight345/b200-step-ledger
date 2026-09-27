@@ -1,0 +1,246 @@
+{
+ "created": "2026-09-27 02:27:11 KST",
+ "note": "C3 diagnostic (H-hint): cuBLAS gemvx on sm_120 reads weights with LDG.E.EF (ld.global.cs, evict-first in L1 and L2). Does the same per-instruction hint on every load of the synthetic stream make the persisting benefit independent of the set-aside, as in R1? hint 3 = ld.global.cs (cuBLAS-faithful), 1 = L2::evict_first cache policy, 2 = L2::evict_last. Reference without hints = C2 layers=32. Pre-stated: if H-hint holds, hint 3 gives DRAM(S12, r.4) ~ DRAM(S60, r.4) with >= 30 MiB saving vs its own baseline, while C2 layers=32 (plain loads) saves < 10 MiB at S12 r.4. Our models ignore hints.",
+ "runs": [
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 1,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 1,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 1,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 1,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 1,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 2,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 2,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 2,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 2,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 2,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  }
+ ]
+}

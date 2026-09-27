@@ -11,7 +11,7 @@
 
 두 패스로 나눈다. 프로파일러를 켠 채 시간을 재면 그 시간이 오염되기 때문이다.
   pass T : 프로파일러 없음. 깨끗한 step 시간.            -> ΔT 축
-  pass D : ncu 로 dram__bytes_*, lts__t_sectors_hit_rate  -> ΔD 축 + L2 적중 실측
+  pass D : ncu 로 dram__bytes_*, lts__t_sector_hit_rate.pct  -> ΔD 축 + L2 적중 실측
 같은 조건·같은 시드로 두 번 돌리고 조건 키로 합친다.
 
   python3 gpu01_causal_sweep.py --mode vllm  --steps 1000 --reps 3
@@ -24,7 +24,7 @@ CUDART = None
 for lib in ('libcudart.so', 'libcudart.so.12', 'libcudart.so.13', 'libcudart.so.11.0'):
     try: CUDART = ctypes.CDLL(lib); break
     except OSError: continue
-LIMIT_PERSISTING_L2 = 0x05
+LIMIT_PERSISTING_L2 = 0x06   # cudaLimitPersistingL2CacheSize (0x05 는 MaxL2FetchGranularity — 2026-09-24 정정)
 ATTR_MAX_PERSISTING_L2 = 108
 
 def persist_max():
@@ -85,7 +85,7 @@ def run_synth(steps, persist_bytes, seed=20260923):
                 logical_read_GB=W_GB, samples=len(ts))
 
 # ---------------------------------------------------------------- pass D: 카운터
-NCU_METRICS = 'dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sectors_hit_rate'
+NCU_METRICS = 'dram__bytes_read.sum,dram__bytes_write.sum,lts__t_sector_hit_rate.pct'
 def run_counters(mode, steps, persist_bytes, out_csv):
     """같은 조건을 ncu 아래에서 다시 돌려 바이트를 딴다. 시간은 여기서 쓰지 않는다."""
     ncu = os.environ.get('NCU', 'ncu')

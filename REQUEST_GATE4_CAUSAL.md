@@ -31,7 +31,7 @@ weight를 고르는 이유는 요청 불변이고 스텝마다 같은 바이트�
 **동시 수집.** 조건마다 아래를 같은 실행에서 모은다.
 
 - `dram__bytes_read.sum`, `dram__bytes_write.sum` — 실제 HBM 바이트. ΔD의 분자
-- `lts__t_sectors_hit_rate` — L2 적중률. 정본의 "decode 스트리밍에서 L2 적중 ~0" 가정을 카운터로 확정
+- `lts__t_sector_hit_rate.pct` — L2 적중률. 정본의 "decode 스트리밍에서 L2 적중 ~0" 가정을 카운터로 확정
 - 커널 논리 바이트 — 우리 구조식과 대조
 - step 시간 — 동기화된 `execute_model` 완료 간격
 - **한 decode 스텝의 커널 발행 순서** — Nsight Systems 타임라인 또는 `torch.profiler`. 층 안에서 weight 읽기와 KV 읽기가 어떤 순서로 나오는지 확정한다. 우리 비주기 재생은 층 단위 인터리빙(`for layer: weight[l], 각 live 요청의 KV[l]`)을 가정하며, **그 가정이 first-fill의 KV 비중을 정하고 따라서 입장 판정 델타의 크기를 정한다**(`SRAM_HIERARCHY_MODEL.md` 2-C). 순서를 뒤집으면 델타가 0이 된 선례가 있다. GPU 시간 추가 비용은 없다.
@@ -48,7 +48,7 @@ weight를 고르는 이유는 요청 불변이고 스텝마다 같은 바이트�
 | 기울기가 벗어남 | 실측 기울기로 교체하고 Gate 3 전부 재계산 |
 | R² < 0.9 | 선형 교체 모델 자체를 폐기하고 다른 형태 탐색 |
 
-부수적으로 `lts__t_sectors_hit_rate`가 0에 가까우면 "기존 L2가 이 스트림에 기여하지 않는다"가 trace 재생에서 카운터로 승격된다.
+부수적으로 `lts__t_sector_hit_rate.pct`가 0에 가까우면 "기존 L2가 이 스트림에 기여하지 않는다"가 trace 재생에서 카운터로 승격된다.
 
 ## 한계 (미리 적어 둘 것)
 

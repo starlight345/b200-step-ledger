@@ -1,0 +1,3451 @@
+{
+ "created": "2026-09-26 22:25:14 KST",
+ "machine": "ampere",
+ "l2_bytes": 100663296,
+ "phi": 0.3,
+ "tool_bytes": {
+  "llmcompass": {
+   "SmolLM-135M/B1": 282088320.0,
+   "SmolLM-135M/B8": 373988352.0,
+   "SmolLM-360M/B1": 746780544.0
+  },
+  "llmcompass_latency_ms": {
+   "SmolLM-135M/B1": 0.23069077369558505,
+   "SmolLM-135M/B8": 0.3144155249562623,
+   "SmolLM-360M/B1": 0.6086816536791191
+  },
+  "genz": {
+   "SmolLM-135M/B1": 283619328.0,
+   "SmolLM-135M/B8": 386236416.0,
+   "SmolLM-360M/B1": 749272576.0
+  },
+  "genz_latency_ms": {
+   "SmolLM-135M/B1": 0.2131036051162859,
+   "SmolLM-135M/B8": 0.2792857769058972,
+   "SmolLM-360M/B1": 0.5644039571446778
+  },
+  "genz_detail": {
+   "SmolLM-135M/B1": {
+    "total_data_bytes": 284176608.0,
+    "weights_bytes": 268959744.0,
+    "kv_bytes": 11888640.0
+   },
+   "SmolLM-135M/B8": {
+    "total_data_bytes": 390694656.0,
+    "weights_bytes": 268959744.0,
+    "kv_bytes": 95109120.0
+   },
+   "SmolLM-360M/B1": {
+    "total_data_bytes": 750263296.0,
+    "weights_bytes": 723517440.0,
+    "kv_bytes": 21135360.0
+   }
+  },
+  "genz_ops": [
+   "Repeat",
+   "QKV",
+   "Logit Pre",
+   "Logit Suf",
+   "Attend Pre",
+   "Attend Suf",
+   "Out Proj",
+   "up+gate",
+   "down",
+   "End Repeat",
+   "classifier"
+  ],
+  "provenance": {
+   "llmcompass": "scripts/prior/run_prior_tools.py on dsil-sy (py3.9, scalesim 2.0.2), LLMCompass heuristic-GPU, GA102 template -> 110 cores @2.37 GHz, 96 MB global buffer, 1230 GB/s, 48 GB",
+   "genz": "scripts/prior/run_prior_tools.py locally (uv py3.11.16), GenZ decode_moddeling bf16, system {Flops 250, Memory_size 48, Memory_BW 1230, ICN 64}; bytes = operands charged at off-chip BW (score matrix pinned on chip excluded)",
+   "context": 512
+  }
+ },
+ "engine": "manual (llm_policy_bench.py), decode at position = context",
+ "note": "R1 real-LLM decode. All predictors frozen before measuring.",
+ "runs": [
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 0,
+    "setaside": 60,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280200201.4208
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 275653051.59679997
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 278949774.5408
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280476710.912
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280808585.216
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280855771.136
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280200201.4208
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 266207232.0,
+    "ours_v2": 269343979.52
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 270317582.336
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 276475344.896
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 279758541.2096
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280679295.7952
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280200201.4208
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 266207232.0,
+    "ours_v2": 267544308.5312
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 252903424.0,
+    "ours_v2": 260035141.2224
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 264980225.6384
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 273802734.3872
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 278918631.8336
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280847906.816
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280200201.4208
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 266207232.0,
+    "ours_v2": 267334803.0464
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 252903424.0,
+    "ours_v2": 255396136.1408
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 239730688.0,
+    "ours_v2": 251413329.92000002
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 259733465.9072
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 271284264.5504
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280712955.0848
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280200201.4208
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 266207232.0,
+    "ours_v2": 267328826.1632
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 252903424.0,
+    "ours_v2": 254233789.6448
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 239730688.0,
+    "ours_v2": 243648414.9248
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 226623488.0,
+    "ours_v2": 243137548.6976
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 254759440.7936
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 279381053.8496
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 280821760.0,
+    "ours_v2": 280857344.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 12,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 268238848.0,
+    "ours_v2": 273898993.664
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 24,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 255655936.0,
+    "ours_v2": 267392055.296
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 36,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 243073024.0,
+    "ours_v2": 260918461.6448
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 48,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 230490112.0,
+    "ours_v2": 253781748.5312
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 1,
+    "context": 512,
+    "window": 60,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 11819520,
+    "kv_write": 23040,
+    "act": 391680
+   },
+   "dram_read_bytes": {
+    "llmcompass": 282088320.0,
+    "genz": 283619328.0,
+    "memexplorer": 180194048,
+    "gtsim_l2": 280821760.0,
+    "ours_v1": 217907200.0,
+    "ours_v2": 247448454.3488
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 0,
+    "setaside": 60,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 358541001.1136
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 361715355.2384
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363213350.912
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363545225.216
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363592411.136
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 348979200.0,
+    "ours_v2": 352231929.0368
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 353081275.59679997
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 359211984.896
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 362495181.2096
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363415935.7952
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 348979200.0,
+    "ours_v2": 350432258.048
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 335675392.0,
+    "ours_v2": 342798834.4832
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 347716865.6384
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 356539374.3872
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 361655271.8336
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363584546.816
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 348979200.0,
+    "ours_v2": 350222752.5632
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 335675392.0,
+    "ours_v2": 338159829.4016
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 322502656.0,
+    "ours_v2": 334149969.92
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 342470105.9072
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 354020904.5504
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363449595.0848
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 348979200.0,
+    "ours_v2": 350216775.68
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 335675392.0,
+    "ours_v2": 336997482.9056
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 322502656.0,
+    "ours_v2": 326385054.9248
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 309395456.0,
+    "ours_v2": 325874188.6976
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 337496080.7936
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 362117693.8496
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 363593728.0,
+    "ours_v2": 363593984.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 12,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 351010816.0,
+    "ours_v2": 356635633.664
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 24,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 338427904.0,
+    "ours_v2": 350128695.296
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 36,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 325844992.0,
+    "ours_v2": 343655101.6448
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 48,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 313262080.0,
+    "ours_v2": 336518388.5312
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-135M",
+    "batch": 8,
+    "context": 512,
+    "window": 60,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 269037824,
+    "kv_read": 94556160,
+    "kv_write": 184320,
+    "act": 3133440
+   },
+   "dram_read_bytes": {
+    "llmcompass": 373988352.0,
+    "genz": 386236416.0,
+    "memexplorer": 262930688,
+    "gtsim_l2": 363593728.0,
+    "ours_v1": 300679168.0,
+    "ours_v2": 330185094.3488
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 0,
+    "setaside": 60,
+    "hitratio": 0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 739561298.3296
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 742797308.7232
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744280834.048
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744615854.08
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744658635.9808
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 730005504.0,
+    "ours_v2": 733184907.6736
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 734011919.5648
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 740278838.8864
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 743568012.0832
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744491283.2512
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 730005504.0,
+    "ours_v2": 731492506.0096
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 716701696.0,
+    "ours_v2": 723784528.6912
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 728616052.3264
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 737637056.512
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 742733450.4448
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744657377.6896
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 730005504.0,
+    "ours_v2": 731341196.4928
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 716701696.0,
+    "ours_v2": 719151500.4928
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 703528960.0,
+    "ours_v2": 715145730.4576
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 723515568.9472001
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 735187478.1184
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744523055.104
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.1
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 730005504.0,
+    "ours_v2": 731332703.0272
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.2
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 716701696.0,
+    "ours_v2": 718165629.3376
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 703528960.0,
+    "ours_v2": 707364772.2496
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 690421760.0,
+    "ours_v2": 706758905.0368
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.5
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 718670518.6816
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.75
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 743200905.6256
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 744620032.0,
+    "ours_v2": 744663040.0
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 12,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 732037120.0,
+    "ours_v2": 737704689.664
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 24,
+    "setaside": 24,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 719454208.0,
+    "ours_v2": 731197751.296
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 36,
+    "setaside": 36,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 706871296.0,
+    "ours_v2": 724724157.6448
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 48,
+    "setaside": 48,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 694288384.0,
+    "ours_v2": 717587444.5312
+   }
+  },
+  {
+   "run": {
+    "model": "SmolLM-360M",
+    "batch": 1,
+    "context": 512,
+    "window": 60,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "bytes": {
+    "weights": 723650560,
+    "kv_read": 21012480,
+    "kv_write": 40960,
+    "act": 696320
+   },
+   "dram_read_bytes": {
+    "llmcompass": 746780544.0,
+    "genz": 749272576.0,
+    "memexplorer": 643999744,
+    "gtsim_l2": 744620032.0,
+    "ours_v1": 681705472.0,
+    "ours_v2": 711254150.3488
+   }
+  }
+ ]
+}

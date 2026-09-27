@@ -1,0 +1,156 @@
+{
+ "created": "2026-09-27 01:46:18 KST",
+ "note": "C2 diagnostic: does kernel granularity (32 vs 1400 kernels per step) make the persisting benefit independent of the set-aside, as in R1? Pre-stated: if yes, layers=1400 gives DRAM(S12,r.4) ~ DRAM(S60,r.4) with >= 30 MiB saving vs baseline, while layers=32 saves < 10 MiB at S12 r.4 (as H1c llm 288). Our models ignore layers, so they predict the same for both.",
+ "runs": [
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  }
+ ]
+}

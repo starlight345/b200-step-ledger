@@ -1,0 +1,299 @@
+{
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _C.abi3 | sm_100": {
+  "kernels": 1854,
+  "with_loads": 1846,
+  "evict_first": 0,
+  "kernel_built_desc": 59,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    26
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    14
+   ],
+   [
+    "cutlass::device_kernel<cutlass::fmha::kernel::Sm100FmhaMlaKernelTmaWarpspecialized>",
+    13
+   ],
+   [
+    "cutlass::device_kernel<(anonymous namespace)::cutlass_3x_group_gemm::GemmKernel>",
+    6
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _C.abi3 | sm_120": {
+  "kernels": 1785,
+  "with_loads": 1777,
+  "evict_first": 0,
+  "kernel_built_desc": 10,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    8
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    2
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _C.abi3 | sm_80": {
+  "kernels": 2625,
+  "with_loads": 2440,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _C.abi3 | sm_90": {
+  "kernels": 2593,
+  "with_loads": 2584,
+  "evict_first": 0,
+  "kernel_built_desc": 224,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    84
+   ],
+   [
+    "cutlass::device_kernel<(anonymous namespace)::cutlass_sparse_3x_gemm::GemmKernel>",
+    64
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm::GemmKernel>",
+    40
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    24
+   ],
+   [
+    "cutlass::device_kernel<(anonymous namespace)::cutlass_3x_group_gemm::GemmKernel>",
+    10
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    2
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _flashmla_C.abi3 | sm_90": {
+  "kernels": 20,
+  "with_loads": 20,
+  "evict_first": 0,
+  "kernel_built_desc": 2,
+  "ef_families": [],
+  "built_families": [
+   [
+    "flash_fwd_splitkv",
+    2
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _moe_C.abi3 | sm_100": {
+  "kernels": 160,
+  "with_loads": 159,
+  "evict_first": 0,
+  "kernel_built_desc": 3,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::topk_with_k2_kernel",
+    3
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _moe_C.abi3 | sm_120": {
+  "kernels": 160,
+  "with_loads": 159,
+  "evict_first": 0,
+  "kernel_built_desc": 3,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::topk_with_k2_kernel",
+    3
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _moe_C.abi3 | sm_80": {
+  "kernels": 516,
+  "with_loads": 514,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _moe_C.abi3 | sm_90": {
+  "kernels": 516,
+  "with_loads": 514,
+  "evict_first": 0,
+  "kernel_built_desc": 3,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::topk_with_k2_kernel",
+    3
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _vllm_fa2_C.abi3 | sm_80": {
+  "kernels": 1250,
+  "with_loads": 1250,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _vllm_fa3_C.abi3 | sm_80": {
+  "kernels": 3541,
+  "with_loads": 829,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | _vllm_fa3_C.abi3 | sm_90": {
+  "kernels": 3541,
+  "with_loads": 2821,
+  "evict_first": 0,
+  "kernel_built_desc": 2368,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<flash::enable_sm90_or_later>",
+    2368
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublas.so.12 | sm_100": {
+  "kernels": 4006,
+  "with_loads": 3700,
+  "evict_first": 0,
+  "kernel_built_desc": 40,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    32
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublas.so.12 | sm_120": {
+  "kernels": 4016,
+  "with_loads": 3710,
+  "evict_first": 0,
+  "kernel_built_desc": 40,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    32
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublas.so.12 | sm_80": {
+  "kernels": 4006,
+  "with_loads": 3700,
+  "evict_first": 0,
+  "kernel_built_desc": 40,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    32
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublas.so.12 | sm_90": {
+  "kernels": 4006,
+  "with_loads": 3700,
+  "evict_first": 0,
+  "kernel_built_desc": 40,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    32
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublasLt.so.12 | sm_100": {
+  "kernels": 5039,
+  "with_loads": 4998,
+  "evict_first": 528,
+  "kernel_built_desc": 0,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ]
+  ],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublasLt.so.12 | sm_120": {
+  "kernels": 5866,
+  "with_loads": 5823,
+  "evict_first": 528,
+  "kernel_built_desc": 0,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ]
+  ],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublasLt.so.12 | sm_80": {
+  "kernels": 6968,
+  "with_loads": 6920,
+  "evict_first": 528,
+  "kernel_built_desc": 0,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ]
+  ],
+  "built_families": []
+ },
+ "torch 2.8 / vLLM 0.10.2 / cuBLAS 12.8.4 | libcublasLt.so.12 | sm_90": {
+  "kernels": 9154,
+  "with_loads": 9110,
+  "evict_first": 528,
+  "kernel_built_desc": 1214,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ]
+  ],
+  "built_families": [
+   [
+    "sm90_xmma_gemm",
+    1214
+   ]
+  ]
+ }
+}

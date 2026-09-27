@@ -1,0 +1,7 @@
+{"case": "A", "i": 0, "setting": {"window": 127, "setaside": 12, "hitratio": 0.4}, "setaside_got": 12582912, "dram_read_mib_per_step": 209.112548828125}
+{"case": "B", "i": 0, "setting": {"window": 0, "setaside": 0, "hitratio": 0}, "setaside_got": 0, "dram_read_mib_per_step": 257.152099609375}
+{"case": "B", "i": 1, "setting": {"window": 0, "setaside": 60, "hitratio": 0}, "setaside_got": 62914560, "dram_read_mib_per_step": 257.107666015625}
+{"case": "B", "i": 2, "setting": {"window": 127, "setaside": 12, "hitratio": 0.4}, "setaside_got": 12582912, "dram_read_mib_per_step": 209.68310546875}
+{"case": "C", "i": 0, "setting": {"window": 127, "setaside": 60, "hitratio": 0.4}, "setaside_got": 62914560, "dram_read_mib_per_step": 209.16097005208334}
+{"case": "D", "i": 0, "setting": {"window": 127, "setaside": 12, "hitratio": 0.4}, "setaside_got": 12582912, "dram_read_mib_per_step": 209.39298502604166}
+{"case": "D", "i": 1, "setting": {"window": 127, "setaside": 60, "hitratio": 0.4}, "setaside_got": 62914560, "dram_read_mib_per_step": 207.86930338541666}

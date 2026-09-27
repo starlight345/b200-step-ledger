@@ -1,0 +1,57 @@
+{
+ "llmcompass": {
+  "SmolLM-135M/B1": 282088320.0,
+  "SmolLM-135M/B8": 373988352.0,
+  "SmolLM-360M/B1": 746780544.0
+ },
+ "llmcompass_latency_ms": {
+  "SmolLM-135M/B1": 0.23069077369558505,
+  "SmolLM-135M/B8": 0.3144155249562623,
+  "SmolLM-360M/B1": 0.6086816536791191
+ },
+ "genz": {
+  "SmolLM-135M/B1": 283619328.0,
+  "SmolLM-135M/B8": 386236416.0,
+  "SmolLM-360M/B1": 749272576.0
+ },
+ "genz_latency_ms": {
+  "SmolLM-135M/B1": 0.2131036051162859,
+  "SmolLM-135M/B8": 0.2792857769058972,
+  "SmolLM-360M/B1": 0.5644039571446778
+ },
+ "genz_detail": {
+  "SmolLM-135M/B1": {
+   "total_data_bytes": 284176608.0,
+   "weights_bytes": 268959744.0,
+   "kv_bytes": 11888640.0
+  },
+  "SmolLM-135M/B8": {
+   "total_data_bytes": 390694656.0,
+   "weights_bytes": 268959744.0,
+   "kv_bytes": 95109120.0
+  },
+  "SmolLM-360M/B1": {
+   "total_data_bytes": 750263296.0,
+   "weights_bytes": 723517440.0,
+   "kv_bytes": 21135360.0
+  }
+ },
+ "genz_ops": [
+  "Repeat",
+  "QKV",
+  "Logit Pre",
+  "Logit Suf",
+  "Attend Pre",
+  "Attend Suf",
+  "Out Proj",
+  "up+gate",
+  "down",
+  "End Repeat",
+  "classifier"
+ ],
+ "provenance": {
+  "llmcompass": "scripts/prior/run_prior_tools.py on dsil-sy (py3.9, scalesim 2.0.2), LLMCompass heuristic-GPU, GA102 template -> 110 cores @2.37 GHz, 96 MB global buffer, 1230 GB/s, 48 GB",
+  "genz": "scripts/prior/run_prior_tools.py locally (uv py3.11.16), GenZ decode_moddeling bf16, system {Flops 250, Memory_size 48, Memory_BW 1230, ICN 64}; bytes = operands charged at off-chip BW (score matrix pinned on chip excluded)",
+  "context": 512
+ }
+}

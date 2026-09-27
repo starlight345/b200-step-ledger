@@ -1,0 +1,302 @@
+{
+ "created": "2026-09-27 02:45:24 KST",
+ "model": "scripts/l2policy_model_v3.py sha256 afb0e71d1c541c29",
+ "phi": 0.3,
+ "note": "v3 (v2 + evict-first instruction class, built after R1) predictions for C2 and C3, written before either is measured. Hints 1/3 -> evict-first; hint 2 (evict-last) has no v3 rule -> normal.",
+ "sets": {
+  "c2": [
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "window": 0,
+     "setaside": 0,
+     "hitratio": 0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 0.4
+    },
+    "v3": 280969609.216
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 0.4
+    },
+    "v3": 243298572.6976
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 1400,
+     "window": 0,
+     "setaside": 0,
+     "hitratio": 0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 1400,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 0.4
+    },
+    "v3": 280969609.216
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 1400,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 1400,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 0.4
+    },
+    "v3": 243298572.6976
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 1400,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   }
+  ],
+  "c3": [
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 3,
+     "window": 0,
+     "setaside": 0,
+     "hitratio": 0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 3,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 0.4
+    },
+    "v3": 227739172.864
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 3,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 1.0
+    },
+    "v3": 277783301.3248
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 3,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 0.4
+    },
+    "v3": 227739172.864
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 3,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 1.0
+    },
+    "v3": 277783301.3248
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 1,
+     "window": 0,
+     "setaside": 0,
+     "hitratio": 0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 1,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 0.4
+    },
+    "v3": 227739172.864
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 1,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 1.0
+    },
+    "v3": 277783301.3248
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 1,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 0.4
+    },
+    "v3": 227739172.864
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 1,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 1.0
+    },
+    "v3": 277783301.3248
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 2,
+     "window": 0,
+     "setaside": 0,
+     "hitratio": 0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 2,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 0.4
+    },
+    "v3": 280969609.216
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 2,
+     "window": 127,
+     "setaside": 12,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 2,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 0.4
+    },
+    "v3": 243298572.6976
+   },
+   {
+    "run": {
+     "mode": "llm",
+     "ws": 268,
+     "layers": 32,
+     "hint": 2,
+     "window": 127,
+     "setaside": 60,
+     "hitratio": 1.0
+    },
+    "v3": 281018368.0
+   }
+  ]
+ }
+}

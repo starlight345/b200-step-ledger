@@ -1,0 +1,185 @@
+{
+ "workloads": {
+  "SmolLM-135M/B2/c512": {
+   "s1": {
+    "measured_change": -25.720377604166686,
+    "predicted_change": -22.643399999999986,
+    "diff": -3.0769776041667,
+    "pass_": true,
+    "baseline_r2": 284.551025390625,
+    "baseline_r3": 258.8306477864583
+   },
+   "s2": {
+    "measured": 2.3243815104166856,
+    "predicted": 0.0,
+    "before_r2": 35.81632486979166,
+    "diff": 2.3243815104166856,
+    "pass_": true
+   },
+   "best": {
+    "r3_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r3_mib": 202.60343424479166,
+    "v3_pick": [
+     60,
+     60,
+     1.0
+    ],
+    "v3_pick_measured": 202.60343424479166,
+    "v3_pick_excess_mib": 0.0,
+    "v3_pick_near_opt": true,
+    "r2_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r2_mib": 230.870361328125
+   }
+  },
+  "SmolLM-135M/B4/c512": {
+   "s1": {
+    "measured_change": -44.32828776041663,
+    "predicted_change": -45.18000000000001,
+    "diff": 0.851712239583378,
+    "pass_": true,
+    "baseline_r2": 306.9058430989583,
+    "baseline_r3": 262.5775553385417
+   },
+   "s2": {
+    "measured": 21.028564453125,
+    "predicted": 12.762900000000002,
+    "before_r2": 36.265462239583314,
+    "diff": 8.265664453124998,
+    "pass_": true
+   },
+   "best": {
+    "r3_setting": [
+     36,
+     36,
+     1.0
+    ],
+    "r3_mib": 226.53190104166666,
+    "v3_pick": [
+     36,
+     36,
+     1.0
+    ],
+    "v3_pick_measured": 226.53190104166666,
+    "v3_pick_excess_mib": 0.0,
+    "v3_pick_near_opt": true,
+    "r2_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r2_mib": 254.56013997395834
+   }
+  },
+  "SmolLM-360M/B4/c512": {
+   "s1": {
+    "measured_change": -68.56949869791663,
+    "predicted_change": -75.00509999999997,
+    "diff": 6.435601302083342,
+    "pass_": true,
+    "baseline_r2": 777.00732421875,
+    "baseline_r3": 708.4378255208334
+   },
+   "s2": {
+    "measured": 37.25244140625,
+    "predicted": 35.02979999999991,
+    "before_r2": 38.86678059895837,
+    "diff": 2.2226414062500908,
+    "pass_": true
+   },
+   "best": {
+    "r3_setting": [
+     0,
+     60,
+     0
+    ],
+    "r3_mib": 705.3815104166666,
+    "v3_pick": [
+     127,
+     12,
+     0.0
+    ],
+    "v3_pick_measured": 720.701416015625,
+    "v3_pick_excess_mib": 15.319905598958371,
+    "v3_pick_near_opt": true,
+    "r2_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r2_mib": 721.5033365885416
+   }
+  },
+  "SmolLM-360M/B8/c512": {
+   "s1": {
+    "measured_change": -2.514892578125,
+    "predicted_change": -0.014400000000023283,
+    "diff": -2.5004925781249767,
+    "pass_": true,
+    "baseline_r2": 858.2840983072916,
+    "baseline_r3": 855.7692057291666
+   },
+   "s2": {
+    "measured": 38.84358723958337,
+    "predicted": 36.13229999999999,
+    "before_r2": 39.6259765625,
+    "diff": 2.7112872395833847,
+    "pass_": true
+   },
+   "best": {
+    "r3_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r3_mib": 802.6490071614584,
+    "v3_pick": [
+     127,
+     60,
+     0.4
+    ],
+    "v3_pick_measured": 817.3561197916666,
+    "v3_pick_excess_mib": 14.707112630208258,
+    "v3_pick_near_opt": true,
+    "r2_setting": [
+     60,
+     60,
+     1.0
+    ],
+    "r2_mib": 804.9242350260416
+   }
+  }
+ },
+ "tolerance_mib": 10.0,
+ "s3": {
+  "mae_mib": {
+   "memexplorer": 72.12023579482491,
+   "gtsim_l2": 27.031540890957448,
+   "ours_v1": 19.648695492575353,
+   "ours_v2": 19.86979436087101,
+   "autoscratch": 28.450888775764625,
+   "v3": 8.973995978778808
+  },
+  "pass_": true,
+  "n": 188
+ },
+ "s4": {
+  "near_opt": {
+   "memexplorer": 0,
+   "gtsim_l2": 0,
+   "ours_v1": 9,
+   "ours_v2": 11,
+   "autoscratch": 8,
+   "v3": 20
+  },
+  "groups": 20,
+  "pass_": true
+ }
+}

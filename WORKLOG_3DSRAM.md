@@ -293,6 +293,45 @@ Codex 소유 파일을 Claude가 이어받아 아래를 처리했다. 요청 네
 - 0.5 pJ/bit이 **소자 모델의 예시값**임을 명시 — P6의 문헌 밴드와 혼동 방지.
 - `ECTC_ABSTRACT.md`를 docx와 동기화.
 
+## 2026-09-24 — Result 3 재검토: reclaim 이 필요한가, type-aware admission 이면 충분한가
+
+비판: "activation 먼저"는 실행 가능한 순서가 아니고(층의 activation 은 그 층 weight 를 먼저
+읽어야 생김), managed 티어라면 activation 을 처음부터 안 넣으면 되므로 반환할 것이 없다.
+맞다. 두 합성 순서는 원래 커널 발행 순서를 몰라서 넣은 **민감도 검사**였는데, 결과 막대로
+"reclaim 이 필요하다"는 제목 아래 놓이면서 과장됐다.
+
+- **공정한 비교를 돌렸다** (`scripts/result3_type_vs_reclaim.py`, 층 인터리빙 고정, C2 2층
+  600 mm², decode 정상상태 물리 V_HBM). type-blind 14.65 / +reclaim 18.59 / **activation 미입장
+  18.59 / weight 만 18.59** / managed 18.59 %. type-aware admission = reclaim = oracle.
+- **순서 의존은 type-blind 하나뿐.** 세 순서 모두에서 type-aware·managed 는 18.59 로 고정,
+  type-blind 만 18.59 → −0.77 로 흔들린다. 합성 순서의 올바른 용도는 이 한 줄이다.
+- **요청 종료 KV(비판이 "lifetime 이 본질적인 곳"으로 든 경우)도 같다.** Gate 6 비주기 장부
+  (평균 길이 10~1000): type-blind 는 죽은 KV 로 최대 2.36 %p 손해, +free 로 회복, weight 만
+  넣으면 오라클과 +0.000 p 동점.
+- **이유는 수명 지배.** 티어 < weight working set 이면 최적 집합이 weight 뿐이고 weight 는 죽지
+  않으므로 반환할 것이 없다. lifetime 은 반환 시점이 아니라 **입장 순위**(weight > KV >
+  activation)로 작동한다. reclaim 이 본질적이 되는 건 지배가 깨지는 곳 — 티어 ≥ weight WS
+  (BF16 ~2 B 이하), 또는 매 스텝 전부 읽히지 않는 MoE weight.
+- **제안(사용자 결정 대기).** R3 결론을 "reclaim 이 필요하다"에서 "무엇을 넣을지가 이득을
+  정한다 — type-blind 티어는 단계가 섞이면 흔들리고, 객체 수명으로 입장을 정하면 안 흔들린다"로.
+  순서 스윕은 부록 민감도 검사로. 결론 슬라이드의 "의미론 ② 해제 신호를 받아 즉시 반환"과
+  "서빙 엔진이 이미 내보내는 free 신호" 문구는 함께 내린다.
+
+## 2026-09-24 — B_HBM,eff 6.40 의 출처 정정 (앵커 8점 → 4점)
+
+- **6.40 은 Llama-3.1-8B 앵커 4점의 최소제곱 기울기다.** B200, vLLM 0.28.0, 2026-09-09 decode 중앙값.
+  (B, N, 구조식 트래픽 GB, 실측 ms) = (1, 2048, 15.369, 4.250) · (8, 2048, 17.249, 4.556) ·
+  (8, 8192, 23.691, 5.443) · (32, 2048, 23.694, 5.668). t0 1.852 ms, 기울기 0.1564 ms/GB → 6.395 TB/s,
+  최대 잔차 2.1 %. `SRAM_HIERARCHY_MODEL.md` 두 곳과 `GPU_PLAN.md` 의 "8점"은 여덟 모델 증거 색인과
+  섞인 오기였다. 세 곳 모두 4점으로 고쳤다.
+- **x 축은 카운터가 아니라 구조식 계산기 트래픽**이고 weight 읽기를 반올림 상수 15.1 GB 로 둔다(장부는
+  15.010). 모든 점에 같은 +0.09 GB 라 기울기는 불변, t0 만 1.852 → 1.866 ms.
+- **6.51 TB/s 는 다른 회귀다.** 재생 페이지(`replay.html`, `memory.html`)의 Llama 28셀 적합, t0 1.58 ms,
+  최대 잔차 6.3 %. 기울기만 2 % 안에서 맞고 절편이 달라 섞지 않는다.
+- **인과 한계가 숫자로 보인다.** (8, 8192)와 (32, 2048)은 트래픽이 0.003 GB 차이인데 실측이 0.225 ms
+  (4 %) 다르다. 시간이 트래픽만의 함수가 아니므로 기울기 = "같은 workload 에서 바이트만 줄였을 때의
+  한계율"은 여전히 가정이다(G-1 / Gate 4).
+
 ## 2026-09-24 — 매크로 해상 3D 과도, AEDT 로 재구축, E/bit 앵커 정정 (Claude)
 
 - **MAPDL 매크로 해상 과도** (`scripts/mapdl_macro.py`, ECTC_STORY 5-M). C2 매크로 153 × 518 µm, L자 주변회로
@@ -316,3 +355,648 @@ Codex 소유 파일을 Claude가 이어받아 아래를 처리했다. 요청 네
   티어 평면 삽입. `_rev.docx` 의 한국어 캡션 MAPDL 3패널을 이것과 영어 Fig. 1 캡션으로 교체(사용자 원본 docx 는 그대로).
   수치 정합 둘: 럼프드는 현 문헌 스택에서 0.0647 → **77.3 TB/s**(76.9 는 옛 1 µm 가정), 검증 E/bit 바는 peak_frac 0.2693 →
   **1.45 pJ/bit**, 비관 코너 대비 **3.9배**(0.2724 는 옛 가정). 초록·스토리·덱·bw-ebit 반영.
+
+## 2026-09-25 00:14:17 KST — H1 사전 예측 고정 (측정 전)
+
+- 기계: dsil-sy(ampere) RTX PRO 5000 Blackwell, L2 96 MiB, set-aside 상한 60 MiB, 창 상한 128 MiB. 카운터 권한은
+  재부팅(2026-09-25 00:09) 후 열림, Blackwell 적중률 지표 이름은 `lts__t_sector_hit_rate.pct`.
+- 보정(격자 밖 크기로만): DRAM 1.23 TB/s, L2 6.16 TB/s, 커널당 2.08 µs → `assets/sweep/h1_calib_ampere.json`.
+- 예측 281 설정 × 예측기 5개(no_residency / capacity_only / fixed_lru / cuda_policy / cuda_policy_lip)를
+  `assets/sweep/h1_predictions_ampere.json` 에 고정. SHA-256 앞 16자리 **f5ff4f8f161f7d99**. 이 파일은 측정 후 수정하지 않는다.
+- 문서화되지 않은 선택 하나(streaming 줄끼리의 축출 순서)는 두 예측기로 나눠 두었고 H1 이 판정한다.
+- 정정: 프로브·본실험 스크립트의 `cudaLimitPersistingL2CacheSize` 가 0x05(=MaxL2FetchGranularity)로 잘못돼 있었다 → 0x06.
+
+## 2026-09-25 00:44:45 KST — H1 결과 요약, 진단 D1, H1b 사전 예측 고정
+
+- **H1 (281 설정, 오류 0).** 예측기별 DRAM 바이트 MAE: fixed_lru 8.2 / no_residency 17.7 / cuda_policy 15.6 /
+  cuda_policy_lip 16.8 / **capacity_only 65.3 MiB**. 정책이 실제로 작동한 clean hot=48·96 에서는 cuda_policy 가
+  fixed_lru 보다 낫고(4.0 대 11.8, 5.8 대 7.4 MiB) 최적 hitRatio 도 대부분 맞힌다. H2(연산 고정): clean 에서
+  ΔT/ΔDRAM = 1.10~1.26 TB/s(R² 0.98~0.99) — 보정 스트리밍 1.23 TB/s 와 일치.
+- **진단 D1.** 창 크기 = 장치 최대치(128 MiB)면 오류 없이 받아들여지지만 **persistence 가 전혀 적용되지 않는다**.
+  127 MiB 는 정상(llm ws=192: DRAM 192 → 150 MiB). H1 의 무반응 세 워크로드(llm 192·384, clean 128)는 전부 이
+  경계 조건 — 격자를 min(ws, 최대치)로 잡은 설계 오류. aggregate MAE 에서 fixed_lru 가 이긴 주원인.
+- **H1b.** 그 세 워크로드를 창 127 MiB 로 다시 잰다. 모델 v1 은 H1 고정 이후 수정 없음(스크립트 sha256 30df4e5a6ce9281a).
+  예측 파일 `assets/sweep/h1b_predictions_ampere.json` sha256 **3044ec5943684aa4**, 측정 전 고정.
+
+## 2026-09-25 00:57:43 KST — H1b 결과와 유효 전체 판정 (모델 v1, 문서화된 CUDA 의미만)
+
+- **H1b (창 127 MiB, 120 설정).** DRAM MAE: cuda_policy **10.1** / fixed_lru 12.9 / capacity_only 83.1 MiB.
+- **유효 전체 281 (H1 창 128 제외 + H1b).** cuda_policy 13.1 MiB(편향 −1.1) / fixed_lru 13.7(+2.7) /
+  no_residency 23.2(+23.2) / **capacity_only 59.8(−59.8)**. 워크로드 7개 중 5개에서 cuda_policy 가 가장 정확.
+- **정직한 판정.** 문서화된 의미만 넣은 v1 은 LRU 고정과 **사실상 동률**이다 — 아직 "더 정확하다"고 쓸 수 없다.
+  확실한 결론은 하나: **이상적 용량 가정은 실제 GPU 에서 용량 이득을 평균 60 MiB/step 과장**한다.
+- **v1 이 틀린 곳과 이유(→ v2 후보, H1 데이터로 맞춘 뒤 새 격자 H1c 로 사전 예측 검증).**
+  (1) WS ≤ L2: set-aside 를 넘친 persisting 줄은 서로 쫓아내지 않고 빈 L2 를 쓴다(llm 48 실측 전부 적중).
+  (2) 유효 set-aside 비율 η ≈ 0.4~0.85 — 하드웨어가 set-aside 를 다 채우지 못한다(clean 48/96).
+  (3) 반복 접근 유효 용량 < 명목: WS = L2(96 MiB)에서 창 없이도 41 MiB 미스, streaming 표시가 나머지를 보호.
+- **H2 (연산 고정).** clean: ΔT/ΔDRAM 1.10~1.26 TB/s (R² ≥ 0.98) ≈ 스트리밍 1.23 TB/s. llm: 1.45~1.92 TB/s
+  (R² 0.68~0.82) — 작은 커널 32개라 커널당 고정·꼬리 시간이 섞인다.
+
+## 2026-09-26 19:56:54 KST — 모델 v2 (세트 단위) 적합, H1c 사전 예측 고정
+
+- **v2 구조(적합 아님, 추론).** L2 16-way — 이 GPU 와 B200 모두 persisting 상한이 L2 의 정확히 10/16 이고, 스윕한
+  set-aside 가 전부 6 MiB(=1 way)의 정수배. set-aside 는 세트마다 k way 예약. hitRatio 는 창의 줄마다 독립 확률 r
+  (문서의 "random with probability ≈ hitRatio"). 세트 안: 예약 way 에 들어간 persisting 은 persisting 만이 밀어내고,
+  넘치면 전체 way 에서 normal 과 경쟁(L2 에 다 들어가면 모두 적중), 순환 접근 LRU 는 세트별로 전부 적중/전부 미스,
+  streaming 은 먼저 축출되어 남는 자리에서만 적중. `scripts/l2policy_model_v2.py` sha256 8ef2192541d2292b.
+- **적합 1개: φ(주소가 세트에 퍼지는 불균일도) = 0.3.** H1+H1b 유효 281 에서 DRAM MAE 3.33 MiB(86 % 5 % 이내) —
+  같은 데이터에서 v1 13.13, fixed_lru 13.65. **φ = 0(적합 0개)에서도 7.77 MiB**. φ 0.1~0.5 에서 3.3~3.6 — 구조가 대부분을 설명.
+  이건 표본 내 수치다.
+- **H1c(보류 검증).** H1·H1b·φ 적합에 한 번도 안 쓴 크기: llm ws 72/144/288, clean hot 64/80/112 + chunk 64,
+  set-aside 18/30/42/54 MiB(홀수 way), hitRatio 0.1/0.3/0.6/0.9 + S/W 괄호. 예측기 6개(v1 두 변형 포함, v1 은
+  sha256 30df4e5a6ce9281a 그대로) 를 `assets/sweep/h1c_predictions_ampere.json` 에 고정. sha256 **e547b86a5a88efa5**. 측정 전.
+
+## 2026-09-26 20:28:16 KST — H1c 결과: 처음 보는 설정에서 v2 가 가장 정확 (사전 예측 검증)
+
+- **H1c (보류 150 설정, 예측 sha256 e547b86a5a88efa5 로 측정 전 고정).** DRAM 바이트 MAE:
+  **v2 4.28 MiB (스텝의 3.3 %, 89 % 가 5 % 이내)** / v1 12.69 / fixed_lru 13.39 / no_residency 24.10 /
+  capacity_only 59.91 (35.8 %). 워크로드 6개 모두에서 v2 가 최선 또는 동률(llm 72 에서 fixed_lru 와 동률).
+  최적 hitRatio 적중: v2 19/24, v1 18/24, capacity_only 5/24. 시간 MAE: v2 7.9 %, fixed_lru 7.5 % (시간은 헤드라인 아님).
+- **v2 의 남은 오차(>20 MiB 6/150)는 전부 streaming 표시가 많은 설정.** v2 는 "streaming 줄도 빈자리에 남는다"고
+  가정했지만 하드웨어는 훨씬 적게 남긴다(예: llm 72, S=30, r=0.375 — L2 에 다 들어가는데도 52.9 MiB 미스).
+  다음 개정 후보는 이 규칙 하나(streaming 보유 한도). 이것도 새 보류 격자로 사전 예측해야 한다.
+- **재현성 통제(H1/H1b 설정 6개 재측정, 서버에 타 사용자 ICC2 부하 중).** DRAM 차이 0.1~0.5 MiB, WS=L2 경계 기준선만
+  41.1 → 44.7 MiB. 시간 대부분 ±2 %, 한 개 −7.9 %. 카운터 결과는 재현되고 시간은 부하에 약간 흔들린다.
+- **H2 (H1c).** clean: ΔT/ΔDRAM 1.05~1.21 TB/s (R² 0.72~0.99) ≈ 스트리밍 1.23. llm 은 R² 0.46~0.62 (CPU 부하·커널 32개 고정비).
+- 그림: `assets/figures/h1c-predicted-vs-measured.png`, `h1c-hitratio-response.png` (`scripts/make_h1c_figure.py`).
+
+## 2026-09-26 22:25:44 KST — R1 사전 예측 고정: 실제 선행 도구 vs 우리 모델, 실제 LLM 디코드
+
+- **질문.** 선행 도구가 쓰는 논리→물리 변환을 그 도구 코드 그대로 돌려, 실제 LLM 디코드의 DRAM 바이트를 누가 맞히나.
+  대리 모델(단순 LRU 등)이 아니라 **실제 도구**: LLMCompass(heuristic-GPU, GA102 템플릿을 이 GPU 수치로), GenZ
+  (decode_moddeling, bf16), 그리고 공개 코드가 없는 MemExplorer 는 식 (4), GPU-Tile-Sim 은 공개 L2(완전연관 LRU, 128 B).
+  하드웨어 수치는 우리 모델과 똑같이 넣음(DRAM 1.230 TB/s, L2 96 MiB, 110 SM, 2.37 GHz, 48 GB).
+  도구 출력: `assets/sweep/r1_tool_bytes.json`(sha256 4bca4688e6e0980e). 135M/B1 LLMCompass 282.1 MB, GenZ 283.6 MB —
+  둘 다 논리 수요(가중치 269.0 + KV 11.8 MB)와 거의 같다(재사용 없음).
+- **GenZ 추출 버그 수정.** ModdelingOutput 은 dict 라 속성 접근이 클래스 기본값(None/0)을 돌려준다 → 키로 읽음.
+  바이트 = GenZ 가 off-chip 대역폭으로 과금하는 피연산자(디코드에서 칩 위에 고정하는 score 행렬 제외); 'Total Data' 도 같이 저장.
+- **워크로드를 도구가 가정하는 연산 목록과 일치시킴(엔진 manual).** HF 기본 경로는 StaticCache 전체 길이(603 토큰)를
+  마스크로 읽고 GQA 용 K,V 복사본을 층마다 만든다(repeat_kv) — 어떤 도구도, 우리 모델도 예측 대상으로 삼지 않는 트래픽이라
+  정책 효과와 섞인다. manual 엔진은 체크포인트의 HF 모듈(노름·투영·rotary·MLP·LM head)을 그대로 쓰고 어텐션 핵심만
+  bmm(q 를 KV 헤드별로 묶음, K) → softmax → bmm(p, V) 로 풀어 KV 를 유효 문맥만큼 한 번 읽는다. 매 스텝 같은 위치(512)에
+  새 토큰 K,V 를 쓰고 513 토큰을 읽는다 → 모든 스텝의 바이트 발자국이 같다.
+  **HF 대비 검증(check 모드):** 135M B1/B8, 360M B1 각 3 스텝 argmax 100 % 일치, cos ≥ 0.982(135M B8 셋째 스텝, bf16 누적 차),
+  360M ≥ 0.9998. 커널 목록(135M B8 1 스텝): 1391 커널, 대형 복사 없음.
+- **격자(워크로드당 47).** 기준선; set-aside 만(대조: 기준선과 같아야 함); 창 127 MiB × S {12,24,36,48,60} ×
+  hitRatio {0,.1,.2,.3,.4,.5,.75,1}(모든 S 에 대해 S/127 을 괄호); 문서 권장식 창 = S, hitRatio 1.
+  워크로드 SmolLM-135M B1 / B8, SmolLM-360M B1, 문맥 512. 141 설정.
+- **예측기 6개 고정:** llmcompass, genz, memexplorer, gtsim_l2, ours_v1(sha256 30df4e5a6ce9281a 그대로), ours_v2(φ 0.3 그대로).
+  `assets/sweep/r1_predictions_ampere.json` sha256 **1a386580387e3d45** (`scripts/llm_predict.py` d350fb59e7702c9e). 측정 전.
+
+## 2026-09-26 22:44:03 KST — GPU-Tile-Sim: 공개판은 디코드를 못 만든다 → 그 L2 코드를 그대로 돌려 우리 에뮬레이션과 일치 확인
+
+- **공개판 한계(코드 확인, tilegen v0.1.0).** 워크로드 빌더는 H100 persistent GEMM 과 FA3 두 개뿐이고(docs/release-scope.md 가
+  나머지 빌더·B200 경로 미포함을 명시), GEMM 빌더는 `num_tb_m = M / 128`, `num_tb_n = N / 256` — 디코드 GEMV(M = 배치 1·8)는
+  타일 0 개, SmolLM 차원(576·192·1536)은 256 배수가 아니다. 시뮬레이터 인스턴스 하나가 DAG 하나(커널 하나)를 새 L2 로 돈다.
+- **그래서 L2 모델만 그대로 씀.** `scripts/prior/gtsim_l2_stream.cpp` 가 `include/memory.h` 의 L2Cache(완전연관 LRU, 128 B,
+  MSHR, 채울 때 삽입, 쓰기 되돌림)를 수정 없이 불러 워크로드의 줄 주소 스트림을 먹이고, 줄이 캐시에도 MSHR 에도 없을 때
+  (= L2Cache::step() 이 DRAM 읽기를 넣는 조건)를 센다. 결과 `assets/sweep/gtsim_l2_exact.jsonl`.
+- **일치.** 합성 13 워크로드(H1·H1b·H1c 의 llm ws 48~384, clean hot 48~128 + chunk) 와 R1 3 워크로드 모두에서 우리
+  fixed_lru / gtsim_l2 예측과 같다(차이는 표기 반올림 0.02~0.06 MiB). → 표의 GPU-Tile-Sim 열은 그 도구 L2 코드의 출력이다.
+  정책 손잡이는 표현 못 한다(전역 bypass 하나뿐).
+
+## 2026-09-27 01:53:00 KST — R1 결과, 대조 C1, 정책형 선행과 비교 (AutoScratch 의미론, Accel-Sim 준비)
+
+- **R1 측정 완료 (141 설정, 사전 예측 sha256 1a386580 로 고정).** `assets/sweep/r1_measured_ampere.jsonl`
+  sha256 b23ae121a462e3d8. DRAM 읽기 MAE(MiB/step): ours_v1 **20.95** / ours_v2 21.29 / gtsim_l2 27.51 /
+  llmcompass 28.54 / genz 32.77 / memexplorer 74.91. 정책 반응(자기 기준선 대비 변화) 상관: v2 +0.55, v1 +0.46,
+  도구 넷은 0(평평). 최적 hitRatio 선택(스텝의 2 % 이내): v2 8/15, v1 7/15, 도구 넷 0/15.
+  시간: 커널 시간 2.6~4.0 ms 인데 LLMCompass 0.23~0.61, GenZ 0.21~0.56 ms 예측(eager 디코드는 커널 1,361개/스텝 발사 지배).
+- **R1 의 주된 오차원: set-aside 무관.** 135M B1·360M B1 모두 창 127 MiB 에서 측정 DRAM 이 S(12~60 MiB)에 거의 무관하고
+  hitRatio 에만 반응한다(최적 r = 0.40, 모든 S). S = 12 인데 r = 0.4(persisting 51 MiB)로 48 MiB 를 아낀다.
+  문서 권장식(창 = S, r = 1)은 정확히 S 만큼 아낀다(12/24/36/48/60). v1·v2 는 "S/127 을 넘으면 persisting 끼리
+  thrash" 로 예측해 작은 S 에서 틀린다. 합성 H1c(llm 288)는 S 에 민감했다(r 0.3: S 18 → 1 MiB, S 54 → 25 MiB 절약).
+- **대조 C1 (하네스 부작용 아님).** R1 은 한 프로세스에서 S 를 바꿨으므로 "S 를 낮춘 변경이 안 먹힌다"를 의심했다.
+  135M B1, W127 r0.4: 새 프로세스 S12 **209.1**, S60 대조군 뒤 S12 **209.7**, 새 프로세스 S60 **209.2**,
+  한 프로세스 S12→S60 209.4 → 207.9 MiB. → 순서 무관, **R1 데이터는 유효하고 S 무관은 하드웨어 동작**이다.
+  `scripts/gpu/c1_setaside_order.sh`, `assets/sweep/c1_setaside_order.jsonl`. R1 재측정은 불필요(준비했던 r1b_run.py 는 삭제).
+- **다음 진단 C2 (사전 진술, 예측 sha256 55efb95e1a005c28).** 차이가 커널 단위에서 오는지: 같은 합성(ws 268 MiB ≈ 135M B1)을
+  커널 32 개 vs 1,400 개로 나눠 {기준선, S 12/60 × r 0.4/1.0}. "1,400 에서만 S12≈S60 이고 ≥ 30 MiB 절약"이면 커널 단위가 원인.
+- **정책형 선행과의 비교 — 조사(PRIOR_WORK_EVAL 6-9).** 공개 도구 중 NVIDIA persistence 를 표현하는 것은 없다(코드 확인:
+  GPGPU-Sim `cudaDeviceSetLimit` 은 스텁, `cudaStreamSetAttribute`·access-policy 는 시뮬레이터·트레이서 어디에도 없음).
+  가장 가까운 선행 AutoScratch(MLSys'23, NVIDIA, 코드 비공개)는 "resident = 축출 불가, 상한 = set-aside, 나머지 기본 교체".
+- **AutoScratch 의미론 재구현** (`scripts/prior/autoscratch_pin.py` sha256 4563440e577bd4f7; 적합 0, 측정 뒤 추가).
+  `assets/sweep/prior_sim_predictions.json`(H1·H1b·H1c·R1 692 설정), 비교 `scripts/prior/prior_sim_compare.py`.
+  H1c MAE **15.35** MiB(편향 −11.6: 고정이라 과대 보호) — v2 4.28, v1 12.69, GPU-Tile-Sim 13.39 보다 나쁨.
+  R1 MAE **25.76** — v1 20.95 와 GPU-Tile-Sim 27.51 사이. 최적 선택 7/15(평균 손실 11.5 MiB, v2 는 8/15·16.3).
+  → 정책을 표현하는 선행 의미론도 set-aside 를 상한으로 보는 한 R1 의 S 무관을 설명 못 한다(우리와 같은 약점).
+- **Accel-Sim 2.0 실제 실행 준비** (dev d930ad6, 서버 `~/l2probe/thirdparty/accel-sim-framework`).
+  빌드: python3-devel 이 없어 uv CPython 3.11 헤더로 CMake 구성. 설정 `~/l2probe/asim_cfg/SM120_RTXPRO5000`
+  (SM86_RTX3070 템플릿 + 110 SM, 2370 MHz, L2 96 MiB = 48 슬라이스 × 1024 세트 × 128 B × 16 way, GDDR7 24 채널 1344 GB/s,
+  IPOLY 제약 때문에 파티션 IPOLY-modulo·세트 XOR = SM90_H100 방식; gpgpusim.config sha256 fd10cc330a31311d).
+  패치 2개(trace_driven.cc): 바이너리 버전 ≥ 100 → Hopper opcode 표(issue #488), 표에 없는 sm_120 opcode 는 명시 매핑
+  (지금까지 `LDCU` → ULDC). 모르는 opcode 는 계속 중단(조용히 넘기지 않음).
+  NVBit 1.8 함정 둘: (1) `cudaCtxResetPersistingL2Cache` 에서 CUDA_ERROR_UNKNOWN → 추적 전용 빌드
+  (`l2policy_bench -DNO_POLICY_CALLS`, `llm_policy_bench.py --no-policy-calls`; 기본 동작 불변),
+  (2) PyTorch 의 cudaProfilerStart/cuProfilerStart 를 못 봄 → R1 은 커널 번호 범위로 마지막 2 스텝 선택(`asim_r1.sh`;
+  135M B1 은 1,361 커널/스텝, 가중치는 cuBLAS gemvx 211 개/스텝).
+  속도: 트레이서 ~0.5 MiB/s(압축 무관), 시뮬레이터 ~0.036 MiB/s(1.5 MiB 커널 41 s). 그래서 보류 세트(H1c 6 + R1 3)만,
+  2 스텝(워밍업 1 + 예측 1)으로 돌린다. 검증: 냉 1.5 MiB 커널의 `total dram reads` = 49,152 × 32 B = 1.5 MiB.
+
+## 2026-09-27 02:20 KST — R1 의 set-aside 무관: 라이브러리 커널의 명령어 단위 축출 힌트 (가설 H-hint)
+
+- **SASS 확인.** R1 디코드의 가중치 GEMV 는 cuBLAS `internal::gemvx::kernel<…bf16…>` 한 종류(211 개/스텝). sm_120 SASS
+  (`cuobjdump -sass -arch sm_120 libcublasLt.so.12`)에서 로드가 `LDG.E.EF.U16`(EF = evict-first, PTX `ld.global.cs`:
+  한 번 쓰는 스트리밍 데이터를 L1·L2 에 evict-first 로 할당)과 `LDG.E.U16.STRONG.SM` 으로 나뉜다 — 한 번 읽히는 가중치 쪽이 EF 로 보인다.
+- **이것이 R1 의 두 관찰을 함께 설명한다(가설).** 기준선에서 논리 수요보다 ~11 MiB 덜 읽는 것 = 가중치가 먼저 쫓겨나 KV(11.8 MiB)가
+  다음 스텝까지 남음. 창을 쓸 때 S 무관 = 창 밖 가중치가 모두 EF 라 persisting 줄을 밀어내지 못함. 합성(일반 LDG)은 창 밖이 normal 이라
+  set-aside 밖에서 persisting 과 경쟁 → S 에 민감. 참고: 캐시 정책(createpolicy)은 SASS 에서 opcode 가 아니라 메모리 디스크립터
+  (uniform 레지스터)에 실리므로 opcode 조사로는 안 보인다; `ld.global.cs` 는 opcode 수식어 `.EF` 로 보인다.
+- **Accel-Sim 도 이 힌트를 무시한다.** trace_driven.cc 는 LDG 의 수식어 중 STRONG.GPU/BYPASS(L1 우회)만 보고 `.EF` 는 일반 로드
+  (CACHE_ALL)로 처리한다. 우리 v1·v2, AutoScratch 의미론도 명령어 힌트가 없다 → R1 에서 모두 같은 방향으로 틀리는 이유.
+- **C3 재고정 (측정 전, sha256 47d6627cff9ab0d9; 처음 판 117d533f 는 L2 정책 힌트만 있어 교체).** 합성 ws 268 MiB, 커널 32 개,
+  모든 로드에 hint 3 = `ld.global.cs`(`LDG.E.EF.128`, cuBLAS 와 같음) / 1 = L2::evict_first 정책 / 2 = L2::evict_last,
+  × {기준선, S 12/60 × r 0.4/1.0}. 사전 진술: H-hint 가 맞으면 hint 3 에서 DRAM(S12, r.4) ≈ DRAM(S60, r.4), 자기 기준선 대비
+  ≥ 30 MiB 절약; 힌트 없는 C2(커널 32)는 S12 r.4 에서 < 10 MiB. `l2policy_bench.cu` 에 hint 옵션 추가(기본 0 = 기존 커널 그대로).
+- **모델 쪽 함의.** 정책을 고려한 모델은 창·set-aside 만이 아니라 **커널이 싣는 축출 우선순위(evict-first/normal/last)** 를 줄
+  단위 클래스로 받아야 한다. 이건 R1 을 본 뒤의 가설이므로, 반영한 모델(v3)은 새 보류 데이터로 다시 검증해야 한다.
+
+## 2026-09-27 02:45 KST — 모델 v3 (명령어 evict-first 클래스) 와 C2·C3 사전 예측 고정
+
+- **v3 = v2 + 클래스 E** (`scripts/l2policy_model_v3.py` sha256 afb0e71d1c541c29). E = 창 밖에서 evict-first 힌트
+  (`ld.global.cs`, L2::evict_first)로 읽히는 반복 줄: 창의 streaming 줄처럼 먼저 쫓겨나고 normal·persisting 을 밀어내지 않으며
+  남는 자리에서만 적중. 창 줄은 명령어 힌트와 무관하게 창 속성(hitRatio → persisting, 나머지 → streaming). evict-last 규칙은 없음(normal).
+  새로 적합한 값 없음(φ 0.3, 16-way 그대로). 힌트가 없으면 v2 와 같다(H1c 150 설정 차이 0).
+- **R1 사후 설명력 (검증 아님).** 가중치 = E, 창 = 가중치 앞 W, KV = normal 로 두면 MAE 21.29 → **14.31** MiB. 135M B1 24.2 → 6.8,
+  360M B1 27.6 → 8.4 로 S 무관을 설명한다. 그러나 **135M B8 은 12.0 → 27.7 로 나빠짐** — KV 90 MiB(≈ L2)가 실측에선 전혀 안 남는데
+  v3 는 일부 남는다고 본다(세트당 KV ~15 way, EF 줄이 동시에 여러 way 를 쓰거나 활성값 압력일 수 있음). 미해결.
+- **사전 예측 (C2·C3 측정 전, `assets/sweep/c23_v3_predictions_ampere.json` sha256 dad598661e2010d1).**
+  C2(일반 로드, 커널 32/1,400): S12 r.4 → 268.0, S60 r.4 → 232.0 MiB (커널 수 무관, S 에 민감).
+  C3 hint 3·1(evict-first): S12 r.4 = S60 r.4 = 217.2, r 1.0 → 264.9, 기준선 268.0 (S 무관, 51 MiB 절약).
+  C3 hint 2(evict-last): 규칙 없음 → C2 와 같게 예측(탐색용).
+
+## 2026-09-27 04:10 KST — C2·C3 결과: evict-first 로드가 set-aside 무관을 만든다; 자체 정책 디스크립터는 창을 무시한다
+
+- **C2 (일반 로드, 커널 32; `c2_measured_ampere.jsonl` sha256 62eaaeabd4210bb2).** 기준선 268.8, W127 S12 r.4 → **268.0**(절약 없음),
+  S60 r.4 → **238.6**, r 1.0 → 268.0. 사전 예측 MAE: v2 = v3 1.5, v1 4.6, fixed_lru 6.0 MiB. 합성 일반 로드는 S 에 민감(H1c 와 같음).
+  커널 1,400 개 절반은 벤치 버그(268 MiB/1,400 이 16 B 배수 아님 → misaligned address)로 실패 → per-kernel 바이트를 256 B 로 내림
+  (이전 H1·H1b·H1c 설정은 모두 이미 정렬돼 값 불변을 확인), `c2b` 로 B8 트레이스 뒤 재측정 대기.
+- **C3 (`c3_measured_ampere.jsonl` sha256 2c48fe09d8623555; 사전 예측 47d6627c / v3 dad59866).**
+  hint 3 = `ld.global.cs`(LDG.E.EF.128, cuBLAS gemvx 와 같은 로드): 기준선 268.0, S12 r.4 **212.8**, S60 r.4 **212.7**(S 무관, 55 MiB 절약),
+  r 1.0 → 268.0. → **H-hint 확인: R1 의 set-aside 무관이 합성 커널에서 재현된다.** 사전 예측 MAE: **v3 3.0**, v1 11.8, v2 14.9, fixed_lru 22.1.
+  hint 1·2 = `createpolicy` L2::evict_first / evict_last 디스크립터: **모든 설정 268.0 — 창이 아무 효과 없음**(일반 로드면 S60 r.4 에서
+  29 MiB 절약하는 설정 포함). 사전 예측 MAE: fixed_lru 0.0, v2 7.2, v1 10.4, v3 21.6(evict_first) / 7.2(evict_last).
+- **해석.** 일반 로드의 디스크립터는 드라이버가 주는 상수 뱅크 기본값(`LDCU.64 UR6, c[0x0][0x358]`)이고, createpolicy 커널은
+  디스크립터를 직접 만든다(UMOV/ULOP3). 창이 기본 디스크립터로 전달된다고 보면 둘 다 설명된다(추론, 직접 증거는 아님):
+  (a) 기본 디스크립터 + `.cs`(EF 수식어): 창이 적용되고, 창 밖 줄은 evict-first → persisting 을 못 밀어냄 → S 무관;
+  (b) 자체 디스크립터: 창이 적용되지 않고 디스크립터의 우선순위만 남음 → 순환 스트림 > L2 면 전부 미스.
+- **모델에 주는 결론.** 정책을 고려한 L2 모델의 입력은 (창, set-aside) 만이 아니라 **커널별 로드 방식**(기본 / `.cs` / 자체 디스크립터)이다.
+  v3 는 앞의 둘을 맞히고(C2 1.5, C3-cs 3.0) 셋째를 틀린다(창이 이긴다고 가정). v3.1 규칙 후보: 자체 디스크립터 로드에는 창을 적용하지 않는다
+  — C3 를 본 뒤의 규칙이므로 새 데이터로 검증해야 한다. 정책을 못 보는 모델이 셋째 경우엔 정확하다는 점도 그대로 적는다.
+- 시뮬레이션: Accel-Sim llm 72 → [72.0, 0.0] MiB(예측 0, 30 분), llm 144 → [144, 144](예측 144, 1.7 시간). R1 135M B1 시뮬레이션 시작
+  (트레이스 2,722 커널 3.4 GB, 97 분). R1 360M 은 비용(트레이스 수 시간 + 시뮬레이션 ~1 일)으로 제외.
+- **R1 트레이스 opcode 조사 (135M B1, 디코드 2 스텝, 워프 명령 2.2 억).** Hopper 표에 없는 것은 `LDCU` 하나(매핑 완료 → R1 시뮬레이션
+  진행 중). 메모리 명령: `LDG.E.EF.U16` 8,681,472 개 = 워프 로드당 64 B × 2 스텝 ≈ 530 MiB ≈ 가중치 2 × 257 MiB → **가중치 전부가
+  evict-first 로드로 읽힌다**(gemvx 211 개/스텝 = 30 층 × 7 행렬 + lm_head). 같은 수의 `LDG.E.U16.STRONG.SM` 은 입력 벡터 쪽으로 보임.
+  그 밖에 `LDG.E.LTC128B.U16`(L2 128 B prefetch 힌트) 100 만, `LDG.E` 74 만 등. → H-hint 의 전제를 트레이스로 직접 확인.
+
+## 2026-09-27 06:05 KST — C2b: 커널 단위는 원인이 아니다 → R1 의 set-aside 무관은 evict-first 로드 때문으로 정리
+
+- **C2b (C2 의 커널 1,400 개 절반, 정렬 버그 수정 벤치 `l2policy_bench_v2`; `c2b_measured_ampere.jsonl` sha256 d84eeb3918dbb49e).**
+  기준선 268.0, W127 S12 r.4 **268.0**, S60 r.4 **238.9**, r 1.0 → 268.0 — 커널 32 개(268.0 / 238.6)와 같다. 스텝 시간만 발사 비용으로
+  4.7 vs 0.33 ms. 사전 예측(v2 = v3: 268 / 232) 그대로 맞음. → 가설 '커널 단위' 기각.
+- **정리.** R1 의 S 무관은 하네스 순서(C1)도 커널 단위(C2b)도 아니고, 가중치를 `LDG.E.EF`(ld.global.cs)로 읽는 cuBLAS gemvx 때문이다(C3 로
+  재현, 트레이스로 가중치 전량이 EF 로드임을 확인).
+- **Accel-Sim H1c 완료.** 6 워크로드 예측이 완전연관 LRU(GPU-Tile-Sim)와 모두 같다: llm 72/144/288 → 0/144/288, clean 64/80/112 →
+  128/144/176 MiB. H1c MAE 13.39(= GPU-Tile-Sim), 최적 선택 0/24. 시뮬레이션 0.5~3.9 h/워크로드(2 스텝), slowdown 762 만 배.
+  R1 135M B1 시뮬레이션 진행 중(12 시 전후 예상). R1 B8 트레이스는 새 opcode `UVIMNMX` → (OP_IMNMX, UDP) 매핑 후 시뮬레이션 예정.
+
+## 2026-09-27 06:30 KST — 배치가 로드 방식을 바꾼다: B8 은 CUTLASS GEMM(일반 로드) → S 에 민감; v3 는 SASS 로 클래스를 정하면 R1 MAE 9.1
+
+- **B8 opcode 조사.** 135M B8 디코드의 가중치 투영은 gemvx 가 아니라 CUTLASS `wmma_tensorop_bf16_s161616gemm_16x16_128x2`(150 개/스텝)이고,
+  로드는 `LDG.E.LTC128B.*`(L2 128 B prefetch 힌트, 우선순위 일반)·`LD.E` — `LDG.E.EF` 는 없다. 실측 B8 도 S 에 민감하다
+  (S12·S24 이득 없음, S60 ≈ 30 MiB). → **같은 모델이라도 배치 1 은 evict-first(gemv), 배치 8 은 일반(GEMM)** — 정책 효과가 배치에 따라 갈린다.
+  360M B1 은 커널 목록에서 135M B1 과 같은 gemvx 템플릿(225 개/스텝 = 32 층 × 7 + lm_head) → evict-first 로 확인.
+  B8 시뮬레이션용 새 opcode `UVIMNMX` → (OP_IMNMX, UDP) 매핑(빌드 디렉터리 바이너리로 실행, 진행 중인 B1 시뮬레이션은 설치본 그대로).
+- **v3 의 R1 (사후, 적합 0).** 가중치 로드 클래스를 각 워크로드의 SASS 로 정하면(B1 = E, B8 = N) R1 MAE **9.07** MiB, 편향 −6.6,
+  5 % 이내 94 %, 정책 반응 상관 +0.85, 최적 선택 11/15(평균 손실 7.0 MiB) — v2 21.29, AutoScratch 25.76, GPU-Tile-Sim 27.51, LLMCompass 28.54.
+  모든 가중치를 E 로 둔 앞선 계산(14.31)은 B8 을 틀렸던 것. 이건 R1·C3 를 본 뒤의 규칙이므로 논문에서 '사후'로 표시하고,
+  사전 검증은 C3(.cs, v3 MAE 3.0)가 전부다. 다음 보류 검증: 새 모델·배치(예: 다른 크기, 배치 2/4 — gemv↔GEMM 경계)에서 SASS 로 클래스를
+  먼저 정하고 예측을 고정한 뒤 측정.
+- 비교 파이프라인에 v3 추가: `scripts/prior/prior_sim_predict.py`(v3 열, R1 은 SASS 클래스 표), `prior_sim_compare.py`, 그림 갱신
+  (`assets/figures/prior-sim-comparison.png`: R1 의 v3 는 빗금 = 사후).
+
+## 2026-09-27 13:55 KST — Accel-Sim R1 완료: 실제 디코드에서도 완전연관 LRU 와 같다
+
+- **R1 시뮬레이션 두 개 완료** (서버 `~/l2probe/asim/runs/r1_SmolLM-135M_B{1,8}`, 수집 `assets/sweep/accelsim_runs.jsonl` sha256 ed95dd9ce249620e,
+  8 워크로드). 135M B1: 트레이스 97 분(2,722 커널, 3.4 GB) + 시뮬레이션 7.2 h(slowdown 278 만 배). 135M B8: 89 분(2,782 커널) + 5.3 h(185 만 배).
+  DRAM 읽기/스텝 [워밍업, 예측] = B1 [267.82, 267.82], B8 [346.59, 346.57] MiB — 두 스텝이 같아 정상상태다.
+- **LRU 와 같은 값.** GPU-Tile-Sim(완전연관 LRU) 267.81 / 346.75 와 0.2 MiB 안에서 같다. 합성 H1c(6 워크로드 모두 동일)에 이어 실제 디코드에서도
+  사이클 수준 시뮬레이터가 단순 LRU 이상의 정보를 주지 못한다. B1 기준선 과대예측 10.7 MiB(실측 257.15)는 `.EF` 가중치 로드를 일반 로드로
+  처리해 KV 잔존을 못 보는 것과 같은 크기다(v3 기준선 예측 256.56).
+- **비교 (Accel-Sim 이 돈 94 설정, 모든 예측기 같은 설정; `prior_sim_summary.json` 의 `r1_accelsim`, sha256 e47ebd0d6d6da23f).** MAE MiB/스텝:
+  Accel-Sim 23.11, GPU-Tile-Sim 23.08, LLMCompass 24.02, AutoScratch 의미론 25.21, GenZ 29.69, MemExplorer 식 (4) 80.97, 우리 v1 17.97,
+  v2 18.13, v3 9.43(사후). 최적 hitRatio 선택(10 그룹): Accel-Sim 0, v3 6, v2 5, v1 4, AutoScratch 4. 141 설정 전체 표는 그대로(Accel-Sim 은 360M 없음).
+- 시간(참고): Accel-Sim 스텝 커널 합 4.66 / 5.19 ms vs 실측 2.65 / 3.43 ms(torch profiler 장치 시간 합) = 1.76 / 1.51 배. 설정이 3070 템플릿에
+  장치값만 넣은 것이라 시간은 보정되지 않았다(비교에 쓰지 않음).
+- 코드: `prior_sim_compare.py` 에 부분집합 보고(`load(name, need)`, sha256 e3a24df2a93aa34f). 그림 `prior-sim-comparison.png`
+  (`make_prior_sim_figure.py` sha256 0bd34065a73531c4): (b) Accel-Sim 은 점선 막대로 순위 밖에 '94 설정만' 표시, 같은 설정의 GPU-Tile-Sim 을 옆에 적음;
+  (c) Accel-Sim 평평한 선 추가; 라벨 겹침 두 곳 수정. PRIOR_WORK_EVAL 6-9 표·비용 문단 갱신.
+
+## 2026-09-27 14:15 KST — ECTC: 관행 식은 실제 top-venue 관행이다, SOTA 관행과 HotSpot 7.0 자체로 재현 (Claude)
+
+- **배경.** 교수님 질문 "관행 식이 시뮬레이터 SOTA냐, SOTA와 비교해야 의미가 있다" → 2026-09-26 SOTA 조사 워크플로(`thermal-sota-sweep`). **절반만 완료**: 검색 8개 144건은 끝났지만 재검증은 122건 중 23건만 끝났다(나머지는 사용량 한도로 실패, 반박 0·부분 정정 16). 종합 단계도 실패. 이번에 직접 종합해 **새 문서 `ECTC_SOTA_THERMAL.md`**(소유 Claude)에 정리했다. 초록·스토리 문서는 교수님 방향 확인 전까지 건드리지 않았다.
+- **답.** 관행 식은 허수아비가 아니다. Stratum MICRO'25 Eq.(1) `P_dram = BW × E_b`, Helios·Ai et al. 2026, A3D-MoE 2025가 최대 전력 정적 판정을 쓰고, Tasa 2025·DeepStack MICRO'26은 평균 전력 정상상태를 쓴다(V 등급). 도구(HotSpot 7, 3D-ICE 4, Icepak, Celsius)는 과도 해석을 지원하지만 논문들의 입력이 정적 맵이거나 1~10 ms 간격이다. 217 µs 버스트를 본 LLM 전력·열 연구는 못 찾았다.
+- **재현** (`scripts/sota_comparators.py`, V-Cache F2B 6 µm, 20 W·0.5 pJ/bit): 정적 최대 5.0 TB/s(5.2배 비관), 정적 평균 104.2(4.0배 낙관), 10 ms 트레이스 87.6(3.4배), 1 ms 에폭 54.6(2.1배), 1 ms 음해법 한 스텝(ATLAS 식) 59.6, 200 µs 26.2(1.01배), 럼프드 84.0(3.3배), **버스트 정확해 25.8**. 패키징 표준(Zth 중첩·LTI ROM)은 25.8을 그대로 재현하고, 데이터시트 근사는 2~5% 보수적이다. BEOL은 18.9로 그대로다.
+- **계산 변경.** 모드 분해 정확해(`Modal`, 시간 스텝 없음, MatEx와 같은 계산)를 기준으로 삼았다. backward Euler와 0.5 µs에서 0.01% 일치한다. **발견:** 차가운 상태에서 12주기 돌린 기존 값은 패키지 모드(~16 ms)가 덜 풀려 0.2~0.7% 낮았다 → V-Cache 26.0 → **25.8로 정정**. 평균 정상상태에서 출발해도 4주기 후 +1% 높다. 느린 모드는 버스트 시작 시점에 평균보다 wqD(P−a)/2 낮기 때문이다. 트레이스 행은 구간-버스트 정렬 8가지 중 최악을 쓴다(정렬에 따라 ±0.5%).
+- **HotSpot 7.0 직접 실행** (`scripts/hotspot_rerun.py`, uvahotspot f18831e, SUPERLU=0, 로컬 빌드): 정상 R 0.02595 K/W로 우리와 같다. 정상상태 모드는 트레이스를 정확히 평균한다(0.0480 = 듀티, Tasa의 동작). 1 ms·10 ms 행은 우리 표와 같은 방향·크기로 틀린다. **내장 `C_FACTOR` 0.333**(열용량 2/3 제거) 때문에 논문 방식 설정(as-used, 층당 1노드)은 버스트에서 22.2~22.4 TB/s(14% 비관)다. 비열을 되돌리고 층을 쪼개면(resolved) 26.4~26.5다. 1 ms 행 55~56 TB/s(2.1~2.2배 낙관), 10 ms 행 82.7(3.2배)로 우리 재현과 같은 쪽·같은 크기다. HotSpot 망을 파이썬으로 복제해 같은 행으로 풀었더니 도구 6회 실행과 0.006% 이내로 같았다. 복제 망의 하위층을 16배까지 쪼개면 0.1892 → 0.1932로 우리 0.1935에 1차 수렴한다. 물리는 같고 차이는 이산화뿐이다.
+- **신규성 주의.** VOXEL(MICRO'26) 공개 코드에 ≥10 µs bin + 3D-ICE 과도 경로가 있다(코드 직접 확인). 방법론상 가장 가깝다. ATLAS(2026)는 HotSpot-7 과도인데 dt가 미기재다. 박화 물리는 Araga'18·Damcevska'23·Oprins'11/12가 이미 보였다. 우리가 말할 것은 세 가지다: 버스트 유도, 관행의 양방향 오판 정량화(도구로도 재현), 박화의 대역폭 예산 적용.
+- **남은 것.** Sharda & Yu JETCAS'25(V-Cache형 SRAM 적층 LLM 열 평가 후보) 원문, imec IEDM'25 원문, 재검증 못 한 99건 중 인용분, 9800X3D 6 µm(2차 자료). 3D-ICE 4.0 직접 실행은 소스 다운로드(GPL-3.0, ~75 MB) 승인이 필요하다. 산출물: `assets/sweep/sota_comparators.json`, `hotspot_rerun_{resolved,as-used}.json`, `hotspot_replica.json`.
+
+## 2026-09-27 14:33 KST — R2 사전 예측 고정: 처음 보는 실제 디코드 6 워크로드로 v3 를 사전 검증 (측정 전)
+
+- **왜.** v3 의 R1 MAE 9.07 은 사후 값이다(R1·C3 를 본 뒤 로드 클래스를 정함). 여기서는 새 워크로드의 클래스를 **측정 전에 SASS 로** 정하고
+  모든 예측을 고정한 뒤 잰다. v3 코드(`l2policy_model_v3.py` sha256 afb0e71d1c541c29)와 φ 0.3·16-way 는 R1 때 그대로다.
+- **SASS 로 로드 클래스 정하기 (새 도구, 측정 전).** `scripts/prior/r2_list.sh`(5a69d785dfe60c64): NVBit 목록 패스로 한 디코드 스텝과 층 주기를 찾고
+  (`r2_kernels.py`), 스텝의 접두 + 첫 층 + 꼬리(56~57 커널)만 추적한다(워크로드당 1.5~8 분). `r2_census.py`(3ff6b25b6b7e76df)가 커널마다
+  로드 변형별 **고유 32 B 섹터**를 세고, `r2_classes.py`(8822ef89050ac65d)가 실행 순서대로 연산자 크기와 맞춘다(q·k·v·K·V·o·gate·up·down, lm_head).
+  검증: R1 135M B1 에서 모든 연산자가 섹터 단위로 정확히 맞는다(q 20,736 = 576×576×2/32, gate 55,296, lm_head 1,769,472 = 54.0 MiB, 모두 `LDG.E.EF`;
+  K·V 6,156 + 소량 = CUTLASS `LDG.E.LTC128B`, 일반). 요청 수는 고유 섹터의 16 배다(gemvx 는 레인마다 다른 행의 bf16 하나).
+  근거 파일 `assets/sweep/r2_census/<워크로드>/`(kernels·census·classes, `r2_fetch.sh` 로 복사).
+- **클래스 결과.** 135M B1 c1536·360M B1 c1536: 가중치 8 종 모두 gemvx `LDG.E.EF` = **E**, K·V = CUTLASS 어텐션 GEMM 일반 = N.
+  135M B2·B4, 360M B4·B8: 가중치·KV 모두 CUTLASS wmma GEMM 일반 로드 = **N**. → **cuBLAS 는 배치 2 부터 gemvx 를 쓰지 않는다**(B1 과 B2 사이가 경계).
+  R1 135M B8 과 같은 쪽이다.
+- **예측 고정** `assets/sweep/r2_predictions_ampere.json` **sha256 8c79c377ee681b38**(282 설정 = 6 × 47, R1 과 같은 격자; `scripts/r2_predict.py`
+  17ef47a70267540a). 예측기: v3(시험 대상), v2·v1(고정), GPU-Tile-Sim L2(FA-LRU), AutoScratch 의미론, MemExplorer 식 (4). LLMCompass·GenZ 는
+  정책을 못 보는 평평한 예측기라 이번엔 안 돌린다. R2 파이프라인은 R1 135M B1 에서 R1 값을 그대로 재현한다(고정 예측기 차이 0, v3 0.073 MiB =
+  노름 가중치를 N 으로 둔 차이). 요약 `scripts/r2_preregister.py`.
+- **주요 예측 (MiB/스텝; 기준선 / 창 127 r 0.4 에서 S12 − S60).**
+  135M B1 c1536(스텝 290.3, KV 33.8): v3 256.5 / +2.5 · v2 290.3 / +35.9 · LRU 290.3 / 0.
+  360M B1 c1536(스텝 750.2, KV 60.0): v3 690.0 / +27.1 · v2 750.2 / +36.1 · LRU 750.1 / 0 — v3 는 여기선 S 에 **민감**하다고 본다
+  (KV 60 MiB = 10 way 가 persisting 줄과 16 way 를 다툼). 'B1 이면 S 무관'이라는 단순 규칙과 갈리는 예측.
+  N 워크로드 4 개: v3 = v2, 기준선 = 논리 스텝, S12 − S60 ≈ +36.
+- **사전 진술 (판정 기준).**
+  1. 282 설정 전체 MAE 가 v3 에서 가장 작다. E 워크로드 94 설정에서 v3 MAE < v2 MAE.
+  2. E 워크로드 기준선에서 KV 가 L2 에 남는다: 실측 기준선이 LRU 보다 v3 쪽에 가깝다(135M c1536 < 273.4, 360M c1536 < 720.1).
+  3. set-aside 대비(창 127, r 0.4, S12 − S60): 135M B1 c1536 은 < 10(무관), N 워크로드 4 개는 > 10(민감). 360M B1 c1536 은 v3 27.1 ± 10.
+  4. 최적 hitRatio 선택(그룹 30 개)에서 v3 가 정책을 못 보는 도구(0)와 v2 보다 많이 맞힌다.
+  N 워크로드에서는 v3 = v2 이므로 v3 에 대한 별도 판정은 없다(보조: v2 ≤ GPU-Tile-Sim).
+- **측정 계획.** `scripts/gpu/r2_run.py`(bb8f157ed9612c78, r1_run 과 같은 ncu app-range 방식, 문맥만 설정별) + `r2_queue.sh`(d9c63a4a6c496771).
+  순서는 v3 와 v2 가 갈리는 E 워크로드부터: 135M B1 c1536 → 360M B1 c1536 → 135M B2 → 360M B8 → 135M B4 → 360M B4(워크로드당 ~50~70 분).
+  비교 `prior_sim_compare.py` 에 r2 세트 추가(모든 예측기가 한 파일에 고정; 4d9d4d768876e70b).
+
+## 2026-09-27 15:00 KST — R2 첫 워크로드 (135M B1 c1536, 가중치 evict-first): v3 사전 예측 MAE 8.0 vs v2 30.4
+
+- 측정 14:33~14:59(카운터 24 분 — R1 의 절반; 47 설정, policy_rc 모두 0, set-aside 요청값 그대로). `r2_measured_ampere.jsonl` 첫 47 줄.
+- **사전 진술 2 통과:** 기준선 실측 261.5 MiB(v3 256.5, v2·LRU 290.3; 기준 < 273.4) — gemvx 가중치가 먼저 쫓겨나 KV 33.8 MiB 가 L2 에 남는다.
+  set-aside 만 60 으로 둔 대조군 260.1 ≈ 기준선.
+- **사전 진술 3 통과:** 창 127 r 0.4 에서 S12 − S60 = +7.0 MiB(v3 +2.5, v2 +35.9; 기준 < 10). S24·S36·S48 행은 소수점까지 거의 같다.
+- MAE MiB/스텝: **v3 8.01**(편향 −5.1, 5 % 이내 87 %, 정책 반응 상관 +0.92), v1 29.57, v2 30.39, AutoScratch 32.37, GPU-Tile-Sim 39.05,
+  MemExplorer 58.86. 최적 hitRatio 선택 5 그룹: **v3 5/5(추가 손실 0.0)**, v1·v2·AutoScratch 2, 정책 못 보는 도구 0.
+- 문서 권장(창 = S, r 1): S12 실측 245.0 / v3 244.5, S36 221.0 / 220.6, S60 224.9 / 230.1 — v2 는 283.7 / 271.3 / 258.5.
+- 남은 오차: hitRatio 0.4~0.5 에서 실측이 먼저 오른다(r 0.5, S12: 실측 274.0, v3 244.6). 최적(r 0.3)은 같지만 persisting 이 KV 와
+  다투기 시작하는 지점이 v3 보다 이르다. 새 규칙은 넣지 않는다(검증 중).
+
+## 2026-09-27 15:10 KST — ECTC SOTA: 학교 망으로 막혔던 원문 4편 확인 (Claude)
+
+- **Sharda & Yu, JETCAS'25**: 충돌 아님. Ansys Mechanical에 부품별 정적 전력밀도, 최대 전력 200 W 상한. 3D SRAM(V-Cache형) 구성은 PPA만 보고 열 결과는 HBM-on-logic 65 W·SLT >200 W뿐이다.
+- **Sharda et al., JXCDC'25 (Georgia Tech / SK hynix)**: 평균 전력 가정을 III-A절에 문장으로 적는다. 요지는 "열 시정수가 DRAM 접근 시간보다 느리니 평균 전력 프로파일"이다. 로직은 DRAM 95 °C에서 220 W/cm² 정적 예산이다. 우리 반례의 가장 좋은 인용처.
+- **imec IEDM'25**: 원문에서 Icepak 정상상태와 0.5 mm 정적 전력 맵을 확인했다(S → 원문). 박화는 HBM 맨 위 DRAM 다이 169 → 41 µm이고 0.4 °C라 저자들도 제한적이라고 본다.
+- **AMD MI300 ISSCC'24 (11.1)**: F2B 하이브리드 본딩 9 µm 피치, IOD(베이스 다이) 안에 256 MB Infinity Cache, IOD당 TSV 35만 개 이상이다. 다이 두께는 없다. AMD V-Cache ISSCC'22는 발표 전용(논문 없음)이라 6 µm는 여전히 분해 분석 값(S)이다.
+- Pei et al. 2026 (Case Stud. Therm. Eng.)은 ScienceDirect가 자동화 브라우저를 차단해 못 열었다. 오픈 액세스라 사람이 열면 된다. 파일은 저장하지 않았다(브라우저 안에서 읽음). `ECTC_SOTA_THERMAL.md` 2·5·6·7절 갱신.
+
+## 2026-09-27 15:48 KST — R2 둘째 워크로드 (360M B1 c1536): 방향은 v3 만 맞혔으나 사전 진술 3 은 0.4 MiB 차로 실패
+
+- 측정 15:00~15:46(카운터 25 분), policy_rc 모두 0. `r2_measured_ampere.jsonl` 94 줄.
+- **사전 진술 2 통과:** 기준선 실측 696.4 MiB(v3 690.0, v2·LRU 750.2; 기준 < 720.1). KV 60 MiB 대부분이 남는다. set-aside 대조군 696.4.
+- **사전 진술 3 실패 (근소):** 창 127 r 0.4 에서 S12 − S60 = **+37.5** MiB, 기준은 v3 27.1 ± 10 → 0.4 MiB 밖. 방향(135M c1536 은 S 무관,
+  360M c1536 은 S 민감)은 v3 만 맞혔다 — v2 는 두 워크로드 모두 +36, 실측 +7.0 / +37.5, v3 +2.5 / +27.1. 크기는 과소예측.
+- S12 의 hitRatio 반응: 실측 689.2, 686.6, 712.7, 729.8, 752.4, 756.4, 757.3, 757.2 (r 0 … 1) — r ≥ 0.2 에서 이미 기준선보다 나쁘다
+  (set-aside 를 넘는 persisting 줄이 KV 를 밀어냄). v3 684.4, 705.6, 727.8 … 로 방향은 같지만 오르는 시점이 늦다. 135M c1536 의 r 0.4~0.5 오차와
+  같은 패턴이다. **v3.1 후보(사후, 검증 필요):** set-aside 를 넘는 persisting 줄이 일반 줄과 대등하게 다투는 게 아니라 일반 줄보다 우선해
+  밀어낸다. R2 진행 중이므로 모델은 바꾸지 않는다.
+- 두 E 워크로드(94 설정) MAE: **v3 9.97**(편향 −7.9, 5 % 이내 94 %, 정책 반응 상관 +0.95), v1 27.35, v2 28.17, AutoScratch 34.14, GPU-Tile-Sim 36.13,
+  MemExplorer 62.78. 최적 hitRatio 선택 10 그룹: **v3 10/10(추가 손실 2.3 MiB)**, v2 4, v1·AutoScratch 3, 정책 못 보는 도구 0.
+  v3 편향의 대부분은 모든 모델이 빼놓은 비가중치·비KV 트래픽이다(기준선 실측 − v3 = +5.0 / +6.4; r 1 에서 실측이 논리 스텝보다 5~7 MiB 큼).
+
+## 2026-09-27 15:55 KST — R2 셋째 워크로드 (135M B2, 가중치 일반 로드): set-aside 효과가 되살아남 — S12 − S60 실측 +35.8, 예측 +35.9
+
+- 측정 15:46~15:54, policy_rc 모두 0. `r2_measured_ampere.jsonl` 141 줄.
+- **사전 진술 3 통과:** 창 127 r 0.4 에서 S12 − S60 = **+35.8** MiB(v3 = v2 +35.9; 기준 > 10). 같은 135M 이라도 배치 1(c1536, gemvx)은 +7.0 —
+  SASS 로 정한 로드 클래스가 배치 1→2 의 전환을 측정 전에 맞혔다.
+- 곡선: S60 실측 276.8, 268.4, 254.4, 247.3, 248.9, 265.6, 285.1, 285.6 / v3 279.0, 266.3, 253.8, 243.6, 243.1, 254.2, 277.7, 279.1.
+  기준선 실측 284.6 은 논리 스텝 279.1 보다 5.5 MiB 크다(모든 모델이 빼놓은 트래픽, E 워크로드와 같은 크기).
+  문서 권장(창 = S, r 1)은 S 가 클수록 실측이 더 아낀다(S60: 실측 230.9, v3 247.3).
+- 누적 3 워크로드 141 설정 MAE: **v3 8.55**(5 % 이내 95 %, 정책 반응 상관 +0.95), v1 20.30, v2 20.69, GPU-Tile-Sim 27.54, AutoScratch 29.83,
+  MemExplorer 72.12. 최적 hitRatio 선택 15 그룹: **v3 15/15(추가 손실 1.6 MiB)**, v2 9, v1 7, AutoScratch 6, 정책 못 보는 도구 0.
+
+## 2026-09-27 16:23 KST — R2 넷째 워크로드 (360M B8, 가중치 일반 로드): set-aside 민감 — S12 − S60 실측 +39.6, 예측 +36.2
+
+- (R2 를 시작한 세션이 16:00 알림을 처리하지 못하고 멈춰, 이 세션이 이어받음. 서버 측정은 끊기지 않았다.)
+- 측정 15:54~16:22, policy_rc 모두 0, set-aside 요청값 그대로. `r2_measured_ampere.jsonl` 188 줄(sha256 1f65ce793c53c33d).
+- **사전 진술 3 통과:** 창 127 r 0.4 에서 S12 − S60 = **+39.6** MiB(v3 = v2 +36.2; 기준 > 10).
+- 기준선 실측 858.3 은 논리 스텝 850.4 보다 7.9 MiB 크다(모든 모델이 빼놓은 트래픽; 앞 워크로드들의 5~7 MiB 와 같은 성격).
+  set-aside 대조군 858.0 ≈ 기준선. S60 곡선: 실측 850.7, 842.9, 827.7, 821.4, 819.1, 841.3, 859.7, 859.6 / v3 850.4, 837.7, 825.1,
+  814.9, 814.2, 825.6, 849.0, 850.4 — 모양·최적 hitRatio(0.3~0.4)가 같다. 문서 권장(창 = S, r 1)이 최적: S60 실측 804.9(v3 818.6).
+- **누적 4 워크로드 188 설정 MAE: v3 8.20**(편향 −6.3, 5 % 이내 96 %, 정책 반응 상관 +0.95), v1 17.11, v2 17.30, GPU-Tile-Sim 23.28,
+  AutoScratch 28.10, MemExplorer 77.30. 최적 hitRatio 선택 20 그룹: **v3 20/20(추가 손실 1.3 MiB)**, v2 14, v1 11, AutoScratch 10,
+  정책 못 보는 도구 0.
+
+## 2026-09-27 16:26 KST — R3 사전 예측 고정: 개입 실험 — 배치 > 1 디코드의 가중치 로드를 evict-first 로 바꾸면 (측정 전)
+
+- **왜 (스토리를 닫는 조각).** 지금까지는 "정책·로드 방식을 아는 모델이 더 정확하다"까지다. R3 는 "그래서 결정이 바뀐다"를 보인다:
+  모델이 먼저 '커널 로드 방식 한 가지를 바꾸면 무엇이 달라지는지'를 예측하고 하드웨어가 확인한다. 기존 도구는 이 개입을 표현조차 못 한다.
+- **개입.** R2 에서 배치 ≥ 2 의 가중치는 CUTLASS GEMM 의 일반 로드(N)였다. `scripts/gpu/cs_linear.py`(sha256 3d6718642e87cb64)가
+  디코드 투영 전부(q·k·v·o·gate·up·down·LM head)를 Triton skinny GEMM 으로 돌리며 **가중치만 `ld.global.cs`(LDG.E.EF)** 로 읽는다
+  (배치 1 의 gemvx 와 같은 클래스). 프리필·노름·KV 어텐션 GEMM 은 그대로. `llm_policy_bench.py --weights-cs`(기본 꺼짐, efabccdd0ef7291a).
+  측정 전 관문(`r3_queue.sh` cf70b219b3436459): 커널 자체 검사에서 SASS `LDG.E.EF` 확인, 개입한 수동 디코드가 HF 로짓과 맞음
+  (최소 cos ≥ 0.98, argmax 일치 ≥ 0.8, 135M B2·360M B4; `r3_check.py`). 러너 `r3_run.py`(feca1efa5eff2b24) = r2_run + 플래그.
+- **예측 고정** `assets/sweep/r3_predictions_ampere.json` **sha256 3efbeb9deb7e5a44** (188 설정 = R2 의 배치 > 1 워크로드 4 개 × 47,
+  `scripts/r3_predict.py` f2f8883bd35ec5b3). v3 는 R2 때와 같은 코드·φ 에서 가중치 클래스만 E. 다른 예측기는 로드 클래스를 못 보므로
+  R2 와 같은 값. 참고용으로 개입 없는 v3(= R2 고정값)도 같이 적었다.
+- **v3 예측 (MiB/스텝; 기준선 개입 전 → 후 / 창 127 r 0.4 에서 S12 − S60 전 → 후).**
+  135M B2(KV 22.5): 279.1 → **256.5** / +35.9 → **+0.0** · 135M B4(KV 45.1): 301.7 → **256.5** / +35.9 → **+12.8**
+  · 360M B4(KV 80.2): 770.3 → **695.3** / +36.1 → +35.0 · 360M B8(KV 160.3 > L2): 850.4 → **850.4(효과 없음)** / +36.2 → +36.1.
+  즉 KV 가 L2 에 들어가면 기준선이 KV 만큼 내려가고(가중치가 먼저 쫓겨나 KV 가 남음) set-aside 의 영향이 줄며, KV 가 L2 보다 크면 아무 변화가 없다.
+- **사전 진술 (판정 기준).**
+  1. 기준선 변화(같은 워크로드의 R2 실측 기준선 대비)가 v3 의 예측 변화 ± 10 MiB 안: 135M B2 −22.6, 135M B4 −45.2, 360M B4 −75.0, 360M B8 0.0.
+  2. set-aside 대비(창 127, r 0.4, S12 − S60)가 v3 ± 10 MiB 안: +0.0 / +12.8 / +35.0 / +36.1. 특히 135M B2 는 < 10(개입으로 S 무관이 됨).
+  3. 188 설정 MAE 가 v3 에서 가장 작다(로드 클래스를 못 보는 예측기는 개입 전 값을 그대로 낸다).
+  4. 최적 hitRatio 선택(20 그룹)에서 v3 가 가장 많이 맞힌다.
+  시간 패스는 커널이 바뀌어(Triton) R2 와 비교하지 않는다. DRAM 카운터만 판정에 쓴다.
+- 16:40 추가: `r3_queue.sh` 수정(sha256 180202ae323fb682). ECTC 열 세션이 R2 직후 GPU 로 5 분 nsys 디코드 타임라인을 찍겠다고 요청해서
+  순서만 바꿨다. R2 가 끝나면 240 s 기다리고, decode_timeline 이나 nsys 가 있으면 끝날 때까지 기다린다. 카운터가 겹치지 않게 하려는 것이며,
+  측정 내용과 예측(3efbeb9deb7e5a44)은 그대로다.
+
+## 2026-09-27 17:00 KST — 이름 규칙: 원인 규명 실험은 D1·D2·D2b·D3
+
+- R1 뒤의 원인 규명 실험 **C1 → D1**(측정 순서·상태), **C2 → D2**(커널 단위), **C2b → D2b**(D2 재측정), **C3 → D3**(로드 캐시 힌트)로
+  부른다. 3D SRAM 물리 구현 케이스 C1·C2·C3(셀 어레이만 BEOL / 셀+주변회로 BEOL / 보수적 footprint)와 섞이지 않게 하기 위해서다.
+  위 항목들의 'C1·C2·C2b·C3'는 이 대응으로 읽는다(기록은 고치지 않는다). 파일 이름(`c1_setaside_order.*`, `c2_*`, `c2b_*`, `c3_*`,
+  `c23_v3_*`, `make_c3_figure.py`)과 해시가 기록된 스크립트의 설명문은 그대로 둔다. PRIOR_WORK_EVAL 6-9, 비교 그림 각주
+  (`make_prior_sim_figure.py` 다시 그림)는 D 이름으로 고쳤다. R 계열(R1 발견, R2 사전 검증, R3 개입)은 그대로다.
+
+## 2026-09-27 17:05 KST — R2 다섯째 워크로드 (135M B4, 가중치 일반 로드): S12 − S60 실측 +36.3, 예측 +35.9
+
+- 측정 16:22~16:50, policy_rc 모두 0, set-aside 요청값 그대로. `r2_measured_ampere.jsonl` 235 줄(sha256 ba95cfe9e110ce85).
+- **사전 진술 3 통과:** 창 127 r 0.4 에서 S12 − S60 = **+36.3** MiB(v3 = v2 +35.9; 기준 > 10).
+- 기준선 실측 306.9(논리 스텝 301.7, +5.2 = 모델 밖 트래픽). S60 곡선: 실측 299.9, 292.0, 276.1, 270.8, 271.5, 288.6, 308.5, 308.5 /
+  v3 301.7, 288.9, 276.3, 266.2, 265.7, 276.8, 300.3, 301.7 — 최적 hitRatio(0.3~0.4)는 같다.
+- **남은 체계적 오차(일반 로드 워크로드 공통).** 문서 권장(창 = S, r 1)은 S 가 클수록 v3 보다 더 아낀다: S60 실측 254.6 vs v3 269.8
+  (B2 230.9 vs 247.3, B8 804.9 vs 818.6). 창이 딱 S 일 때 persisting 줄이 v3 가 보는 것보다 잘 지켜진다(세트 불균일 φ 로 인한 넘침을
+  과대평가하는 듯). 모델은 바꾸지 않는다(R2 진행 중).
+- **누적 5 워크로드 235 설정 MAE: v3 7.65**(편향 −5.7, 5 % 이내 97 %, 정책 반응 상관 +0.95), v1 14.92, v2 14.93, GPU-Tile-Sim 20.68,
+  AutoScratch 26.69, MemExplorer 79.96. 최적 hitRatio 선택 25 그룹: **v3 25/25(추가 손실 1.1 MiB)**, v2 19, v1 15, AutoScratch 13,
+  정책 못 보는 도구 0.
+
+## 2026-09-27 17:05 KST — ECTC 열: 헤드라인 숫자는 상한 코너였다 — 버스트 모양·패키지 경계·주변회로 집중 (Claude, V-Cache 열 세션)
+
+- **왜.** 3절 표(25.8 TB/s, 정적 평균 4.0배 낙관, 정적 최대 5.2배 비관)는 전부 (가) 스텝마다 216.7 µs **한 덩어리**, (나) TIM 윗면 고정 **이상적 뚜껑**을 가정했다. 둘 다 버스트가 가장 크게 보이는 쪽이라 풀어서 다시 돌렸다. 정리는 `ECTC_SOTA_THERMAL.md` 8절(새로 씀)과 상단 주의 문구. 초록·스토리 문서는 건드리지 않았다.
+- **버스트 모양** (`scripts/burst_shape.py`, 정확해, 0.25 µs 후방 오일러와 −0.06%): 티어는 가중치만 받고, Gate-1 재생의 LIP는 먼저 들어온 0~9층을 남긴다. 그 층의 행렬 넷을 B_R로, 사이에 HBM 어텐션·커널 간격(1.5 µs, 가정)을 넣으면 V-Cache 이상적 뚜껑 25.8 → **34.5 TB/s**(t0 분할에 따라 29.7~48.3). 층에 퍼뜨린 배치는 58~77 TB/s. 방향은 모든 배치에서 유지된다(정적 최대 5~15배 비관, 정적 평균 1.35~4배 낙관).
+- **패키지 경계** (`scripts/package_boundary.py`): 생산 MAPDL 덱의 막 계수는 R_ext = 0.149 K/W/다이 = R_stack의 5.8배다. 막을 넣으면 한 덩어리 71.9, Gate-1 80.2 TB/s이고, 정적 평균 1.45 / 1.30배, 1 ms 에폭 1.27 / 1.14배 낙관, 정적 최대 14 / 16배 비관이다. B200급 수랭은 R_ext/R_stack 2.3~5.7(2.9에서 58.6 / 68.6 TB/s). 외부 경로 열용량(뚜껑·TIM2·냉각판)을 넣어도 넷째 자리까지 같다. 박화 효과는 2.6배(이상적 뚜껑) → 1.4배(생산 덱).
+- **3D MAPDL** (`scripts/mapdl_vcache_schedules.py`, ampere, 9건, 단일 코어 4병렬): 검증 Gate-1 이상적 뚜껑 균일 3D vs 같은 스텝의 1D **−0.13%**. 생산 덱 균일: 한 덩어리 71.8 / Gate-1 80.2. 생산 덱 주변회로 90%: 46.9 / 58.5 / 층마다 down 88.4. **이상적 뚜껑 + 주변회로 90%: 한 덩어리 14.1 TB/s(pf 0.354, 패브릭 19 미달, 정적 평균 7.4배 낙관) / Gate-1 20.7.** 정적 맵(정상상태 3회): 생산 덱 평균 상승 0.320 K, 버스트 유지 6.662 K(균일)·7.035 K(90%).
+- **결론.** 정적 최대(관행 스크리닝 식)는 모든 경우에 판정을 뒤집는다(2.8~18배 비관). 정적 평균의 낙관은 1.2~7.4배로 패키지 비율·전력 집중·배치가 정한다. 헤드라인은 "두 관행이 대칭으로 4~5배"보다 "틀리는 폭이 설계마다 1.2~18배라 정적 판정으로는 알 수 없다"가 튼튼하다. "열은 걸림돌이 아니다"는 현실 패키지에서만 참이다.
+- **돌고 있는 것.** (1) AEDT Icepak(연구실 PC DSIL_remote_2): 15:50 실행은 6.61 ms에서 엔진 오류, 필드 저장이 꺼져 모니터 두 점뿐이었다. 원본은 그대로 두고 복사본 `IcepakFEADesign2`(10스텝마다 저장, 2주기)를 17:01부터 푸는 중(스텝당 ~3 s, 19시 전후 완료). 기준은 `scripts/aedt_vcache_reference.py` → `assets/aedt/vcache_reference.json`, 추출은 `scripts/aedt/vcpeaks.py`. (2) nsys decode 타임라인(`scripts/gpu/decode_timeline.{py,sh}`): 커널 간격 가정을 실측으로 바꾸는 용도. R2가 끝나고 GPU가 2분 비면 자동 시작한다(R3 세션과 순서 합의).
+
+## 2026-09-27 17:25 KST — R2 완료·최종 판정: 처음 보는 실제 디코드 6 워크로드에서 v3 사전 예측 MAE 7.5, 최적 선택 30/30
+
+- 마지막 워크로드 360M B4 c512(측정 16:50~17:19): 기준선 실측 777.0(논리 770.3), S12 − S60 = **+38.9**(v3 = v2 +36.1; 기준 > 10 통과).
+  `r2_measured_ampere.jsonl` 282 줄(sha256 e750aadc3bde7778), `r2 exit 0` 17:19:32. 모든 설정 policy_rc 0, set-aside 요청값 그대로.
+- **R2 전체 (282 설정, 예측 sha256 8c79c377ee681b38 로 측정 전 고정). MAE MiB/스텝: v3 7.51**(편향 −5.6, 스텝의 1.7 %, 5 % 이내 97 %,
+  정책 반응 상관 +0.95), v2 13.58, v1 13.61, GPU-Tile-Sim 19.00, AutoScratch 의미론 25.97, MemExplorer 82.00.
+  최적 hitRatio 선택 30 그룹: **v3 30/30(추가 손실 0.9 MiB)**, v2 24, v1 19, AutoScratch 17, 정책 못 보는 도구 0.
+- **사전 진술 판정.**
+  1. 통과 — 282 설정 MAE 최소가 v3(7.51, 다음 v2 13.58). E 워크로드 94 설정에서 v3 9.97 < v2 28.17.
+  2. 통과 — E 워크로드 기준선이 LRU 보다 v3 쪽: 135M c1536 261.5(< 273.4), 360M c1536 696.4(< 720.1). KV 가 L2 에 남는다.
+  3. 6 개 중 5 개 통과, 1 개 근소 실패 — 135M B1 c1536 +7.0(< 10), N 워크로드 네 개 +35.8·+39.6·+36.3·+38.9(> 10).
+     360M B1 c1536 은 +37.5 로 기준 v3 27.1 ± 10 을 0.4 MiB 넘었다(방향은 v3 만 맞힘, 크기 과소).
+  4. 통과 — 최적 선택 v3 30 > v2 24 > 정책 못 보는 도구 0.
+- **남은 체계적 오차(모델은 바꾸지 않음, 다음 판의 후보로만 적음).** ① 모든 모델이 빼놓은 비가중치·비KV 트래픽 +5~8 MiB/스텝(v3 편향의
+  대부분). ② E 워크로드에서 hitRatio 0.4~0.5 부근의 오르막이 실측에서 더 이르다(set-aside 를 넘는 persisting 줄이 KV 를 밀어냄 — v3.1 후보).
+  ③ N 워크로드에서 문서 권장(창 = S, r 1)이 큰 S 에서 v3 보다 더 아낀다(S60: B2 230.9 vs 247.3, B4 254.6 vs 269.8, 360M B4 721.5 vs 738.4).
+- 그림 `assets/figures/r2-prospective.png`(make_r2_figure.py; (a)·(b) 겹침 수정: 폭 12.4, 간격 0.95). 비교 요약 `prior_sim_summary.json`.
+- 17:35 추가: 첫 관문에서 멈춤 — Triton 이 보조 C 모듈을 빌드하는데 서버에 Python 3.9 헤더가 없었고(uv 로 3.9.25 헤더 확보), 헤더를
+  넣어도 **Triton 3.4 는 로드 수식어 `.cs` 를 지원하지 않는다**. 측정은 시작되지 않았다. 개입 커널을 CUDA C++ 로 다시 썼다
+  (`cs_linear_kernel.cu` sha256 a0ab2a6abc499672: 워프 하나가 출력 열 하나, 가중치는 `__ldcs`; nvcc 로 .so 를 만들어 ctypes 로 PyTorch
+  현재 스트림에서 호출, `cs_linear.py` 2b253a2848cc4dce). 자체 검사: 모든 투영 모양에서 fp32 대비 최대 상대 오차 0.0033, SASS 가중치
+  로드 `LDG.E.EF.128`(입력은 `LDG.E.64.CONSTANT`). ECTC 캡처는 17:22 에 이미 끝나 GPU 충돌 없음.
+  **예측 재고정(측정 전):** `r3_predictions_ampere.json` sha256 **9635f151070d4a78**(`r3_predict.py` 3b772814ac644ca2) — 예측 값은 16:26 판과
+  바이트까지 같고 출처 해시만 바뀌었다. 판정 기준(사전 진술 1~4)은 그대로.
+
+## 2026-09-27 17:45 KST — L2 용량 투영: 필요한 용량이 예측기마다 4배 이상 갈린다 (모델 투영, 96 MiB 에서 실측 고정)
+
+- **무엇.** 스토리를 닫는 '결정 영향'의 둘째 조각. R2 로 검증한 v3 를 용량 C = 48~1024 MiB 로 돌려, 스텝 DRAM 을 20 % 줄이는 데 필요한 L2 를
+  예측기마다 구했다. `scripts/capacity_projection.py`, `assets/sweep/capacity_projection.json`, 그림 `assets/figures/capacity-projection.png`.
+  가정: 16-way·φ 0.3(v2 그대로), set-aside ≤ 10/16 C, 창 최대 = max(128 MiB, 4/3 C)(이 GPU 비율로 함께 커진다고 가정 — 측정 아님),
+  v3_best = (S, W, r) 격자에서 최소. 96 MiB 를 넘는 값은 전부 투영이다.
+- **96 MiB 기준점(실측 대조).** 360M B4: v3 최적 724.1 vs 잰 47 설정 중 최적 721.5. 135M B4: 255.5 vs 254.6. 기준선은 모델 밖 트래픽만큼
+  (+5~7) 차이.
+- **20 % 절감에 필요한 L2 (MiB).** (a) 360M B1 c1536(가중치 evict-first): LRU ≈ 작업집합(보간 716, 실제 계단은 750), 용량만 149,
+  v3 정책 없음 636, **v3 최적 188**. (b) 360M B4(일반 로드): LRU ≈ 780, 용량만 154, v3 정책 없음 675, **v3 최적 320**,
+  **v3 + 가중치 evict-first(R3 개입) 최적 191**.
+- **읽는 법.** LRU 기반 판단(Accel-Sim·GPU-Tile-Sim)은 작업집합 전체가 들어가야 이득이 난다고 봐서 약 4 배 과잉 설계를 부른다.
+  용량만 보는 판단(MemExplorer)은 낙관적이고, 정책을 설정하지 않으면(v3 정책 없음) 거의 이득이 없다는 사실을 보지 못한다.
+  같은 용량이라도 로드 방식 하나로 필요 L2 가 1.7 배(320 → 191) 달라진다. (b) 의 v3 최적 곡선이 320~384 에서 꺾이는 것은 창·set-aside
+  격자가 이산이어서 생긴 모양이다.
+
+## 2026-09-27 17:45 KST — ECTC 열 후속: 실측 decode 타임라인, Icepak 교차검증, 주변회로 집중도 스윕 (Claude, V-Cache 열 세션)
+
+- **실측 decode 타임라인** (`scripts/gpu/decode_timeline.{py,sh}`, `decode_timeline_analyze.py`, `assets/sweep/decode_timeline/`): R2가 끝난 뒤 17:21~17:22에 ampere RTX PRO 5000에서 Llama-3.1-8B B=8 문맥 2048 decode를 nsys로 캡처했다(llm_policy_bench.ManualDecode를 읽기 전용으로 사용, R3 세션과 순서 합의). CUDA 그래프 한 스텝은 19.57 ms, 커널 1,515개다. 가중치 GEMM 225개 71%, 어텐션 bmm 64개 15%, 작은 커널 1,226개 11%(중앙값 1.5 µs), **커널 사이 간격 중앙값 0.42 µs** 3%(eager 1.47 µs). 가정한 "커널당 1.5 µs"는 실행 간격과 작은 커널을 합한 값이고, vLLM처럼 융합한 경로(층당 ~10개)에 맞는다. 측정한 커널 순서를 그대로 쓰고 가중치·어텐션만 B200 속도로 다시 잰 Gate-1 스케줄(`burst_shape.schedule_measured`)은 이상적 뚜껑 46.1, R_ext/R_stack 2.9에서 78.7, 생산 덱 87.8 TB/s다. t0 분할 범위(29.7~48.3)의 "커널 분산" 끝이고, 기본값 34.5는 이보다 보수적이다.
+- **AEDT Icepak 교차검증** (연구실 PC DSIL_remote_2, Chrome 원격 데스크톱): 15:50에 시작한 실행은 필드 저장 None, 6.61 ms에서 엔진 오류로 멈췄고 모니터가 두 점뿐이었다. 원본은 두고 복사본 `IcepakFEADesign2`(10스텝마다 저장, 2주기)를 17:01~17:14에 풀었다. 결과 파일 복사 오류로 1.95 ms 이후는 NaN이다. 남은 53개 샘플이 **같은 dt(3.612 µs)로 푼 우리 1D와 최대 0.006 K(상승 15.4 K의 0.04%)** 차이다. 둘 다 정확해보다 0.44% 낮은데, 이는 시간 스텝 오차다. 기록은 `assets/aedt/vcache_icepak_design2.json`, 추출 스크립트는 `scripts/aedt/vcpeaks.py`·`vcsamples.py`(CRD 업로드 → Tools > Run Script, 결과는 Message Manager에서 읽음. 원격 세션은 Shift·Ctrl을 먹는다).
+- **주변회로 집중도 3D 스윕** (`mapdl_vcache_schedules.py --phi --push`, `--phi-table`, 16건 오류 0): TB/s, 이상적 뚜껑 한 덩어리 / Gate-1 / 생산 덱 한 덩어리 / Gate-1 = 균일 25.7 / 34.5 / 71.5 / 80.2, 50% 19.1 / 26.9 / 59.9 / 70.7, 70% 16.0 / 23.1 / 52.3 / 63.9, 90% 14.1 / 20.7 / 46.6 / 58.5. **이상적 뚜껑 한 덩어리는 주변회로 몫 ~50%에서 19 TB/s를 밑돈다.** 외부 막을 식으로 얹으면 90%·한 덩어리가 19 아래로 가려면 R_ext < 0.015 K/W/다이여야 한다(B200급 수랭 0.06~0.15). 열이 패브릭보다 먼저 막으려면 이상적 냉각, 50% 이상 집중, 연속 배치가 모두 겹쳐야 한다. 소자팀에 물을 것은 읽기 전력 중 주변회로 몫이다.
+- 정리는 `ECTC_SOTA_THERMAL.md` 8-3·8-5. 로컬 덱(.dat 121 MB)은 스크립트로 다시 만들 수 있어 저장소에서 뺐다(서버 `~/ectc_thermal/vcache_sched/`에 있음).
+
+## 2026-09-27 18:00 KST — R3 첫 워크로드 (135M B2, 가중치 evict-first 개입): 사전 예측대로 기준선 −26 MiB, set-aside 효과 소멸
+
+- 측정 17:31~17:57(카운터 23 분), policy_rc 모두 0. `r3_measured_ampere.jsonl` 47 줄. 측정 전 관문: 커널 자체 검사(오차 0.0033, `LDG.E.EF.128`),
+  HF 로짓 대조(135M B2 cos ≥ 0.9994, 360M B4 ≥ 0.9979, argmax 3/3 스텝 100 %).
+- **사전 진술 1 통과:** 기준선 R2 실측 284.6 → R3 실측 **258.8**(−25.7 MiB, −9 %). v3 예측 변화 −22.6 → 차이 −3.1(기준 ±10).
+  가중치가 먼저 쫓겨나 KV(22.5 MiB)가 L2 에 남는다 — 배치 1 gemv 에서 본 것과 같은 기제를 배치 2 에서 켰다.
+- **사전 진술 2 통과:** 창 127 r 0.4 에서 S12 − S60 = R2 +35.8 → R3 **+2.3**(v3 +0.0). S12·S36·S60 의 hitRatio 곡선이 거의 겹친다
+  (예: r 0.4 에서 219.9 / 217.7 / 217.6) — 개입 하나로 set-aside 결정이 무의미해졌다.
+- **결정.** 최적 설정은 둘 다 창 = S = 60, r 1 이지만 값이 R2 230.9 → R3 **202.6**(기준선 284.6 대비 −29 %). v3 가 고른 설정이 실측 최적과 같고
+  예측값 204.0 이 실측 202.6 과 1.4 MiB 차.
+- 남은 오차는 R2 의 E 워크로드와 같다: r 0.5 부근에서 실측이 먼저 오른다(S12 r 0.5: 실측 240.6, v3 216.9).
+
+## 2026-09-27 18:25 KST — R3 둘째 워크로드 (135M B4): 사전 진술 1·2 통과, v3 최적 선택 = 실측 최적
+
+- 측정 17:57~18:22, policy_rc 모두 0. `r3_measured_ampere.jsonl` 94 줄(sha256 c2ad85474264ad04).
+- **사전 진술 1 통과:** 기준선 R2 실측 306.9 → R3 실측 **262.6**(−44.3 MiB, −14 %). v3 예측 변화 −45.2 → 차이 +0.9(기준 ±10).
+  KV 가 45 MiB 로 첫 워크로드의 두 배라 절감도 두 배에 가깝다(예측한 비례 그대로).
+- **사전 진술 2 통과(여유 적음):** 창 127 r 0.4 에서 S12 − S60 = R2 +36.3 → R3 **+21.0**. v3 예측 +12.8 → 차이 +8.3(기준 ±10).
+  v3 는 "KV 45 MiB 가 persisting 과 set-aside 밖 공간을 다투므로 S 효과가 일부 남는다"고 예측했고, 실측도 일부 남았다. 다만 남은 양이 예측보다 크다.
+- **결정.** 실측 최적은 창 = S = 36, r 1 에서 **226.5**(기준선 306.9 대비 −26 %)이고, v3 가 고른 설정과 같다. R2(개입 전) 최적 254.6 보다
+  28 MiB 적다. 개입 전에는 창 = S = 60 이 최적이었는데, 개입 뒤에는 36 MiB 로 충분해졌다. 즉 **set-aside 를 24 MiB 덜 떼어도 된다**.
+- 남은 오차는 같은 양상이다. r 0.4~0.5 에서 실측이 먼저 오른다(S12 r 0.4: 실측 278.2, v3 253.5). R2 한계 ④와 같은 항목이다.
+
+## 2026-09-27 18:40 KST — D3b 사전 예측 고정: 창을 무효로 만드는 것은 우선순위인가, 디스크립터를 누가 만들었나인가 (측정 전)
+
+- **왜.** D3 는 createpolicy 디스크립터(evict_first·evict_last)를 단 로드에서 창이 무효임을 보였다. 그리고 기제를 "창은 드라이버 기본
+  디스크립터(sm_120 상수 뱅크 c[0x0][0x358])에 실려 전달된다"로 추론만 했다. 정적 조사(`scripts/prior/load_hint_census.py`, 아래)에서
+  vLLM 의 CUTLASS 3.x GEMM 은 sm_90·sm_100·sm_120 모두 TMA 로드가 **커널이 만든 디스크립터**를 쓴다. FlashMLA 도 같다. 이 추론이 맞으면
+  이런 커널에서는 창 손잡이가 아예 먹지 않는다. 그래서 우선순위가 보통인 경우로 직접 확인한다.
+- **커널(`scripts/gpu/l2policy_bench.cu` sha256 fb813af7488961f9, 서버 빌드 `l2policy_bench_d3b`).** hint 0~3 코드는 그대로다.
+  hint 4·5 = LDG + createpolicy `L2::evict_normal`·`L2::evict_unchanged`(SASS `LDG.E.128 desc[UR6]`, 디스크립터는 커널이 만듦).
+  hint 6 = TMA 벌크 복사 `cp.async.bulk` global→shared, 힌트 없음(SASS `UBLKCP.S.G [UR44], [UR4], UR6`, **디스크립터 피연산자 자체가 없음**).
+  hint 7 = 같은 벌크 복사 + `.L2::cache_hint` evict_normal(SASS `UBLKCP.S.G … desc[UR36]`, 커널이 만든 디스크립터).
+  대조: hint 0(일반 LDG = D2), hint 3(ld.global.cs = D3), 같은 세션에서 다시 잰다.
+- **예측 고정** `assets/sweep/d3b_predictions_ampere.json` **sha256 f52e02ac6076cd44**(`scripts/d3b_predict.py` b5b8e95533182fef),
+  6 hint × 7 설정 = 42 개. 격자는 D3 와 같다(ws 268 MiB, 커널 32 개; 기준선, 창 127 × S {12, 60} × r {0.4, 1.0}). 여기에 두 해석이 가장 크게
+  갈리는 (127, 60, 0.3)·(127, 36, 0.4) 를 더했다. 대기열 `scripts/gpu/d3b_queue.sh`(21832532dee1d029)는 N1 로드 클래스 조사가 끝난 틈에
+  돌린다(새 커널 3 개 완주 관문 → `h1_run.py` 2082642c1ed8a788). N1 예측은 'd3b exit' 뒤에 올려 카운터가 겹치지 않게 한다.
+- **두 해석(둘 다 고정).** v3(그대로, afb0e71d)는 우선순위만 본다. 따라서 hint 4~7 은 일반 로드와 같고, 창이 적용되며, S60 r 0.4 에서
+  36 MiB 를 아낀다(232.0). **v3_desc(D3 가 제안한 v3.1 후보)**는 창이 기본 디스크립터를 단 로드에만 적용된다고 본다. 따라서 hint 4·5·7 은
+  모든 설정에서 그 커널의 기준선(268.0)과 같다. hint 6 은 디스크립터가 아예 없어 엄격히 읽으면 역시 창 없음이지만, 가장 불확실한 경우다.
+- **사전 진술 (판정 기준).**
+  1. 대조: hint 0 의 S60 r 0.4 가 D2 값 238.6 ± 8 안, hint 3 의 S12·S60 r 0.4 가 D3 값 212.8·212.7 ± 8 안. 벗어나면 이번 세션은 무효로 본다.
+  2. hint 4·5·7 각각, 판별 세 설정(S60 r 0.3, S60 r 0.4, S36 r 0.4)의 평균 절감(자기 기준선 대비)이 **< 10 MiB 면 v3_desc 지지**,
+     **> 20 MiB 면 v3 지지**, 그 사이는 판정 보류.
+  3. hint 6 은 같은 규칙으로 탐색적으로만 보고한다(가설을 걸지 않음).
+  4. 각 hint 의 기준선이 268 MiB ± 5 % 안(벌크 커널이 모든 바이트를 읽는지 확인). 벗어나면 그 hint 는 판정하지 않는다.
+- **정적 조사(같은 날, CPU 만).** `load_hint_census.py` 는 커널마다 전역 로드 종류(수식어 포함)를 센다. 또 디스크립터 레지스터의 출처를
+  가린다: 상수 뱅크 기본 슬롯(sm_80 0x118, sm_90 0x208, sm_100·sm_120 0x358)에서 왔는지, 커널이 UMOV·ULOP3 로 만들었는지.
+  D3 바이너리에서 rd_cs → .EF, rd_hint → 커널 생성, rd → 둘 다 아님으로 정확히 분류됨을 확인했다(Hopper 는 기본 슬롯이 달라 처음엔
+  오탐, 슬롯 표로 고침). 지금까지(vLLM 0.10.2): `_C` sm_90 은 전역 로드가 있는 2,584 커널 중 224 개, sm_100 은 1,846 중 59 개,
+  sm_120 은 1,777 중 10 개가 커널 생성 디스크립터를 쓴다. 모두 CUTLASS 3.x TMA GEMM 이다(GemmUniversal·fp8·sparse·group GEMM).
+  `.EF` 는 0 개다. FlashMLA 2, MoE top-k 3. cuBLAS 와 FlashAttention, 새 스택(vLLM 0.28·cuBLAS 13.1·SGLang 0.5.17)은 도는 중이다
+  (`scripts/prior/lhc_all.sh`, `lhc_new.sh`, 요약 `load_hint_summary.py`).
+
+## 2026-09-27 18:49 KST — R3 셋째 워크로드 (360M B4): 사전 진술 1·2 통과, 최적 결정은 '창 없이 set-aside 만'
+
+- 측정 18:21~18:48, policy_rc 모두 0. `r3_measured_ampere.jsonl` 141 줄(sha256 75a5749b7c589a70).
+- **사전 진술 1 통과:** 기준선 R2 실측 777.0 → R3 실측 **708.4**(−68.6 MiB, −9 %). v3 예측 변화 −75.0 → 차이 +6.4(기준 ±10).
+- **사전 진술 2 통과:** 창 127 r 0.4 에서 S12 − S60 = R2 +38.9 → R3 **+37.3**, v3 +35.0(차이 +2.2). KV 80 MiB 가 L2 대부분을
+  차지하므로 개입 뒤에도 set-aside 가 계속 중요하다고 예측했고, 실측도 그대로다(135M B2 는 +2.3 으로 사라짐, B4 는 +21 로 일부 남음).
+- **결정.** 개입 뒤 실측 최적은 **창 없이 set-aside 60 만**(705.4)이고, 창을 쓰는 설정은 모두 이보다 나쁘다(최선 718.7). v3 는 기준선
+  695.3 과 (127, 12, 0.0) 695.1 을 사실상 동률로 예측했다. 동률을 깨는 과정에서 창 설정을 골랐고, 그 설정의 실측은 720.7 로 최적보다
+  15.3 MiB(스텝의 2.0 %) 많다. 판정 스크립트(`scripts/r3_verdict.py`)는 이제 기준선을 포함한 전 격자에서 최적을 찾는다(처음엔 창 설정만).
+- **새로 보이는 오차.** r 0 인데도 창을 켜면 +11~12 MiB 가 늘어난다(S12·S36·S60 r 0: 720.7 / 719.4 / 719.2, 기준선 708.4). v3 는
+  창 미스 줄(streaming)을 evict-first(`.cs`)와 같게 본다. 그런데 KV 가 L2 에 거의 찰 때는 streaming 표시가 붙은 창 줄이 `.cs` 줄보다
+  KV 를 더 밀어내는 것으로 보인다(추론). 135M B4(KV 45 MiB)에서는 반대로 r 0 창이 8.5 MiB 를 아꼈다. 한계 목록에 넣는다.
+- **누적 (3 워크로드, 141 설정):** 사전 진술 3 통과 — MAE v3 **10.14** / v1 24.20 / v2 24.67 / AutoScratch 30.95 / GPU-Tile-Sim 32.57 /
+  MemExplorer 65.99. 사전 진술 4 통과 — 최적 hitRatio 선택 v3 **15/15**, v2 6, v1 5, AutoScratch 4, 나머지 0.
+
+## 2026-09-27 19:16 KST — R3 완료: 사전 진술 네 개 모두 통과 (4 워크로드, 188 설정)
+
+- `r3 exit 0` 19:15:29, `r3_measured_ampere.jsonl` 188 줄(sha256 75cb989b380dae2b), policy_rc 모두 0. 판정 `scripts/r3_verdict.py`
+  → `assets/sweep/r3_verdict.json`. 넷째 워크로드 360M B8(KV 160 MiB > L2): 기준선 R2 858.3 → R3 855.8(−2.5, v3 예측 0.0 = 효과 없음),
+  S12 − S60 +39.6 → +38.8(v3 +36.1). **KV 가 L2 보다 크면 가중치 로드 방식을 바꿔도 아무 일이 없다는 예측이 맞았다.**
+- **진술 1(기준선 변화 ± 10):** 4/4 — 차이 −3.1 / +0.9 / +6.4 / −2.5 (실측 변화 −25.7 / −44.3 / −68.6 / −2.5 MiB).
+- **진술 2(S12 − S60 ± 10):** 4/4 — 실측 +2.3 / +21.0 / +37.3 / +38.8, v3 +0.0 / +12.8 / +35.0 / +36.1. 개입 전에는 네 워크로드 모두
+  +36~40 이었다. 개입 뒤 set-aside 가 무의미해지는 정도가 KV / L2 에 따라 달라진다는 예측이 그대로 나왔다(22.5 MiB 사라짐, 45 MiB 절반, 80·160 MiB 그대로).
+- **진술 3(MAE 최소):** v3 **8.97** MiB(스텝의 2.0 %, 5 % 이내 89 %, 정책 반응 상관 +0.96) / v1 19.65 / v2 19.87 / GPU-Tile-Sim 27.03 /
+  AutoScratch 28.45 / MemExplorer 72.12(`prior_sim_compare.py` r3 세트).
+- **진술 4(최적 hitRatio 선택 최다):** v3 **20/20**, v2 11, v1 9, AutoScratch 8, GPU-Tile-Sim·MemExplorer 0.
+- **결정 수준(기준선 포함 전 격자의 최적).** 135M B2·B4 는 v3 선택 = 실측 최적. 360M B4 는 최적이 '창 없이 set-aside 60'(705.4)이고
+  v3 선택이 +15.3 MiB. 360M B8 은 최적이 문서 권장식(창 = S = 60, r 1, 802.6)인데 v3 가 이 설정을 818.6 으로 16 MiB 과대예측해
+  (127, 60, 0.4)를 골랐고, 그 설정의 실측은 +14.7 MiB 다(R2 한계 ③과 같은 항목). 두 경우 모두 스텝의 2 % 안이다.
+- **시간(참고, 판정 아님).** R3 안에서도 DRAM 절감이 커널 시간으로는 거의 옮겨 가지 않는다. 절감이 가장 큰 135M B2 도 DRAM 21.7 %
+  절감에 커널 시간 0.8 % 절감이다. 스텝의 DRAM 시간이 0.22~0.73 ms 로 커널 시간 3.2~5.4 ms 의 7~14 % 이기 때문이다
+  (`scripts/time_vs_bytes.py` → `assets/sweep/time_vs_bytes.json`; H1c clean 에서는 바이트 절감이 시간 절감과 1:1).
+- 그림 `assets/figures/r3-intervention.png`(4 워크로드), 용량 투영 `capacity-projection.png`(R3 실측점 포함) 다시 그림.
+
+## 2026-09-27 19:19 KST — D3b 판정 규칙 보완 (측정 전; 예측 파일 f52e02ac 은 그대로)
+
+- 판정 스크립트(`scripts/d3b_verdict.py`)를 가짜 데이터로 시험하다가 사전 진술 2 의 절대 기준이 약하다는 것을 알았다. "판별 세 설정 평균
+  절감 > 20 MiB 면 v3 지지"라는 기준인데, 일반 로드(v3 예측) 자신의 평균 절감이 26 MiB 이고 D2 실측(S60 r 0.4 에서 29)도 비슷하다.
+  그래서 hint 4 가 일반 로드와 똑같이 행동해도 경계(10~20, 판정 보류)에 걸릴 수 있다.
+- **보완(주 판정):** 같은 세션의 일반 로드 대조(hint 0) 대비 비율로 판정한다. 비율 = hint h 평균 절감 / hint 0 평균 절감.
+  < 0.3 이면 v3_desc, > 0.7 이면 v3, 그 사이는 판정 보류다. 원래 절대 기준은 부 판정으로 함께 보고한다. hint 6 도 같은 규칙이며 탐색적이다.
+- D3b 측정은 아직 시작하지 않았다(N1 조사가 끝난 뒤 자동 시작). 서버에 `d3b_run.log` 가 없음을 확인했다.
+
+## 2026-09-27 19:54 KST — N1 사전 예측 고정: 음성 대조 — 작업집합이 L2 의 35~38 배인 모델 (측정 전)
+
+- **왜.** R1~R3 는 모두 작업집합이 L2 의 2.8~8.9 배다. 이 영역에서는 정책이 DRAM 트래픽을 최대 20 % 안팎 움직인다. 논문은 정책이 거의
+  의미 없는 영역도 보여야 한다. 그래야 "왜 작은 모델인가"에 데이터로 답할 수 있다.
+- **워크로드.** SmolLM2-1.7B(bf16 가중치 3.2 GiB, GQA 없이 KV 헤드 32 개라 문맥 512 에서 KV 가 배치당 96 MiB), 배치 1·4, 문맥 512.
+  논리 스텝 3,360.4 / 3,648.9 MiB, 작업집합 / L2 = 35.0 / 38.0.
+- **측정 전 관문(19:16~19:52, `n1_queue.sh` efbdabd6abab7eef).** HF 로짓 대조 B1: cos 1.0000 / 0.9991 / 0.9996, argmax 3/3.
+  SASS 로드 클래스 조사(`r2_list.sh`; B1 추적 18 분, B4 7 분; `assets/sweep/r2_census/r2_SmolLM2-1.7B_B{1,4}_c512/`):
+  B1 = 가중치 전부 E(cuBLAS gemvx `LDG.E.EF`), K 캐시 N, **V 캐시 E**. B4 = 가중치 N(CUTLASS wmma GEMM), K N, **V E**.
+  R2 의 배치 1 워크로드(135M·360M, 문맥 1536)는 V 가 N 이었다. 같은 배치 1 이라도 모양에 따라 cuBLAS 가 다른 gemvx 변형을 고른다.
+  클래스를 워크로드마다 SASS 에서 읽어야 하는 이유다.
+- **격자(워크로드당 9 설정).** 기준선; set-aside 60 만; 창 127 × S {12, 60} × r {0.2, 0.4, 1.0}; 문서 권장(창 = S = 60, r 1).
+- **예측 고정** `assets/sweep/n1_predictions_ampere.json` **sha256 db5891a8e093e99a** (`scripts/n1_predict.py` 54b9eaf9fdc37370,
+  `scripts/r2_predict.py` 17ef47a70267540a, v3 afb0e71d1c541c29 그대로). 러너 `scripts/gpu/n1_run.py` 650ee6b29d11fe98.
+  D3b 가 끝난 뒤(`d3b exit`) 서버에 .part 로 올려 이름을 바꾼다. 그래야 카운터가 D3b 와 겹치지 않는다.
+- **v3 예측.** B1: 기준선 3,312.1(논리 스텝 −48.3; 가중치와 V 가 evict-first 라 K 캐시 일부가 다음 스텝까지 남음). 9 설정 폭
+  71.2 MiB(스텝의 2.1 %). B4: 기준선 = 논리 스텝 3,648.9, 폭 36.3 MiB(1.0 %). 다른 예측기의 폭: v1·AutoScratch 60, v2 36,
+  GPU-Tile-Sim·MemExplorer 0. MemExplorer 식 (4)는 모든 설정에서 스텝 − 96 MiB.
+- **사전 진술 (판정 기준).**
+  1. 두 워크로드 모두 9 설정의 실측 DRAM 폭(최대 − 최소)이 논리 스텝의 3 % 이하다. 정책이 거의 의미 없는 영역이라는 뜻이다.
+  2. 모든 예측기의 MAE 가 논리 스텝의 5 % 이하다. 이 영역에서는 어느 도구를 쓰든 결정이 크게 바뀌지 않는다.
+  3. (v3 고유) 기준선 실측 − 논리 스텝이 B1 에서 −48.3 ± 20 MiB, B4 에서 0 ± 20 MiB 안이다.
+
+## 2026-09-27 19:58 KST — D3b 결과: 창은 드라이버 기본 디스크립터를 단 LDG 에만 적용된다 (v3_desc 사전 예측 적중)
+
+- 측정 19:52:58~19:57:48(`d3b exit 0`), `d3b_measured_ampere.jsonl` 42 줄(sha256 e67fe58802394181). 판정 `scripts/d3b_verdict.py`
+  → `assets/sweep/d3b_verdict.json`.
+- **진술 1(대조) 통과.** hint 0 S60 r 0.4 = 239.2(D2 238.6), hint 3 S12·S60 r 0.4 = 212.7·212.6(D3 212.8·212.7). 이틀 전 측정을 1 MiB 안에서
+  재현했다.
+- **진술 4(기준선) 통과.** 모든 hint 의 기준선이 267.9~268.0 이다. 벌크 복사 커널도 모든 바이트를 읽는다.
+- **진술 2 — v3_desc 지지(주·부 판정 모두).** 판별 세 설정의 평균 절감은 hint 4(createpolicy evict_normal) **0.0**, hint 5(evict_unchanged)
+  **0.0**, hint 7(TMA 벌크 + evict_normal 힌트) **0.0** MiB 다. 일반 로드 대조는 20.1(28.7 / 28.8 / 2.7)이고, 비율은 0.00 이다. 42 설정 중
+  hint 4~7 의 28 설정 모두가 자기 기준선과 0.1 MiB 안에서 같다. 보완한 비율 규칙이 필요했다는 점도 확인됐다: 대조의 평균 절감이
+  20.1 이라 원래 절대 기준(> 20)의 경계에 걸렸다.
+- **진술 3(탐색) — hint 6(TMA 벌크 복사, 디스크립터 없음)도 창이 무효**(절감 0.0)다. 엄격한 해석대로다.
+- **예측 성적.** 42 설정 MAE: **v3_desc 0.96** / 고정 LRU 6.35 / v3 8.42 / v2 10.94 / v1 12.27. hint 4~7 만 보면 v3_desc = 고정 LRU 0.03,
+  v3 = v2 11.21.
+- **결론.** access-policy window 는 **드라이버가 넣는 기본 디스크립터(sm_120 c[0x0][0x358])를 단 일반 LDG 에만** 적용된다. 커널이
+  디스크립터를 직접 만들면 우선순위와 상관없이 무효다(evict_first·evict_last 는 D3, evict_normal·evict_unchanged 는 D3b). TMA 벌크
+  복사는 힌트가 있든 없든 무효다. D3 에서는 추론이었던 기제를 사전 예측으로 확인한 셈이다. 따라서 로드 클래스는 셋이다.
+  (1) 기본 디스크립터 + 일반 우선순위: 창이 적용되고 set-aside 가 상한이다. (2) 기본 디스크립터 + `.EF`: 창이 적용되고 set-aside 와
+  무관하다. (3) 커널 생성 디스크립터 또는 TMA: 창이 적용되지 않는다.
+- **모델.** v3.1 = v3 + "창은 (3) 에 적용하지 않는다". D3b 가 이 규칙의 사전 검증이다. R2·R3 의 커널은 모두 (1)·(2)(gemvx, CUTLASS 2.x
+  wmma, 개입 커널 `__ldcs`)라 v3.1 = v3 이고, 앞선 사전 검증 수치는 바뀌지 않는다.
+- **함의(정적 조사와 합치면, 하드웨어 검증 전).** sm_90 에서 cuBLASLt 12.8 의 TMA GEMM 1,155 개, FlashAttention-3 커널 2,368 개,
+  vLLM CUTLASS 3.x GEMM 224 개가 (3) 이다. 기제가 H100 에서도 같다면 배치 ≥ 2 의 가중치 GEMM 과 FA3 의 KV 읽기에 창이 먹지 않는다.
+  데이터센터 GPU 한 대로 확인할 수 있다(D3·D3b 바이너리 그대로).
+
+## 2026-09-27 20:55 KST — N1 결과: 음성 대조 통과 — 작업집합이 L2 의 35~38 배면 정책도 도구 선택도 결정을 바꾸지 않는다
+
+- 측정 19:59~20:07(`n1 exit 0`), `n1_measured_ampere.jsonl` 18 줄(sha256 22a92aabb7425074), 예측 db5891a8e093e99a 그대로.
+  판정 `scripts/n1_verdict.py` → `assets/sweep/n1_verdict.json`.
+- **진술 1 통과(두 워크로드).** 9 설정의 실측 폭: B1 61.4 MiB(논리 스텝 3,360.4 의 1.83 %), B4 59.5 MiB(3,648.9 의 1.63 %) ≤ 3 %.
+- **진술 2 통과.** 18 설정 MAE(스텝 대비): v3 0.39 % / v2 0.56 / v1 0.58 / GPU-Tile-Sim 0.79 / AutoScratch 0.81 / MemExplorer 2.27 — 모두 ≤ 5 %.
+  MiB 로는 B1 v3 13.3(다음 v1 23.7, MemExplorer 63.2), B4 v3 13.8 = v2 13.8(GPU-Tile-Sim 19.1, MemExplorer 97.2).
+- **진술 3 통과(v3 고유).** 기준선 − 논리 스텝: B1 **−52.7**(예측 −48.3 ± 20; 가중치·V 가 evict-first 라 K 캐시 일부가 다음 스텝까지 남는다),
+  B4 **+14.5**(예측 0 ± 20; 논리 스텝에 없는 활성값·로짓 등이 섞인 것으로 보임, 허용 안).
+- **최적 설정.** B1 창 127·S 60·r 0.2(3,305.1), B4 문서 권장 창 = S = 60·r 1(3,608.0). 기준선 대비 절감 2.5 / 55.4 MiB.
+- **시간.** 커널 시간 B1 5.17~5.22 ms, B4 6.08~6.11 ms — 설정 간 1 % 미만. 바이트 폭 자체가 1~2 % 라 시간에 보일 것이 없다.
+- **판정.** 정책 인지 모델링이 결정을 바꾸는 영역은 작업집합 / L2 ≈ 1~10 배(R1~R3: 2.8~8.9 배, 정책 폭 스텝의 최대 ~20 %)이고,
+  35 배 이상에서는 모든 예측기가 스텝의 2.3 % 안에 모인다. 논문의 범위 문장("정책이 의미 있는 영역")을 데이터로 긋는 음성 대조다.
+  L2 가 커지면 이 경계가 큰 모델 쪽으로 옮겨 간다(용량 투영, 17:45 항목).
+
+## 2026-09-27 21:10 KST — 범위 그림: 정책 손잡이의 여유는 "persisting 상한 ÷ 작업집합", 예측기 차이는 WS/L2 < 10 에서만
+
+- `scripts/make_regime_figure.py` → `assets/figures/regime.{png,pdf}`. 실측한 실제 디코드 15 워크로드(R1 3, R2 6, R3 4, N1 2)를 작업집합 /
+  L2(논리 스텝 = 가중치 + KV 읽기, ÷ 96 MiB)에 놓았다. 새 측정 없음, 기존 사전 고정 예측과 카운터만 쓴다.
+- **(a) 최대 절감(기준선 − 격자 최선)은 60 MiB ÷ 스텝 선을 따른다.** 135M B1 22.3 %(선 22.4), 360M B4 7.2(7.8), 1.7B B4 1.52(1.64).
+  선보다 한참 아래는 셋이다. R2 360M B1 c1536 2.6(8.0), R3 360M B4 0.4(7.8), N1 B1 0.08(1.8). 모두 로드 방식(evict-first 가중치,
+  R3 개입) 때문에 **기준선에서 이미** KV·K 캐시가 남아 손잡이로 더 얻을 것이 없는 경우다. 전체 폭(나쁜 설정 포함)은 선보다 클 수 있다
+  (135M B8 32.1 %): 잘못 고르면 트래픽이 늘어난다.
+- **(b) MAE(스텝 대비, 로그).** WS/L2 ≈ 3 에서 v3 1.8~3.1 %, AutoScratch 7.0~11.7, GPU-Tile-Sim 3.4~13.5, MemExplorer 20~33.
+  WS/L2 ≈ 8~9 에서 v3 0.6~1.8, 나머지 1.2~12. WS/L2 35~38 에서는 모두 0.4~2.7 % 로 모인다. v3 는 사전 고정한 R2·R3·N1 만 그렸다
+  (R1 의 v3 는 사후라 뺐다).
+- 스토리 문서 그림 6 으로 넣었다.
+
+## 2026-09-27 20:57 KST — Codex ↔ Claude ↔ dsil-sy 동기화 체크포인트
+
+- **서버 원본과 로컬 정본 일치.** dsil-sy `~/l2probe`와 `assets/sweep/`의 sha256을 직접 대조했다. R2
+  `e750aadc3bde7778`, R3 `75cb989b380dae2b`, D3b `e67fe58802394181`, N1 `22a92aabb7425074`가 모두 완전 일치한다.
+  따라서 앞의 “D3b 미시작”, “N1 측정 전” 항목은 당시의 사전 기록이고, 현재 상태는 뒤의 19:58·20:55 완료 항목이 정본이다.
+- **현재 서버 상태.** GPU process는 0개이며 RTX PRO 5000 Blackwell은 idle이다. GPU 실험 R2·R3·D3b·N1은 모두 exit 0이다.
+  CPU-only `lhc_new.sh`만 실행 중이며 최신 serving stack 10개 중 8개 완료, SGLang flash_ops 조사 중, cuBLASLt 13 조사가 남았다.
+- **Gate 4 준비 상태.** 9월 25일 `gpu00_probe.py` 결과는 GO다: L2 96 MiB, persisting 상한 60 MiB, access-policy window 상한
+  128 MiB, ncu DRAM counter 성공, nsys 설치. 그러나 서버에는 `gpu01_causal_sweep.py`/Gate 4 산출물이 없고 본 실험은 아직 시작하지 않았다.
+- **현 Gate 4 코드는 실행 보류.** 현재 `gpu01_causal_sweep.py`는 set-aside만 바꾸고 weight에 실제
+  `cudaAccessPolicyWindow`를 걸지 않는다. vLLM raw per-step/client TPOT를 저장하지 않고, ncu app-range가 없어 init/prefill이 섞이며,
+  `gpu02_analyze.py`는 total DRAM bytes를 per-step time에 그대로 회귀하고 hit rate를 sector 가중하지 않는다. 이 상태로 실행하면
+  “HBM 절감 → TPOT/p99 감소”의 논문 증거가 되지 않는다.
+- **현재 닫힌 주장과 열린 주장.** 정책·로드 클래스에 따른 **DRAM traffic 예측**은 R2/R3/D3b/N1로 닫혔다. 반면 SLO는 열려 있다.
+  R3에서 가장 큰 DRAM 절감은 21.7%인데 kernel time 절감은 0.8%였고, DRAM 시간이 kernel time의 7–14%뿐이었다.
+  기존 p99도 B8/L2048 execute-model 간격 93개뿐이며 client TPOT와 명시적 SLO threshold가 아니다.
+- **다음 실행 순서.**
+  1. `lhc_new` 종료 뒤 결과를 로컬로 가져와 load-class 표를 갱신한다.
+  2. 검증된 `r1_run.py`/`llm_policy_bench.py`의 app-range 구조로 Gate 4 러너를 고친다.
+  3. 같은 model/B/N/trace에서 baseline, reservation-only, 실제 weight-persist 세 조건을 측정한다. 조건별 독립 반복과 합계
+     10k개 이상의 steady-state token interval을 raw GPU step timestamp와 client TPOT로 남기고, 별도 ncu pass에서 per-step
+     DRAM read/write와 L2 hit/miss sector를 수집한다.
+  4. dsil-sy 결과는 RTX proxy 인과 증거로 쓰고, 6.40 TB/s와 B200 SLO 수치를 승격하려면 같은 프로토콜을 B200에서 반복한다.
+
+## 2026-09-27 21:00 KST — 구 load-hint census 로컬 동기화 완료
+
+- 서버에서 20:05에 끝난 구 stack 7/7 중 로컬에 빠졌던 `libcublasLt.so.12.{jsonl,summary}`를 가져왔다.
+- `scripts/prior/load_hint_summary.py`를 다시 실행해 `assets/sweep/load_hint_summary.json`을 갱신했다. cuBLASLt 12의 `.EF` gemvx는
+  sm_80/90/100/120에서 세대별 528개이고, sm_90 kernel-built descriptor는 1,214개다.
+- 신 stack `lhc_new`는 아직 실행 중이므로 종료 전의 0-byte/부분 파일은 로컬에 복사하지 않았다.

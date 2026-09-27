@@ -1,0 +1,96 @@
+{
+ "workload": "SmolLM2-1.7B/B4/c512",
+ "operands": {
+  "q": {
+   "bytes": 8388608,
+   "kernel_id": 13054,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 263184,
+   "operand_sectors": 262144,
+   "class": "N"
+  },
+  "k": {
+   "bytes": 8388608,
+   "kernel_id": 13055,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 263184,
+   "operand_sectors": 262144,
+   "class": "N"
+  },
+  "v": {
+   "bytes": 8388608,
+   "kernel_id": 13056,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 263184,
+   "operand_sectors": 262144,
+   "class": "N"
+  },
+  "K": {
+   "bytes": 8404992,
+   "kernel_id": 13069,
+   "kernel": "_ZN8internal5gemvx6kernelIii13__nv_bfloat16S2_S2_fLb1ELb1ELb1ELb0ELi7ELb0E18cublasGemvPara",
+   "evict_first_sectors": 0,
+   "normal_sectors": 263168,
+   "operand_sectors": 262656,
+   "class": "N"
+  },
+  "V": {
+   "bytes": 8404992,
+   "kernel_id": 13074,
+   "kernel": "_ZN8internal5gemvx6kernelIii13__nv_bfloat16S2_S2_fLb0ELb1ELb0ELb0ELi6ELb0E18cublasGemvPara",
+   "evict_first_sectors": 262656,
+   "normal_sectors": 4104,
+   "operand_sectors": 262656,
+   "class": "E"
+  },
+  "o": {
+   "bytes": 8388608,
+   "kernel_id": 13075,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 263184,
+   "operand_sectors": 262144,
+   "class": "N"
+  },
+  "gate": {
+   "bytes": 33554432,
+   "kernel_id": 13085,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 1049616,
+   "operand_sectors": 1048576,
+   "class": "N"
+  },
+  "up": {
+   "bytes": 33554432,
+   "kernel_id": 13087,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 1049616,
+   "operand_sectors": 1048576,
+   "class": "N"
+  },
+  "down": {
+   "bytes": 33554432,
+   "kernel_id": 13089,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 1051152,
+   "operand_sectors": 1048576,
+   "class": "N"
+  },
+  "lm_head": {
+   "bytes": 201326592,
+   "kernel_id": 14134,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x2_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 6292496,
+   "operand_sectors": 6291456,
+   "class": "N"
+  }
+ },
+ "unmatched": []
+}

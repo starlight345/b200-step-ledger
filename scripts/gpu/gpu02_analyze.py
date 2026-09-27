@@ -25,7 +25,7 @@ plt.rcParams.update({'font.family':'sans-serif','font.sans-serif':['Apple SD Got
 def ncu_bytes(path):
     """ncu --csv 에서 dram__bytes_read/write 합을 뽑는다. 포맷은 버전마다 조금 다르다."""
     txt = Path(path).read_text().split('#STDERR')[0]
-    tot = {'dram__bytes_read.sum': 0.0, 'dram__bytes_write.sum': 0.0, 'lts__t_sectors_hit_rate': []}
+    tot = {'dram__bytes_read.sum': 0.0, 'dram__bytes_write.sum': 0.0, 'lts__t_sector_hit_rate.pct': []}
     for row in csv.DictReader(l for l in txt.splitlines() if l and not l.startswith('==')):
         m, v = row.get('Metric Name'), row.get('Metric Value', '')
         if m in tot and v:
@@ -34,7 +34,7 @@ def ncu_bytes(path):
             if m.endswith('hit_rate'): tot[m].append(val)
             else: tot[m] += val
     return dict(dram_read_B=tot['dram__bytes_read.sum'], dram_write_B=tot['dram__bytes_write.sum'],
-                l2_hit_rate=float(np.mean(tot['lts__t_sectors_hit_rate'])) if tot['lts__t_sectors_hit_rate'] else None)
+                l2_hit_rate=float(np.mean(tot['lts__t_sector_hit_rate.pct'])) if tot['lts__t_sector_hit_rate.pct'] else None)
 
 def load(dirs):
     out = []

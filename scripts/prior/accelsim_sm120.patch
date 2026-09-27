@@ -1,0 +1,42 @@
+diff --git a/gpu-simulator/trace-driven/trace_driven.cc b/gpu-simulator/trace-driven/trace_driven.cc
+index 8a467ab..64b06d9 100644
+--- a/gpu-simulator/trace-driven/trace_driven.cc
++++ b/gpu-simulator/trace-driven/trace_driven.cc
+@@ -210,6 +210,10 @@ trace_kernel_info_t::trace_kernel_info_t(dim3 gridDim, dim3 blockDim,
+     OpcodeMap = &Kepler_OpcodeMap;
+   else if (kernel_trace_info->binary_verion == TURING_BINART_VERSION)
+     OpcodeMap = &Turing_OpcodeMap;
++  else if (kernel_trace_info->binary_verion >= 100)
++    // [b200-step-ledger patch] Blackwell (sm_100/sm_120) traces: this release has no Blackwell
++    // ISA table (accel-sim-framework issue #488), so decode them with the Hopper table.
++    OpcodeMap = &Hopper_OpcodeMap;
+   else {
+     printf("unsupported binary version: %d\n",
+            kernel_trace_info->binary_verion);
+@@ -307,9 +311,23 @@ bool trace_warp_inst_t::parse_from_trace_struct(
+     if (it2 != OpcPowerMap->end()) sp_op = (special_ops)(it2->second);
+     oprnd_type = get_oprnd_type(op, sp_op);
+   } else {
+-    std::cout << "ERROR:  undefined instruction : " << trace.opcode
+-              << " Opcode: " << opcode1 << std::endl;
+-    assert(0 && "undefined instruction");
++    // [b200-step-ledger patch] sm_120 opcodes absent from the Hopper table, each mapped to the Hopper
++    // instruction it replaces (found by an opcode census of our traces, scripts/prior/asim_opcodes.py).
++    static const std::unordered_map<std::string, OpcodeChar> Blackwell_Extra = {
++        {"LDCU", OpcodeChar(OP_ULDC, SPECIALIZED_UNIT_4_OP)},  // constant -> uniform register, as ULDC
++        {"UVIMNMX", OpcodeChar(OP_IMNMX, SPECIALIZED_UNIT_4_OP)},  // uniform-datapath VIMNMX (Hopper: OP_IMNMX)
++    };
++    std::unordered_map<std::string, OpcodeChar>::const_iterator bx =
++        Blackwell_Extra.find(opcode1);
++    if (kernel_trace_info->binary_verion >= 100 && bx != Blackwell_Extra.end()) {
++      m_opcode = bx->second.opcode;
++      op = (op_type)(bx->second.opcode_category);
++      oprnd_type = get_oprnd_type(op, sp_op);
++    } else {
++      std::cout << "ERROR:  undefined instruction : " << trace.opcode
++                << " Opcode: " << opcode1 << std::endl;
++      assert(0 && "undefined instruction");
++    }
+   }
+ 
+   // Parse the SASS opcode string for instructions that requires special

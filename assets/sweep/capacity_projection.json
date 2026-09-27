@@ -1,0 +1,1547 @@
+{
+ "created": "2026-09-27 17:33:30 KST",
+ "phi": 0.3,
+ "caps_mib": [
+  48,
+  64,
+  80,
+  96,
+  112,
+  128,
+  160,
+  192,
+  224,
+  256,
+  320,
+  384,
+  448,
+  512,
+  576,
+  640,
+  704,
+  768,
+  832,
+  896,
+  960,
+  1024
+ ],
+ "note": "Model projection anchored at 96 MiB (R2). v3 validated at 96 MiB only.",
+ "workloads": {
+  "SmolLM-360M/B1/c1536": {
+   "classes": {
+    "q": "E",
+    "k": "E",
+    "v": "E",
+    "K": "N",
+    "V": "N",
+    "o": "E",
+    "gate": "E",
+    "up": "E",
+    "down": "E",
+    "lm_head": "E"
+   },
+   "points": [
+    {
+     "C_mib": 48,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 702.166015625,
+     "v3_native": 746.412265625,
+     "v3_best": 727.098715625,
+     "v3_best_setting": {
+      "window": 24.0,
+      "setaside": 30.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 64,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 686.166015625,
+     "v3_native": 707.539415625,
+     "v3_best": 706.935615625,
+     "v3_best_setting": {
+      "window": 127.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     }
+    },
+    {
+     "C_mib": 80,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 670.166015625,
+     "v3_native": 690.167015625,
+     "v3_best": 688.525765625,
+     "v3_best_setting": {
+      "window": 40.0,
+      "setaside": 30.0,
+      "hitratio": 0.1
+     }
+    },
+    {
+     "C_mib": 96,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 654.166015625,
+     "v3_native": 689.956315625,
+     "v3_best": 675.7663156250001,
+     "v3_best_setting": {
+      "window": 48.0,
+      "setaside": 60.0,
+      "hitratio": 0.5
+     }
+    },
+    {
+     "C_mib": 112,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 638.166015625,
+     "v3_native": 689.991215625,
+     "v3_best": 661.918765625,
+     "v3_best_setting": {
+      "window": 56.0,
+      "setaside": 70.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 128,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 622.166015625,
+     "v3_native": 689.977615625,
+     "v3_best": 648.0820156249999,
+     "v3_best_setting": {
+      "window": 64.0,
+      "setaside": 80.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 160,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 590.166015625,
+     "v3_native": 689.931515625,
+     "v3_best": 620.4045156249999,
+     "v3_best_setting": {
+      "window": 80.0,
+      "setaside": 100.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 192,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 558.166015625,
+     "v3_native": 689.962015625,
+     "v3_best": 597.106015625,
+     "v3_best_setting": {
+      "window": 96.0,
+      "setaside": 120.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 224,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 526.166015625,
+     "v3_native": 689.931715625,
+     "v3_best": 578.804615625,
+     "v3_best_setting": {
+      "window": 112.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 256,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 494.166015625,
+     "v3_native": 689.934815625,
+     "v3_best": 561.930015625,
+     "v3_best_setting": {
+      "window": 128.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 320,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 430.166015625,
+     "v3_native": 689.929015625,
+     "v3_best": 519.168015625,
+     "v3_best_setting": {
+      "window": 320.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 384,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 366.166015625,
+     "v3_native": 689.912815625,
+     "v3_best": 477.157615625,
+     "v3_best_setting": {
+      "window": 384.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 448,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 302.166015625,
+     "v3_native": 689.880615625,
+     "v3_best": 428.611215625,
+     "v3_best_setting": {
+      "window": 448.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 512,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 238.166015625,
+     "v3_native": 687.404415625,
+     "v3_best": 379.828415625,
+     "v3_best_setting": {
+      "window": 512.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 576,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 174.166015625,
+     "v3_native": 670.577215625,
+     "v3_best": 320.819215625,
+     "v3_best_setting": {
+      "window": 576.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 640,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 110.166015625,
+     "v3_native": 595.818015625,
+     "v3_best": 252.93401562500003,
+     "v3_best_setting": {
+      "window": 640.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 704,
+     "step_mib": 750.166015625,
+     "lru": 750.125,
+     "capacity_only": 60.0390625,
+     "v3_native": 453.742415625,
+     "v3_best": 169.40121562500008,
+     "v3_best_setting": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 768,
+     "step_mib": 750.166015625,
+     "lru": 0.0,
+     "capacity_only": 60.0390625,
+     "v3_native": 280.927615625,
+     "v3_best": 96.90521562499998,
+     "v3_best_setting": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 832,
+     "step_mib": 750.166015625,
+     "lru": 0.0,
+     "capacity_only": 60.0390625,
+     "v3_native": 135.435015625,
+     "v3_best": 41.068015625000044,
+     "v3_best_setting": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 896,
+     "step_mib": 750.166015625,
+     "lru": 0.0,
+     "capacity_only": 60.0390625,
+     "v3_native": 54.853215625000075,
+     "v3_best": 14.639615625000033,
+     "v3_best_setting": {
+      "window": 448.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 960,
+     "step_mib": 750.166015625,
+     "lru": 0.0,
+     "capacity_only": 60.0390625,
+     "v3_native": 10.090015624999978,
+     "v3_best": 2.812015624999958,
+     "v3_best_setting": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 1024,
+     "step_mib": 750.166015625,
+     "lru": 0.0,
+     "capacity_only": 60.0390625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    }
+   ]
+  },
+  "SmolLM-360M/B4/c512": {
+   "classes": {
+    "q": "N",
+    "k": "N",
+    "v": "N",
+    "K": "N",
+    "V": "N",
+    "o": "N",
+    "gate": "N",
+    "up": "N",
+    "down": "N",
+    "lm_head": "N"
+   },
+   "points": [
+    {
+     "C_mib": 48,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 722.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 747.215903125,
+     "v3_best_setting": {
+      "window": 24.0,
+      "setaside": 30.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 770.276003125,
+     "v3_best_ef": 747.215903125,
+     "v3_best_setting_ef": {
+      "window": 24.0,
+      "setaside": 30.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 64,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 706.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 739.526803125,
+     "v3_best_setting": {
+      "window": 32.0,
+      "setaside": 40.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 765.316803125,
+     "v3_best_ef": 739.526803125,
+     "v3_best_setting_ef": {
+      "window": 32.0,
+      "setaside": 40.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 80,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 690.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 731.837703125,
+     "v3_best_setting": {
+      "window": 40.0,
+      "setaside": 50.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 729.227203125,
+     "v3_best_ef": 729.010953125,
+     "v3_best_setting_ef": {
+      "window": 127.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     }
+    },
+    {
+     "C_mib": 96,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 674.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 724.148603125,
+     "v3_best_setting": {
+      "window": 48.0,
+      "setaside": 60.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 695.278103125,
+     "v3_best_ef": 695.1317031250001,
+     "v3_best_setting_ef": {
+      "window": 48.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     }
+    },
+    {
+     "C_mib": 112,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 658.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 716.459503125,
+     "v3_best_setting": {
+      "window": 56.0,
+      "setaside": 70.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.975703125,
+     "v3_best_ef": 684.077853125,
+     "v3_best_setting_ef": {
+      "window": 56.0,
+      "setaside": 56.0,
+      "hitratio": 0.2
+     }
+    },
+    {
+     "C_mib": 128,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 642.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 708.770403125,
+     "v3_best_setting": {
+      "window": 64.0,
+      "setaside": 80.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.940403125,
+     "v3_best_ef": 671.170403125,
+     "v3_best_setting_ef": {
+      "window": 64.0,
+      "setaside": 72.0,
+      "hitratio": 0.4
+     }
+    },
+    {
+     "C_mib": 160,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 610.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 693.392203125,
+     "v3_best_setting": {
+      "window": 80.0,
+      "setaside": 100.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.939203125,
+     "v3_best_ef": 642.481203125,
+     "v3_best_setting_ef": {
+      "window": 80.0,
+      "setaside": 100.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 192,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 578.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 678.014003125,
+     "v3_best_setting": {
+      "window": 96.0,
+      "setaside": 120.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.945603125,
+     "v3_best_ef": 615.792203125,
+     "v3_best_setting_ef": {
+      "window": 96.0,
+      "setaside": 120.0,
+      "hitratio": 0.9
+     }
+    },
+    {
+     "C_mib": 224,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 546.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 662.6358031249999,
+     "v3_best_setting": {
+      "window": 112.0,
+      "setaside": 140.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.889603125,
+     "v3_best_ef": 587.6154031250001,
+     "v3_best_setting_ef": {
+      "window": 112.0,
+      "setaside": 140.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 256,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 514.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 647.2576031250001,
+     "v3_best_setting": {
+      "window": 128.0,
+      "setaside": 160.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.942403125,
+     "v3_best_ef": 566.148803125,
+     "v3_best_setting_ef": {
+      "window": 128.0,
+      "setaside": 160.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 320,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 450.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 616.5012031250001,
+     "v3_best_setting": {
+      "window": 160.0,
+      "setaside": 200.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 689.910203125,
+     "v3_best_ef": 530.712203125,
+     "v3_best_setting_ef": {
+      "window": 160.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 384,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 386.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 477.414803125,
+     "v3_best_setting": {
+      "window": 512.0,
+      "setaside": 240.0,
+      "hitratio": 0.1
+     },
+     "v3_native_ef": 689.800403125,
+     "v3_best_ef": 495.395603125,
+     "v3_best_setting_ef": {
+      "window": 384.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 448,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 322.283203125,
+     "v3_native": 770.283203125,
+     "v3_best": 426.335403125,
+     "v3_best_setting": {
+      "window": 448.0,
+      "setaside": 224.0,
+      "hitratio": 0.1
+     },
+     "v3_native_ef": 689.963803125,
+     "v3_best_ef": 447.755403125,
+     "v3_best_setting_ef": {
+      "window": 448.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 512,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 258.283203125,
+     "v3_native": 769.044803125,
+     "v3_best": 383.100803125,
+     "v3_best_setting": {
+      "window": 512.0,
+      "setaside": 320.0,
+      "hitratio": 0.3
+     },
+     "v3_native_ef": 688.241603125,
+     "v3_best_ef": 405.203203125,
+     "v3_best_setting_ef": {
+      "window": 512.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 576,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 194.283203125,
+     "v3_native": 753.068003125,
+     "v3_best": 313.815803125,
+     "v3_best_setting": {
+      "window": 288.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     },
+     "v3_native_ef": 677.160203125,
+     "v3_best_ef": 351.093803125,
+     "v3_best_setting_ef": {
+      "window": 576.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 640,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 130.283203125,
+     "v3_native": 690.279203125,
+     "v3_best": 257.465203125,
+     "v3_best_setting": {
+      "window": 320.0,
+      "setaside": 280.0,
+      "hitratio": 0.2
+     },
+     "v3_native_ef": 620.9112031249999,
+     "v3_best_ef": 286.12520312500004,
+     "v3_best_setting_ef": {
+      "window": 640.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 704,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 80.15625,
+     "v3_native": 559.492403125,
+     "v3_best": 179.00900312499994,
+     "v3_best_setting": {
+      "window": 352.0,
+      "setaside": 396.0,
+      "hitratio": 0.4
+     },
+     "v3_native_ef": 498.213603125,
+     "v3_best_ef": 200.40180312500001,
+     "v3_best_setting_ef": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 768,
+     "step_mib": 770.283203125,
+     "lru": 770.25,
+     "capacity_only": 80.15625,
+     "v3_native": 374.715203125,
+     "v3_best": 94.28000312500001,
+     "v3_best_setting": {
+      "window": 384.0,
+      "setaside": 480.0,
+      "hitratio": 0.6
+     },
+     "v3_native_ef": 335.060003125,
+     "v3_best_ef": 117.84800312499999,
+     "v3_best_setting_ef": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 832,
+     "step_mib": 770.283203125,
+     "lru": 0.0,
+     "capacity_only": 80.15625,
+     "v3_native": 197.661803125,
+     "v3_best": 44.45420312500005,
+     "v3_best_setting": {
+      "window": 416.0,
+      "setaside": 520.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 173.35180312500006,
+     "v3_best_ef": 55.155803125000034,
+     "v3_best_setting_ef": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 896,
+     "step_mib": 770.283203125,
+     "lru": 0.0,
+     "capacity_only": 80.15625,
+     "v3_native": 86.96840312500001,
+     "v3_best": 13.376003125000011,
+     "v3_best_setting": {
+      "window": 448.0,
+      "setaside": 560.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 75.25320312499991,
+     "v3_best_ef": 21.076003124999943,
+     "v3_best_setting_ef": {
+      "window": 448.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 960,
+     "step_mib": 770.283203125,
+     "lru": 0.0,
+     "capacity_only": 80.15625,
+     "v3_native": 17.490203124999994,
+     "v3_best": 3.2642031249999945,
+     "v3_best_setting": {
+      "window": 480.0,
+      "setaside": 600.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 16.860203124999998,
+     "v3_best_ef": 3.93620312500002,
+     "v3_best_setting_ef": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 1024,
+     "step_mib": 770.283203125,
+     "lru": 0.0,
+     "capacity_only": 80.15625,
+     "v3_native": 2.1712031250000337,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 512.0,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 2.5072031250000464,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 690.126953125,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    }
+   ]
+  },
+  "SmolLM-135M/B1/c1536": {
+   "classes": {
+    "q": "E",
+    "k": "E",
+    "v": "E",
+    "K": "N",
+    "V": "N",
+    "o": "E",
+    "gate": "E",
+    "up": "E",
+    "down": "E",
+    "lm_head": "E"
+   },
+   "points": [
+    {
+     "C_mib": 48,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 242.346435546875,
+     "v3_native": 256.474185546875,
+     "v3_best": 253.518885546875,
+     "v3_best_setting": {
+      "window": 24.0,
+      "setaside": 24.0,
+      "hitratio": 0.2
+     }
+    },
+    {
+     "C_mib": 64,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 226.346435546875,
+     "v3_native": 256.483635546875,
+     "v3_best": 239.882035546875,
+     "v3_best_setting": {
+      "window": 32.0,
+      "setaside": 40.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 80,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 210.346435546875,
+     "v3_native": 256.461935546875,
+     "v3_best": 225.894435546875,
+     "v3_best_setting": {
+      "window": 40.0,
+      "setaside": 50.0,
+      "hitratio": 0.9
+     }
+    },
+    {
+     "C_mib": 96,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 194.346435546875,
+     "v3_native": 256.462935546875,
+     "v3_best": 212.33323554687502,
+     "v3_best_setting": {
+      "window": 48.0,
+      "setaside": 60.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 112,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 178.346435546875,
+     "v3_native": 256.428635546875,
+     "v3_best": 201.988235546875,
+     "v3_best_setting": {
+      "window": 56.0,
+      "setaside": 70.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 128,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 162.346435546875,
+     "v3_native": 256.483635546875,
+     "v3_best": 192.909635546875,
+     "v3_best_setting": {
+      "window": 64.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 160,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 130.346435546875,
+     "v3_native": 256.433435546875,
+     "v3_best": 175.756935546875,
+     "v3_best_setting": {
+      "window": 160.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 192,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 98.346435546875,
+     "v3_native": 255.912435546875,
+     "v3_best": 152.112435546875,
+     "v3_best_setting": {
+      "window": 192.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 224,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 66.346435546875,
+     "v3_native": 248.470335546875,
+     "v3_best": 126.36303554687498,
+     "v3_best_setting": {
+      "window": 224.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 256,
+     "step_mib": 290.346435546875,
+     "lru": 290.3125,
+     "capacity_only": 34.346435546875,
+     "v3_native": 206.62163554687498,
+     "v3_best": 89.869635546875,
+     "v3_best_setting": {
+      "window": 256.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 320,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 48.78843554687501,
+     "v3_best": 14.688435546874985,
+     "v3_best_setting": {
+      "window": 256.574462890625,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 384,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 1.1176355468750216,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 256.574462890625,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 448,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 512,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 576,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 640,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 704,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 768,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 832,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 896,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 960,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 1024,
+     "step_mib": 290.346435546875,
+     "lru": 0.0,
+     "capacity_only": 33.77197265625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    }
+   ]
+  },
+  "SmolLM-135M/B4/c512": {
+   "classes": {
+    "q": "N",
+    "k": "N",
+    "v": "N",
+    "K": "N",
+    "V": "N",
+    "o": "N",
+    "gate": "N",
+    "up": "N",
+    "down": "N",
+    "lm_head": "N"
+   },
+   "points": [
+    {
+     "C_mib": 48,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 253.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 278.595053515625,
+     "v3_best_setting": {
+      "window": 24.0,
+      "setaside": 30.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 270.47180351562497,
+     "v3_best_ef": 269.252753515625,
+     "v3_best_setting_ef": {
+      "window": 127.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     }
+    },
+    {
+     "C_mib": 64,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 237.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 270.905953515625,
+     "v3_best_setting": {
+      "window": 32.0,
+      "setaside": 40.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 256.466553515625,
+     "v3_best_ef": 252.557953515625,
+     "v3_best_setting_ef": {
+      "window": 32.0,
+      "setaside": 28.0,
+      "hitratio": 0.2
+     }
+    },
+    {
+     "C_mib": 80,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 221.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 263.216853515625,
+     "v3_best_setting": {
+      "window": 40.0,
+      "setaside": 50.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 256.460853515625,
+     "v3_best_ef": 239.372853515625,
+     "v3_best_setting_ef": {
+      "window": 40.0,
+      "setaside": 50.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 96,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 205.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 255.527753515625,
+     "v3_best_setting": {
+      "window": 48.0,
+      "setaside": 60.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 256.482353515625,
+     "v3_best_ef": 225.054353515625,
+     "v3_best_setting_ef": {
+      "window": 48.0,
+      "setaside": 60.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 112,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 189.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 247.838653515625,
+     "v3_best_setting": {
+      "window": 56.0,
+      "setaside": 70.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 256.477353515625,
+     "v3_best_ef": 210.530753515625,
+     "v3_best_setting_ef": {
+      "window": 56.0,
+      "setaside": 70.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 128,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 173.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 240.149553515625,
+     "v3_best_setting": {
+      "window": 64.0,
+      "setaside": 80.0,
+      "hitratio": 1.0
+     },
+     "v3_native_ef": 256.455553515625,
+     "v3_best_ef": 197.631553515625,
+     "v3_best_setting_ef": {
+      "window": 64.0,
+      "setaside": 80.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 160,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 141.662353515625,
+     "v3_native": 301.662353515625,
+     "v3_best": 180.764353515625,
+     "v3_best_setting": {
+      "window": 213.333,
+      "setaside": 100.0,
+      "hitratio": 0.2
+     },
+     "v3_native_ef": 256.442353515625,
+     "v3_best_ef": 177.348353515625,
+     "v3_best_setting_ef": {
+      "window": 80.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 192,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 109.662353515625,
+     "v3_native": 301.415753515625,
+     "v3_best": 154.886753515625,
+     "v3_best_setting": {
+      "window": 192.0,
+      "setaside": 120.0,
+      "hitratio": 0.3
+     },
+     "v3_native_ef": 256.279553515625,
+     "v3_best_ef": 160.326353515625,
+     "v3_best_setting_ef": {
+      "window": 96.0,
+      "setaside": 0.0,
+      "hitratio": 1.0
+     }
+    },
+    {
+     "C_mib": 224,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 77.662353515625,
+     "v3_native": 295.969953515625,
+     "v3_best": 124.271853515625,
+     "v3_best_setting": {
+      "window": 112.0,
+      "setaside": 0.0,
+      "hitratio": 0.0
+     },
+     "v3_native_ef": 251.624253515625,
+     "v3_best_ef": 138.981653515625,
+     "v3_best_setting_ef": {
+      "window": 224.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 256,
+     "step_mib": 301.662353515625,
+     "lru": 301.625,
+     "capacity_only": 45.662353515625,
+     "v3_native": 262.843953515625,
+     "v3_best": 95.099953515625,
+     "v3_best_setting": {
+      "window": 128.0,
+      "setaside": 128.0,
+      "hitratio": 0.3
+     },
+     "v3_native_ef": 223.73995351562502,
+     "v3_best_ef": 104.57275351562501,
+     "v3_best_setting_ef": {
+      "window": 256.0,
+      "setaside": 0.0,
+      "hitratio": 0.6
+     }
+    },
+    {
+     "C_mib": 320,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 94.74135351562501,
+     "v3_best": 20.68435351562499,
+     "v3_best_setting": {
+      "window": 160.0,
+      "setaside": 200.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 75.42835351562499,
+     "v3_best_ef": 25.73735351562499,
+     "v3_best_setting_ef": {
+      "window": 256.574462890625,
+      "setaside": 0.0,
+      "hitratio": 0.7
+     }
+    },
+    {
+     "C_mib": 384,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 5.042753515625009,
+     "v3_best": 0.9603535156250018,
+     "v3_best_setting": {
+      "window": 192.0,
+      "setaside": 240.0,
+      "hitratio": 0.7
+     },
+     "v3_native_ef": 4.4727535156250156,
+     "v3_best_ef": 1.1259535156250422,
+     "v3_best_setting_ef": {
+      "window": 256.574462890625,
+      "setaside": 0.0,
+      "hitratio": 0.8
+     }
+    },
+    {
+     "C_mib": 448,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 512,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 576,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 640,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 704,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 768,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 832,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 896,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 960,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    },
+    {
+     "C_mib": 1024,
+     "step_mib": 301.662353515625,
+     "lru": 0.0,
+     "capacity_only": 45.087890625,
+     "v3_native": 0.0,
+     "v3_best": 0.0,
+     "v3_best_setting": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     },
+     "v3_native_ef": 0.0,
+     "v3_best_ef": 0.0,
+     "v3_best_setting_ef": {
+      "window": 0,
+      "setaside": 0,
+      "hitratio": 0
+     }
+    }
+   ]
+  }
+ }
+}

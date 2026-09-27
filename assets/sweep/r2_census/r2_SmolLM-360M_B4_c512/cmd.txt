@@ -1,0 +1,1 @@
+/home/sychoe/l2probe/venv/bin/python /home/sychoe/l2probe/llm_policy_bench.py --model HuggingFaceTB/SmolLM-360M --batch 4 --context 512 --mode profile --warmup 10 --prof 2 --no-policy-calls

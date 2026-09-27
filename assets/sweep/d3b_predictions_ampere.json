@@ -1,0 +1,772 @@
+{
+ "created": "2026-09-27 18:39:03 KST",
+ "machine": "ampere",
+ "l2_bytes": 100663296,
+ "phi": 0.3,
+ "model_sha256": {
+  "scripts/l2policy_model.py": "30df4e5a6ce9281a",
+  "scripts/l2policy_model_v2.py": "8ef2192541d2292b",
+  "scripts/l2policy_model_v3.py": "afb0e71d1c541c29",
+  "scripts/d3b_predict.py": "b5b8e95533182fef",
+  "scripts/gpu/l2policy_bench.cu": "fb813af7488961f9"
+ },
+ "note": "D3b: kernel-built descriptors with normal priority, and the TMA bulk-copy path. v3 (priority only) vs v3_desc (window only through the default descriptor). Frozen before measuring.",
+ "runs": [
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 280969609.216,
+    "v3_desc": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 243298572.6976,
+    "v3_desc": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 243809438.9248,
+    "v3_desc": 243809438.9248
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 0,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 273963758.3872,
+    "v3_desc": 273963758.3872
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 227739172.864,
+    "v3_desc": 227739172.864
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 277783301.3248,
+    "v3_desc": 277783301.3248
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 227739172.864,
+    "v3_desc": 227739172.864
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 277783301.3248,
+    "v3_desc": 277783301.3248
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 240949972.1728,
+    "v3_desc": 240949972.1728
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 3,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 227739172.864,
+    "v3_desc": 227739172.864
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 280969609.216,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 243298572.6976,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 243809438.9248,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 4,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 273963758.3872,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 280969609.216,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 243298572.6976,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 243809438.9248,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 5,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 273963758.3872,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 280969609.216,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 243298572.6976,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 243809438.9248,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 6,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 273963758.3872,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 280969609.216,
+    "v3": 280969609.216,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 226820096.0,
+    "v2": 243298572.6976,
+    "v3": 243298572.6976,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 281018368.0,
+    "v3": 281018368.0,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.3
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 239927296.0,
+    "v2": 243809438.9248,
+    "v3": 243809438.9248,
+    "v3_desc": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 32,
+    "hint": 7,
+    "window": 127,
+    "setaside": 36,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "fixed_lru": 281018368.0,
+    "cuda_policy": 281018368.0,
+    "v2": 273963758.3872,
+    "v3": 273963758.3872,
+    "v3_desc": 281018368.0
+   }
+  }
+ ]
+}

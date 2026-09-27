@@ -1,0 +1,96 @@
+{
+ "workload": "SmolLM-135M/B2/c512",
+ "operands": {
+  "q": {
+   "bytes": 663552,
+   "kernel_id": 16366,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 21080,
+   "operand_sectors": 20736,
+   "class": "N"
+  },
+  "k": {
+   "bytes": 221184,
+   "kernel_id": 16367,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 7256,
+   "operand_sectors": 6912,
+   "class": "N"
+  },
+  "v": {
+   "bytes": 221184,
+   "kernel_id": 16368,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 7256,
+   "operand_sectors": 6912,
+   "class": "N"
+  },
+  "K": {
+   "bytes": 393984,
+   "kernel_id": 16381,
+   "kernel": "_ZN7cutlass7Kernel2I67cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1E",
+   "evict_first_sectors": 0,
+   "normal_sectors": 12544,
+   "operand_sectors": 12312,
+   "class": "N"
+  },
+  "V": {
+   "bytes": 393984,
+   "kernel_id": 16386,
+   "kernel": "_ZN7cutlass7Kernel2I55cutlass_75_tensorop_bf16_s1688gemm_bf16_64x64_nn_align1EEvNT_6Params",
+   "evict_first_sectors": 0,
+   "normal_sectors": 12890,
+   "operand_sectors": 12312,
+   "class": "N"
+  },
+  "o": {
+   "bytes": 663552,
+   "kernel_id": 16387,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 21080,
+   "operand_sectors": 20736,
+   "class": "N"
+  },
+  "gate": {
+   "bytes": 1769472,
+   "kernel_id": 16397,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 55640,
+   "operand_sectors": 55296,
+   "class": "N"
+  },
+  "up": {
+   "bytes": 1769472,
+   "kernel_id": 16399,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 55640,
+   "operand_sectors": 55296,
+   "class": "N"
+  },
+  "down": {
+   "bytes": 1769472,
+   "kernel_id": 16401,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 55760,
+   "operand_sectors": 55296,
+   "class": "N"
+  },
+  "lm_head": {
+   "bytes": 56623104,
+   "kernel_id": 17716,
+   "kernel": "_ZN7cutlass7Kernel2I68cutlass_80_wmma_tensorop_bf16_s161616gemm_bf16_16x16_128x1_tn_align8",
+   "evict_first_sectors": 0,
+   "normal_sectors": 1769816,
+   "operand_sectors": 1769472,
+   "class": "N"
+  }
+ },
+ "unmatched": []
+}

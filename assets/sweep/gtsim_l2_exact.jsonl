@@ -1,0 +1,16 @@
+{"workload": "llm 48", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 0.0}}
+{"workload": "llm 72", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 0.0}}
+{"workload": "llm 96", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 0.0}}
+{"workload": "llm 144", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 150994944.0}}
+{"workload": "llm 192", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 201326592.0}}
+{"workload": "llm 288", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 301989888.0}}
+{"workload": "llm 384", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 402653184.0}}
+{"workload": "clean 48 96 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 150994944.0}}
+{"workload": "clean 64 64 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 134217728.0}}
+{"workload": "clean 80 64 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 150994944.0}}
+{"workload": "clean 96 96 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 201326592.0}}
+{"workload": "clean 112 64 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 184549376.0}}
+{"workload": "clean 128 96 2048", "l2_mib": 96, "warm": 2, "meas": 2, "result": {"dram_read_per_step": 234881024.0}}
+{"workload": "llm 267.84", "l2_mib": 96, "warm": 1, "meas": 1, "result": {"dram_read_per_step": 280850688.0}}
+{"workload": "llm 346.82", "l2_mib": 96, "warm": 1, "meas": 1, "result": {"dram_read_per_step": 363667200.0}}
+{"workload": "llm 710.16", "l2_mib": 96, "warm": 1, "meas": 1, "result": {"dram_read_per_step": 744656768.0}}

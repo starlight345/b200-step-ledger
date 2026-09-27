@@ -1,0 +1,81 @@
+{
+ "created": "2026-09-27 01:46:18 KST",
+ "note": "C2b: the layers=1400 half of C2, re-measured after fixing a misaligned-address bug in l2policy_bench (per-kernel bytes now 256-B aligned). Same frozen predictions as C2.",
+ "runs": [
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 280969609.216
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 12,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 0.4
+   },
+   "dram_bytes": {
+    "cuda_policy": 226820096.0,
+    "fixed_lru": 281018368.0,
+    "v2": 243298572.6976
+   }
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 268,
+    "layers": 1400,
+    "window": 127,
+    "setaside": 60,
+    "hitratio": 1.0
+   },
+   "dram_bytes": {
+    "cuda_policy": 281018368.0,
+    "fixed_lru": 281018368.0,
+    "v2": 281018368.0
+   }
+  }
+ ]
+}

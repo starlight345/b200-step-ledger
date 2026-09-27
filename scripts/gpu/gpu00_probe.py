@@ -43,7 +43,25 @@ try:
     say('torch.version', torch.__version__)
     say('torch.cuda', torch.version.cuda)
 except Exception as e:
-    say('gpu.props', f'torch 실패: {e}', ok=False)
+    say('gpu.props', f'torch 없음({e.__class__.__name__}) — CUDA 런타임에서 직접 읽는다')
+    # torch 가 없는 서버에서도 같은 값을 얻는다: cudaDeviceGetAttribute
+    #   75/76 = compute capability major/minor, 38 = L2 cache size, 16 = SM count (driver_types.h)
+    try:
+        import ctypes
+        _rt = None
+        for lib in ('libcudart.so', 'libcudart.so.12', 'libcudart.so.13', 'libcudart.so.11.0'):
+            try: _rt = ctypes.CDLL(lib); break
+            except OSError: continue
+        def _attr(a):
+            v = ctypes.c_int(0); rc = _rt.cudaDeviceGetAttribute(ctypes.byref(v), a, 0)
+            return v.value if rc == 0 else f'rc={rc}'
+        rc, so, _ = run('nvidia-smi --query-gpu=name,memory.total --format=csv,noheader')
+        if rc == 0: say('gpu.name', so.strip())
+        say('gpu.capability', f'{_attr(75)}.{_attr(76)}')
+        say('gpu.l2_cache_bytes', _attr(38))
+        say('gpu.multi_processor_count', _attr(16))
+    except Exception as e2:
+        say('gpu.props', f'cudart 도 실패: {e2}', ok=False)
 
 # persistingL2CacheMaxSize 는 torch props 에 없으므로 드라이버에서 직접
 PERSIST_MAX = None
@@ -62,17 +80,29 @@ try:
         say('gpu.persisting_l2_max_bytes', PERSIST_MAX, ok=True)
     else:
         say('gpu.persisting_l2_max_bytes', f'rc={rc} v={v.value}', ok=False)
-    # 실제로 설정이 먹는지 왕복 확인: cudaDeviceSetLimit(cudaLimitPersistingL2CacheSize=0x05, n)
+    # 창 하나가 덮을 수 있는 최대 바이트: cudaDevAttrMaxAccessPolicyWindowSize=109.
+    # weight 를 몇 개 창으로 나눠 덮어야 하는지가 여기서 정해진다.
+    w = ctypes.c_int(0)
+    rcw = cudart.cudaDeviceGetAttribute(ctypes.byref(w), 109, 0)
+    say('gpu.access_policy_max_window_bytes', w.value if rcw == 0 else f'rc={rcw}', ok=(rcw == 0 and w.value > 0))
+    # 실제로 설정이 먹는지 왕복 확인: cudaDeviceSetLimit(cudaLimitPersistingL2CacheSize=0x06, n)
+    # (0x05 는 cudaLimitMaxL2FetchGranularity 다 — 2026-09-24 서버 헤더로 확인하고 고침)
     if PERSIST_MAX:
         half = PERSIST_MAX // 2
-        rc2 = cudart.cudaDeviceSetLimit(ctypes.c_int(0x05), ctypes.c_size_t(half))
+        rc2 = cudart.cudaDeviceSetLimit(ctypes.c_int(0x06), ctypes.c_size_t(half))
         got = ctypes.c_size_t(0)
-        rc3 = cudart.cudaDeviceGetLimit(ctypes.byref(got), ctypes.c_int(0x05))
+        rc3 = cudart.cudaDeviceGetLimit(ctypes.byref(got), ctypes.c_int(0x06))
         ok = (rc2 == 0 and rc3 == 0 and got.value > 0)
         say('persisting_l2.set_get_roundtrip', f'set rc={rc2}, get rc={rc3}, got={got.value}', ok=ok)
-        cudart.cudaDeviceSetLimit(ctypes.c_int(0x05), ctypes.c_size_t(0))
+        cudart.cudaDeviceSetLimit(ctypes.c_int(0x06), ctypes.c_size_t(0))
 except Exception as e:
     say('persisting_l2.api', f'실패: {e}', ok=False)
+
+# MIG 가 켜져 있으면 persisting L2 set-aside 자체가 꺼지고, MPS 는 set-aside 변경 방식에 제약이 있다
+rc, so, _ = run('nvidia-smi --query-gpu=mig.mode.current --format=csv,noheader')
+say('gpu.mig_mode', so.strip() if rc == 0 else f'rc={rc}', ok=(rc == 0 and 'Enabled' not in so))
+rc, _, _ = run('pgrep -f nvidia-cuda-mps-control')
+say('gpu.mps_daemon', '실행 중' if rc == 0 else '없음', ok=(rc != 0))
 
 # ---------------------------------------------------------------- 2. 카운터 권한 ★
 NCU = shutil.which('ncu') or shutil.which('nv-nsight-cu-cli')
@@ -91,7 +121,7 @@ if NCU:
         if rc != 0:
             say('counters.compile', 'nvcc 실패 — CUDA 툴킷 확인', ok=False)
         else:
-            rc, so, se = run(f'{NCU} --metrics dram__bytes_read.sum,lts__t_sectors_hit_rate '
+            rc, so, se = run(f'{NCU} --metrics dram__bytes_read.sum,lts__t_sector_hit_rate.pct '
                              f'--csv --target-processes all {td}/t')
             blob = so + se
             if 'ERR_NVGPUCTRPERM' in blob or 'insufficient permissions' in blob.lower():

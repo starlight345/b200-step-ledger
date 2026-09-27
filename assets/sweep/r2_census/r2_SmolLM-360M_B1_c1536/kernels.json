@@ -1,0 +1,263 @@
+{
+ "N": 18855,
+ "K": 1451,
+ "step_first_id": 17405,
+ "prefix": 1,
+ "layers": 32,
+ "per_layer": 45,
+ "tail": 10,
+ "picks": [
+  17405,
+  17406,
+  17407,
+  17408,
+  17409,
+  17410,
+  17411,
+  17412,
+  17413,
+  17414,
+  17415,
+  17416,
+  17417,
+  17418,
+  17419,
+  17420,
+  17421,
+  17422,
+  17423,
+  17424,
+  17425,
+  17426,
+  17427,
+  17428,
+  17429,
+  17430,
+  17431,
+  17432,
+  17433,
+  17434,
+  17435,
+  17436,
+  17437,
+  17438,
+  17439,
+  17440,
+  17441,
+  17442,
+  17443,
+  17444,
+  17445,
+  17446,
+  17447,
+  17448,
+  17449,
+  17450,
+  18846,
+  18847,
+  18848,
+  18849,
+  18850,
+  18851,
+  18852,
+  18853,
+  18854,
+  18855
+ ],
+ "kernels": {
+  "k0": {
+   "mangled": "_ZN2at6native44_GLOBAL__N__50c743a2_11_Indexing_cu_89862edb21indexSelectSmallIndexIN3c108BFloat16EljLi2ELi2ELin2EEEvNS_4cuda6detail10TensorInfoIT_T1_EENS7_IKS8_S9_EENS7_IKT0_S9_EEiiS9_l",
+   "name": "void at::native::(anonymous namespace)::indexSelectSmallIndex<c10::BFloat16, long, unsigned int, 2, 2, -2>(at::cuda::detail::TensorInfo<c10::BFloat16, unsigned ",
+   "per_step": 1,
+   "in_layer": 0
+  },
+  "k1": {
+   "mangled": "_ZN2at6native27unrolled_elementwise_kernelIZZZNS0_23direct_copy_kernel_cudaERNS_18TensorIteratorBaseEENKUlvE1_clEvENKUlvE5_clEvEUlfE_St5arrayIPcLm2EELi4E23TrivialOffsetCalculatorILi1EjESB_NS0_6memory12LoadWithCastILi1EEENSC_13StoreWithCastILi1EEEEEviT_T0_T2_T3_T4_T5_",
+   "name": "void at::native::unrolled_elementwise_kernel<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::operator()() const::{lambda()#7}::opera",
+   "per_step": 97,
+   "in_layer": 3
+  },
+  "k2": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4EZNS0_51_GLOBAL__N__b1108092_12_PowKernel_cu_e828ca84_3866129pow_tensor_scalar_kernel_implIffEEvRNS_18TensorIteratorBaseET0_EUlfE_St5arrayIPcLm2EEEEviS6_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::pow_tensor_scalar_kernel_impl<float, float>(at::TensorIteratorBase&, float)",
+   "per_step": 65,
+   "in_layer": 2
+  },
+  "k3": {
+   "mangled": "_ZN2at6native13reduce_kernelILi512ELi1ENS0_8ReduceOpIfNS0_7MeanOpsIffffEEjfLi4ELi4EEEEEvT1_",
+   "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<float, at::native::MeanOps<float, float, float, float>, unsigned int, float, 4, 4> >(at::native::Red",
+   "per_step": 65,
+   "in_layer": 2
+  },
+  "k4": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_21CUDAFunctorOnSelf_addIfEESt5arrayIPcLm2EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctorOnSelf_add<float>, std::array<char*, 2ul> >(int, at::native::CUDAFunctorOnSelf_add<floa",
+   "per_step": 65,
+   "in_layer": 2
+  },
+  "k5": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_17rsqrt_kernel_cudaERNS_18TensorIteratorBaseEENKUlvE0_clEvENKUlvE0_clEvEUlfE_St5arrayIPcLm2EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::rsqrt_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() const::{lambda()#2}::operat",
+   "per_step": 65,
+   "in_layer": 2
+  },
+  "k6": {
+   "mangled": "_ZN2at6native18elementwise_kernelILi128ELi2EZNS0_22gpu_kernel_impl_nocastINS0_13BinaryFunctorIfffNS0_15binary_internal10MulFunctorIfEEEEEEvRNS_18TensorIteratorBaseERKT_EUliE_EEviT1_",
+   "name": "void at::native::elementwise_kernel<128, 2, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<float, float, float, at::native::binary_internal::MulFu",
+   "per_step": 65,
+   "in_layer": 2
+  },
+  "k7": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4EZNS0_25bfloat16_copy_kernel_cudaERNS_18TensorIteratorBaseEEUlfE_St5arrayIPcLm2EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::bfloat16_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda(float)#1}, std::array<char*, 2ul> >(in",
+   "per_step": 97,
+   "in_layer": 3
+  },
+  "k8": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_13BinaryFunctorIN3c108BFloat16ES4_S4_NS0_15binary_internal10MulFunctorIfEEEESt5arrayIPcLm3EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor",
+   "per_step": 97,
+   "in_layer": 3
+  },
+  "k9": {
+   "mangled": "_ZN8internal5gemvx6kernelIii13__nv_bfloat16S2_S2_fLb0ELb1ELb1ELb0ELi7ELb0E18cublasGemvParamsExIi30cublasGemvTensorStridedBatchedIKS2_ES6_S4_IS2_EfEEENSt9enable_ifIXntT5_EvE4typeET11_",
+   "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, false, true, true, false, 7, false, c",
+   "per_step": 128,
+   "in_layer": 4
+  },
+  "k10": {
+   "mangled": "_ZN2at6native18elementwise_kernelILi128ELi4EZNS0_22gpu_kernel_impl_nocastINS0_13BinaryFunctorIN3c108BFloat16ES5_S5_NS0_15binary_internal10MulFunctorIfEEEEEEvRNS_18TensorIteratorBaseERKT_EUliE_EEviT1_",
+   "name": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::BinaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native",
+   "per_step": 128,
+   "in_layer": 4
+  },
+  "k11": {
+   "mangled": "_ZN2at6native18elementwise_kernelILi128ELi4EZNS0_22gpu_kernel_impl_nocastIZZZNS0_15neg_kernel_cudaERNS_18TensorIteratorBaseEENKUlvE0_clEvENKUlvE7_clEvEUlN3c108BFloat16EE_EEvS4_RKT_EUliE_EEviT1_",
+   "name": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::neg_kernel_cuda(at::TensorIteratorBase&)::{lambda()#2}::operator()() ",
+   "per_step": 64,
+   "in_layer": 2
+  },
+  "k12": {
+   "mangled": "_ZN2at6native40_GLOBAL__N__0f1a8107_8_Shape_cu_49f7391c19CatArrayBatchedCopyINS1_10OpaqueTypeILj2EEEjLi4ELi64ELi64EEEvPT_NS1_25CatArrInputTensorMetadataIS5_T0_XT2_EXT3_EEENS1_16TensorSizeStrideIS8_Lj4EEEiS8_",
+   "name": "void at::native::(anonymous namespace)::CatArrayBatchedCopy<at::native::(anonymous namespace)::OpaqueType<2u>, unsigned int, 4, 64, 64>(at::native::(anonymous n",
+   "per_step": 64,
+   "in_layer": 2
+  },
+  "k13": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_15CUDAFunctor_addIN3c108BFloat16EEESt5arrayIPcLm3EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::CUDAFunctor_add<c10::BFloat16>, std::array<char*, 3ul> >(int, at::native::CUDAFunctor_add<c10::BFl",
+   "per_step": 128,
+   "in_layer": 4
+  },
+  "k14": {
+   "mangled": "_ZN2at6native18elementwise_kernelILi128ELi4EZNS0_22gpu_kernel_impl_nocastIZZZNS0_23direct_copy_kernel_cudaERNS_18TensorIteratorBaseEENKUlvE1_clEvENKUlvE10_clEvEUlN3c108BFloat16EE_EEvS4_RKT_EUliE_EEviT1_",
+   "name": "void at::native::elementwise_kernel<128, 4, at::native::gpu_kernel_impl_nocast<at::native::direct_copy_kernel_cuda(at::TensorIteratorBase&)::{lambda()#3}::opera",
+   "per_step": 64,
+   "in_layer": 2
+  },
+  "k15": {
+   "mangled": "_ZN7cutlass7Kernel2I67cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1EEvNT_6ParamsE",
+   "name": "void cutlass::Kernel2<cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1>(cutlass_75_wmma_tensorop_bf16_s161616gemm_bf16_32x32_32x1_tn_align1::",
+   "per_step": 32,
+   "in_layer": 1
+  },
+  "k16": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4ENS0_13AUnaryFunctorIN3c108BFloat16ES4_S4_NS0_15binary_internal10MulFunctorIfEEEESt5arrayIPcLm2EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::AUnaryFunctor<c10::BFloat16, c10::BFloat16, c10::BFloat16, at::native::binary_internal::MulFunctor",
+   "per_step": 32,
+   "in_layer": 1
+  },
+  "k17": {
+   "mangled": "_ZN43_GLOBAL__N__b6de9c8c_10_SoftMax_cu_9f978f6320softmax_warp_forwardIfffLi11ELb0ELb0EEEvPT0_PKT_iiiPKbib",
+   "name": "void (anonymous namespace)::softmax_warp_forward<float, float, float, 11, false, false>(float*, float const*, int, int, int, bool const*, int, bool)",
+   "per_step": 32,
+   "in_layer": 1
+  },
+  "k18": {
+   "mangled": "_ZN7cutlass7Kernel2I55cutlass_75_tensorop_bf16_s1688gemm_bf16_64x64_nn_align1EEvNT_6ParamsE",
+   "name": "void cutlass::Kernel2<cutlass_75_tensorop_bf16_s1688gemm_bf16_64x64_nn_align1>(cutlass_75_tensorop_bf16_s1688gemm_bf16_64x64_nn_align1::Params)",
+   "per_step": 32,
+   "in_layer": 1
+  },
+  "k19": {
+   "mangled": "_ZN8internal5gemvx6kernelIii13__nv_bfloat16S2_S2_fLb0ELb1ELb1ELb0ELi6ELb0E18cublasGemvParamsExIi30cublasGemvTensorStridedBatchedIKS2_ES6_S4_IS2_EfEEENSt9enable_ifIXntT5_EvE4typeET11_",
+   "name": "std::enable_if<!(false), void>::type internal::gemvx::kernel<int, int, __nv_bfloat16, __nv_bfloat16, __nv_bfloat16, float, false, true, true, false, 6, false, c",
+   "per_step": 97,
+   "in_layer": 3
+  },
+  "k20": {
+   "mangled": "_ZN2at6native29vectorized_elementwise_kernelILi4EZZZNS0_62_GLOBAL__N__7d4ed096_23_ActivationSiluKernel_cu_e828ca84_3224911silu_kernelERNS_18TensorIteratorBaseEENKUlvE_clEvENKUlvE4_clEvEUlN3c108BFloat16EE_St5arrayIPcLm2EEEEviT0_T1_",
+   "name": "void at::native::vectorized_elementwise_kernel<4, at::native::(anonymous namespace)::silu_kernel(at::TensorIteratorBase&)::{lambda()#1}::operator()() const::{la",
+   "per_step": 32,
+   "in_layer": 1
+  },
+  "k21": {
+   "mangled": "_ZN2at6native13reduce_kernelILi512ELi1ENS0_8ReduceOpIN3c108BFloat16ENS0_9ArgMaxOpsIfEEjlLi4ELi4EEEEEvT1_",
+   "name": "void at::native::reduce_kernel<512, 1, at::native::ReduceOp<c10::BFloat16, at::native::ArgMaxOps<float>, unsigned int, long, 4, 4> >(at::native::ReduceOp<c10::B",
+   "per_step": 1,
+   "in_layer": 0
+  }
+ },
+ "step": [
+  "k0"
+ ],
+ "layer": [
+  "k1",
+  "k2",
+  "k3",
+  "k4",
+  "k5",
+  "k6",
+  "k7",
+  "k8",
+  "k9",
+  "k9",
+  "k9",
+  "k10",
+  "k11",
+  "k12",
+  "k10",
+  "k13",
+  "k10",
+  "k11",
+  "k12",
+  "k10",
+  "k13",
+  "k14",
+  "k14",
+  "k15",
+  "k16",
+  "k1",
+  "k17",
+  "k7",
+  "k18",
+  "k9",
+  "k13",
+  "k1",
+  "k2",
+  "k3",
+  "k4",
+  "k5",
+  "k6",
+  "k7",
+  "k8",
+  "k19",
+  "k20",
+  "k19",
+  "k8",
+  "k19",
+  "k13"
+ ],
+ "tail_seq": [
+  "k1",
+  "k2",
+  "k3",
+  "k4",
+  "k5",
+  "k6",
+  "k7",
+  "k8",
+  "k19",
+  "k21"
+ ]
+}

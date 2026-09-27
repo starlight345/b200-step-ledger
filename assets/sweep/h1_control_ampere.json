@@ -1,0 +1,78 @@
+{
+ "runs": [
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 96.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 96.0,
+    "setaside": 48.0,
+    "hitratio": 0.25
+   },
+   "original_dram_mib": 170.28312174479166,
+   "original_ms": 0.1495
+  },
+  {
+   "run": {
+    "mode": "clean",
+    "hot": 48.0,
+    "chunk": 96.0,
+    "pool": 2048,
+    "window": 48.0,
+    "setaside": 36.0,
+    "hitratio": 0.675
+   },
+   "original_dram_mib": 120.70247395833333,
+   "original_ms": 0.10854
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 96.0,
+    "layers": 32,
+    "window": 0,
+    "setaside": 0,
+    "hitratio": 0
+   },
+   "original_dram_mib": 41.067057291666664,
+   "original_ms": 0.12493
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 96.0,
+    "layers": 32,
+    "window": 96.0,
+    "setaside": 24.0,
+    "hitratio": 0.75
+   },
+   "original_dram_mib": 14.796223958333334,
+   "original_ms": 0.10003
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 192.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 48.0,
+    "hitratio": 0.25
+   },
+   "original_dram_mib": 150.17496744791666,
+   "original_ms": 0.19869
+  },
+  {
+   "run": {
+    "mode": "llm",
+    "ws": 384.0,
+    "layers": 32,
+    "window": 127.0,
+    "setaside": 60.0,
+    "hitratio": 0.4252
+   },
+   "original_dram_mib": 354.510498046875,
+   "original_ms": 0.37754
+  }
+ ]
+}
