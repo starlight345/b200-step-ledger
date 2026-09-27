@@ -1,0 +1,6 @@
+_vllm_fa3_C.abi3.so sm_90: 1213 kernels (1212 with global loads); evict-first (.EF) 0; kernel-built descriptor 794; parameter descriptor 0; kernels per load modifier {}; kernels per descriptor source [('cb:0x208', 1212), ('built', 794)]
+   .EF families: []
+   kernel-built-descriptor families: [('cutlass::device_kernel<flash::enable_sm90_or_later>', 794)]
+_vllm_fa3_C.abi3.so sm_90a: 1213 kernels (1212 with global loads); evict-first (.EF) 0; kernel-built descriptor 794; parameter descriptor 0; kernels per load modifier {}; kernels per descriptor source [('cb:0x208', 1212), ('built', 794)]
+   .EF families: []
+   kernel-built-descriptor families: [('cutlass::device_kernel<flash::enable_sm90_or_later>', 794)]

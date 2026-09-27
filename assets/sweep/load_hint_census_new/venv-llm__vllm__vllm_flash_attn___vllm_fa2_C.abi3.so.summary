@@ -1,0 +1,3 @@
+_vllm_fa2_C.abi3.so sm_80: 2904 kernels (2904 with global loads); evict-first (.EF) 0; kernel-built descriptor 0; parameter descriptor 0; kernels per load modifier {}; kernels per descriptor source []
+   .EF families: []
+   kernel-built-descriptor families: []

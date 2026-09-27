@@ -295,5 +295,565 @@
     1214
    ]
   ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublas.so.13 | sm_100": {
+  "kernels": 3575,
+  "with_loads": 3299,
+  "evict_first": 0,
+  "kernel_built_desc": 72,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    64
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublas.so.13 | sm_120": {
+  "kernels": 3585,
+  "with_loads": 3309,
+  "evict_first": 0,
+  "kernel_built_desc": 72,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    64
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublas.so.13 | sm_80": {
+  "kernels": 3575,
+  "with_loads": 3299,
+  "evict_first": 0,
+  "kernel_built_desc": 72,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    64
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublas.so.13 | sm_90": {
+  "kernels": 3575,
+  "with_loads": 3299,
+  "evict_first": 0,
+  "kernel_built_desc": 72,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cuds_symv_alg6",
+    64
+   ],
+   [
+    "cuds_symv_stage2",
+    8
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublasLt.so.13 | sm_100": {
+  "kernels": 5534,
+  "with_loads": 5475,
+  "evict_first": 534,
+  "kernel_built_desc": 2,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ],
+   [
+    "cublasLt_imma_emu::get_minmax_block_ker",
+    6
+   ]
+  ],
+  "built_families": [
+   [
+    "cublasLt_fused_imma",
+    2
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublasLt.so.13 | sm_120": {
+  "kernels": 6283,
+  "with_loads": 6222,
+  "evict_first": 534,
+  "kernel_built_desc": 0,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ],
+   [
+    "cublasLt_imma_emu::get_minmax_block_ker",
+    6
+   ]
+  ],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublasLt.so.13 | sm_80": {
+  "kernels": 6991,
+  "with_loads": 6944,
+  "evict_first": 534,
+  "kernel_built_desc": 0,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ],
+   [
+    "cublasLt_imma_emu::get_minmax_block_ker",
+    6
+   ]
+  ],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | nvidia__cu13__lib__libcublasLt.so.13 | sm_90": {
+  "kernels": 9255,
+  "with_loads": 9212,
+  "evict_first": 534,
+  "kernel_built_desc": 1210,
+  "ef_families": [
+   [
+    "std::enable_if::type internal::gemvx::kernel<!false>",
+    528
+   ],
+   [
+    "cublasLt_imma_emu::get_minmax_block_ker",
+    6
+   ]
+  ],
+  "built_families": [
+   [
+    "sm90_xmma_gemm",
+    1208
+   ],
+   [
+    "cublasLt_fused_imma",
+    2
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__flash_ops.abi3.so | sm_80": {
+  "kernels": 4505,
+  "with_loads": 1224,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__flash_ops.abi3.so | sm_90": {
+  "kernels": 4505,
+  "with_loads": 3400,
+  "evict_first": 0,
+  "kernel_built_desc": 2698,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<flash::enable_sm90_or_later>",
+    2698
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm100__common_ops.abi3.so | sm_100": {
+  "kernels": 1079,
+  "with_loads": 984,
+  "evict_first": 0,
+  "kernel_built_desc": 36,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    24
+   ],
+   [
+    "cutlass::device_kernel<cutlass::fmha::kernel::Sm100FmhaMlaKernelTmaWarpspecialized>",
+    12
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm100__common_ops.abi3.so | sm_120": {
+  "kernels": 1079,
+  "with_loads": 1072,
+  "evict_first": 0,
+  "kernel_built_desc": 102,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    70
+   ],
+   [
+    "cutlass::device_kernel<cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    32
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm100__common_ops.abi3.so | sm_80": {
+  "kernels": 1079,
+  "with_loads": 980,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm100__common_ops.abi3.so | sm_90": {
+  "kernels": 1079,
+  "with_loads": 1070,
+  "evict_first": 0,
+  "kernel_built_desc": 110,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    78
+   ],
+   [
+    "cutlass::device_kernel<cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    32
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm90__common_ops.abi3.so | sm_100": {
+  "kernels": 1079,
+  "with_loads": 984,
+  "evict_first": 0,
+  "kernel_built_desc": 36,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    24
+   ],
+   [
+    "cutlass::device_kernel<cutlass::fmha::kernel::Sm100FmhaMlaKernelTmaWarpspecialized>",
+    12
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm90__common_ops.abi3.so | sm_120": {
+  "kernels": 1079,
+  "with_loads": 1072,
+  "evict_first": 0,
+  "kernel_built_desc": 102,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    70
+   ],
+   [
+    "cutlass::device_kernel<cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    32
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm90__common_ops.abi3.so | sm_80": {
+  "kernels": 1079,
+  "with_loads": 980,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | sgl_kernel__sm90__common_ops.abi3.so | sm_90": {
+  "kernels": 1079,
+  "with_loads": 1070,
+  "evict_first": 0,
+  "kernel_built_desc": 110,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    78
+   ],
+   [
+    "cutlass::device_kernel<cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    32
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___C_stable_libtorch.abi3.so | sm_100": {
+  "kernels": 1897,
+  "with_loads": 1813,
+  "evict_first": 2,
+  "kernel_built_desc": 72,
+  "ef_families": [
+   [
+    "vllm::ConcatMLAQKernel",
+    2
+   ]
+  ],
+  "built_families": [
+   [
+    "cutlass::device_kernel<enable_sm100_to>",
+    20
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    14
+   ],
+   [
+    "cutlass::device_kernel<cutlass::fmha::kernel::Sm100FmhaMlaKernelTmaWarpspecialized>",
+    12
+   ],
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    10
+   ],
+   [
+    "cutlass::device_kernel<(anonymous namespace)::cutlass_3x_group_gemm::GemmKernel>",
+    6
+   ],
+   [
+    "vllm::kimi_k3_fused_ops::fusedKimiK3MLAKVConcatPackKernel",
+    6
+   ],
+   [
+    "vllm::deepseek_v4_fused_ops::fusedDeepseekV4QNormRopeKVRopeQuantInsertKernelReducedGrid",
+    4
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___C_stable_libtorch.abi3.so | sm_120": {
+  "kernels": 2768,
+  "with_loads": 2685,
+  "evict_first": 2,
+  "kernel_built_desc": 39,
+  "ef_families": [
+   [
+    "vllm::ConcatMLAQKernel",
+    2
+   ]
+  ],
+  "built_families": [
+   [
+    "cutlass::device_kernel<enable_sm120_family>",
+    16
+   ],
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    7
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    6
+   ],
+   [
+    "vllm::kimi_k3_fused_ops::fusedKimiK3MLAKVConcatPackKernel",
+    6
+   ],
+   [
+    "vllm::deepseek_v4_fused_ops::fusedDeepseekV4QNormRopeKVRopeQuantInsertKernelReducedGrid",
+    4
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___C_stable_libtorch.abi3.so | sm_80": {
+  "kernels": 2472,
+  "with_loads": 2185,
+  "evict_first": 2,
+  "kernel_built_desc": 62,
+  "ef_families": [
+   [
+    "vllm::ConcatMLAQKernel",
+    2
+   ]
+  ],
+  "built_families": [
+   [
+    "hadacore::hadamard_transform_kernel",
+    62
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___C_stable_libtorch.abi3.so | sm_90": {
+  "kernels": 2328,
+  "with_loads": 2290,
+  "evict_first": 2,
+  "kernel_built_desc": 197,
+  "ef_families": [
+   [
+    "vllm::ConcatMLAQKernel",
+    2
+   ]
+  ],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::gemm::kernel::GemmUniversal>",
+    93
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm::GemmKernel>",
+    40
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_sm90_fp8::GemmKernel>",
+    28
+   ],
+   [
+    "vllm::deepseek_v4_fused_ops::fusedDeepseekV4QNormRopeKVRopeQuantInsertKernelReducedGrid",
+    10
+   ],
+   [
+    "cutlass::device_kernel<(anonymous namespace)::cutlass_3x_group_gemm::GemmKernel>",
+    10
+   ],
+   [
+    "vllm::kimi_k3_fused_ops::fusedKimiK3MLAKVConcatPackKernel",
+    6
+   ],
+   [
+    "vllm::persistent::persistent_topk_kernel",
+    6
+   ],
+   [
+    "cutlass::device_kernel<vllm::cutlass_3x_gemm_fp8_blockwise::GemmKernel>",
+    4
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___flashmla_C.abi3.so | sm_100": {
+  "kernels": 45,
+  "with_loads": 35,
+  "evict_first": 2,
+  "kernel_built_desc": 24,
+  "ef_families": [
+   [
+    "sm100::fwd_for_small_topk::head128::flash_fwd_splitkv_mla_fp8_sparse_kernel",
+    1
+   ],
+   [
+    "sm100::fwd_for_small_topk::head128::sparse_attn_fwd_for_small_topk_kernel",
+    1
+   ]
+  ],
+  "built_families": [
+   [
+    "cutlass::device_kernel<cutlass::fmha::kernel::Sm100FmhaFwdKernelTmaWarpspecialized>",
+    14
+   ],
+   [
+    "sm100::fwd::head128::sparse_attn_fwd_kernel",
+    2
+   ],
+   [
+    "sm100::fwd_for_small_topk::head128::flash_fwd_splitkv_mla_fp8_sparse_kernel",
+    2
+   ],
+   [
+    "sm100::fwd::head64::sparse_attn_fwd_kernel",
+    2
+   ],
+   [
+    "sm100::decode::head64::flash_fwd_splitkv_mla_fp8_sparse_kernel",
+    2
+   ],
+   [
+    "sm100::fwd_for_small_topk::head128::sparse_attn_fwd_for_small_topk_kernel",
+    2
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___flashmla_C.abi3.so | sm_90": {
+  "kernels": 45,
+  "with_loads": 21,
+  "evict_first": 0,
+  "kernel_built_desc": 10,
+  "ef_families": [],
+  "built_families": [
+   [
+    "sm90::decode::sparse_fp8::flash_fwd_splitkv_mla_fp8_sparse_kernel",
+    4
+   ],
+   [
+    "sm90::fwd::sparse_attn_fwd_kernel",
+    4
+   ],
+   [
+    "sm90::flash_fwd_splitkv_mla_kernel",
+    2
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___moe_C_stable_libtorch.abi3.so | sm_100": {
+  "kernels": 1663,
+  "with_loads": 1662,
+  "evict_first": 0,
+  "kernel_built_desc": 63,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::single_group_topk::detail::single_group_topk_warp_kernel",
+    63
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___moe_C_stable_libtorch.abi3.so | sm_120": {
+  "kernels": 2599,
+  "with_loads": 2598,
+  "evict_first": 0,
+  "kernel_built_desc": 63,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::single_group_topk::detail::single_group_topk_warp_kernel",
+    63
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___moe_C_stable_libtorch.abi3.so | sm_80": {
+  "kernels": 2305,
+  "with_loads": 2303,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm___moe_C_stable_libtorch.abi3.so | sm_90": {
+  "kernels": 1663,
+  "with_loads": 1662,
+  "evict_first": 0,
+  "kernel_built_desc": 126,
+  "ef_families": [],
+  "built_families": [
+   [
+    "vllm::moe::single_group_topk::detail::single_group_topk_warp_kernel",
+    126
+   ]
+  ]
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm__vllm_flash_attn___vllm_fa2_C.abi3.so | sm_80": {
+  "kernels": 2224,
+  "with_loads": 2224,
+  "evict_first": 0,
+  "kernel_built_desc": 0,
+  "ef_families": [],
+  "built_families": []
+ },
+ "vLLM 0.28.0 / cuBLAS 13.1.1 / SGLang 0.5.17 | vllm__vllm_flash_attn___vllm_fa3_C.abi3.so | sm_90": {
+  "kernels": 1213,
+  "with_loads": 1212,
+  "evict_first": 0,
+  "kernel_built_desc": 794,
+  "ef_families": [],
+  "built_families": [
+   [
+    "cutlass::device_kernel<flash::enable_sm90_or_later>",
+    794
+   ]
+  ]
  }
 }

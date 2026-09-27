@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Summary of the static load-hint census (load_hint_census.py on dsil-sy -> assets/sweep/load_hint_census{,_new}/*.jsonl).
+"""Summary of the static load-hint census (load_hint_census.py on dsil-sy -> assets/sweep/load_hint_census/*.jsonl, load_hint_census_new/*.jsonl.gz).
 
 Two software stacks: the one our measurements ran on (PyTorch 2.8 + cuBLAS 12.8.4, with vLLM 0.10.2 from the same
 host; lhc_all.sh) and the current serving stacks (vLLM 0.28.0 + cuBLAS 13.1.1, SGLang 0.5.17 sgl_kernel; lhc_new.sh).
@@ -11,7 +11,7 @@ global loads, kernels with an evict-first load (.EF), kernels whose loads use a 
 c++filt) so the naming rule can change without re-running cuobjdump.
 Usage: python3 scripts/prior/load_hint_summary.py  -> assets/sweep/load_hint_summary.json
 """
-import glob, json, os, sys
+import glob, gzip, json, os, sys
 from collections import Counter, defaultdict
 sys.path.insert(0, os.path.dirname(__file__))
 import load_hint_census as L
@@ -23,9 +23,10 @@ STACKS = (('assets/sweep/load_hint_census', 'torch 2.8 / vLLM 0.10.2 / cuBLAS 12
 if __name__ == '__main__':
     rows = []
     for d, stack in STACKS:
-        for p in sorted(glob.glob(os.path.join(d, '*.jsonl'))):
-            lib = os.path.basename(p)[:-len('.jsonl')].replace('venv-llm__', '').replace('venv-sglang__', '')
-            rows += [dict(json.loads(l), stack=stack, lib=lib) for l in open(p)]
+        for p in sorted(glob.glob(os.path.join(d, '*.jsonl')) + glob.glob(os.path.join(d, '*.jsonl.gz'))):
+            lib = os.path.basename(p).split('.jsonl')[0].replace('venv-llm__', '').replace('venv-sglang__', '')
+            f = gzip.open(p, 'rt') if p.endswith('.gz') else open(p)             # second pass is stored gzipped
+            rows += [dict(json.loads(l), stack=stack, lib=lib) for l in f]
     dm = L.demangle(sorted({r['name'] for r in rows}))
     S = defaultdict(lambda: dict(kernels=set(), loads=set(), ef=set(), built=set(), fam={}))
     for r in rows:

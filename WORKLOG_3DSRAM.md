@@ -1000,3 +1000,19 @@ Codex 소유 파일을 Claude가 이어받아 아래를 처리했다. 요청 네
 - `scripts/prior/load_hint_summary.py`를 다시 실행해 `assets/sweep/load_hint_summary.json`을 갱신했다. cuBLASLt 12의 `.EF` gemvx는
   sm_80/90/100/120에서 세대별 528개이고, sm_90 kernel-built descriptor는 1,214개다.
 - 신 stack `lhc_new`는 아직 실행 중이므로 종료 전의 0-byte/부분 파일은 로컬에 복사하지 않았다.
+
+## 2026-09-27 22:40 KST — 정적 로드 힌트 조사 완료: 배치 1 GEMV 의 evict-first 는 cuBLAS 12.8·13.1 전 세대의 표준, Hopper 어텐션은 대부분 창 무효 클래스
+
+- **2차(`lhc_new.sh`, 20:05~22:30, CPU 만).** vLLM 0.28.0 + cuBLAS 13.1.1.3, SGLang 0.5.17(sgl_kernel 0.4.5). 원자료
+  `assets/sweep/load_hint_census_new/*.jsonl.gz`(73 MB → gzip 1.7 MB; `load_hint_summary.py` 가 .gz 도 읽게 고침), 요약
+  `assets/sweep/load_hint_summary.json`. 1차(측정에 쓴 스택: torch 2.8·vLLM 0.10.2·cuBLAS 12.8.4)와 같은 규칙.
+- **② evict-first.** cuBLASLt 의 gemvx(배치 1 디코드 GEMV) 528 커널이 12.8.4 와 13.1.1 모두, sm_80·sm_90·sm_100·sm_120 모든 세대에서
+  `.EF` 로드를 쓴다(13.1 은 imma_emu 보조 커널 6 개 추가). R1·R2 배치 1 의 기제는 한 버전·한 장치의 우연이 아니다. vLLM·SGLang
+  자체 커널의 `.EF` 는 드물다(0.28 `_C` 의 ConcatMLAQKernel 2 개, FlashMLA sm_100 2 개).
+- **③ 커널 생성 디스크립터(창 무효, D3b).** Hopper(sm_90) 어텐션에서 다수다. FA3: vLLM 0.10.2 84 %(2,368 / 2,821), vLLM 0.28 66 %
+  (794 / 1,212), SGLang flash_ops 79 %(2,698 / 3,400). cuBLASLt sm_90 xmma GEMM 1,214(12.8) → 1,210(13.1), vLLM `_C` sm_90 197~224(9 %),
+  SGLang common_ops sm_90 110. sm_100·sm_120 의 cuBLASLt 는 0~2 개다. 이 도구가 B200 의 TMA 경로를 못 보는 것인지 실제로 없는
+  것인지 가리지 못했으므로 B200 에 대해서는 주장하지 않는다.
+- **함의(하드웨어 검증 전).** D3·D3b 는 sm_120 에서만 검증했다. 기제가 H100 에서도 같다면 H100 서빙 스택에서는 FA3 의 KV 읽기와
+  cuBLASLt TMA GEMM 의 가중치 읽기에 창이 먹지 않는다. 문서화된 의미론만 따르는 도구(AutoScratch 의미론, 우리 v1·v2)는 여기서
+  창 이득을 과대예측한다. 데이터센터 GPU 한 대에서 D3·D3b 바이너리로 닫을 수 있다(DAC_STORY 5 절 선택 보강).
