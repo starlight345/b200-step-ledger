@@ -1,0 +1,74 @@
+{
+ "lid_s1_phi90_w1000us": {
+  "model_stepped_K": 0.1693848525447704,
+  "phase_s": 0.00075,
+  "n_segments": 5,
+  "substeps": 620
+ },
+ "lid_s1_phi90_w200us": {
+  "model_stepped_K": 0.30740520937058313,
+  "phase_s": 5e-05,
+  "n_segments": 24,
+  "substeps": 772
+ },
+ "lid_s1_phi90_w20us": {
+  "model_stepped_K": 0.3244481936140959,
+  "phase_s": 1e-05,
+  "n_segments": 227,
+  "substeps": 1047
+ },
+ "lid_s4_phi90_exact": {
+  "model_stepped_K": 0.10518572097886789,
+  "phase_s": null,
+  "n_segments": 259,
+  "substeps": 1115
+ },
+ "lid_s4_phiU_exact": {
+  "model_stepped_K": 0.06345825928299928,
+  "phase_s": null,
+  "n_segments": 259,
+  "substeps": 1115
+ },
+ "lid_s4_phi90_w1000us": {
+  "model_stepped_K": 0.10315213833179919,
+  "phase_s": 0.000375,
+  "n_segments": 6,
+  "substeps": 1630
+ },
+ "prod_s1_phi90_w1000us": {
+  "model_stepped_K": 0.4418296490266211,
+  "phase_s": 0.00075,
+  "n_segments": 5,
+  "substeps": 620
+ },
+ "prod_s1_phi90_w200us": {
+  "model_stepped_K": 0.5800202990460427,
+  "phase_s": 5e-05,
+  "n_segments": 24,
+  "substeps": 772
+ },
+ "prod_s1_phi90_w20us": {
+  "model_stepped_K": 0.5970715432316693,
+  "phase_s": 1e-05,
+  "n_segments": 227,
+  "substeps": 1047
+ },
+ "prod_s4_phi90_exact": {
+  "model_stepped_K": 0.37652918998508755,
+  "phase_s": null,
+  "n_segments": 259,
+  "substeps": 1115
+ },
+ "prod_s4_phiU_exact": {
+  "model_stepped_K": 0.3348008765931905,
+  "phase_s": null,
+  "n_segments": 259,
+  "substeps": 1115
+ },
+ "prod_s4_phi90_w1000us": {
+  "model_stepped_K": 0.3745528589912895,
+  "phase_s": 0.000375,
+  "n_segments": 6,
+  "substeps": 1630
+ }
+}

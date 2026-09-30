@@ -222,6 +222,48 @@ def stepped_one_block(mod, sub_on=109, sub_off=30, nper=6):
         for _ in range(sub_off): y = y/(1 + lam*dt)
     return peaks[-1]
 
+def stepped_schedule(mod, segs, nper=6):
+    """A schedule stepped as mapdl_vcache_schedules steps it: nsub() backward-Euler substeps per
+    segment, from the average-power state, nper periods; the peak is the largest value at any
+    segment end of the last period (the deck keeps the last substep of each load step)."""
+    import mapdl_vcache_schedules as MS
+    lam = mod.lam
+    avg = sum(d*q for d, q in segs)/sum(d for d, _ in segs)/BS.P_BURST
+    y = np.full_like(lam, avg); best = -np.inf
+    for k in range(nper):
+        for d, q in segs:
+            m = MS.nsub(d, q); dt = d/m; f = q/BS.P_BURST
+            den = 1 + lam*dt
+            for _ in range(m): y = (y + dt*lam*f)/den
+            if k == nper - 1: best = max(best, (mod.phi @ y).max())
+    return best
+
+def check_schedules(cells):
+    """This model against the kernel-by-kernel MAPDL decks (S1 and S3, mapdl_vcache_schedules)."""
+    mp = mapdl_rows(); P = MM.Q_BURST_DIE; out = []
+    base_prod = mp['static_phiU']['tier1']
+    runs = [('ideal lid', None, 'S1', 's1_verify'), ('ideal lid', 0.5, 'S1', 'lid_s1_phi50'),
+            ('ideal lid', 0.7, 'S1', 'lid_s1_phi70'), ('ideal lid', 0.9, 'S1', 'lid_s1_phi90'),
+            ('production deck', None, 'S1', 's1_phiU'), ('production deck', 0.5, 'S1', 'prod_s1_phi50'),
+            ('production deck', 0.7, 'S1', 'prod_s1_phi70'), ('production deck', 0.9, 'S1', 's1_phi90'),
+            ('production deck', 0.9, 'S3', 's3_phi90')]
+    for pkg, phi, sch, name in runs:
+        if name not in mp: continue
+        cell = cells[pkg]
+        S = cell.uniform(P) if phi is None else cell.source(phi, P)
+        mod = Mod(cell.lam, S)
+        red = reduce_rows(mod, np.argsort(-mod.phi.sum(axis=1))[:6])
+        ours = stepped_schedule(red, BS.schedule(sch, 'mixed'))
+        ref = mp[name]['peak'] - (0.0 if pkg == 'ideal lid' else base_prod)
+        out.append((f'{pkg:>15} {sch} kernel by kernel, phi {"U" if phi is None else phi}', ours, ref))
+    print(f"{'case':>52} {'this model K':>13} {'MAPDL K':>10} {'diff':>8}")
+    worst = 0.0
+    for name, a, b in out:
+        worst = max(worst, abs(a/b - 1))
+        print(f'{name:>52} {a:>13.5f} {b:>10.5f} {(a/b - 1)*100:>+7.2f}%')
+    print(f'worst |difference| {worst*100:.2f}%')
+    return out, worst
+
 def mapdl_rows():
     rows = {}
     for fn in ('results.txt', 'run_lid.txt', 'run_phi.txt'):
@@ -289,10 +331,11 @@ def main():
                   [f'{stepped_one_block(Mod(c.lam, c.source(ph, 38.0))):.5f}' for ph in PHIS])
         return
     cells = {}
-    for name, r in PACKAGES:
+    for name, r in (PACKAGES if '--check' not in sys.argv else [p for p in PACKAGES if p[0] != 'R_ext/R_stack 2.9']):
         cells[name] = Cell(r)
         print(f'[{time.time() - t0:5.0f}s] built {name}: {len(cells[name].lam)} rate bins')
     chk, worst = check(cells)
+    chk2, worst2 = check_schedules(cells)
     if '--check' in sys.argv: return
     sch = schedules()
     res = dict(design=dict(period_s=PERIOD, duty=DUTY, budget_W_die=BUDGET_W_DIE, B_R_TBs=B_R,
@@ -300,7 +343,9 @@ def main():
                            windows_s=WINDOWS, macro_um=[LX*1e6, LY*1e6], array_um=[AX*1e6, AY*1e6],
                            threshold='dT_lim = budget x R_uniform (fixed across methods)'),
                mapdl_check=[dict(case=n, model_K=a, mapdl_K=b) for n, a, b in chk],
-               mapdl_check_worst=worst, cases={})
+               mapdl_check_worst=worst,
+               mapdl_schedule_check=[dict(case=n, model_K=a, mapdl_K=b) for n, a, b in chk2],
+               mapdl_schedule_check_worst=worst2, cases={})
     for pkg, cell in cells.items():
         U = Mod(cell.lam, cell.uniform(1.0))
         R_u = steady_max(U)
