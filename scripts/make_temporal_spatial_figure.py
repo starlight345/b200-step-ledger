@@ -27,14 +27,14 @@ plt.rcParams.update({'font.family': 'sans-serif', 'font.sans-serif': ['Helvetica
 
 W = sorted(R['design']['windows_s'])
 LADDER = ['exact'] + [f'trace-{w*1e6:g}us' for w in W] + ['static-avg']
-XT = ['exact'] + [f'{w*1e6:g} µs' if w < 1e-3 else f'{w*1e3:g} ms' for w in W] + ['static\navg']
+XT = ['exact'] + [f'{w*1e6:g} µs' if w < 1e-3 else f'{w*1e3:g} ms' for w in W] + ['static avg']
 PKGS = ['ideal lid', 'R_ext/R_stack 2.9', 'production deck']
 UNI, CON = 'tier-uniform (1D)', 'macro phi=0.900'
 
 def c(pkg, sp):
     return R['cases'][f'{pkg} | {sp} | {SCH}']
 
-fig, axs = plt.subplots(1, 3, figsize=(7.4, 2.7), sharey=True, facecolor='white')
+fig, axs = plt.subplots(1, 3, figsize=(7.4, 3.1), sharey=True, facecolor='white')
 x = np.arange(len(LADDER)) + 1
 for ax, pkg in zip(axs, PKGS):
     u, k = c(pkg, UNI), c(pkg, CON)
@@ -47,16 +47,17 @@ for ax, pkg in zip(axs, PKGS):
         ax.plot(x, ys, color=col, lw=2, marker='o', ms=4, mec='white', mew=0.8, zorder=3, label=lab)
         ax.plot([0], [sp], color=col, marker='v', ms=6, mec='white', mew=0.8, ls='none', zorder=3)
     ax.set_yscale('log')
-    ax.set_xticks([0] + list(x))
-    ax.set_xticklabels(['static\npeak'] + XT, rotation=90, fontsize=6.2)
+    ax.set_xticks([0] + list(x)); ax.set_xlim(-0.6, len(LADDER) + 0.6)
+    ax.set_xticklabels(['static peak'] + XT, rotation=90, fontsize=6.2)
     ax.axvline(0.5, color=AXIS, lw=0.6)
     ax.set_title(pkg, fontsize=7.6, color=INK)
     ax.grid(True, axis='y', which='major', color=GRID, lw=0.5, zorder=0)
     for s in ('top', 'right'): ax.spines[s].set_visible(False)
 axs[0].set_ylabel('B_max(method) / B_max(reference)\n>1 optimistic, <1 pessimistic', fontsize=7.2)
-axs[0].legend(loc='upper left', fontsize=6.0, frameon=True, framealpha=1.0, edgecolor=AXIS)
+h, l = axs[0].get_legend_handles_labels()
+fig.legend(h, l, loc='lower center', ncol=3, fontsize=6.4, frameon=False, bbox_to_anchor=(0.5, 0.0))
 fig.suptitle(f'Temporal input vs reference, schedule: {SCH}; shaded ±5%', fontsize=7.4, color=INK2, y=0.995)
-fig.tight_layout()
+fig.tight_layout(rect=(0, 0.07, 1, 1))
 os.makedirs(os.path.dirname(OUT), exist_ok=True)
 tag = SCH.split()[0] + ('-measured' if 'measured' in SCH else '')
 for ext in ('png', 'pdf'):
